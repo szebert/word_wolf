@@ -1,0 +1,74 @@
+{
+  "appTitle": "Word Wolf",
+  "@appTitle": {
+    "description": "The title of the app"
+  },
+  "appTagline": "Where even the Wolf doesn't know they're the Wolf!",
+  "@appTagline": {
+    "description": "The tagline of the app"
+  },
+  "startGame": "Start Game",
+  "@startGame": {
+    "description": "The text of the start game button"
+  },
+  "howToPlay": "How to Play",
+  "@howToPlay": {
+    "description": "The text of the how to play button"
+  },
+  "back": "Back",
+  "@back": {
+    "description": "The text of the back button"
+  },
+  "on": "On",
+  "@on": {
+    "description": "The text of the on button"
+  },
+  "off": "Off",
+  "@off": {
+    "description": "The text of the off button"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "The text of the settings title and button"
+  },
+  "sound": "Sound",
+  "@sound": {
+    "description": "The text of the sound title"
+  },
+  "haptic": "Haptic",
+  "@haptic": {
+    "description": "The text of the haptic title"
+  },
+  "colorModeTitle": "Color Mode",
+  "@colorModeTitle": {
+    "description": "The title of the color mode section"
+  },
+  "colorModeLight": "Light",
+  "@colorModeLight": {
+    "description": "The text of the light color mode button"
+  },
+  "colorModeSystem": "System",
+  "@colorModeSystem": {
+    "description": "The text of the system color mode button"
+  },
+  "colorModeDark": "Dark",
+  "@colorModeDark": {
+    "description": "The text of the dark color mode button"
+  },
+  "fontSizeTitle": "Font Size",
+  "@fontSizeTitle": {
+    "description": "The title of the font size section"
+  },
+  "fontSizeSmaller": "Smaller",
+  "@fontSizeSmaller": {
+    "description": "The text of the smaller font size button"
+  },
+  "fontSizeRegular": "Regular",
+  "@fontSizeRegular": {
+    "description": "The text of the regular font size button"
+  },
+  "fontSizeLarger": "Larger",
+  "@fontSizeLarger": {
+    "description": "The text of the larger font size button"
+  }
+}
