@@ -48,6 +48,28 @@ class GameCategoryUpdated extends GameEvent {
   List<Object?> get props => [category];
 }
 
+class GameSettingsUpdated extends GameEvent {
+  const GameSettingsUpdated({
+    this.numberOfWolves,
+    required this.randomizeWolfCount,
+    required this.discussionDuration,
+    required this.autoAssignWolves,
+  });
+
+  final int? numberOfWolves;
+  final bool randomizeWolfCount;
+  final int discussionDuration;
+  final bool autoAssignWolves;
+
+  @override
+  List<Object?> get props => [
+        numberOfWolves,
+        randomizeWolfCount,
+        discussionDuration,
+        autoAssignWolves
+      ];
+}
+
 class GameWordsUpdated extends GameEvent {
   const GameWordsUpdated({
     required this.citizenWord,

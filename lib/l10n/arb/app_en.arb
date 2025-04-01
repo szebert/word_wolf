@@ -233,5 +233,73 @@
   "category": "Category",
   "@category": {
     "description": "The text of the category label"
+  },
+  "gameSettings": "Game Settings",
+  "@gameSettings": {
+    "description": "The title of the game settings page"
+  },
+  "playerComposition": "Player Composition",
+  "@playerComposition": {
+    "description": "The title of the player composition section"
+  },
+  "autoAssign": "Auto-assign based on player count",
+  "@autoAssign": {
+    "description": "The text for auto-assign wolves toggle"
+  },
+  "autoAssignSubtitle": "Recommends {wolfCount} wolves for {playerCount} players",
+  "@autoAssignSubtitle": {
+    "description": "The text showing recommended number of wolves",
+    "placeholders": {
+      "wolfCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "2"
+      },
+      "playerCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "7"
+      }
+    }
+  },
+  "randomize": "Randomize wolf count",
+  "@randomize": {
+    "description": "The text for randomize wolf count toggle"
+  },
+  "randomizeSubtitle": "Hides the exact number of wolves from all players",
+  "@randomizeSubtitle": {
+    "description": "The subtitle for explaining the randomize wolf scenario"
+  },
+  "citizens": "Citizens",
+  "@citizens": {
+    "description": "The text for citizens label"
+  },
+  "wolves": "Wolves",
+  "@wolves": {
+    "description": "The text for wolves label"
+  },
+  "moreCitizens": "More Citizens",
+  "@moreCitizens": {
+    "description": "Tooltip for decreasing wolf count"
+  },
+  "moreWolves": "More Wolves",
+  "@moreWolves": {
+    "description": "Tooltip for increasing wolf count"
+  },
+  "discussionDuration": "Discussion Duration",
+  "@discussionDuration": {
+    "description": "The title of the discussion duration section"
+  },
+  "decreaseDuration": "Decrease Duration",
+  "@decreaseDuration": {
+    "description": "Tooltip for decreasing discussion duration"
+  },
+  "increaseDuration": "Increase Duration",
+  "@increaseDuration": {
+    "description": "Tooltip for increasing discussion duration"
+  },
+  "minutes": "Minutes",
+  "@minutes": {
+    "description": "The text for minutes label"
   }
 }

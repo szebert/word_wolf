@@ -21,6 +21,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<PlayerRemoved>(_onPlayerRemoved);
     on<PlayerNameUpdated>(_onPlayerNameUpdated);
     on<GameCategoryUpdated>(_onGameCategoryUpdated);
+    on<GameSettingsUpdated>(_onGameSettingsUpdated);
     on<GameWordsUpdated>(_onGameWordsUpdated);
     on<GameDiscussionTimeUpdated>(_onGameDiscussionTimeUpdated);
     on<GameStarted>(_onGameStarted);
@@ -107,9 +108,26 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         event.playerId,
       );
 
+      // Calculate max allowed wolves for new player count
+      final maxWolves = ((updatedPlayers.length - 1) / 2).floor();
+      final currentWolves = state.game.customWolfCount ??
+          (state.game.autoAssignWolves
+              ? (updatedPlayers.length / 5).ceil()
+              : state.game.customWolfCount ?? 1);
+
+      // Adjust wolf count if it exceeds the maximum allowed
+      final adjustedWolves =
+          currentWolves > maxWolves ? maxWolves : currentWolves;
+
       emit(
         state.copyWith(
-          game: state.game.copyWith(players: updatedPlayers),
+          game: state.game.copyWith(
+            players: updatedPlayers,
+            // Update wolf count if it needed adjustment
+            customWolfCount: adjustedWolves != currentWolves
+                ? adjustedWolves
+                : state.game.customWolfCount,
+          ),
         ),
       );
     } catch (error) {
@@ -154,6 +172,23 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(
       state.copyWith(
         game: state.game.copyWith(category: event.category),
+      ),
+    );
+  }
+
+  void _onGameSettingsUpdated(
+    GameSettingsUpdated event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          customWolfCount: event.numberOfWolves,
+          randomizeWolfCount: event.randomizeWolfCount,
+          discussionTimeInSeconds:
+              event.discussionDuration * 60, // Convert minutes to seconds
+          autoAssignWolves: event.autoAssignWolves,
+        ),
       ),
     );
   }
