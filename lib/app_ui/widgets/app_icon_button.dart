@@ -12,6 +12,8 @@ class AppIconButton extends IconButton {
     required super.icon,
     required VoidCallback? onPressed,
     ButtonStyle? style,
+    super.iconSize,
+    super.color,
     super.key,
     super.tooltip,
     super.constraints,
