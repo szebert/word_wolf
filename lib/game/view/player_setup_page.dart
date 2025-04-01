@@ -8,7 +8,7 @@ import '../../app_ui/widgets/app_text.dart';
 import '../../l10n/l10n.dart';
 import '../bloc/game_bloc.dart';
 import '../models/player.dart';
-import 'game_category_page.dart';
+import 'game_settings_page.dart';
 
 class PlayerSetupPage extends StatefulWidget {
   const PlayerSetupPage({super.key});
@@ -53,6 +53,11 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
           l10n.playerSetup,
           variant: AppTextVariant.titleLarge,
         ),
+        leading: AppIconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+          tooltip: l10n.back,
+        ),
       ),
       body: BlocBuilder<GameBloc, GameState>(
         builder: (context, state) {
@@ -68,8 +73,7 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
                     AppIconButton(
                       icon: const Icon(Icons.remove_circle),
                       tooltip: l10n.playerRemoved,
-                      iconSize: 36,
-                      color: Theme.of(context).colorScheme.primary,
+                      iconSize: 32,
                       onPressed: state.game.players.length > 3
                           ? () {
                               // Save any current edit before removing player
@@ -85,32 +89,27 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
                             }
                           : null,
                     ),
-                    const SizedBox(width: AppSpacing.md),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: AppText(
-                        '${l10n.players}: ${state.game.players.length}',
-                        variant: AppTextVariant.titleMedium,
-                        weight: AppTextWeight.medium,
-                        style: TextStyle(
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
-                        ),
+                    SizedBox(
+                      width: 100,
+                      child: Column(
+                        children: [
+                          AppText(
+                            '${state.game.players.length}',
+                            variant: AppTextVariant.displaySmall,
+                            textAlign: TextAlign.center,
+                          ),
+                          AppText(
+                            l10n.players,
+                            variant: AppTextVariant.bodySmall,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(width: AppSpacing.md),
                     AppIconButton(
                       icon: const Icon(Icons.add_circle),
                       tooltip: l10n.playerAdded,
-                      iconSize: 36,
-                      color: Theme.of(context).colorScheme.primary,
+                      iconSize: 32,
                       onPressed: state.game.players.length < 30
                           ? () {
                               // Save any current edit before adding player
@@ -174,7 +173,7 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
                       onPressed: () {
                         // Save any active edit before navigating
                         _setEditingPlayer(null);
-                        Navigator.of(context).push(GameCategoryPage.route());
+                        Navigator.of(context).push(GameSettingsPage.route());
                       },
                       child: AppText(
                         l10n.next,
@@ -282,8 +281,6 @@ class _PlayerListItemState extends State<PlayerListItem> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    // Use automatic ellipsis instead of fixed character count
-    final isDefaultName = widget.player.isDefaultName;
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
