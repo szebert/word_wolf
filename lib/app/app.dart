@@ -13,6 +13,7 @@ import "../l10n/l10n.dart";
 import "../settings/settings_bloc.dart";
 import "../storage/persistent_storage.dart";
 import "../theme/theme_mode_bloc.dart";
+import "./app_bloc.dart";
 
 class App extends StatelessWidget {
   const App({
@@ -71,6 +72,10 @@ class App extends StatelessWidget {
                   playerRepository: context.read<PlayerRepository>(),
                 );
               },
+            ),
+            BlocProvider<AppBloc>(
+              create: (final context) => AppBloc(),
+              lazy: false,
             ),
           ],
           child: const AppView(),

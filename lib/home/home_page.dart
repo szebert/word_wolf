@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../app/app_bloc.dart';
 import '../app_ui/app_spacing.dart';
 import '../app_ui/widgets/app_button.dart';
 import '../app_ui/widgets/app_icon_button.dart';
@@ -73,20 +74,24 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.xlg),
-              AppButton(
-                variant: AppButtonVariant.outlined,
-                shape: AppButtonShape.rounded,
-                size: AppButtonSize.xlarge,
-                minWidth: 200,
-                pulse: true,
-                onPressed: () {
-                  Navigator.of(context).push(HowToPlayPage.route());
+              BlocBuilder<AppBloc, AppState>(
+                builder: (context, state) {
+                  return AppButton(
+                    variant: AppButtonVariant.outlined,
+                    shape: AppButtonShape.rounded,
+                    size: AppButtonSize.xlarge,
+                    minWidth: 200,
+                    pulse: !state.hasViewedHowToPlay,
+                    onPressed: () {
+                      Navigator.of(context).push(HowToPlayPage.route());
+                    },
+                    child: AppText(
+                      l10n.howToPlay,
+                      variant: AppTextVariant.titleLarge,
+                      weight: AppTextWeight.medium,
+                    ),
+                  );
                 },
-                child: AppText(
-                  l10n.howToPlay,
-                  variant: AppTextVariant.titleLarge,
-                  weight: AppTextWeight.medium,
-                ),
               ),
               const Expanded(flex: 5, child: SizedBox()),
             ],

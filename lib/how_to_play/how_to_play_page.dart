@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../app/app_bloc.dart';
 import '../app_ui/app_spacing.dart';
 import '../app_ui/widgets/app_icon_button.dart';
 import '../app_ui/widgets/app_text.dart';
@@ -16,6 +18,8 @@ class HowToPlayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Dispatch event to mark How To Play as viewed when the page is opened
+    context.read<AppBloc>().add(const HowToPlayViewed());
     return const HowToPlayView();
   }
 }
