@@ -23,6 +23,7 @@ void main() async {
       return App(
         feedbackRepository: feedbackRepository,
         analyticsRepository: analyticsRepository,
+        persistentStorage: persistentStorage,
       );
     },
   );

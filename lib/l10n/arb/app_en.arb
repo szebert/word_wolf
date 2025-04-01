@@ -182,5 +182,56 @@
   "howToPlayEnjoy": "We hope everyone enjoys the game!",
   "@howToPlayEnjoy": {
     "description": "Closing message in how to play page"
+  },
+  "playerSetup": "Player Setup",
+  "@playerSetup": {
+    "description": "The text of the player setup page title"
+  },
+  "players": "Players",
+  "@players": {
+    "description": "The text for players label"
+  },
+  "playerAdded": "Add Player",
+  "@playerAdded": {
+    "description": "The text for player added button"
+  },
+  "playerRemoved": "Remove Player",
+  "@playerRemoved": {
+    "description": "The text for player removed button"
+  },
+  "playerEdit": "Edit Player",
+  "@playerEdit": {
+    "description": "The text for player edit button"
+  },
+  "playerSave": "Save Player",
+  "@playerSave": {
+    "description": "The text for player save button"
+  },
+  "playerClear": "Clear",
+  "@playerClear": {
+    "description": "The text for player clear button"
+  },
+  "playerDelete": "Delete Player",
+  "@playerDelete": {
+    "description": "The text for player delete button"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "The text of the next button"
+  },
+  "playerDefaultName": "Player {number}",
+  "@playerDefaultName": {
+    "description": "The default name format for players",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
+  },
+  "category": "Category",
+  "@category": {
+    "description": "The text of the category label"
   }
 }

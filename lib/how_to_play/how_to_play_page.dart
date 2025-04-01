@@ -26,7 +26,6 @@ class HowToPlayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppLocalizations l10n = context.l10n;
-    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
