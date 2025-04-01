@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import './l10n/l10n.dart';
-import './settings/settings_page.dart';
-import 'app_ui/app_spacing.dart';
-import 'app_ui/widgets/app_button.dart';
-import 'app_ui/widgets/app_icon_button.dart';
-import 'app_ui/widgets/app_logo.dart';
-import 'app_ui/widgets/app_text.dart';
+import '../app_ui/app_spacing.dart';
+import '../app_ui/widgets/app_button.dart';
+import '../app_ui/widgets/app_icon_button.dart';
+import '../app_ui/widgets/app_logo.dart';
+import '../app_ui/widgets/app_text.dart';
+import '../how_to_play/how_to_play_page.dart';
+import '../l10n/l10n.dart';
+import '../settings/settings_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -74,7 +75,7 @@ class HomePage extends StatelessWidget {
                 minWidth: 200,
                 pulse: true,
                 onPressed: () {
-                  // How to play functionality will be implemented later
+                  Navigator.of(context).push(HowToPlayPage.route());
                 },
                 child: AppText(
                   l10n.howToPlay,

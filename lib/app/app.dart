@@ -7,7 +7,7 @@ import "../analytics_repository/analytics_repository.dart";
 import "../app_ui/app_config.dart";
 import "../app_ui/app_theme.dart";
 import "../feedback_repository/feedback_repository.dart";
-import "../home_page.dart";
+import "../home/home_page.dart";
 import "../settings/settings_bloc.dart";
 import "../theme/theme_mode_bloc.dart";
 

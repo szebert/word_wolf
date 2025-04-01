@@ -70,5 +70,117 @@
   "fontSizeLarger": "Larger",
   "@fontSizeLarger": {
     "description": "The text of the larger font size button"
+  },
+  "howToPlayGameTitle": "Word Wolf",
+  "@howToPlayGameTitle": {
+    "description": "The title of the game in the how to play page"
+  },
+  "howToPlayIntro": "The game proceeds in this order:",
+  "@howToPlayIntro": {
+    "description": "Introduction text in the how to play page"
+  },
+  "howToPlayGameFlow": "\"Word Assignment\" → \"Discussion\" → \"Voting\"",
+  "@howToPlayGameFlow": {
+    "description": "The flow of the game in the how to play page"
+  },
+  "howToPlayWordAssignment": "Word Assignment",
+  "@howToPlayWordAssignment": {
+    "description": "Word Assignment section title in how to play page"
+  },
+  "howToPlayReceiveWord": "Each player secretly receives a word.",
+  "@howToPlayReceiveWord": {
+    "description": "Rule about receiving words in how to play page"
+  },
+  "howToPlayKeepSecret": "Do not show your word to anyone.",
+  "@howToPlayKeepSecret": {
+    "description": "Rule about keeping words secret in how to play page"
+  },
+  "howToPlayTwoWords": "There are only two words in play: One that belongs to the majority (Citizens), and one that belongs to the minority (Wolves).",
+  "@howToPlayTwoWords": {
+    "description": "Rule about the two words in play in how to play page"
+  },
+  "howToPlayUnknownRole": "You won't know if you're a Citizen or a Wolf.",
+  "@howToPlayUnknownRole": {
+    "description": "Rule about not knowing your role in how to play page"
+  },
+  "howToPlayDiscussion": "Discussion",
+  "@howToPlayDiscussion": {
+    "description": "Discussion section title in how to play page"
+  },
+  "howToPlayFindWolf": "Players talk and try to figure out \"Who is the Wolf?\"",
+  "@howToPlayFindWolf": {
+    "description": "Rule about finding the wolf in how to play page"
+  },
+  "howToPlaySameWord": "Everyone should speak as if they share the same word, even if unsure.",
+  "@howToPlaySameWord": {
+    "description": "Rule about speaking as if sharing the same word in how to play page"
+  },
+  "howToPlaySubtleMisleading": "You can subtly mislead or be vague to protect yourself and your team, but be careful!",
+  "@howToPlaySubtleMisleading": {
+    "description": "Rule about misleading in how to play page"
+  },
+  "howToPlayVoting": "Voting",
+  "@howToPlayVoting": {
+    "description": "Voting section title in how to play page"
+  },
+  "howToPlayPoint": "After discussion, players simultaneously point to who they think is a Wolf, saying \"Ready, go!\"",
+  "@howToPlayPoint": {
+    "description": "Rule about pointing in how to play page"
+  },
+  "howToPlayElimination": "The player with the most votes is eliminated.",
+  "@howToPlayElimination": {
+    "description": "Rule about elimination in how to play page"
+  },
+  "howToPlayTie": "If there's a tie, play a Sudden Death round:",
+  "@howToPlayTie": {
+    "description": "Rule about ties in how to play page"
+  },
+  "howToPlaySuddenDeath": "You have 1 additional minute to discuss, then vote again.",
+  "@howToPlaySuddenDeath": {
+    "description": "Rule about sudden death in how to play page"
+  },
+  "howToPlayRepeat": "Repeat until someone is eliminated.",
+  "@howToPlayRepeat": {
+    "description": "Rule about repeating votes in how to play page"
+  },
+  "howToPlayHowToWin": "How to Win:",
+  "@howToPlayHowToWin": {
+    "description": "How to Win section title in how to play page"
+  },
+  "howToPlayCitizensWin": "Citizens win if they vote out a Wolf.",
+  "@howToPlayCitizensWin": {
+    "description": "Rule about Citizens winning in how to play page"
+  },
+  "howToPlayWolvesWin": "Wolves win if a Citizen is voted out.",
+  "@howToPlayWolvesWin": {
+    "description": "Rule about Wolves winning in how to play page"
+  },
+  "howToPlayWolfRevenge": "Wolf's Revenge: If a Wolf is voted out but correctly guesses the Citizens' word, the Wolves steal the win!",
+  "@howToPlayWolfRevenge": {
+    "description": "Rule about Wolf's Revenge in how to play page"
+  },
+  "howToPlaySpiceUp": "Spice Up Your Game!",
+  "@howToPlaySpiceUp": {
+    "description": "Spice Up Your Game section title in how to play page"
+  },
+  "howToPlayTryIdeas": "Try these ideas:",
+  "@howToPlayTryIdeas": {
+    "description": "Introduction to game variation ideas in how to play page"
+  },
+  "howToPlayTakeTurns": "Take turns describing your word.",
+  "@howToPlayTakeTurns": {
+    "description": "Game variation idea about taking turns in how to play page"
+  },
+  "howToPlayNoLying": "No lying allowed!",
+  "@howToPlayNoLying": {
+    "description": "Game variation idea about no lying in how to play page"
+  },
+  "howToPlayMakeRules": "You can even make your own rules and play in new ways.",
+  "@howToPlayMakeRules": {
+    "description": "Encouragement to make own rules in how to play page"
+  },
+  "howToPlayEnjoy": "We hope everyone enjoys the game!",
+  "@howToPlayEnjoy": {
+    "description": "Closing message in how to play page"
   }
 }
