@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "appTitle": "Word Wolf",
   "@appTitle": {
     "description": "The title of the app"
@@ -301,5 +302,69 @@
   "minutes": "Minutes",
   "@minutes": {
     "description": "The text for minutes label"
+  },
+  "wordPairSimilarity": "Word Pair Similarity",
+  "@wordPairSimilarity": {
+    "description": "The title of the word pair similarity section"
+  },
+  "wordPairSimilaritySubtitle": "Choose how similar or different you want the word pair to be",
+  "@wordPairSimilaritySubtitle": {
+    "description": "Description of the word pair similarity feature"
+  },
+  "similar": "Similar",
+  "@similar": {
+    "description": "The text for similar label on slider"
+  },
+  "different": "Different",
+  "@different": {
+    "description": "The text for different label on slider"
+  },
+  "extremelySimilar": "Extremely Similar",
+  "@extremelySimilar": {
+    "description": "Description for lowest similarity range, extremely similar words"
+  },
+  "verySimilar": "Very Similar",
+  "@verySimilar": {
+    "description": "Description for low similarity range, very similar words"
+  },
+  "similarRange": "Similar",
+  "@similarRange": {
+    "description": "Description for medium-low similarity range, similar words"
+  },
+  "differentRange": "Different",
+  "@differentRange": {
+    "description": "Description for medium-high similarity range, different words"
+  },
+  "veryDifferent": "Very Different",
+  "@veryDifferent": {
+    "description": "Description for high similarity range, very different words"
+  },
+  "extremelyDifferent": "Extremely Different",
+  "@extremelyDifferent": {
+    "description": "Description for highest similarity range, extremely different words"
+  },
+  "exampleExtremelySimilar": "Example: \"Sofa\" and \"Couch\"",
+  "@exampleExtremelySimilar": {
+    "description": "Example word pair for extremely similar words"
+  },
+  "exampleVerySimilar": "Example: \"Cookie\" and \"Biscuit\"",
+  "@exampleVerySimilar": {
+    "description": "Example word pair for very similar words"
+  },
+  "exampleSimilar": "Example: \"Car\" and \"Truck\"",
+  "@exampleSimilar": {
+    "description": "Example word pair for similar words"
+  },
+  "exampleDifferent": "Example: \"Soccer\" and \"Basketball\"",
+  "@exampleDifferent": {
+    "description": "Example word pair for different words"
+  },
+  "exampleVeryDifferent": "Example: \"Dog\" and \"Computer\"",
+  "@exampleVeryDifferent": {
+    "description": "Example word pair for very different words"
+  },
+  "exampleExtremelyDifferent": "Example: \"Sunshine\" and \"Algebra\"",
+  "@exampleExtremelyDifferent": {
+    "description": "Example word pair for extremely different words"
   }
 }

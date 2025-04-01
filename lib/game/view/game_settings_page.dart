@@ -7,7 +7,7 @@ import '../../app_ui/widgets/app_icon_button.dart';
 import '../../app_ui/widgets/app_text.dart';
 import '../../l10n/l10n.dart';
 import '../bloc/game_bloc.dart';
-import 'game_category_page.dart';
+import 'game_categories_page.dart';
 
 class GameSettingsPage extends StatelessWidget {
   const GameSettingsPage({super.key});
@@ -99,7 +99,6 @@ class _GameSettingsViewState extends State<GameSettingsView> {
         _numberOfWolves = getNumberOfWolves(totalPlayers);
       }
     });
-
     context.read<GameBloc>().add(
           GameSettingsUpdated(
             numberOfWolves: _autoAssignComposition ? null : _numberOfWolves,
@@ -115,7 +114,6 @@ class _GameSettingsViewState extends State<GameSettingsView> {
       _randomizeWolfCount = value;
       _autoAssignComposition = !value && _autoAssignComposition;
     });
-
     context.read<GameBloc>().add(
           GameSettingsUpdated(
             numberOfWolves: _randomizeWolfCount ? null : _numberOfWolves,
@@ -194,8 +192,46 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     }
   }
 
+  void _updateWordPairSimilarity(double value) {
+    // Use the dedicated event for updating word pair similarity
+    context.read<GameBloc>().add(WordPairSimilarityUpdated(value));
+  }
+
+  String _getSimilarityDescription(
+      AppLocalizations l10n, double similarityValue) {
+    if (similarityValue < 0.1) {
+      return l10n.extremelySimilar;
+    } else if (similarityValue < 0.3) {
+      return l10n.verySimilar;
+    } else if (similarityValue < 0.5) {
+      return l10n.similar;
+    } else if (similarityValue <= 0.7) {
+      return l10n.different;
+    } else if (similarityValue <= 0.9) {
+      return l10n.veryDifferent;
+    } else {
+      return l10n.extremelyDifferent;
+    }
+  }
+
+  String _getExampleWordPair(AppLocalizations l10n, double similarityValue) {
+    if (similarityValue < 0.1) {
+      return l10n.exampleExtremelySimilar;
+    } else if (similarityValue < 0.3) {
+      return l10n.exampleVerySimilar;
+    } else if (similarityValue < 0.5) {
+      return l10n.exampleSimilar;
+    } else if (similarityValue <= 0.7) {
+      return l10n.exampleDifferent;
+    } else if (similarityValue <= 0.9) {
+      return l10n.exampleVeryDifferent;
+    } else {
+      return l10n.exampleExtremelyDifferent;
+    }
+  }
+
   void _continueToNextStep() {
-    Navigator.of(context).push(GameCategoryPage.route());
+    Navigator.of(context).push(GameCategoriesPage.route());
   }
 
   @override
@@ -225,181 +261,258 @@ class _GameSettingsViewState extends State<GameSettingsView> {
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Player Composition Section
-            AppText(
-              l10n.playerComposition,
-              variant: AppTextVariant.titleMedium,
-              weight: AppTextWeight.bold,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-
-            // Auto-assign toggle
-            CheckboxListTile(
-              dense: true,
-              title: AppText(l10n.autoAssign),
-              subtitle: AppText(
-                l10n.autoAssignSubtitle(
-                  getNumberOfWolves(totalPlayers),
-                  totalPlayers,
-                ),
-                variant: AppTextVariant.bodySmall,
-              ),
-              value: _autoAssignComposition,
-              onChanged: (value) => _onAutoAssignChanged(value ?? false),
-            ),
-
-            // Randomize toggle
-            CheckboxListTile(
-              dense: true,
-              title: AppText(l10n.randomize),
-              subtitle: AppText(
-                l10n.randomizeSubtitle,
-                variant: AppTextVariant.bodySmall,
-              ),
-              value: _randomizeWolfCount,
-              onChanged: (value) =>
-                  _onRandomizeWolfCountChanged(value ?? false),
-            ),
-
-            // Player composition display
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Citizens count
-                  Expanded(
-                    child: Column(
-                      children: [
-                        AppText(
-                          _randomizeWolfCount
-                              ? '?'
-                              : '${totalPlayers - _numberOfWolves}',
-                          variant: AppTextVariant.displaySmall,
-                          textAlign: TextAlign.center,
-                        ),
-                        AppText(
-                          l10n.citizens,
-                          variant: AppTextVariant.bodySmall,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Player Composition Section
+                    AppText(
+                      l10n.playerComposition,
+                      variant: AppTextVariant.titleMedium,
+                      weight: AppTextWeight.bold,
                     ),
-                  ),
 
-                  // Arrows to adjust wolves/citizens ratio
-                  SizedBox(
-                    width: 120,
-                    child: Visibility(
-                      visible: !_autoAssignComposition && !_randomizeWolfCount,
-                      maintainSize: true,
-                      maintainAnimation: true,
-                      maintainState: true,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppIconButton(
-                            icon: const Icon(Icons.arrow_circle_left),
-                            tooltip: l10n.moreCitizens,
-                            iconSize: 32,
-                            onPressed:
-                                canDecrementWolves ? _decrementWolves : null,
-                          ),
-                          const SizedBox(width: AppSpacing.sm),
-                          AppIconButton(
-                            icon: const Icon(Icons.arrow_circle_right),
-                            tooltip: l10n.moreWolves,
-                            iconSize: 32,
-                            onPressed:
-                                canIncrementWolves ? _incrementWolves : null,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                    const SizedBox(height: AppSpacing.xs),
 
-                  // Wolves count
-                  Expanded(
-                    child: Column(
-                      children: [
-                        AppText(
-                          _randomizeWolfCount ? '?' : '$_numberOfWolves',
-                          variant: AppTextVariant.displaySmall,
-                          textAlign: TextAlign.center,
+                    // Auto-assign toggle
+                    CheckboxListTile(
+                      dense: true,
+                      title: AppText(l10n.autoAssign),
+                      subtitle: AppText(
+                        l10n.autoAssignSubtitle(
+                          getNumberOfWolves(totalPlayers),
+                          totalPlayers,
                         ),
-                        AppText(
-                          l10n.wolves,
-                          variant: AppTextVariant.bodySmall,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const Divider(),
-            const SizedBox(height: AppSpacing.lg),
-
-            // Discussion Duration
-            AppText(
-              l10n.discussionDuration,
-              variant: AppTextVariant.titleMedium,
-              weight: AppTextWeight.bold,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppIconButton(
-                  icon: const Icon(Icons.remove_circle),
-                  tooltip: l10n.decreaseDuration,
-                  iconSize: 32,
-                  onPressed:
-                      _discussionDuration > 1 ? _decrementDuration : null,
-                ),
-                SizedBox(
-                  width: 100,
-                  child: Column(
-                    children: [
-                      AppText(
-                        '$_discussionDuration',
-                        variant: AppTextVariant.displaySmall,
-                        textAlign: TextAlign.center,
-                      ),
-                      AppText(
-                        l10n.minutes,
                         variant: AppTextVariant.bodySmall,
-                        textAlign: TextAlign.center,
                       ),
-                    ],
-                  ),
-                ),
-                AppIconButton(
-                  icon: const Icon(Icons.add_circle),
-                  tooltip: l10n.increaseDuration,
-                  iconSize: 32,
-                  onPressed:
-                      _discussionDuration < 30 ? _incrementDuration : null,
-                ),
-              ],
-            ),
+                      value: _autoAssignComposition,
+                      onChanged: (value) =>
+                          _onAutoAssignChanged(value ?? false),
+                    ),
 
-            const Spacer(),
+                    // Randomize toggle
+                    CheckboxListTile(
+                      dense: true,
+                      title: AppText(l10n.randomize),
+                      subtitle: AppText(
+                        l10n.randomizeSubtitle,
+                        variant: AppTextVariant.bodySmall,
+                      ),
+                      value: _randomizeWolfCount,
+                      onChanged: (value) =>
+                          _onRandomizeWolfCountChanged(value ?? false),
+                    ),
+
+                    const SizedBox(height: AppSpacing.xs),
+
+                    // Player composition display
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Citizens count
+                        Expanded(
+                          child: Column(
+                            children: [
+                              AppText(
+                                _randomizeWolfCount
+                                    ? '?'
+                                    : '${totalPlayers - _numberOfWolves}',
+                                variant: AppTextVariant.displaySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                              AppText(
+                                l10n.citizens,
+                                variant: AppTextVariant.bodySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // Arrows to adjust wolves/citizens ratio
+                        SizedBox(
+                          width: 120,
+                          child: Visibility(
+                            visible:
+                                !_autoAssignComposition && !_randomizeWolfCount,
+                            maintainSize: true,
+                            maintainAnimation: true,
+                            maintainState: true,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppIconButton(
+                                  icon: const Icon(Icons.arrow_circle_left),
+                                  tooltip: l10n.moreCitizens,
+                                  iconSize: 32,
+                                  onPressed: canDecrementWolves
+                                      ? _decrementWolves
+                                      : null,
+                                ),
+                                const SizedBox(width: AppSpacing.sm),
+                                AppIconButton(
+                                  icon: const Icon(Icons.arrow_circle_right),
+                                  tooltip: l10n.moreWolves,
+                                  iconSize: 32,
+                                  onPressed: canIncrementWolves
+                                      ? _incrementWolves
+                                      : null,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        // Wolves count
+                        Expanded(
+                          child: Column(
+                            children: [
+                              AppText(
+                                _randomizeWolfCount ? '?' : '$_numberOfWolves',
+                                variant: AppTextVariant.displaySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                              AppText(
+                                l10n.wolves,
+                                variant: AppTextVariant.bodySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: AppSpacing.xs),
+                    const Divider(),
+                    const SizedBox(height: AppSpacing.xs),
+
+                    // Discussion Duration
+                    AppText(
+                      l10n.discussionDuration,
+                      variant: AppTextVariant.titleMedium,
+                      weight: AppTextWeight.bold,
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppIconButton(
+                          icon: const Icon(Icons.remove_circle),
+                          tooltip: l10n.decreaseDuration,
+                          iconSize: 32,
+                          onPressed: _discussionDuration > 1
+                              ? _decrementDuration
+                              : null,
+                        ),
+                        SizedBox(
+                          width: 100,
+                          child: Column(
+                            children: [
+                              AppText(
+                                '$_discussionDuration',
+                                variant: AppTextVariant.displaySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                              AppText(
+                                l10n.minutes,
+                                variant: AppTextVariant.bodySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        AppIconButton(
+                          icon: const Icon(Icons.add_circle),
+                          tooltip: l10n.increaseDuration,
+                          iconSize: 32,
+                          onPressed: _discussionDuration < 30
+                              ? _incrementDuration
+                              : null,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    const Divider(),
+                    const SizedBox(height: AppSpacing.xs),
+
+                    // Word Pair Similarity Section
+                    AppText(
+                      l10n.wordPairSimilarity,
+                      variant: AppTextVariant.titleMedium,
+                      weight: AppTextWeight.bold,
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    AppText(
+                      l10n.wordPairSimilaritySubtitle,
+                      variant: AppTextVariant.bodySmall,
+                    ),
+
+                    Row(
+                      children: [
+                        AppText(
+                          l10n.similar,
+                          variant: AppTextVariant.bodySmall,
+                        ),
+                        Expanded(
+                          child: BlocBuilder<GameBloc, GameState>(
+                            buildWhen: (previous, current) =>
+                                previous.game.wordPairSimilarity !=
+                                current.game.wordPairSimilarity,
+                            builder: (context, state) {
+                              return Slider(
+                                value: state.game.wordPairSimilarity,
+                                onChanged: _updateWordPairSimilarity,
+                                divisions: 10,
+                                label: _getSimilarityDescription(
+                                  l10n,
+                                  state.game.wordPairSimilarity,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        AppText(
+                          l10n.different,
+                          variant: AppTextVariant.bodySmall,
+                        ),
+                      ],
+                    ),
+
+                    BlocBuilder<GameBloc, GameState>(
+                      buildWhen: (previous, current) =>
+                          previous.game.wordPairSimilarity !=
+                          current.game.wordPairSimilarity,
+                      builder: (context, state) {
+                        return Center(
+                          child: AppText(
+                            _getExampleWordPair(
+                                l10n, state.game.wordPairSimilarity),
+                            variant: AppTextVariant.bodyMedium,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
 
             // Continue button
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(top: AppSpacing.lg),
-                child: AppButton(
-                  variant: AppButtonVariant.elevated,
-                  onPressed: _continueToNextStep,
-                  child: AppText(
-                    l10n.next,
-                    variant: AppTextVariant.titleMedium,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: AppButton(
+                    variant: AppButtonVariant.elevated,
+                    onPressed: _continueToNextStep,
+                    child: AppText(
+                      l10n.next,
+                      variant: AppTextVariant.titleMedium,
+                    ),
                   ),
                 ),
               ),
