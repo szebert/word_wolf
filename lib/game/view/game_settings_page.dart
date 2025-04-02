@@ -50,10 +50,10 @@ class _GameSettingsViewState extends State<GameSettingsView> {
 
     // Set number of wolves based on auto-assign state
     if (_autoAssignComposition) {
-      _numberOfWolves = getNumberOfWolves(totalPlayers);
+      _numberOfWolves = getNumberOfBalancedWolves(totalPlayers);
     } else {
-      _numberOfWolves =
-          gameState.game.customWolfCount ?? getNumberOfWolves(totalPlayers);
+      _numberOfWolves = gameState.game.customWolfCount ??
+          getNumberOfBalancedWolves(totalPlayers);
     }
   }
 
@@ -66,17 +66,16 @@ class _GameSettingsViewState extends State<GameSettingsView> {
 
     // If auto-assign is enabled, update wolf count when player count changes
     if (_autoAssignComposition) {
-      final newWolfCount = getNumberOfWolves(totalPlayers);
+      final newWolfCount = getNumberOfBalancedWolves(totalPlayers);
       if (_numberOfWolves != newWolfCount) {
         setState(() {
           _numberOfWolves = newWolfCount;
         });
         // Update the game state with new wolf count
         context.read<GameBloc>().add(
-              GameSettingsUpdated(
+              WolvesCountUpdated(
                 numberOfWolves: newWolfCount,
                 randomizeWolfCount: _randomizeWolfCount,
-                discussionDuration: _discussionDuration,
                 autoAssignWolves: _autoAssignComposition,
               ),
             );
@@ -84,7 +83,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     }
   }
 
-  int getNumberOfWolves(int totalPlayers) {
+  int getNumberOfBalancedWolves(int totalPlayers) {
     // Use ceil to round up - ensures enough wolves for larger groups
     return (totalPlayers / 5).ceil();
   }
@@ -96,14 +95,13 @@ class _GameSettingsViewState extends State<GameSettingsView> {
 
       if (value) {
         final totalPlayers = context.read<GameBloc>().state.game.players.length;
-        _numberOfWolves = getNumberOfWolves(totalPlayers);
+        _numberOfWolves = getNumberOfBalancedWolves(totalPlayers);
       }
     });
     context.read<GameBloc>().add(
-          GameSettingsUpdated(
+          WolvesCountUpdated(
             numberOfWolves: _autoAssignComposition ? null : _numberOfWolves,
             randomizeWolfCount: _randomizeWolfCount,
-            discussionDuration: _discussionDuration,
             autoAssignWolves: _autoAssignComposition,
           ),
         );
@@ -115,10 +113,9 @@ class _GameSettingsViewState extends State<GameSettingsView> {
       _autoAssignComposition = !value && _autoAssignComposition;
     });
     context.read<GameBloc>().add(
-          GameSettingsUpdated(
+          WolvesCountUpdated(
             numberOfWolves: _randomizeWolfCount ? null : _numberOfWolves,
             randomizeWolfCount: _randomizeWolfCount,
-            discussionDuration: _discussionDuration,
             autoAssignWolves: _autoAssignComposition,
           ),
         );
@@ -130,10 +127,9 @@ class _GameSettingsViewState extends State<GameSettingsView> {
         _numberOfWolves--;
       });
       context.read<GameBloc>().add(
-            GameSettingsUpdated(
+            WolvesCountUpdated(
               numberOfWolves: _numberOfWolves,
               randomizeWolfCount: _randomizeWolfCount,
-              discussionDuration: _discussionDuration,
               autoAssignWolves: _autoAssignComposition,
             ),
           );
@@ -150,10 +146,9 @@ class _GameSettingsViewState extends State<GameSettingsView> {
         _numberOfWolves++;
       });
       context.read<GameBloc>().add(
-            GameSettingsUpdated(
+            WolvesCountUpdated(
               numberOfWolves: _numberOfWolves,
               randomizeWolfCount: _randomizeWolfCount,
-              discussionDuration: _discussionDuration,
               autoAssignWolves: _autoAssignComposition,
             ),
           );
@@ -166,12 +161,8 @@ class _GameSettingsViewState extends State<GameSettingsView> {
         _discussionDuration--;
       });
       context.read<GameBloc>().add(
-            GameSettingsUpdated(
-              numberOfWolves: _randomizeWolfCount ? null : _numberOfWolves,
-              randomizeWolfCount: _randomizeWolfCount,
-              discussionDuration: _discussionDuration,
-              autoAssignWolves: _autoAssignComposition,
-            ),
+            GameDiscussionTimeUpdated(
+                _discussionDuration * 60), // Convert minutes to seconds
           );
     }
   }
@@ -182,12 +173,8 @@ class _GameSettingsViewState extends State<GameSettingsView> {
         _discussionDuration++;
       });
       context.read<GameBloc>().add(
-            GameSettingsUpdated(
-              numberOfWolves: _randomizeWolfCount ? null : _numberOfWolves,
-              randomizeWolfCount: _randomizeWolfCount,
-              discussionDuration: _discussionDuration,
-              autoAssignWolves: _autoAssignComposition,
-            ),
+            GameDiscussionTimeUpdated(
+                _discussionDuration * 60), // Convert minutes to seconds
           );
     }
   }
@@ -282,7 +269,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                       title: AppText(l10n.autoAssign),
                       subtitle: AppText(
                         l10n.autoAssignSubtitle(
-                          getNumberOfWolves(totalPlayers),
+                          getNumberOfBalancedWolves(totalPlayers),
                           totalPlayers,
                         ),
                         variant: AppTextVariant.bodySmall,

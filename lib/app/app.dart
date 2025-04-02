@@ -7,6 +7,8 @@ import "../app_ui/app_config.dart";
 import "../app_ui/app_theme.dart";
 import "../feedback_repository/feedback_repository.dart";
 import "../game/bloc/game_bloc.dart";
+import "../game/repository/category_repository.dart";
+import "../game/repository/game_repository.dart";
 import "../game/repository/player_repository.dart";
 import "../home/home_page.dart";
 import "../l10n/l10n.dart";
@@ -49,29 +51,45 @@ class App extends StatelessWidget {
             );
           },
         ),
+        RepositoryProvider<CategoryRepository>(
+          create: (context) {
+            return CategoryRepository(
+              persistentStorage: _persistentStorage,
+            );
+          },
+        ),
+        RepositoryProvider<GameRepository>(
+          create: (context) {
+            return GameRepository(
+              persistentStorage: _persistentStorage,
+            );
+          },
+        ),
       ],
       child: Builder(builder: (context) {
         return MultiBlocProvider(
           providers: <BlocProvider<StateStreamableSource<Object?>>>[
-            BlocProvider<ThemeModeBloc>(create: (final _) => ThemeModeBloc()),
+            BlocProvider<ThemeModeBloc>(
+              create: (context) => ThemeModeBloc(),
+            ),
             BlocProvider<AnalyticsBloc>(
-              create: (final context) => AnalyticsBloc(
+              create: (context) => AnalyticsBloc(
                 analyticsRepository: _analyticsRepository,
               ),
               lazy: false,
             ),
             BlocProvider<SettingsBloc>(
-              create: (final context) => SettingsBloc(
+              create: (context) => SettingsBloc(
                 feedbackRepository: context.read<FeedbackRepository>(),
               ),
               lazy: false,
             ),
             BlocProvider<GameBloc>(
-              create: (final context) {
-                return GameBloc(
-                  playerRepository: context.read<PlayerRepository>(),
-                );
-              },
+              create: (context) => GameBloc(
+                playerRepository: context.read<PlayerRepository>(),
+                categoryRepository: context.read<CategoryRepository>(),
+                gameRepository: context.read<GameRepository>(),
+              )..add(const GameInitialized()),
             ),
             BlocProvider<AppBloc>(
               create: (final context) => AppBloc(),
