@@ -133,7 +133,7 @@ class CategoryRepository {
     categories.sort((a, b) => b.lastUsedAt.compareTo(a.lastUsedAt));
 
     // Enforce maximum of 100 saved categories by removing oldest ones
-    const maxSavedCategories = 5;
+    const maxSavedCategories = 100;
     if (categories.length > maxSavedCategories) {
       // Keep only the 100 most recently used categories
       categories.removeRange(maxSavedCategories, categories.length);
