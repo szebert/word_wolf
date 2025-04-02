@@ -43,6 +43,12 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
     });
   }
 
+  void _continueToNextStep() {
+    // Save any active edit before navigating
+    _setEditingPlayer(null);
+    Navigator.of(context).push(GameSettingsPage.route());
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -62,7 +68,7 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
       body: BlocBuilder<GameBloc, GameState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(AppSpacing.lg),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -149,32 +155,13 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
                   ),
                 ),
 
-                // Error message if any
-                if (state.error.isNotEmpty)
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: AppSpacing.md),
-                    child: AppText(
-                      state.error,
-                      variant: AppTextVariant.bodyMedium,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.error,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-
                 // Next button
                 SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.only(top: AppSpacing.lg),
                     child: AppButton(
                       variant: AppButtonVariant.elevated,
-                      onPressed: () {
-                        // Save any active edit before navigating
-                        _setEditingPlayer(null);
-                        Navigator.of(context).push(GameSettingsPage.route());
-                      },
+                      onPressed: _continueToNextStep,
                       child: AppText(
                         l10n.next,
                         variant: AppTextVariant.titleMedium,
@@ -311,8 +298,8 @@ class _PlayerListItemState extends State<PlayerListItem> {
                   color: widget.isEditing
                       ? Theme.of(context)
                           .colorScheme
-                          .surfaceVariant
-                          .withOpacity(0.5)
+                          .surfaceContainerHighest
+                          .withAlpha(127)
                       : null,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
