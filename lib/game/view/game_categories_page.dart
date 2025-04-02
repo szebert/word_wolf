@@ -157,25 +157,42 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     final state = context.read<GameBloc>().state;
     final presetCategories = state.game.presetCategories;
 
+    // Only perform filtering if we have preset categories
+    if (presetCategories.isEmpty) {
+      _displayedCategories = [];
+      return;
+    }
+
     List<String> filteredSaved = [];
     List<String> filteredPreset = [];
 
-    // Filter both lists
+    // Convert to lowercase once for efficiency
+    final lowercaseQuery = searchQuery.toLowerCase();
+
+    // For empty search, just use the existing lists
     if (searchQuery.isEmpty) {
       filteredSaved = [...savedCategories];
+
+      // Performance optimization: Limit preset categories when no search
+      // to improve rendering performance with large datasets
+      final maxPresetsToShow = 100;
       filteredPreset = presetCategories
           .where((category) => !savedCategories.contains(category))
+          .take(maxPresetsToShow) // Limit initial display
           .toList();
     } else {
+      // Use efficient filter for search
       filteredSaved = savedCategories
-          .where((category) =>
-              category.toLowerCase().contains(searchQuery.toLowerCase()))
+          .where((category) => category.toLowerCase().contains(lowercaseQuery))
           .toList();
 
+      // For search, show more results but still limit for very large datasets
+      final maxSearchResults = 200;
       filteredPreset = presetCategories
           .where((category) =>
-              category.toLowerCase().contains(searchQuery.toLowerCase()) &&
+              category.toLowerCase().contains(lowercaseQuery) &&
               !savedCategories.contains(category))
+          .take(maxSearchResults)
           .toList();
     }
 
@@ -185,23 +202,28 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
       // If we just added this category but it's not yet in saved categories,
       // add it to our display list temporarily
       if (searchQuery.isEmpty ||
-          _lastAddedCategory!
-              .toLowerCase()
-              .contains(searchQuery.toLowerCase())) {
+          _lastAddedCategory!.toLowerCase().contains(lowercaseQuery)) {
         filteredSaved.insert(0, _lastAddedCategory!);
       }
     }
 
     // Preserve the current order of displayed categories when possible
     if (_displayedCategories.isNotEmpty) {
-      // Create a new combined list without changing order
+      // Create a new combined list
       final newCombined = [...filteredSaved, ...filteredPreset];
 
+      // Optimize comparison for large lists
+      final currentSet = _displayedCategories.toSet();
+      final newSet = newCombined.toSet();
+
+      final hasStructuralChange =
+          _displayedCategories.length != newCombined.length ||
+              !currentSet.containsAll(newSet) ||
+              !newSet.containsAll(currentSet) ||
+              searchQuery != _lastSearchQuery;
+
       // Only update the list if search query changed or categories were added/removed
-      if (_displayedCategories.length != newCombined.length ||
-          !_displayedCategories.toSet().containsAll(newCombined.toSet()) ||
-          !newCombined.toSet().containsAll(_displayedCategories.toSet()) ||
-          searchQuery != _lastSearchQuery) {
+      if (hasStructuralChange) {
         _displayedCategories = newCombined;
       }
     } else {

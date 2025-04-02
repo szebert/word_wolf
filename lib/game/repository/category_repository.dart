@@ -82,9 +82,7 @@ class CategoryRepository {
           .map((item) => SavedCategory.fromJson(item as Map<String, dynamic>))
           .toList();
 
-      // Sort by most recently used first
-      categories.sort((a, b) => b.lastUsedAt.compareTo(a.lastUsedAt));
-
+      // Don't sort by default - preserve the stored order
       return categories;
     } catch (e) {
       // If parsing failed, return an empty list
