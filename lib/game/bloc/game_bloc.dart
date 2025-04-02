@@ -36,6 +36,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameReset>(_onGameReset);
     on<GameCategorySearchUpdated>(_onGameCategorySearchUpdated);
     on<SavedCategoriesLoaded>(_onSavedCategoriesLoaded);
+    on<PresetCategoriesLoaded>(_onPresetCategoriesLoaded);
     on<CategorySaved>(_onCategorySaved);
     on<CategoryRemoved>(_onCategoryRemoved);
     on<WordPairSimilarityUpdated>(_onWordPairSimilarityUpdated);
@@ -441,6 +442,27 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         state.copyWith(
           status: GameStatus.error,
           error: 'Failed to load saved categories: $error',
+        ),
+      );
+    }
+  }
+
+  Future<void> _onPresetCategoriesLoaded(
+    PresetCategoriesLoaded event,
+    Emitter<GameState> emit,
+  ) async {
+    try {
+      final presetCategories = await _categoryRepository.getPresetCategories();
+      emit(
+        state.copyWith(
+          game: state.game.copyWith(presetCategories: presetCategories),
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: 'Failed to load preset categories: $error',
         ),
       );
     }

@@ -120,6 +120,10 @@ class SavedCategoriesLoaded extends GameEvent {
   const SavedCategoriesLoaded();
 }
 
+class PresetCategoriesLoaded extends GameEvent {
+  const PresetCategoriesLoaded();
+}
+
 class CategorySaved extends GameEvent {
   const CategorySaved(this.category);
 

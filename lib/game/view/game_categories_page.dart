@@ -41,25 +41,6 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
   String? _lastAddedCategory;
   String _lastSearchQuery = '';
 
-  // These would normally come from a repository or service
-  final List<String> _presetCategories = [
-    'Animals',
-    'Food',
-    'Countries',
-    'Sports',
-    'Movies',
-    'Music',
-    'Technology',
-    'History',
-    'Science',
-    'Art',
-    'Occupations',
-    'Literature',
-    'Vehicles',
-    'Clothing',
-    'Colors',
-  ];
-
   List<String> _displayedCategories = [];
 
   @override
@@ -67,6 +48,8 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     super.initState();
     // Load saved categories
     context.read<GameBloc>().add(const SavedCategoriesLoaded());
+    // Load preset categories
+    context.read<GameBloc>().add(const PresetCategoriesLoaded());
 
     final gameState = context.read<GameBloc>().state;
 
@@ -171,13 +154,16 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
   // Update displayed categories based on search and saved categories
   void _updateDisplayedCategories(
       String searchQuery, List<String> savedCategories) {
+    final state = context.read<GameBloc>().state;
+    final presetCategories = state.game.presetCategories;
+
     List<String> filteredSaved = [];
     List<String> filteredPreset = [];
 
     // Filter both lists
     if (searchQuery.isEmpty) {
       filteredSaved = [...savedCategories];
-      filteredPreset = _presetCategories
+      filteredPreset = presetCategories
           .where((category) => !savedCategories.contains(category))
           .toList();
     } else {
@@ -186,7 +172,7 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
               category.toLowerCase().contains(searchQuery.toLowerCase()))
           .toList();
 
-      filteredPreset = _presetCategories
+      filteredPreset = presetCategories
           .where((category) =>
               category.toLowerCase().contains(searchQuery.toLowerCase()) &&
               !savedCategories.contains(category))
@@ -238,6 +224,7 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
       listener: (context, state) {
         final savedCategoryNames =
             state.game.savedCategories.map((c) => c.name).toList();
+        final presetCategories = state.game.presetCategories;
 
         // If we were adding a category and the state has changed, check if our category is now saved
         if (_isAddingCategory && _lastAddedCategory != null) {
@@ -263,7 +250,7 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
         } else {
           // For deletions and other state changes, maintain current order but remove deleted items
           final newSet = savedCategoryNames.toSet();
-          final presetNotInSaved = _presetCategories
+          final presetNotInSaved = presetCategories
               .where((category) => !newSet.contains(category))
               .toList();
 

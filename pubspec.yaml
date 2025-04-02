@@ -73,6 +73,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/data/
 
   # Enable generation of localized Strings from arb files.
   generate: true

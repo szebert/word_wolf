@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
+
 import '../../storage/persistent_storage.dart';
 import '../models/saved_category.dart';
 
@@ -14,6 +16,52 @@ class CategoryRepository {
 
   final PersistentStorage _persistentStorage;
   static const String _kSavedCategoriesKey = 'saved_categories';
+  static const String _kPresetCategoriesPath =
+      'assets/data/preset_categories.json';
+
+  // Cache for preset categories to avoid loading the file multiple times
+  List<String>? _presetCategoriesCache;
+
+  /// Returns a list of preset categories loaded from a JSON file
+  Future<List<String>> getPresetCategories() async {
+    // Return from cache if available
+    if (_presetCategoriesCache != null) {
+      return _presetCategoriesCache!;
+    }
+
+    try {
+      // Load the JSON file from assets
+      final jsonString = await rootBundle.loadString(_kPresetCategoriesPath);
+      final data = jsonDecode(jsonString) as Map<String, dynamic>;
+
+      // Extract the categories list
+      final categories = List<String>.from(data['categories'] as List);
+
+      // Cache the results
+      _presetCategoriesCache = categories;
+
+      return categories;
+    } catch (e) {
+      // If there's an error, return a default list
+      return [
+        'Animals',
+        'Food',
+        'Countries',
+        'Sports',
+        'Movies',
+        'Music',
+        'Technology',
+        'History',
+        'Science',
+        'Art',
+        'Occupations',
+        'Literature',
+        'Vehicles',
+        'Clothing',
+        'Colors',
+      ];
+    }
+  }
 
   /// Returns the list of saved categories
   Future<List<SavedCategory>> getSavedCategories() async {

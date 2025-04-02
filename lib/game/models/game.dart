@@ -25,6 +25,7 @@ class Game extends Equatable {
     this.autoAssignWolves = true,
     this.categorySearchText = '',
     this.savedCategories = const [],
+    this.presetCategories = const [],
     this.wordPairSimilarity = 0.5, // Default medium similarity
   });
 
@@ -40,6 +41,7 @@ class Game extends Equatable {
   final bool autoAssignWolves;
   final String categorySearchText;
   final List<SavedCategory> savedCategories;
+  final List<String> presetCategories;
   // Controls how similar or different word pairs should be
   final double wordPairSimilarity;
 
@@ -86,6 +88,7 @@ class Game extends Equatable {
     bool? autoAssignWolves,
     String? categorySearchText,
     List<SavedCategory>? savedCategories,
+    List<String>? presetCategories,
     double? wordPairSimilarity,
   }) {
     return Game(
@@ -103,6 +106,7 @@ class Game extends Equatable {
       autoAssignWolves: autoAssignWolves ?? this.autoAssignWolves,
       categorySearchText: categorySearchText ?? this.categorySearchText,
       savedCategories: savedCategories ?? this.savedCategories,
+      presetCategories: presetCategories ?? this.presetCategories,
       wordPairSimilarity: wordPairSimilarity ?? this.wordPairSimilarity,
     );
   }
@@ -121,6 +125,7 @@ class Game extends Equatable {
         autoAssignWolves,
         categorySearchText,
         savedCategories,
+        presetCategories,
         wordPairSimilarity,
       ];
 }
