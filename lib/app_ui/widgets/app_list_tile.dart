@@ -3,24 +3,26 @@ import 'package:flutter/services.dart';
 
 import '../app_config.dart';
 
-/// {@template app_icon_button}
-/// An IconButton with app-specific feedback settings.
+/// {@template app_list_tile}
+/// A ListTile with app-specific feedback settings.
 /// {@endtemplate}
-class AppIconButton extends IconButton {
-  /// {@macro app_icon_button}
-  AppIconButton({
-    required super.icon,
-    required VoidCallback? onPressed,
-    ButtonStyle? style,
+class AppListTile extends ListTile {
+  /// {@macro app_list_tile}
+  AppListTile({
+    required VoidCallback? onTap,
     super.key,
-    super.iconSize,
-    super.color,
-    super.tooltip,
-    super.constraints,
+    super.dense,
+    super.contentPadding,
     super.visualDensity,
-    super.padding,
+    super.shape,
+    super.tileColor,
+    super.title,
+    super.subtitle,
+    super.selected,
+    super.trailing,
+    super.style,
   }) : super(
-          onPressed: onPressed == null
+          onTap: onTap == null
               ? null
               : () {
                   final feedbackSettings =
@@ -31,10 +33,8 @@ class AppIconButton extends IconButton {
                   if (feedbackSettings.soundEnabled) {
                     SystemSound.play(SystemSoundType.click);
                   }
-                  onPressed();
+                  onTap();
                 },
-          style: const ButtonStyle(
-            enableFeedback: false,
-          ).merge(style),
+          enableFeedback: false,
         );
 }

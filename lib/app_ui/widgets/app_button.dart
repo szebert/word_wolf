@@ -184,7 +184,6 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
 
     // Otherwise, wrap with feedback
     return () {
-      print('feedbackSettings.soundEnabled: ${feedbackSettings.soundEnabled}');
       if (feedbackSettings.hapticEnabled) {
         HapticFeedback.lightImpact();
       }
