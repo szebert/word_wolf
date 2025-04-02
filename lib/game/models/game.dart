@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'player.dart';
+import 'saved_category.dart';
 
 enum GamePhase {
   setup,
@@ -22,6 +23,9 @@ class Game extends Equatable {
     this.customWolfCount,
     this.randomizeWolfCount = false,
     this.autoAssignWolves = true,
+    this.categorySearchText = '',
+    this.savedCategories = const [],
+    this.wordPairSimilarity = 0.5, // Default medium similarity
   });
 
   final List<Player> players;
@@ -34,13 +38,10 @@ class Game extends Equatable {
   final int? customWolfCount;
   final bool randomizeWolfCount;
   final bool autoAssignWolves;
-
-  bool get isValid {
-    return players.length >= 3 &&
-        category.isNotEmpty &&
-        citizenWord.isNotEmpty &&
-        wolfWord.isNotEmpty;
-  }
+  final String categorySearchText;
+  final List<SavedCategory> savedCategories;
+  // Controls how similar or different word pairs should be
+  final double wordPairSimilarity;
 
   int get wolfCount {
     if (customWolfCount != null) {
@@ -83,6 +84,9 @@ class Game extends Equatable {
     int? customWolfCount,
     bool? randomizeWolfCount,
     bool? autoAssignWolves,
+    String? categorySearchText,
+    List<SavedCategory>? savedCategories,
+    double? wordPairSimilarity,
   }) {
     return Game(
       players: players ?? this.players,
@@ -97,6 +101,9 @@ class Game extends Equatable {
       customWolfCount: customWolfCount ?? this.customWolfCount,
       randomizeWolfCount: randomizeWolfCount ?? this.randomizeWolfCount,
       autoAssignWolves: autoAssignWolves ?? this.autoAssignWolves,
+      categorySearchText: categorySearchText ?? this.categorySearchText,
+      savedCategories: savedCategories ?? this.savedCategories,
+      wordPairSimilarity: wordPairSimilarity ?? this.wordPairSimilarity,
     );
   }
 
@@ -112,5 +119,8 @@ class Game extends Equatable {
         customWolfCount,
         randomizeWolfCount,
         autoAssignWolves,
+        categorySearchText,
+        savedCategories,
+        wordPairSimilarity,
       ];
 }

@@ -366,5 +366,103 @@
   "exampleExtremelyDifferent": "Example: \"Sunshine\" and \"Algebra\"",
   "@exampleExtremelyDifferent": {
     "description": "Example word pair for extremely different words"
+  },
+  "categoriesTitle": "Word Choice",
+  "@categoriesTitle": {
+    "description": "The title of the category selection page"
+  },
+  "categorySelection": "Category Selection",
+  "@categorySelection": {
+    "description": "The title of the category section"
+  },
+  "categoryDescription": "Optionally choose a category to define the theme for your word pair. A good category helps create balanced yet distinct words.",
+  "@categoryDescription": {
+    "description": "The description text for the category selection"
+  },
+  "categorySearchHint": "Search or add a new category",
+  "@categorySearchHint": {
+    "description": "Hint text for the category search field"
+  },
+  "categoryClear": "Clear",
+  "@categoryClear": {
+    "description": "Tooltip for the category clear button"
+  },
+  "useCategory": "Use this category",
+  "@useCategory": {
+    "description": "Tooltip for the button to use the entered category"
+  },
+  "noCategoriesFound": "No categories found",
+  "@noCategoriesFound": {
+    "description": "Text shown when no categories match the search"
+  },
+  "addingCategory": "Adding...",
+  "@addingCategory": {
+    "description": "Text shown when a category is being added"
+  },
+  "lastUsed": "Last used: {time}",
+  "@lastUsed": {
+    "description": "Text showing when something was last used",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "2 days ago"
+      }
+    }
+  },
+  "removeCategory": "Remove from saved",
+  "@removeCategory": {
+    "description": "Tooltip for the button to remove a saved category"
+  },
+  "timeNow": "Just now",
+  "@timeNow": {
+    "description": "Text showing when something was done, just now"
+  },
+  "timeYesterday": "Yesterday",
+  "@timeYesterday": {
+    "description": "Text showing when something was done, yesterday"
+  },
+  "timeMinutesAgo": "{minutes} minutes ago",
+  "@timeMinutesAgo": {
+    "description": "Text showing when something was done, minutes ago",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
+  },
+  "timeHoursAgo": "{hours} hours ago",
+  "@timeHoursAgo": {
+    "description": "Text showing when something was done, hours ago",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
+  },
+  "timeDaysAgo": "{days} days ago",
+  "@timeDaysAgo": {
+    "description": "Text showing when something was done, days ago",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
+  },
+  "timeWeeksAgo": "{weeks} weeks ago",
+  "@timeWeeksAgo": {
+    "description": "Text showing when something was done, weeks ago",
+    "placeholders": {
+      "weeks": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
   }
 }

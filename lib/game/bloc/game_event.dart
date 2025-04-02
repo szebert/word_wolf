@@ -48,26 +48,20 @@ class GameCategoryUpdated extends GameEvent {
   List<Object?> get props => [category];
 }
 
-class GameSettingsUpdated extends GameEvent {
-  const GameSettingsUpdated({
+class WolvesCountUpdated extends GameEvent {
+  const WolvesCountUpdated({
     this.numberOfWolves,
     required this.randomizeWolfCount,
-    required this.discussionDuration,
     required this.autoAssignWolves,
   });
 
   final int? numberOfWolves;
   final bool randomizeWolfCount;
-  final int discussionDuration;
   final bool autoAssignWolves;
 
   @override
-  List<Object?> get props => [
-        numberOfWolves,
-        randomizeWolfCount,
-        discussionDuration,
-        autoAssignWolves
-      ];
+  List<Object?> get props =>
+      [numberOfWolves, randomizeWolfCount, autoAssignWolves];
 }
 
 class GameWordsUpdated extends GameEvent {
@@ -111,4 +105,44 @@ class GameTimerTicked extends GameEvent {
 
 class GameReset extends GameEvent {
   const GameReset();
+}
+
+class GameCategorySearchUpdated extends GameEvent {
+  const GameCategorySearchUpdated(this.searchText);
+
+  final String searchText;
+
+  @override
+  List<Object?> get props => [searchText];
+}
+
+class SavedCategoriesLoaded extends GameEvent {
+  const SavedCategoriesLoaded();
+}
+
+class CategorySaved extends GameEvent {
+  const CategorySaved(this.category);
+
+  final String category;
+
+  @override
+  List<Object?> get props => [category];
+}
+
+class CategoryRemoved extends GameEvent {
+  const CategoryRemoved(this.category);
+
+  final String category;
+
+  @override
+  List<Object?> get props => [category];
+}
+
+class WordPairSimilarityUpdated extends GameEvent {
+  const WordPairSimilarityUpdated(this.similarity);
+
+  final double similarity;
+
+  @override
+  List<Object?> get props => [similarity];
 }
