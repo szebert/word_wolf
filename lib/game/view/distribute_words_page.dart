@@ -10,6 +10,7 @@ import '../../l10n/l10n.dart';
 import '../bloc/game_bloc.dart';
 import '../models/game.dart';
 import '../models/player.dart';
+import 'discussion_page.dart';
 
 class DistributeWordsPage extends StatelessWidget {
   const DistributeWordsPage({super.key});
@@ -34,6 +35,11 @@ class DistributeWordsView extends StatefulWidget {
 }
 
 class _DistributeWordsViewState extends State<DistributeWordsView> {
+  // Track current player index and phase
+  int currentPlayerIndex = 0;
+  int currentPhase = 1;
+  bool allPlayersFinished = false;
+
   @override
   void initState() {
     super.initState();
@@ -82,6 +88,40 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     );
   }
 
+  void _toggleWordVisibility() {
+    setState(() {
+      if (currentPhase < 3) {
+        currentPhase += 1;
+      }
+    });
+  }
+
+  void _previousPhase() {
+    setState(() {
+      if (currentPhase > 1) {
+        currentPhase -= 1;
+      }
+    });
+  }
+
+  void _nextPlayer() {
+    setState(() {
+      currentPhase = 1;
+      currentPlayerIndex += 1;
+
+      // Check if all players have completed
+      final players = context.read<GameBloc>().state.game.players;
+      if (currentPlayerIndex >= players.length) {
+        allPlayersFinished = true;
+      }
+    });
+  }
+
+  void _continueToNextStep() {
+    // Navigate to the discussion page
+    Navigator.of(context).push(DiscussionPage.route());
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -120,15 +160,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Game data display
-                  Expanded(
-                    child: _buildGameDataCard(game, state.status),
-                  ),
-                ],
-              ),
+              child: _buildContent(game, state.status),
             ),
           );
         },
@@ -136,119 +168,324 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     );
   }
 
-  Widget _buildGameDataCard(Game game, GameStatus status) {
+  Widget _buildContent(Game game, GameStatus status) {
     final l10n = context.l10n;
 
     // Show loading indicator if the game is in loading state
     if (status == GameStatus.loading) {
-      return Card(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircularProgressIndicator(),
-              const SizedBox(height: AppSpacing.md),
-              AppText(l10n.wordDistributionLoading),
-            ],
-          ),
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(),
+            const SizedBox(height: AppSpacing.md),
+            AppText(l10n.wordDistributionLoading),
+          ],
         ),
       );
     }
 
-    // Show the game data when loaded
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.md),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildDataSection(
-                'General Settings',
-                [
-                  'Selected category: ${game.category.isNotEmpty ? game.category : "None"}',
-                  'Word pair similarity: ${game.wordPairSimilarity} (${_formatSimilarity(game.wordPairSimilarity)})',
-                  'Discussion time: ${game.discussionTimeInSeconds ~/ 60} minutes',
-                ],
-              ),
-              const Divider(),
-              _buildDataSection(
-                'Player Composition',
-                [
-                  'Total players: ${game.players.length}',
-                  'Number of wolves: ${game.wolfCount}',
-                  'Auto-assign wolves: ${game.autoAssignWolves ? "Yes" : "No"}',
-                  'Randomize wolf count: ${game.randomizeWolfCount ? "Yes" : "No"}',
-                ],
-              ),
-              const Divider(),
-              _buildDataSection(
-                'Words',
-                [
-                  'Citizen word: ${game.citizenWord}',
-                  'Wolf word: ${game.wolfWord}',
-                ],
-              ),
-              const Divider(),
-              _buildDataSection(
-                'Players',
-                game.players
-                    .map((player) =>
-                        '${player.name} - ${_formatRole(player.role)}')
-                    .toList(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    // If all players have seen their words, show the start discussion button
+    if (allPlayersFinished) {
+      return _buildAllPlayersFinishedView();
+    }
+
+    // Get the current player
+    final currentPlayer = game.players[currentPlayerIndex];
+
+    return _buildPlayerWordView(currentPlayer, game);
   }
 
-  Widget _buildDataSection(String title, List<String> items) {
+  Widget _buildAllPlayersFinishedView() {
+    final l10n = context.l10n;
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AppText(
-          title,
-          variant: AppTextVariant.titleSmall,
-          weight: AppTextWeight.bold,
+        const Icon(
+          Icons.check_circle_outline,
+          size: 80,
+          color: Colors.green,
         ),
-        const SizedBox(height: AppSpacing.xs),
-        ...items.map((item) => Padding(
-              padding: const EdgeInsets.only(
-                left: AppSpacing.sm,
-                bottom: AppSpacing.xs,
-              ),
-              child: AppText(item),
-            )),
+        const SizedBox(height: AppSpacing.md),
+        SizedBox(
+          width: 300,
+          child: AppText(
+            l10n.allPlayersFinished,
+            variant: AppTextVariant.titleLarge,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.xlg),
+        AppButton(
+          minWidth: double.infinity,
+          variant: AppButtonVariant.filled,
+          onPressed: _continueToNextStep,
+          child: AppText(
+            l10n.startDiscussion,
+            variant: AppTextVariant.titleMedium,
+          ),
+        ),
       ],
     );
   }
 
-  String _formatSimilarity(double similarity) {
-    if (similarity < 0.1) {
-      return 'Extremely Similar';
-    } else if (similarity < 0.3) {
-      return 'Very Similar';
-    } else if (similarity < 0.5) {
-      return 'Similar';
-    } else if (similarity <= 0.7) {
-      return 'Different';
-    } else if (similarity <= 0.9) {
-      return 'Very Different';
-    } else {
-      return 'Extremely Different';
+  Widget _buildPlayerWordView(Player player, Game game) {
+    final playerWord =
+        (player.role == PlayerRole.wolf) ? game.wolfWord : game.citizenWord;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Top section - name aligned to bottom
+        Expanded(
+          flex: 3,
+          child: _buildPhaseHeader(player, game.category),
+        ),
+
+        // Middle section - content centered
+        Expanded(
+          flex: 4,
+          child: Center(
+            child: _buildPhaseContent(currentPhase, player, playerWord),
+          ),
+        ),
+
+        // Bottom section - buttons aligned to bottom
+        Expanded(
+          flex: 3,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildPhaseButtons(currentPhase),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhaseHeader(Player player, String category) {
+    final l10n = context.l10n;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Category at the top left
+        if (category.isNotEmpty)
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.xs,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    l10n.category,
+                    variant: AppTextVariant.labelLarge,
+                    customColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: AppSpacing.xs),
+                  Expanded(
+                    child: AppText(
+                      category,
+                      variant: AppTextVariant.labelLarge,
+                      weight: AppTextWeight.medium,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+        // Push the player name to the bottom
+        const Spacer(),
+
+        // Player name centered at the bottom
+        Center(
+          child: Column(
+            children: [
+              AppText(
+                player.name,
+                variant: AppTextVariant.displaySmall,
+                weight: AppTextWeight.bold,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              // Only show default name as subtitle if player has a custom name
+              if (!player.isDefaultName)
+                Padding(
+                  padding: const EdgeInsets.only(top: AppSpacing.xs),
+                  child: AppText(
+                    l10n.playerDefaultName(currentPlayerIndex + 1),
+                    variant: AppTextVariant.titleLarge,
+                    customColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              SizedBox(height: AppSpacing.md),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPhaseContent(int phase, Player player, String word) {
+    // Use non-centered Column with fixed spacers for consistent positioning
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        // Fixed top space
+        const SizedBox(height: AppSpacing.xxlg),
+        // Icon always in the same position
+        _getPhaseIcon(phase),
+        // Fixed spacing between icon and content
+        const SizedBox(height: AppSpacing.lg),
+        // Content
+        _getPhaseContent(phase, word),
+        // Remaining space to push everything up
+        const Spacer(),
+      ],
+    );
+  }
+
+  Widget _getPhaseIcon(int phase) {
+    IconData icon;
+    switch (phase) {
+      case 1:
+        icon = Icons.visibility_off;
+      case 2:
+        icon = Icons.help_outline;
+      case 3:
+        icon = Icons.visibility;
+      default:
+        icon = Icons.help_outline;
+    }
+
+    return Icon(
+      icon,
+      size: 48,
+      color: Theme.of(context).colorScheme.primary,
+    );
+  }
+
+  Widget _getPhaseContent(int phase, String word) {
+    final l10n = context.l10n;
+
+    switch (phase) {
+      case 1:
+        return SizedBox(
+          width: 300,
+          child: AppText(
+            l10n.displayWordPhase1,
+            variant: AppTextVariant.titleMedium,
+            textAlign: TextAlign.center,
+          ),
+        );
+      case 2:
+        return SizedBox(
+          width: 300,
+          child: AppText(
+            l10n.displayWordPhase2,
+            variant: AppTextVariant.titleMedium,
+            textAlign: TextAlign.center,
+          ),
+        );
+      case 3:
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppText(
+              l10n.displayWordPhase3,
+              variant: AppTextVariant.titleSmall,
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.lg,
+                vertical: AppSpacing.md,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: AppText(
+                word,
+                variant: AppTextVariant.titleLarge,
+                weight: AppTextWeight.bold,
+              ),
+            ),
+          ],
+        );
+      default:
+        return const SizedBox.shrink();
     }
   }
 
-  String _formatRole(PlayerRole role) {
-    switch (role) {
-      case PlayerRole.wolf:
-        return 'Wolf';
-      case PlayerRole.citizen:
-        return 'Citizen';
-      case PlayerRole.undecided:
-        return 'Undecided';
+  Widget _buildPhaseButtons(int phase) {
+    final l10n = context.l10n;
+
+    switch (phase) {
+      case 1:
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: AppButton(
+            minWidth: double.infinity,
+            variant: AppButtonVariant.filled,
+            onPressed: _toggleWordVisibility,
+            child: AppText(
+              l10n.show,
+              variant: AppTextVariant.titleMedium,
+            ),
+          ),
+        );
+      case 2:
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              AppButton(
+                minWidth: double.infinity,
+                variant: AppButtonVariant.filled,
+                onPressed: _toggleWordVisibility,
+                child: AppText(
+                  l10n.show,
+                  variant: AppTextVariant.titleMedium,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              AppButton(
+                minWidth: double.infinity,
+                variant: AppButtonVariant.outlined,
+                onPressed: _previousPhase,
+                child: AppText(
+                  l10n.cancel,
+                  variant: AppTextVariant.titleMedium,
+                ),
+              ),
+            ],
+          ),
+        );
+      case 3:
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: AppButton(
+            minWidth: double.infinity,
+            variant: AppButtonVariant.filled,
+            onPressed: _nextPlayer,
+            child: AppText(
+              l10n.displayWordConfirmation,
+              variant: AppTextVariant.titleMedium,
+            ),
+          ),
+        );
+      default:
+        return const SizedBox.shrink();
     }
   }
 }

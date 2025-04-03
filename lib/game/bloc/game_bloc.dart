@@ -431,7 +431,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }).toList();
 
     //TODO: Remove this after testing
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
 
     WordPairResult result;
     try {

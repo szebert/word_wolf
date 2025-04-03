@@ -465,10 +465,6 @@
       }
     }
   },
-  "wordDistribution": "Word Distribution",
-  "@wordDistribution": {
-    "description": "Title for the word distribution page"
-  },
   "exitGame": "Exit Game",
   "@exitGame": {
     "description": "Title and tooltip for the exit game dialog"
@@ -485,8 +481,40 @@
   "@ok": {
     "description": "Text for the OK button"
   },
+  "wordDistribution": "Word Distribution",
+  "@wordDistribution": {
+    "description": "Title for the word distribution page"
+  },
   "wordDistributionLoading": "Loading word pair...",
   "@wordDistributionLoading": {
     "description": "Text for the loading state in the word distribution page"
+  },
+  "allPlayersFinished": "All players have seen their words!",
+  "@allPlayersFinished": {
+    "description": "Text for the all players finished state in the word distribution page"
+  },
+  "startDiscussion": "Start Discussion",
+  "@startDiscussion": {
+    "description": "Text for the start discussion button"
+  },
+  "displayWordPhase1": "Please make sure nobody else can see this screen.",
+  "@displayWordPhase1": {
+    "description": "Text for the first phase of the display word screen"
+  },
+  "displayWordPhase2": "We will display your word. Are you ready?",
+  "@displayWordPhase2": {
+    "description": "Text for the second phase of the display word screen"
+  },
+  "displayWordPhase3": "Your Word",
+  "@displayWordPhase3": {
+    "description": "Text for the third phase of the display word screen"
+  },
+  "show": "Show",
+  "@show": {
+    "description": "Text for the show button"
+  },
+  "displayWordConfirmation": "I've memorized my word!",
+  "@displayWordConfirmation": {
+    "description": "Text for the display word confirmation button"
   }
 }
