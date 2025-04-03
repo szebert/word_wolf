@@ -62,8 +62,8 @@ class Game extends Equatable {
         // Keep default
         return defaultCount;
       } else {
-        // Make sure we don't exceed half the players
-        final maxWolves = (players.length / 2).floor();
+        // Make sure wolves stay less than citizens
+        final maxWolves = ((players.length - 1) / 2).floor();
         return defaultCount < maxWolves ? defaultCount + 1 : defaultCount;
       }
     }
