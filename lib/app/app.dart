@@ -17,6 +17,7 @@ import "../settings/settings_bloc.dart";
 import "../storage/persistent_storage.dart";
 import "../theme/theme_mode_bloc.dart";
 import "./app_bloc.dart";
+import "./app_repository.dart";
 
 class App extends StatelessWidget {
   const App({
@@ -44,6 +45,11 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider<AnalyticsRepository>.value(
           value: _analyticsRepository,
+        ),
+        RepositoryProvider<AppRepository>(
+          create: (context) => AppRepository(
+            persistentStorage: _persistentStorage,
+          ),
         ),
         RepositoryProvider<PlayerRepository>(
           create: (context) => PlayerRepository(
@@ -91,7 +97,9 @@ class App extends StatelessWidget {
               )..add(const GameInitialized()),
             ),
             BlocProvider<AppBloc>(
-              create: (final context) => AppBloc(),
+              create: (final context) => AppBloc(
+                appRepository: context.read<AppRepository>(),
+              ),
               lazy: false,
             ),
           ],

@@ -1,12 +1,27 @@
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
+import 'app_repository.dart';
+
 part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends HydratedBloc<AppEvent, AppState> {
-  AppBloc() : super(const AppState.initial()) {
+  AppBloc({
+    required final AppRepository appRepository,
+  })  : _appRepository = appRepository,
+        super(const AppState.initial()) {
     on<HowToPlayViewed>(_onHowToPlayViewed);
+    _initialize();
+  }
+
+  final AppRepository _appRepository;
+
+  Future<void> _initialize() async {
+    final hasViewedHowToPlay = await _appRepository.fetchHasViewedHowToPlay();
+    if (hasViewedHowToPlay) {
+      add(const HowToPlayViewed());
+    }
   }
 
   @override
@@ -23,10 +38,14 @@ class AppBloc extends HydratedBloc<AppEvent, AppState> {
     };
   }
 
-  void _onHowToPlayViewed(
+  Future<void> _onHowToPlayViewed(
     HowToPlayViewed event,
     Emitter<AppState> emit,
-  ) {
+  ) async {
+    // Update the repository with the new value
+    await _appRepository.setHasViewedHowToPlay(hasViewed: true);
+
+    // Update the state
     emit(state.copyWith(hasViewedHowToPlay: true));
   }
 }
