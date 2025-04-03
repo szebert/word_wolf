@@ -28,11 +28,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         super(const GameState()) {
     on<GameInitialized>(_onGameInitialized);
 
-    on<GameStarted>(_onGameStarted);
-    on<GamePhaseAdvanced>(_onGamePhaseAdvanced);
-    on<GameTimerTicked>(_onGameTimerTicked);
-    on<GameReset>(_onGameReset);
-
     // Player Setup Page events
     on<PlayerAdded>(_onPlayerAdded);
     on<PlayerRemoved>(_onPlayerRemoved);
@@ -52,6 +47,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameCategoryUpdated>(_onGameCategoryUpdated);
     on<CategorySaved>(_onCategorySaved);
     on<CategoryRemoved>(_onCategoryRemoved);
+
+    // Distribute Words Page events
+    on<GameStarted>(_onGameStarted);
+
+    // Unused events
+    on<GamePhaseAdvanced>(_onGamePhaseAdvanced);
+    on<GameTimerTicked>(_onGameTimerTicked);
+    on<GameReset>(_onGameReset);
   }
 
   final PlayerRepository _playerRepository;
@@ -115,6 +118,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
+  // Player Setup Page events
   Future<void> _onPlayerAdded(
     PlayerAdded event,
     Emitter<GameState> emit,
@@ -215,25 +219,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void _onGameCategoryUpdated(
-    GameCategoryUpdated event,
-    Emitter<GameState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        game: state.game.copyWith(category: event.category),
-      ),
-    );
-
-    // When a category is selected, update its lastUsedAt timestamp
-    if (event.category.isNotEmpty) {
-      add(CategorySaved(event.category));
-    }
-
-    // Save settings to repository
-    _saveSettings();
-  }
-
+  // Game Settings Page events
   void _onWolvesCountUpdated(
     WolvesCountUpdated event,
     Emitter<GameState> emit,
@@ -268,6 +254,157 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _saveSettings();
   }
 
+  void _onWordPairSimilarityUpdated(
+    WordPairSimilarityUpdated event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          wordPairSimilarity: event.similarity,
+        ),
+      ),
+    );
+
+    // Save settings to repository
+    _saveSettings();
+  }
+
+  // Game Categories Page preload events
+  Future<void> _onPresetCategoriesLoaded(
+    PresetCategoriesLoaded event,
+    Emitter<GameState> emit,
+  ) async {
+    try {
+      final presetCategories = await _categoryRepository.getPresetCategories();
+      emit(
+        state.copyWith(
+          game: state.game.copyWith(presetCategories: presetCategories),
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: 'Failed to load preset categories: $error',
+        ),
+      );
+    }
+  }
+
+  Future<void> _onSavedCategoriesLoaded(
+    SavedCategoriesLoaded event,
+    Emitter<GameState> emit,
+  ) async {
+    try {
+      final savedCategories = await _categoryRepository.getSavedCategories();
+      emit(
+        state.copyWith(
+          game: state.game.copyWith(savedCategories: savedCategories),
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: 'Failed to load saved categories: $error',
+        ),
+      );
+    }
+  }
+
+  // Game Categories Page events
+  void _onGameCategorySearchUpdated(
+    GameCategorySearchUpdated event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(categorySearchText: event.searchText),
+      ),
+    );
+  }
+
+  void _onGameCategoryUpdated(
+    GameCategoryUpdated event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(category: event.category),
+      ),
+    );
+
+    // When a category is selected, update its lastUsedAt timestamp
+    if (event.category.isNotEmpty) {
+      add(CategorySaved(event.category));
+    }
+
+    // Save settings to repository
+    _saveSettings();
+  }
+
+  Future<void> _onCategorySaved(
+    CategorySaved event,
+    Emitter<GameState> emit,
+  ) async {
+    try {
+      final savedCategories = await _categoryRepository.addOrUpdateCategory(
+        event.category,
+      );
+      emit(
+        state.copyWith(
+          game: state.game.copyWith(savedCategories: savedCategories),
+        ),
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: 'Failed to save category: $error',
+        ),
+      );
+    }
+  }
+
+  Future<void> _onCategoryRemoved(
+    CategoryRemoved event,
+    Emitter<GameState> emit,
+  ) async {
+    try {
+      final savedCategories = await _categoryRepository.removeCategory(
+        event.category,
+      );
+
+      // Check if the removed category is the currently selected category
+      final updatedGame = state.game.copyWith(
+        savedCategories: savedCategories,
+        // If the removed category is the selected one, clear it
+        category:
+            state.game.category == event.category ? '' : state.game.category,
+      );
+
+      emit(
+        state.copyWith(
+          game: updatedGame,
+        ),
+      );
+
+      // Save settings if category changed
+      if (state.game.category != updatedGame.category) {
+        _saveSettings();
+      }
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: 'Failed to remove category: $error',
+        ),
+      );
+    }
+  }
+
+  // Distribute Words Page events
   Future<void> _onGameStarted(
     GameStarted event,
     Emitter<GameState> emit,
@@ -329,6 +466,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
+  // Unused events
   void _onGamePhaseAdvanced(
     GamePhaseAdvanced event,
     Emitter<GameState> emit,
@@ -428,134 +566,5 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         ),
       ),
     );
-  }
-
-  void _onGameCategorySearchUpdated(
-    GameCategorySearchUpdated event,
-    Emitter<GameState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        game: state.game.copyWith(categorySearchText: event.searchText),
-      ),
-    );
-  }
-
-  Future<void> _onSavedCategoriesLoaded(
-    SavedCategoriesLoaded event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final savedCategories = await _categoryRepository.getSavedCategories();
-      emit(
-        state.copyWith(
-          game: state.game.copyWith(savedCategories: savedCategories),
-        ),
-      );
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to load saved categories: $error',
-        ),
-      );
-    }
-  }
-
-  Future<void> _onPresetCategoriesLoaded(
-    PresetCategoriesLoaded event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final presetCategories = await _categoryRepository.getPresetCategories();
-      emit(
-        state.copyWith(
-          game: state.game.copyWith(presetCategories: presetCategories),
-        ),
-      );
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to load preset categories: $error',
-        ),
-      );
-    }
-  }
-
-  Future<void> _onCategorySaved(
-    CategorySaved event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final savedCategories = await _categoryRepository.addOrUpdateCategory(
-        event.category,
-      );
-      emit(
-        state.copyWith(
-          game: state.game.copyWith(savedCategories: savedCategories),
-        ),
-      );
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to save category: $error',
-        ),
-      );
-    }
-  }
-
-  Future<void> _onCategoryRemoved(
-    CategoryRemoved event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final savedCategories = await _categoryRepository.removeCategory(
-        event.category,
-      );
-
-      // Check if the removed category is the currently selected category
-      final updatedGame = state.game.copyWith(
-        savedCategories: savedCategories,
-        // If the removed category is the selected one, clear it
-        category:
-            state.game.category == event.category ? '' : state.game.category,
-      );
-
-      emit(
-        state.copyWith(
-          game: updatedGame,
-        ),
-      );
-
-      // Save settings if category changed
-      if (state.game.category != updatedGame.category) {
-        _saveSettings();
-      }
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to remove category: $error',
-        ),
-      );
-    }
-  }
-
-  void _onWordPairSimilarityUpdated(
-    WordPairSimilarityUpdated event,
-    Emitter<GameState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        game: state.game.copyWith(
-          wordPairSimilarity: event.similarity,
-        ),
-      ),
-    );
-
-    // Save settings to repository
-    _saveSettings();
   }
 }
