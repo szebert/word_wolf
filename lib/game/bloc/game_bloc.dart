@@ -6,9 +6,11 @@ import 'package:equatable/equatable.dart';
 
 import '../models/game.dart';
 import '../models/player.dart';
+import '../models/word_pair_results.dart';
 import '../repository/category_repository.dart';
 import '../repository/game_repository.dart';
 import '../repository/player_repository.dart';
+import '../services/word_pair_service.dart';
 
 part 'game_event.dart';
 part 'game_state.dart';
@@ -18,33 +20,44 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     required PlayerRepository playerRepository,
     required CategoryRepository categoryRepository,
     required GameRepository gameRepository,
+    required WordPairService wordPairService,
   })  : _playerRepository = playerRepository,
         _categoryRepository = categoryRepository,
         _gameRepository = gameRepository,
+        _wordPairService = wordPairService,
         super(const GameState()) {
     on<GameInitialized>(_onGameInitialized);
-    on<PlayerAdded>(_onPlayerAdded);
-    on<PlayerRemoved>(_onPlayerRemoved);
-    on<PlayerNameUpdated>(_onPlayerNameUpdated);
-    on<GameCategoryUpdated>(_onGameCategoryUpdated);
-    on<WolvesCountUpdated>(_onWolvesCountUpdated);
-    on<GameWordsUpdated>(_onGameWordsUpdated);
-    on<GameDiscussionTimeUpdated>(_onGameDiscussionTimeUpdated);
+
     on<GameStarted>(_onGameStarted);
     on<GamePhaseAdvanced>(_onGamePhaseAdvanced);
     on<GameTimerTicked>(_onGameTimerTicked);
     on<GameReset>(_onGameReset);
-    on<GameCategorySearchUpdated>(_onGameCategorySearchUpdated);
-    on<SavedCategoriesLoaded>(_onSavedCategoriesLoaded);
+
+    // Player Setup Page events
+    on<PlayerAdded>(_onPlayerAdded);
+    on<PlayerRemoved>(_onPlayerRemoved);
+    on<PlayerNameUpdated>(_onPlayerNameUpdated);
+
+    // Game Settings Page events
+    on<WolvesCountUpdated>(_onWolvesCountUpdated);
+    on<GameDiscussionTimeUpdated>(_onGameDiscussionTimeUpdated);
+    on<WordPairSimilarityUpdated>(_onWordPairSimilarityUpdated);
+
+    // Game Categories Page preload events
     on<PresetCategoriesLoaded>(_onPresetCategoriesLoaded);
+    on<SavedCategoriesLoaded>(_onSavedCategoriesLoaded);
+
+    // Game Categories Page events
+    on<GameCategorySearchUpdated>(_onGameCategorySearchUpdated);
+    on<GameCategoryUpdated>(_onGameCategoryUpdated);
     on<CategorySaved>(_onCategorySaved);
     on<CategoryRemoved>(_onCategoryRemoved);
-    on<WordPairSimilarityUpdated>(_onWordPairSimilarityUpdated);
   }
 
   final PlayerRepository _playerRepository;
   final CategoryRepository _categoryRepository;
   final GameRepository _gameRepository;
+  final WordPairService _wordPairService;
   Timer? _timer;
 
   @override
@@ -239,20 +252,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _saveSettings();
   }
 
-  void _onGameWordsUpdated(
-    GameWordsUpdated event,
-    Emitter<GameState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        game: state.game.copyWith(
-          citizenWord: event.citizenWord,
-          wolfWord: event.wolfWord,
-        ),
-      ),
-    );
-  }
-
   void _onGameDiscussionTimeUpdated(
     GameDiscussionTimeUpdated event,
     Emitter<GameState> emit,
@@ -269,19 +268,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _saveSettings();
   }
 
-  void _onGameStarted(
+  Future<void> _onGameStarted(
     GameStarted event,
     Emitter<GameState> emit,
-  ) {
-    if (!state.canStartGame) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Cannot start game. Check player count and game settings.',
-        ),
-      );
-      return;
-    }
+  ) async {
+    emit(state.copyWith(status: GameStatus.loading));
 
     final random = Random();
     final wolfCount = state.game.wolfCount;
@@ -302,12 +293,36 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return player.copyWith(role: role);
     }).toList();
 
+    //TODO: Remove this after testing
+    await Future.delayed(const Duration(seconds: 3));
+
+    WordPairResult result;
+    try {
+      // Get a random word pair based on selected category and similarity
+      result = await _wordPairService.getRandomWordPair(
+        category: state.game.category,
+        similarity: state.game.wordPairSimilarity,
+      );
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: 'Failed to get word pair: $error',
+        ),
+      );
+      return;
+    }
+
     // Start the game with word assignment phase
     emit(
       state.copyWith(
         status: GameStatus.inProgress,
         game: state.game.copyWith(
           players: playersWithRoles,
+          citizenWord: result.words[0],
+          wolfWord: result.words[1],
+          // Override category if it was previously filled
+          category: state.game.category.isNotEmpty ? result.category : '',
           phase: GamePhase.wordAssignment,
         ),
       ),

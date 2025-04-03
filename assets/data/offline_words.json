@@ -1,0 +1,404 @@
+{
+  "pairs": [
+    {
+      "category": "Fruits",
+      "words": ["Apple", "Banana"]
+    },
+    {
+      "category": "Sports",
+      "words": ["Basketball", "Hockey"]
+    },
+    {
+      "category": "Vehicles",
+      "words": ["Car", "Truck"]
+    },
+    {
+      "category": "Musical Instruments",
+      "words": ["Guitar", "Piano"]
+    },
+    {
+      "category": "Animals",
+      "words": ["Cat", "Dog"]
+    },
+    {
+      "category": "Animals",
+      "words": ["Lion", "Tiger"]
+    },
+    {
+      "category": "Plants",
+      "words": ["Rose", "Sunflower"]
+    },
+    {
+      "category": "Beverages",
+      "words": ["Coffee", "Tea"]
+    },
+    {
+      "category": "Furniture",
+      "words": ["Chair", "Table"]
+    },
+    {
+      "category": "Kitchen Utensils",
+      "words": ["Knife", "Spoon"]
+    },
+    {
+      "category": "Entertainment Genres",
+      "words": ["Comedy", "Horror"]
+    },
+    {
+      "category": "Seasons",
+      "words": ["Summer", "Winter"]
+    },
+    {
+      "category": "Foods",
+      "words": ["Pizza", "Burger"]
+    },
+    {
+      "category": "Beverages",
+      "words": ["Soda", "Juice"]
+    },
+    {
+      "category": "Transportation",
+      "words": ["Subway", "Taxi"]
+    },
+    {
+      "category": "Office Supplies",
+      "words": ["Pen", "Pencil"]
+    },
+    {
+      "category": "Nature",
+      "words": ["Ocean", "Desert"]
+    },
+    {
+      "category": "Literature",
+      "words": ["Novel", "Comic"]
+    },
+    {
+      "category": "Titles",
+      "words": ["King", "Queen"]
+    },
+    {
+      "category": "Colors",
+      "words": ["Red", "Blue"]
+    },
+    {
+      "category": "Streaming Platforms",
+      "words": ["Netflix", "YouTube"]
+    },
+    {
+      "category": "Music Genres",
+      "words": ["Rock", "Jazz"]
+    },
+    {
+      "category": "Clothing",
+      "words": ["Suit", "Dress"]
+    },
+    {
+      "category": "Sports",
+      "words": ["Baseball", "Cricket"]
+    },
+    {
+      "category": "Foods",
+      "words": ["Bread", "Rice"]
+    },
+    {
+      "category": "Technology",
+      "words": ["Phone", "Laptop"]
+    },
+    {
+      "category": "Insects",
+      "words": ["Spider", "Ant"]
+    },
+    {
+      "category": "Musical Instruments",
+      "words": ["Drum", "Trumpet"]
+    },
+    {
+      "category": "Nature",
+      "words": ["Waterfall", "Volcano"]
+    },
+    {
+      "category": "Entertainment",
+      "words": ["Movie", "Play"]
+    },
+    {
+      "category": "Beverages",
+      "words": ["Coke", "Pepsi"]
+    },
+    {
+      "category": "Vehicles",
+      "words": ["Airplane", "Helicopter"]
+    },
+    {
+      "category": "Foods",
+      "words": ["Butter", "Margarine"]
+    },
+    {
+      "category": "Literary Genres",
+      "words": ["Fiction", "Nonfiction"]
+    },
+    {
+      "category": "Concepts",
+      "words": ["War", "Peace"]
+    },
+    {
+      "category": "Technology",
+      "words": ["Laptop", "Tablet"]
+    },
+    {
+      "category": "Fruits",
+      "words": ["Strawberry", "Blueberry"]
+    },
+    {
+      "category": "Theater Genres",
+      "words": ["Comedy", "Tragedy"]
+    },
+    {
+      "category": "Literary Genres",
+      "words": ["Fairy Tale", "Legend"]
+    },
+    {
+      "category": "Reptiles",
+      "words": ["Snakes", "Lizards"]
+    },
+    {
+      "category": "Herbs and Spices",
+      "words": ["Rosemary", "Thyme"]
+    },
+    {
+      "category": "Nature",
+      "words": ["Forest", "Jungle"]
+    },
+    {
+      "category": "Sports",
+      "words": ["Soccer", "Basketball"]
+    },
+    {
+      "category": "Car Brands",
+      "words": ["Ferrari", "Lamborghini"]
+    },
+    {
+      "category": "Beverages",
+      "words": ["Black Tea", "Green Tea"]
+    },
+    {
+      "category": "Communication",
+      "words": ["E-mail", "Letter"]
+    },
+    {
+      "category": "Literature",
+      "words": ["Poem", "Novel"]
+    },
+    {
+      "category": "Animals",
+      "words": ["Puppy", "Kitten"]
+    },
+    {
+      "category": "Birds",
+      "words": ["Eagle", "Hawk"]
+    },
+    {
+      "category": "Performing Arts",
+      "words": ["Ballet", "Opera"]
+    },
+    {
+      "category": "Foods",
+      "words": ["Hot Dog", "Corn Dog"]
+    },
+    {
+      "category": "Metals",
+      "words": ["Gold", "Silver"]
+    },
+    {
+      "category": "Water Sports",
+      "words": ["Sailing", "Surfing"]
+    },
+    {
+      "category": "Superheroes",
+      "words": ["Spider-Man", "Batman"]
+    },
+    {
+      "category": "Geography",
+      "words": ["Antarctica", "Sahara"]
+    },
+    {
+      "category": "Musical Instruments",
+      "words": ["Flute", "Violin"]
+    },
+    {
+      "category": "Beverages",
+      "words": ["Red Wine", "White Wine"]
+    },
+    {
+      "category": "Kitchen Utensils",
+      "words": ["Knife", "Fork"]
+    },
+    {
+      "category": "Academic Subjects",
+      "words": ["Mathematics", "Physics"]
+    },
+    {
+      "category": "Flavors",
+      "words": ["Vanilla", "Chocolate"]
+    },
+    {
+      "category": "Nature",
+      "words": ["Sunrise", "Sunset"]
+    },
+    {
+      "category": "Desserts",
+      "words": ["Ice Cream", "Sorbet"]
+    },
+    {
+      "category": "Plants",
+      "words": ["Palm Tree", "Pine Tree"]
+    },
+    {
+      "category": "Condiments",
+      "words": ["Hot Sauce", "Ketchup"]
+    },
+    {
+      "category": "Amphibians",
+      "words": ["Frog", "Toad"]
+    },
+    {
+      "category": "Leisure Activities",
+      "words": ["Bowling", "Billiards"]
+    },
+    {
+      "category": "Geography",
+      "words": ["Urban", "Rural"]
+    },
+    {
+      "category": "Kitchenware",
+      "words": ["Cup", "Mug"]
+    },
+    {
+      "category": "Animals",
+      "words": ["Lion", "Leopard"]
+    },
+    {
+      "category": "Music Playback",
+      "words": ["Shuffle", "Repeat"]
+    },
+    {
+      "category": "Technology",
+      "words": ["Laptop", "Desktop"]
+    },
+    {
+      "category": "Nature",
+      "words": ["Beach", "Mountain"]
+    },
+    {
+      "category": "Music Genres",
+      "words": ["Pop", "R&B"]
+    },
+    {
+      "category": "Programming",
+      "words": ["HTML", "CSS"]
+    },
+    {
+      "category": "Opposites",
+      "words": ["Fire", "Ice"]
+    },
+    {
+      "category": "Japanese Media",
+      "words": ["Manga", "Anime"]
+    },
+    {
+      "category": "Australian Animals",
+      "words": ["Kangaroo", "Koala"]
+    },
+    {
+      "category": "Vehicles",
+      "words": ["SUV", "Sedan"]
+    },
+    {
+      "category": "Tools",
+      "words": ["Hammer", "Screwdriver"]
+    },
+    {
+      "category": "Science Fields",
+      "words": ["Genetics", "Robotics"]
+    },
+    {
+      "category": "Smartphones",
+      "words": ["Android", "iPhone"]
+    },
+    {
+      "category": "Art Techniques",
+      "words": ["Oil Painting", "Watercolor"]
+    },
+    {
+      "category": "Transportation",
+      "words": ["Trains", "Ships"]
+    },
+    {
+      "category": "Desserts",
+      "words": ["Cookies", "Brownies"]
+    },
+    {
+      "category": "Stationery",
+      "words": ["Eraser", "Highlighter"]
+    },
+    {
+      "category": "Music Genres",
+      "words": ["Jazz", "Hip-Hop"]
+    },
+    {
+      "category": "Plants",
+      "words": ["Cactus", "Flower"]
+    },
+    {
+      "category": "Writing Instruments",
+      "words": ["Fountain Pen", "Quill"]
+    },
+    {
+      "category": "Navigation Tools",
+      "words": ["Map", "Compass"]
+    },
+    {
+      "category": "Metals",
+      "words": ["Rose Gold", "Platinum"]
+    },
+    {
+      "category": "Recreational Sports",
+      "words": ["Roller Skates", "Skateboard"]
+    },
+    {
+      "category": "Marine Animals",
+      "words": ["Sea Turtle", "Dolphin"]
+    },
+    {
+      "category": "Tools",
+      "words": ["Chisel", "Wrench"]
+    },
+    {
+      "category": "Concepts",
+      "words": ["Mind", "Body"]
+    },
+    {
+      "category": "Story Terminology",
+      "words": ["Prequel", "Sequel"]
+    },
+    {
+      "category": "Architecture",
+      "words": ["Castle", "Palace"]
+    },
+    {
+      "category": "Breakfast Foods",
+      "words": ["Omelet", "Scrambled Eggs"]
+    },
+    {
+      "category": "Biomes",
+      "words": ["Jungle", "Coral Reef"]
+    },
+    {
+      "category": "Brain Teasers",
+      "words": ["Puzzle", "Riddle"]
+    },
+    {
+      "category": "Social Media Platforms",
+      "words": ["Facebook", "Twitter"]
+    }
+  ]
+}

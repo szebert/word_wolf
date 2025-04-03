@@ -19,12 +19,6 @@ class GameState extends Equatable {
   final Game game;
   final String error;
 
-  bool get canStartGame =>
-      game.players.length >= 3 &&
-      game.category.isNotEmpty &&
-      game.citizenWord.isNotEmpty &&
-      game.wolfWord.isNotEmpty;
-
   GameState copyWith({
     GameStatus? status,
     Game? game,

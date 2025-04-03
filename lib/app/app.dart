@@ -10,6 +10,7 @@ import "../game/bloc/game_bloc.dart";
 import "../game/repository/category_repository.dart";
 import "../game/repository/game_repository.dart";
 import "../game/repository/player_repository.dart";
+import "../game/services/word_pair_service.dart";
 import "../home/home_page.dart";
 import "../l10n/l10n.dart";
 import "../settings/settings_bloc.dart";
@@ -45,25 +46,22 @@ class App extends StatelessWidget {
           value: _analyticsRepository,
         ),
         RepositoryProvider<PlayerRepository>(
-          create: (context) {
-            return PlayerRepository(
-              persistentStorage: _persistentStorage,
-            );
-          },
+          create: (context) => PlayerRepository(
+            persistentStorage: _persistentStorage,
+          ),
         ),
         RepositoryProvider<CategoryRepository>(
-          create: (context) {
-            return CategoryRepository(
-              persistentStorage: _persistentStorage,
-            );
-          },
+          create: (context) => CategoryRepository(
+            persistentStorage: _persistentStorage,
+          ),
         ),
         RepositoryProvider<GameRepository>(
-          create: (context) {
-            return GameRepository(
-              persistentStorage: _persistentStorage,
-            );
-          },
+          create: (context) => GameRepository(
+            persistentStorage: _persistentStorage,
+          ),
+        ),
+        RepositoryProvider<WordPairService>(
+          create: (context) => WordPairService(),
         ),
       ],
       child: Builder(builder: (context) {
@@ -89,6 +87,7 @@ class App extends StatelessWidget {
                 playerRepository: context.read<PlayerRepository>(),
                 categoryRepository: context.read<CategoryRepository>(),
                 gameRepository: context.read<GameRepository>(),
+                wordPairService: context.read<WordPairService>(),
               )..add(const GameInitialized()),
             ),
             BlocProvider<AppBloc>(

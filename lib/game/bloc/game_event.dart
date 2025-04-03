@@ -64,19 +64,6 @@ class WolvesCountUpdated extends GameEvent {
       [numberOfWolves, randomizeWolfCount, autoAssignWolves];
 }
 
-class GameWordsUpdated extends GameEvent {
-  const GameWordsUpdated({
-    required this.citizenWord,
-    required this.wolfWord,
-  });
-
-  final String citizenWord;
-  final String wolfWord;
-
-  @override
-  List<Object?> get props => [citizenWord, wolfWord];
-}
-
 class GameDiscussionTimeUpdated extends GameEvent {
   const GameDiscussionTimeUpdated(this.timeInSeconds);
 

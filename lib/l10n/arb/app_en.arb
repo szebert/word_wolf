@@ -464,5 +464,29 @@
         "example": "1"
       }
     }
+  },
+  "wordDistribution": "Word Distribution",
+  "@wordDistribution": {
+    "description": "Title for the word distribution page"
+  },
+  "exitGame": "Exit Game",
+  "@exitGame": {
+    "description": "Title and tooltip for the exit game dialog"
+  },
+  "exitGameContent": "If you exit to the main menu, the words chosen will be lost. Is that okay?",
+  "@exitGameContent": {
+    "description": "Content text for the exit game dialog"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Text for the cancel button"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "Text for the OK button"
+  },
+  "wordDistributionLoading": "Loading word pair...",
+  "@wordDistributionLoading": {
+    "description": "Text for the loading state in the word distribution page"
   }
 }
