@@ -51,9 +51,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     // Distribute Words Page events
     on<GameStarted>(_onGameStarted);
 
-    // Unused events
-    on<GamePhaseAdvanced>(_onGamePhaseAdvanced);
+    // Discussion Page events
+    on<DiscussionStarted>(_onDiscussionStarted);
     on<GameTimerTicked>(_onGameTimerTicked);
+    on<GameTimerPaused>(_onGameTimerPaused);
+    on<GameTimerAdjusted>(_onGameTimerAdjusted);
+
+    // Voting Page events
+    on<VotingStarted>(_onVotingStarted);
+    on<SuddenDeathStarted>(_onSuddenDeathStarted);
+
+    // Unused events
     on<GameReset>(_onGameReset);
   }
 
@@ -227,7 +235,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(
       state.copyWith(
         game: state.game.copyWith(
-          customWolfCount: event.numberOfWolves,
+          customWolfCount: event.customWolfCount,
           randomizeWolfCount: event.randomizeWolfCount,
           autoAssignWolves: event.autoAssignWolves,
         ),
@@ -412,7 +420,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(state.copyWith(status: GameStatus.loading));
 
     final random = Random();
-    final wolfCount = state.game.wolfCount;
+    final wolfCount = state.game.generateWolfCount;
     final playerCount = state.game.players.length;
 
     // Select random player indices to be wolves
@@ -467,53 +475,31 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  // Unused events
-  void _onGamePhaseAdvanced(
-    GamePhaseAdvanced event,
+  // Discussion Page events
+  void _onDiscussionStarted(
+    DiscussionStarted event,
     Emitter<GameState> emit,
   ) {
-    final currentPhase = state.game.phase;
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          phase: GamePhase.discussion,
+          remainingTimeInSeconds: state.game.discussionTimeInSeconds,
+        ),
+      ),
+    );
+    _startTimer();
+  }
 
-    switch (currentPhase) {
-      case GamePhase.setup:
-        emit(
-          state.copyWith(
-            game: state.game.copyWith(phase: GamePhase.wordAssignment),
-          ),
-        );
-        break;
-      case GamePhase.wordAssignment:
-        emit(
-          state.copyWith(
-            game: state.game.copyWith(
-              phase: GamePhase.discussion,
-              remainingTimeInSeconds: state.game.discussionTimeInSeconds,
-            ),
-          ),
-        );
-        _startTimer();
-        break;
-      case GamePhase.discussion:
-        _timer?.cancel();
-        emit(
-          state.copyWith(
-            game: state.game.copyWith(
-              phase: GamePhase.voting,
-              remainingTimeInSeconds: 0,
-            ),
-          ),
-        );
-        break;
-      case GamePhase.voting:
-        emit(
-          state.copyWith(
-            game: state.game.copyWith(phase: GamePhase.results),
-          ),
-        );
-        break;
-      case GamePhase.results:
-        break;
-    }
+  void _startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        final remainingSeconds = state.game.remainingTimeInSeconds - 1;
+        add(GameTimerTicked(remainingSeconds));
+      },
+    );
   }
 
   void _onGameTimerTicked(
@@ -530,21 +516,73 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     if (event.remainingSeconds <= 0) {
       _timer?.cancel();
-      add(const GamePhaseAdvanced());
+      add(const VotingStarted());
     }
   }
 
-  void _startTimer() {
-    _timer?.cancel();
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        final remainingSeconds = state.game.remainingTimeInSeconds - 1;
-        add(GameTimerTicked(remainingSeconds));
-      },
+  void _onGameTimerPaused(
+    GameTimerPaused event,
+    Emitter<GameState> emit,
+  ) {
+    if (event.paused) {
+      // Pause the timer
+      _timer?.cancel();
+    } else {
+      // Resume the timer
+      _startTimer();
+    }
+  }
+
+  void _onGameTimerAdjusted(
+    GameTimerAdjusted event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          remainingTimeInSeconds: event.newTimeInSeconds,
+        ),
+      ),
     );
   }
 
+  // Voting Page events
+  void _onVotingStarted(
+    VotingStarted event,
+    Emitter<GameState> emit,
+  ) {
+    // Cancel any existing timer
+    _timer?.cancel();
+
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(phase: GamePhase.voting),
+      ),
+    );
+  }
+
+  void _onSuddenDeathStarted(
+    SuddenDeathStarted event,
+    Emitter<GameState> emit,
+  ) {
+    // Cancel any existing timer
+    _timer?.cancel();
+
+    // Set the timer to 1 minute for sudden death
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          phase: GamePhase.discussion,
+          remainingTimeInSeconds: 60, // 1 minute
+        ),
+      ),
+    );
+
+    // Start the timer
+    _startTimer();
+  }
+
+  // Unused events
   void _onGameReset(
     GameReset event,
     Emitter<GameState> emit,

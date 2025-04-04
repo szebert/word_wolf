@@ -520,5 +520,49 @@
   "discussion": "Discussion",
   "@discussion": {
     "description": "Text for the discussion page title"
+  },
+  "discussionTimerValue": "{minutes}:{seconds}",
+  "@discussionTimerValue": {
+    "description": "Text showing remaining time for the discussion",
+    "placeholders": {
+      "minutes": {
+        "description": "Minutes",
+        "type": "String",
+        "example": "59"
+      },
+      "seconds": {
+        "description": "Seconds",
+        "type": "String",
+        "example": "59"
+      }
+    }
+  },
+  "pause": "Pause",
+  "@pause": {
+    "description": "Text for the pause button"
+  },
+  "resume": "Resume",
+  "@resume": {
+    "description": "Text for the resume button"
+  },
+  "endDiscussion": "End",
+  "@endDiscussion": {
+    "description": "Text for the end discussion button"
+  },
+  "icebreakers": "Icebreakers",
+  "@icebreakers": {
+    "description": "Text for the icebreakers section"
+  },
+  "icebreakersSubtitle": "Optional conversation starters to help players discuss their words",
+  "@icebreakersSubtitle": {
+    "description": "Text for the icebreakers subtitle"
+  },
+  "voting": "Voting",
+  "@voting": {
+    "description": "Text for the voting page title"
+  },
+  "suddenDeath": "Sudden Death",
+  "@suddenDeath": {
+    "description": "Text for the sudden death button"
   }
 }

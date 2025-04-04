@@ -137,3 +137,29 @@ class WordPairSimilarityUpdated extends GameEvent {
   @override
   List<Object?> get props => [similarity];
 }
+
+class GameTimerPaused extends GameEvent {
+  const GameTimerPaused({required this.paused});
+
+  final bool paused;
+
+  @override
+  List<Object?> get props => [paused];
+}
+
+class GameTimerAdjusted extends GameEvent {
+  const GameTimerAdjusted(this.newTimeInSeconds);
+
+  final int newTimeInSeconds;
+
+  @override
+  List<Object?> get props => [newTimeInSeconds];
+}
+
+class SuddenDeathStarted extends GameEvent {
+  const SuddenDeathStarted();
+}
+
+class VotingStarted extends GameEvent {
+  const VotingStarted();
+}
