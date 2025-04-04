@@ -25,38 +25,41 @@ class AppExitScope extends StatelessWidget {
   /// If not provided, defaults to navigating to HomePage.
   final VoidCallback? onExit;
 
+  /// Builds the exit confirmation dialog.
+  static Widget _buildExitConfirmationDialog(BuildContext context) {
+    final l10n = context.l10n;
+
+    return AlertDialog(
+      title: AppText(l10n.exitGame),
+      content: AppText(
+        l10n.exitGameContent,
+      ),
+      actions: <Widget>[
+        AppButton(
+          variant: AppButtonVariant.outlined,
+          onPressed: () => Navigator.of(context).pop(false),
+          child: AppText(l10n.cancel),
+        ),
+        AppButton(
+          variant: AppButtonVariant.filled,
+          onPressed: () => Navigator.of(context).pop(true),
+          child: AppText(l10n.ok),
+        ),
+      ],
+    );
+  }
+
   /// Shows a dialog asking the user to confirm exiting.
   Future<bool> _showExitConfirmationDialog(BuildContext context) async {
     final result = await showDialog<bool>(
       context: context,
-      builder: (BuildContext context) {
-        final l10n = context.l10n;
-
-        return AlertDialog(
-          title: AppText(l10n.exitGame),
-          content: AppText(
-            l10n.exitGameContent,
-          ),
-          actions: <Widget>[
-            AppButton(
-              variant: AppButtonVariant.outlined,
-              onPressed: () => Navigator.of(context).pop(true),
-              child: AppText(l10n.ok),
-            ),
-            AppButton(
-              variant: AppButtonVariant.filled,
-              onPressed: () => Navigator.of(context).pop(false),
-              child: AppText(l10n.cancel),
-            ),
-          ],
-        );
-      },
+      builder: (BuildContext context) => _buildExitConfirmationDialog(context),
     );
     return result ?? false;
   }
 
   /// Navigates to the HomePage and clears the navigation history.
-  void _exitToMainMenu(BuildContext context) {
+  static void _exitToMainMenu(BuildContext context) {
     // Navigate to the HomePage and clear the navigation history
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute<void>(builder: (context) => const HomePage()),
@@ -74,35 +77,11 @@ class AppExitScope extends StatelessWidget {
       onPressed: () async {
         final shouldExit = await showDialog<bool>(
           context: context,
-          builder: (BuildContext context) {
-            final l10n = context.l10n;
-
-            return AlertDialog(
-              title: AppText(l10n.exitGame),
-              content: AppText(
-                l10n.exitGameContent,
-              ),
-              actions: <Widget>[
-                AppButton(
-                  variant: AppButtonVariant.outlined,
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: AppText(l10n.ok),
-                ),
-                AppButton(
-                  variant: AppButtonVariant.filled,
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: AppText(l10n.cancel),
-                ),
-              ],
-            );
-          },
+          builder: (BuildContext context) =>
+              _buildExitConfirmationDialog(context),
         );
         if (shouldExit == true && context.mounted) {
-          // Navigate to the HomePage and clear the navigation history
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute<void>(builder: (context) => const HomePage()),
-            (Route<dynamic> route) => false,
-          );
+          _exitToMainMenu(context);
         }
       },
     );

@@ -8,6 +8,7 @@ import '../../l10n/l10n.dart';
 import '../bloc/game_bloc.dart';
 import '../models/game.dart';
 import '../models/player.dart';
+import '../services/used_words_storage.dart';
 
 class DiscussionPage extends StatelessWidget {
   const DiscussionPage({super.key});
@@ -32,6 +33,8 @@ class DiscussionView extends StatefulWidget {
 }
 
 class _DiscussionViewState extends State<DiscussionView> {
+  List<String> _previouslyUsedWords = [];
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +44,19 @@ class _DiscussionViewState extends State<DiscussionView> {
         // context.read<GameBloc>().add(const XYZ());
       }
     });
+    // Load previously used words
+    _loadPreviouslyUsedWords();
+  }
+
+  Future<void> _loadPreviouslyUsedWords() async {
+    final usedWordsStorage = context.read<UsedWordsStorage>();
+    final words = await usedWordsStorage.getPreviouslyUsedWords();
+
+    if (mounted) {
+      setState(() {
+        _previouslyUsedWords = words;
+      });
+    }
   }
 
   @override
@@ -55,7 +71,7 @@ class _DiscussionViewState extends State<DiscussionView> {
           return Scaffold(
             appBar: AppBar(
               title: AppText(
-                l10n.wordDistribution,
+                l10n.discussion,
                 variant: AppTextVariant.titleLarge,
               ),
               leading: AppExitScope.createBackButton(context),
@@ -119,6 +135,13 @@ class _DiscussionViewState extends State<DiscussionView> {
                     .map((player) =>
                         '${player.name} - ${_formatRole(player.role)}')
                     .toList(),
+              ),
+              const Divider(),
+              _buildDataSection(
+                'Previously Used Words',
+                _previouslyUsedWords.isEmpty
+                    ? ['No previously used words']
+                    : _previouslyUsedWords,
               ),
             ],
           ),

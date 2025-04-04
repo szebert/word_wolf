@@ -516,5 +516,9 @@
   "displayWordConfirmation": "I've memorized my word!",
   "@displayWordConfirmation": {
     "description": "Text for the display word confirmation button"
+  },
+  "discussion": "Discussion",
+  "@discussion": {
+    "description": "Text for the discussion page title"
   }
 }

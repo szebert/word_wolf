@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 
 import '../models/word_pair_results.dart';
+import 'used_words_storage.dart';
 
 /// {@template word_pair_service}
 /// Service for managing word pairs for the game.
@@ -11,8 +12,11 @@ import '../models/word_pair_results.dart';
 /// {@endtemplate}
 class WordPairService {
   /// {@macro word_pair_service}
-  WordPairService();
+  WordPairService({
+    required UsedWordsStorage usedWordsStorage,
+  }) : _usedWordsStorage = usedWordsStorage;
 
+  final UsedWordsStorage _usedWordsStorage;
   static const String _kOfflineWordsPath = 'assets/data/offline_words.json';
   List<Map<String, dynamic>>? _offlinePairsCache;
 
@@ -48,12 +52,28 @@ class WordPairService {
   }
 
   /// Returns a random word pair result with specified category and similarity
-  Future<WordPairResult> getRandomOfflineWordPair() async {
+  Future<WordPairResult> getRandomOfflineWordPair({
+    List<String> excludeWords = const [],
+  }) async {
     final random = Random();
     final pairs = await _loadOfflineWordPairs();
 
-    // Select random pair from the offline list
-    final randomPair = pairs[random.nextInt(pairs.length)];
+    // Filter out pairs containing any of the excluded words (case insensitive)
+    final lowerExcludeWords = excludeWords.map((w) => w.toLowerCase()).toList();
+
+    // Filter pairs that don't contain any excluded words
+    final eligiblePairs = pairs.where((pair) {
+      final words = (pair['words'] as List).cast<String>();
+      // Check if any word in this pair is in the excluded list
+      return !words
+          .any((word) => lowerExcludeWords.contains(word.toLowerCase()));
+    }).toList();
+
+    // If all pairs are excluded (extreme case), just use all pairs
+    final pairsToUse = eligiblePairs.isNotEmpty ? eligiblePairs : pairs;
+
+    // Select random pair from the filtered list
+    final randomPair = pairsToUse[random.nextInt(pairsToUse.length)];
 
     // Create a WordPairResult and validate it
     final result = WordPairResult.fromMap(randomPair);
@@ -73,7 +93,20 @@ class WordPairService {
     String category = '',
     double similarity = 0.5,
   }) async {
+    // Get previously used words if storage is available
+    List<String> previouslyUsedWords =
+        await _usedWordsStorage.getPreviouslyUsedWords();
+
     // TODO: Implement online word pair retrieval
-    return getRandomOfflineWordPair();
+
+    // Get random pair, excluding previously used words
+    final result = await getRandomOfflineWordPair(
+      excludeWords: previouslyUsedWords,
+    );
+
+    // Store the new words for future use
+    await _usedWordsStorage.addUsedWords(result.words);
+
+    return result;
   }
 }

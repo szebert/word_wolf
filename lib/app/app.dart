@@ -10,6 +10,7 @@ import "../game/bloc/game_bloc.dart";
 import "../game/repository/category_repository.dart";
 import "../game/repository/game_repository.dart";
 import "../game/repository/player_repository.dart";
+import "../game/services/used_words_storage.dart";
 import "../game/services/word_pair_service.dart";
 import "../home/home_page.dart";
 import "../l10n/l10n.dart";
@@ -66,8 +67,15 @@ class App extends StatelessWidget {
             persistentStorage: _persistentStorage,
           ),
         ),
+        RepositoryProvider<UsedWordsStorage>(
+          create: (context) => UsedWordsStorage(
+            storage: _persistentStorage,
+          ),
+        ),
         RepositoryProvider<WordPairService>(
-          create: (context) => WordPairService(),
+          create: (context) => WordPairService(
+            usedWordsStorage: context.read<UsedWordsStorage>(),
+          ),
         ),
       ],
       child: Builder(builder: (context) {
