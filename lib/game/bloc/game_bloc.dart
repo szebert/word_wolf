@@ -460,6 +460,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           wolfWord: result.words[1],
           // Override category if it was previously filled
           category: state.game.category.isNotEmpty ? result.category : '',
+          icebreakers: result.icebreakers,
           phase: GamePhase.wordAssignment,
         ),
       ),

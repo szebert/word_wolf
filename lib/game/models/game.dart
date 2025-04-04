@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'player.dart';
 import 'saved_category.dart';
+import 'word_pair_results.dart';
 
 enum GamePhase {
   setup,
@@ -27,6 +28,7 @@ class Game extends Equatable {
     this.savedCategories = const [],
     this.presetCategories = const [],
     this.wordPairSimilarity = 0.5, // Default medium similarity
+    this.icebreakers = const [],
   });
 
   final List<Player> players;
@@ -44,6 +46,7 @@ class Game extends Equatable {
   final List<String> presetCategories;
   // Controls how similar or different word pairs should be
   final double wordPairSimilarity;
+  final List<Icebreaker> icebreakers;
 
   int get wolfCount {
     if (customWolfCount != null) {
@@ -90,6 +93,7 @@ class Game extends Equatable {
     List<SavedCategory>? savedCategories,
     List<String>? presetCategories,
     double? wordPairSimilarity,
+    List<Icebreaker>? icebreakers,
   }) {
     return Game(
       players: players ?? this.players,
@@ -108,6 +112,7 @@ class Game extends Equatable {
       savedCategories: savedCategories ?? this.savedCategories,
       presetCategories: presetCategories ?? this.presetCategories,
       wordPairSimilarity: wordPairSimilarity ?? this.wordPairSimilarity,
+      icebreakers: icebreakers ?? this.icebreakers,
     );
   }
 
@@ -127,5 +132,6 @@ class Game extends Equatable {
         savedCategories,
         presetCategories,
         wordPairSimilarity,
+        icebreakers,
       ];
 }

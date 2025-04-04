@@ -1,3 +1,39 @@
+/// Represents an icebreaker to help facilitate discussion
+class Icebreaker {
+  /// Short label for the icebreaker
+  final String label;
+
+  /// The icebreaker statement or question
+  final String statement;
+
+  Icebreaker({
+    required this.label,
+    required this.statement,
+  });
+
+  /// Creates an Icebreaker from a map
+  factory Icebreaker.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('label') || !map.containsKey('statement')) {
+      throw FormatException(
+        'Invalid format: icebreaker must have label and statement',
+      );
+    }
+
+    return Icebreaker(
+      label: map['label'] as String,
+      statement: map['statement'] as String,
+    );
+  }
+
+  /// Converts to a Map representation
+  Map<String, dynamic> toMap() {
+    return {
+      'label': label,
+      'statement': statement,
+    };
+  }
+}
+
 /// Represents the result of a word pair request
 class WordPairResult {
   /// List of words in the pair
@@ -6,9 +42,13 @@ class WordPairResult {
   /// Category the words belong to
   final String category;
 
+  /// List of icebreakers for this word pair
+  final List<Icebreaker> icebreakers;
+
   WordPairResult({
     required this.words,
     this.category = '',
+    this.icebreakers = const [],
   }) {
     // Validate the structure
     if (words.isEmpty) {
@@ -28,6 +68,9 @@ class WordPairResult {
     final wordsValue = map['words'];
     // Category is optional, default to empty string
     final categoryValue = map['category'] as String? ?? '';
+
+    // Icebreakers are optional
+    final icebreakersValue = map['icebreakers'] as List? ?? [];
 
     // Validate types
     if (wordsValue is! List) {
@@ -54,9 +97,16 @@ class WordPairResult {
       );
     }
 
+    // Convert icebreakers list
+    final icebreakersList = List<Icebreaker>.from(
+      icebreakersValue
+          .map((item) => Icebreaker.fromMap(item as Map<String, dynamic>)),
+    );
+
     return WordPairResult(
       words: wordsList,
       category: categoryValue,
+      icebreakers: icebreakersList,
     );
   }
 
@@ -65,6 +115,8 @@ class WordPairResult {
     return {
       'words': words,
       'category': category,
+      'icebreakers':
+          icebreakers.map((icebreaker) => icebreaker.toMap()).toList(),
     };
   }
 }

@@ -138,6 +138,14 @@ class _DiscussionViewState extends State<DiscussionView> {
               ),
               const Divider(),
               _buildDataSection(
+                'Icebreakers',
+                game.icebreakers
+                    .map((icebreaker) =>
+                        '${icebreaker.label}: ${icebreaker.statement}')
+                    .toList(),
+              ),
+              const Divider(),
+              _buildDataSection(
                 'Previously Used Words',
                 _previouslyUsedWords.isEmpty
                     ? ['No previously used words']

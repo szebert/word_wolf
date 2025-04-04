@@ -2,403 +2,1803 @@
   "pairs": [
     {
       "category": "Fruits",
-      "words": ["Apple", "Banana"]
+      "words": ["Apple", "Banana"],
+      "icebreakers": [
+        {
+          "label": "When",
+          "statement": "When was the last time you ate this fruit?"
+        },
+        {
+          "label": "Preference",
+          "statement": "How do you prefer to eat this fruit - raw, cooked, or in a dish?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Share a childhood memory involving this fruit."
+        }
+      ]
     },
     {
       "category": "Sports",
-      "words": ["Basketball", "Hockey"]
+      "words": ["Basketball", "Hockey"],
+      "icebreakers": [
+        {
+          "label": "Experience",
+          "statement": "Have you ever played or watched this sport?"
+        },
+        {
+          "label": "Famous",
+          "statement": "Name a famous player in this sport you admire."
+        },
+        {
+          "label": "Rules",
+          "statement": "Explain one rule of this sport that you find interesting."
+        }
+      ]
     },
     {
       "category": "Vehicles",
-      "words": ["Car", "Truck"]
+      "words": ["Car", "Truck"],
+      "icebreakers": [
+        {
+          "label": "Dream",
+          "statement": "Describe your dream version of this vehicle."
+        },
+        {
+          "label": "Memory",
+          "statement": "What's a memorable journey you've taken in this type of vehicle?"
+        },
+        {
+          "label": "Feature",
+          "statement": "What feature do you think is most important in this vehicle?"
+        }
+      ]
     },
     {
       "category": "Musical Instruments",
-      "words": ["Guitar", "Piano"]
+      "words": ["Guitar", "Piano"],
+      "icebreakers": [
+        {
+          "label": "Play",
+          "statement": "Have you ever tried to play this instrument?"
+        },
+        {
+          "label": "Song",
+          "statement": "What's a famous song featuring this instrument?"
+        },
+        {
+          "label": "Musician",
+          "statement": "Who's your favorite musician who plays this instrument?"
+        }
+      ]
     },
     {
       "category": "Animals",
-      "words": ["Cat", "Dog"]
+      "words": ["Cat", "Dog"],
+      "icebreakers": [
+        {
+          "label": "Pet",
+          "statement": "Have you ever had this animal as a pet?"
+        },
+        {
+          "label": "Breed",
+          "statement": "What's your favorite breed of this animal?"
+        },
+        {
+          "label": "Interaction",
+          "statement": "Describe a memorable interaction you've had with this animal."
+        }
+      ]
     },
     {
       "category": "Animals",
-      "words": ["Lion", "Tiger"]
+      "words": ["Lion", "Tiger"],
+      "icebreakers": [
+        {
+          "label": "Zoo",
+          "statement": "Have you ever seen this animal at a zoo?"
+        },
+        {
+          "label": "Movie",
+          "statement": "Name a movie or show featuring this animal."
+        },
+        {
+          "label": "Trait",
+          "statement": "What characteristic of this animal do you find most impressive?"
+        }
+      ]
     },
     {
       "category": "Plants",
-      "words": ["Rose", "Sunflower"]
+      "words": ["Rose", "Sunflower"],
+      "icebreakers": [
+        {
+          "label": "Gift",
+          "statement": "Have you ever given or received this flower as a gift?"
+        },
+        {
+          "label": "Meaning",
+          "statement": "Do you know what this flower symbolizes?"
+        },
+        {
+          "label": "Garden",
+          "statement": "Would you grow this in your garden? Why or why not?"
+        }
+      ]
     },
     {
       "category": "Beverages",
-      "words": ["Coffee", "Tea"]
+      "words": ["Coffee", "Tea"],
+      "icebreakers": [
+        {
+          "label": "Morning",
+          "statement": "Do you drink this as part of your morning routine?"
+        },
+        {
+          "label": "Preference",
+          "statement": "How do you take this drink - with sugar, milk, or plain?"
+        },
+        {
+          "label": "Favorite",
+          "statement": "What's your favorite variety of this drink?"
+        }
+      ]
     },
     {
       "category": "Furniture",
-      "words": ["Chair", "Table"]
+      "words": ["Chair", "Table"],
+      "icebreakers": [
+        {
+          "label": "Style",
+          "statement": "What style of this furniture do you have at home?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Share a memory involving this piece of furniture."
+        },
+        {
+          "label": "Design",
+          "statement": "What's the most unusual design of this furniture you've seen?"
+        }
+      ]
     },
     {
       "category": "Kitchen Utensils",
-      "words": ["Knife", "Spoon"]
+      "words": ["Knife", "Spoon"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "What's something unusual you've done with this utensil?"
+        },
+        {
+          "label": "Quality",
+          "statement": "What makes a good quality version of this utensil?"
+        },
+        {
+          "label": "Collection",
+          "statement": "Do you have any special versions of this in your kitchen?"
+        }
+      ]
     },
     {
       "category": "Entertainment Genres",
-      "words": ["Comedy", "Horror"]
+      "words": ["Comedy", "Horror"],
+      "icebreakers": [
+        {
+          "label": "Example",
+          "statement": "What's your favorite example of this genre?"
+        },
+        {
+          "label": "Reaction",
+          "statement": "How does this genre make you feel?"
+        },
+        {
+          "label": "Creator",
+          "statement": "Who's your favorite creator in this genre?"
+        }
+      ]
     },
     {
       "category": "Seasons",
-      "words": ["Summer", "Winter"]
+      "words": ["Summer", "Winter"],
+      "icebreakers": [
+        {
+          "label": "Activity",
+          "statement": "What's your favorite activity during this season?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Share your fondest memory from this season."
+        },
+        {
+          "label": "Food",
+          "statement": "What food do you associate most with this season?"
+        }
+      ]
     },
     {
       "category": "Foods",
-      "words": ["Pizza", "Burger"]
+      "words": ["Pizza", "Burger"],
+      "icebreakers": [
+        {
+          "label": "Toppings",
+          "statement": "What are your favorite toppings for this food?"
+        },
+        {
+          "label": "Restaurant",
+          "statement": "What restaurant serves the best version of this?"
+        },
+        {
+          "label": "Homemade",
+          "statement": "Have you ever made this from scratch at home?"
+        }
+      ]
     },
     {
       "category": "Beverages",
-      "words": ["Soda", "Juice"]
+      "words": ["Soda", "Juice"],
+      "icebreakers": [
+        {
+          "label": "Flavor",
+          "statement": "What's your favorite flavor of this drink?"
+        },
+        {
+          "label": "Occasion",
+          "statement": "On what occasion do you typically drink this?"
+        },
+        {
+          "label": "Brand",
+          "statement": "Do you have a preferred brand for this beverage?"
+        }
+      ]
     },
     {
       "category": "Transportation",
-      "words": ["Subway", "Taxi"]
+      "words": ["Subway", "Taxi"],
+      "icebreakers": [
+        {
+          "label": "Experience",
+          "statement": "Share an interesting experience you've had while using this."
+        },
+        {
+          "label": "Frequency",
+          "statement": "How often do you use this mode of transportation?"
+        },
+        {
+          "label": "Compare",
+          "statement": "How does this compare to other transportation options in your city?"
+        }
+      ]
     },
     {
       "category": "Office Supplies",
-      "words": ["Pen", "Pencil"]
+      "words": ["Pen", "Pencil"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you have a preference for using this writing tool?"
+        },
+        {
+          "label": "Collection",
+          "statement": "Have you ever collected different types of these?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Share a memory of using this in school."
+        }
+      ]
     },
     {
       "category": "Nature",
-      "words": ["Ocean", "Desert"]
+      "words": ["Ocean", "Desert"],
+      "icebreakers": [
+        {
+          "label": "Visit",
+          "statement": "Have you ever visited this natural environment?"
+        },
+        {
+          "label": "Wildlife",
+          "statement": "What wildlife in this environment fascinates you most?"
+        },
+        {
+          "label": "Survival",
+          "statement": "What would be your strategy for surviving in this environment?"
+        }
+      ]
     },
     {
       "category": "Literature",
-      "words": ["Novel", "Comic"]
+      "words": ["Novel", "Comic"],
+      "icebreakers": [
+        {
+          "label": "Favorite",
+          "statement": "What's your favorite example of this type of literature?"
+        },
+        {
+          "label": "Character",
+          "statement": "Name a memorable character from this type of literature."
+        },
+        {
+          "label": "Reading",
+          "statement": "How often do you read this type of literature?"
+        }
+      ]
     },
     {
       "category": "Titles",
-      "words": ["King", "Queen"]
+      "words": ["King", "Queen"],
+      "icebreakers": [
+        {
+          "label": "Historical",
+          "statement": "Name a famous historical figure with this title."
+        },
+        {
+          "label": "Fictional",
+          "statement": "Who's your favorite fictional character with this title?"
+        },
+        {
+          "label": "Modern",
+          "statement": "Does this title have relevance in modern society?"
+        }
+      ]
     },
     {
       "category": "Colors",
-      "words": ["Red", "Blue"]
+      "words": ["Red", "Blue"],
+      "icebreakers": [
+        {
+          "label": "Wardrobe",
+          "statement": "Do you have many items in this color in your wardrobe?"
+        },
+        {
+          "label": "Mood",
+          "statement": "What mood or emotion do you associate with this color?"
+        },
+        {
+          "label": "Object",
+          "statement": "Name something beautiful that comes in this color."
+        }
+      ]
     },
     {
       "category": "Streaming Platforms",
-      "words": ["Netflix", "YouTube"]
+      "words": ["Netflix", "YouTube"],
+      "icebreakers": [
+        {
+          "label": "Time",
+          "statement": "How much time do you spend on this platform weekly?"
+        },
+        {
+          "label": "Content",
+          "statement": "What type of content do you usually watch here?"
+        },
+        {
+          "label": "Recommendation",
+          "statement": "Recommend something from this platform to the group."
+        }
+      ]
     },
     {
       "category": "Music Genres",
-      "words": ["Rock", "Jazz"]
+      "words": ["Rock", "Jazz"],
+      "icebreakers": [
+        {
+          "label": "Artist",
+          "statement": "Who's your favorite artist in this genre?"
+        },
+        {
+          "label": "Concert",
+          "statement": "Have you ever been to a concert of this genre?"
+        },
+        {
+          "label": "Instrument",
+          "statement": "What instrument do you think is most important in this genre?"
+        }
+      ]
     },
     {
       "category": "Clothing",
-      "words": ["Suit", "Dress"]
+      "words": ["Suit", "Dress"],
+      "icebreakers": [
+        {
+          "label": "Occasion",
+          "statement": "When was the last time you wore this type of clothing?"
+        },
+        {
+          "label": "Shopping",
+          "statement": "Do you enjoy shopping for this type of clothing?"
+        },
+        {
+          "label": "Style",
+          "statement": "What style of this clothing do you prefer?"
+        }
+      ]
     },
     {
       "category": "Sports",
-      "words": ["Baseball", "Cricket"]
+      "words": ["Baseball", "Cricket"],
+      "icebreakers": [
+        {
+          "label": "Played",
+          "statement": "Have you ever played this sport?"
+        },
+        {
+          "label": "Rules",
+          "statement": "Explain a rule of this sport to someone who's never seen it."
+        },
+        {
+          "label": "Team",
+          "statement": "Do you have a favorite team in this sport?"
+        }
+      ]
     },
     {
       "category": "Foods",
-      "words": ["Bread", "Rice"]
+      "words": ["Bread", "Rice"],
+      "icebreakers": [
+        {
+          "label": "Frequency",
+          "statement": "How often do you eat this staple food?"
+        },
+        {
+          "label": "Variety",
+          "statement": "What's your favorite variety of this food?"
+        },
+        {
+          "label": "Dish",
+          "statement": "What's your favorite dish that includes this ingredient?"
+        }
+      ]
     },
     {
       "category": "Technology",
-      "words": ["Phone", "Laptop"]
+      "words": ["Phone", "Laptop"],
+      "icebreakers": [
+        {
+          "label": "Brand",
+          "statement": "What brand of this device do you currently use?"
+        },
+        {
+          "label": "Usage",
+          "statement": "What do you use this device for most often?"
+        },
+        {
+          "label": "Upgrade",
+          "statement": "How often do you upgrade this technology?"
+        }
+      ]
     },
     {
       "category": "Insects",
-      "words": ["Spider", "Ant"]
+      "words": ["Spider", "Ant"],
+      "icebreakers": [
+        {
+          "label": "Fear",
+          "statement": "Are you afraid of this insect? Why or why not?"
+        },
+        {
+          "label": "Encounter",
+          "statement": "Describe an interesting encounter you've had with this insect."
+        },
+        {
+          "label": "Facts",
+          "statement": "Share a fascinating fact about this insect."
+        }
+      ]
     },
     {
       "category": "Musical Instruments",
-      "words": ["Drum", "Trumpet"]
+      "words": ["Drum", "Trumpet"],
+      "icebreakers": [
+        {
+          "label": "Play",
+          "statement": "Have you ever tried to play this instrument?"
+        },
+        {
+          "label": "Musician",
+          "statement": "Name a famous musician known for playing this instrument."
+        },
+        {
+          "label": "Sound",
+          "statement": "How would you describe the sound of this instrument?"
+        }
+      ]
     },
     {
       "category": "Nature",
-      "words": ["Waterfall", "Volcano"]
+      "words": ["Waterfall", "Volcano"],
+      "icebreakers": [
+        {
+          "label": "Visit",
+          "statement": "Have you ever visited this natural wonder?"
+        },
+        {
+          "label": "Famous",
+          "statement": "Name a famous example of this natural formation."
+        },
+        {
+          "label": "Experience",
+          "statement": "What would you want to experience about this natural phenomenon?"
+        }
+      ]
     },
     {
       "category": "Entertainment",
-      "words": ["Movie", "Play"]
+      "words": ["Movie", "Play"],
+      "icebreakers": [
+        {
+          "label": "Recent",
+          "statement": "What's the last one of these you watched?"
+        },
+        {
+          "label": "Favorite",
+          "statement": "What's your all-time favorite?"
+        },
+        {
+          "label": "Experience",
+          "statement": "What makes for a good viewing experience?"
+        }
+      ]
     },
     {
       "category": "Beverages",
-      "words": ["Coke", "Pepsi"]
+      "words": ["Coke", "Pepsi"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you have a preference between these brands?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Any memorable experiences associated with this drink?"
+        },
+        {
+          "label": "Frequency",
+          "statement": "How often do you drink this beverage?"
+        }
+      ]
     },
     {
       "category": "Vehicles",
-      "words": ["Airplane", "Helicopter"]
+      "words": ["Airplane", "Helicopter"],
+      "icebreakers": [
+        {
+          "label": "Travel",
+          "statement": "Have you ever traveled in this vehicle?"
+        },
+        {
+          "label": "Fear",
+          "statement": "Are you afraid of flying in this?"
+        },
+        {
+          "label": "Dream",
+          "statement": "Would you like to learn how to operate this?"
+        }
+      ]
     },
     {
       "category": "Foods",
-      "words": ["Butter", "Margarine"]
+      "words": ["Butter", "Margarine"],
+      "icebreakers": [
+        {
+          "label": "Cooking",
+          "statement": "Do you use this in your cooking?"
+        },
+        {
+          "label": "Preference",
+          "statement": "Which do you prefer and why?"
+        },
+        {
+          "label": "Health",
+          "statement": "What are your thoughts on the health aspects of this?"
+        }
+      ]
     },
     {
       "category": "Literary Genres",
-      "words": ["Fiction", "Nonfiction"]
+      "words": ["Fiction", "Nonfiction"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you prefer reading this genre?"
+        },
+        {
+          "label": "Book",
+          "statement": "What's a memorable book from this genre you've read?"
+        },
+        {
+          "label": "Writing",
+          "statement": "Have you ever tried writing in this genre?"
+        }
+      ]
     },
     {
       "category": "Concepts",
-      "words": ["War", "Peace"]
+      "words": ["War", "Peace"],
+      "icebreakers": [
+        {
+          "label": "History",
+          "statement": "Name a historical event related to this concept."
+        },
+        {
+          "label": "Symbol",
+          "statement": "What do you think symbolizes this concept?"
+        },
+        {
+          "label": "Future",
+          "statement": "How do you see this concept shaping our future?"
+        }
+      ]
     },
     {
       "category": "Technology",
-      "words": ["Laptop", "Tablet"]
+      "words": ["Laptop", "Tablet"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "What do you primarily use this device for?"
+        },
+        {
+          "label": "Brand",
+          "statement": "What brand of this device do you own or prefer?"
+        },
+        {
+          "label": "Feature",
+          "statement": "What feature is most important to you in this device?"
+        }
+      ]
     },
     {
       "category": "Fruits",
-      "words": ["Strawberry", "Blueberry"]
+      "words": ["Strawberry", "Blueberry"],
+      "icebreakers": [
+        {
+          "label": "Dessert",
+          "statement": "What's your favorite dessert that includes this fruit?"
+        },
+        {
+          "label": "Growing",
+          "statement": "Have you ever grown this fruit yourself?"
+        },
+        {
+          "label": "Season",
+          "statement": "Do you look forward to this fruit's season?"
+        }
+      ]
     },
     {
       "category": "Theater Genres",
-      "words": ["Comedy", "Tragedy"]
+      "words": ["Comedy", "Tragedy"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you prefer watching this genre of theater?"
+        },
+        {
+          "label": "Classic",
+          "statement": "Can you name a classic example of this genre?"
+        },
+        {
+          "label": "Emotion",
+          "statement": "What emotion does this genre typically evoke in you?"
+        }
+      ]
     },
     {
       "category": "Literary Genres",
-      "words": ["Fairy Tale", "Legend"]
+      "words": ["Fairy Tale", "Legend"],
+      "icebreakers": [
+        {
+          "label": "Childhood",
+          "statement": "What's a story from this genre you remember from childhood?"
+        },
+        {
+          "label": "Moral",
+          "statement": "Do you think stories in this genre teach important morals?"
+        },
+        {
+          "label": "Modern",
+          "statement": "Do you think this type of story is still relevant today?"
+        }
+      ]
     },
     {
       "category": "Reptiles",
-      "words": ["Snakes", "Lizards"]
+      "words": ["Snakes", "Lizards"],
+      "icebreakers": [
+        {
+          "label": "Fear",
+          "statement": "Are you afraid of this reptile? Why or why not?"
+        },
+        {
+          "label": "Pet",
+          "statement": "Would you ever keep this as a pet?"
+        },
+        {
+          "label": "Encounter",
+          "statement": "Have you ever encountered this in the wild?"
+        }
+      ]
     },
     {
       "category": "Herbs and Spices",
-      "words": ["Rosemary", "Thyme"]
+      "words": ["Rosemary", "Thyme"],
+      "icebreakers": [
+        {
+          "label": "Cooking",
+          "statement": "What dish do you like to use this herb in?"
+        },
+        {
+          "label": "Growing",
+          "statement": "Have you ever grown this herb in a garden?"
+        },
+        {
+          "label": "Smell",
+          "statement": "How would you describe the smell of this herb?"
+        }
+      ]
     },
     {
       "category": "Nature",
-      "words": ["Forest", "Jungle"]
+      "words": ["Forest", "Jungle"],
+      "icebreakers": [
+        {
+          "label": "Visit",
+          "statement": "Have you ever visited this type of environment?"
+        },
+        {
+          "label": "Wildlife",
+          "statement": "What wildlife would you hope to see here?"
+        },
+        {
+          "label": "Survival",
+          "statement": "Could you survive for a week in this environment?"
+        }
+      ]
     },
     {
       "category": "Sports",
-      "words": ["Soccer", "Basketball"]
+      "words": ["Soccer", "Basketball"],
+      "icebreakers": [
+        {
+          "label": "Watch",
+          "statement": "Do you enjoy watching this sport?"
+        },
+        {
+          "label": "Play",
+          "statement": "Have you ever played this sport competitively?"
+        },
+        {
+          "label": "Team",
+          "statement": "Do you support any teams in this sport?"
+        }
+      ]
     },
     {
       "category": "Car Brands",
-      "words": ["Ferrari", "Lamborghini"]
+      "words": ["Ferrari", "Lamborghini"],
+      "icebreakers": [
+        {
+          "label": "Dream",
+          "statement": "Would you like to own this car brand someday?"
+        },
+        {
+          "label": "Spotted",
+          "statement": "Have you ever seen one of these cars in person?"
+        },
+        {
+          "label": "Color",
+          "statement": "What color would you choose for this car?"
+        }
+      ]
     },
     {
       "category": "Beverages",
-      "words": ["Black Tea", "Green Tea"]
+      "words": ["Black Tea", "Green Tea"],
+      "icebreakers": [
+        {
+          "label": "Frequency",
+          "statement": "How often do you drink this type of tea?"
+        },
+        {
+          "label": "Preparation",
+          "statement": "How do you prefer to prepare this tea?"
+        },
+        {
+          "label": "Benefit",
+          "statement": "Do you know any health benefits of this tea?"
+        }
+      ]
     },
     {
       "category": "Communication",
-      "words": ["E-mail", "Letter"]
+      "words": ["E-mail", "Letter"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "How often do you use this form of communication?"
+        },
+        {
+          "label": "Personal",
+          "statement": "When was the last time you sent a personal one of these?"
+        },
+        {
+          "label": "Preference",
+          "statement": "Do you prefer this method over other forms of communication?"
+        }
+      ]
     },
     {
       "category": "Literature",
-      "words": ["Poem", "Novel"]
+      "words": ["Poem", "Novel"],
+      "icebreakers": [
+        {
+          "label": "Reading",
+          "statement": "When was the last time you read this form of literature?"
+        },
+        {
+          "label": "Favorite",
+          "statement": "Do you have a favorite example of this?"
+        },
+        {
+          "label": "Writing",
+          "statement": "Have you ever tried writing in this format?"
+        }
+      ]
     },
     {
       "category": "Animals",
-      "words": ["Puppy", "Kitten"]
+      "words": ["Puppy", "Kitten"],
+      "icebreakers": [
+        {
+          "label": "Pet",
+          "statement": "Have you ever had one of these as a pet?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Share a cute memory involving this animal."
+        },
+        {
+          "label": "Preference",
+          "statement": "Which do you find cuter and why?"
+        }
+      ]
     },
     {
       "category": "Birds",
-      "words": ["Eagle", "Hawk"]
+      "words": ["Eagle", "Hawk"],
+      "icebreakers": [
+        {
+          "label": "Sighting",
+          "statement": "Have you ever seen this bird in the wild?"
+        },
+        {
+          "label": "Symbol",
+          "statement": "What do you think this bird symbolizes?"
+        },
+        {
+          "label": "Characteristic",
+          "statement": "What characteristic of this bird do you admire most?"
+        }
+      ]
     },
     {
       "category": "Performing Arts",
-      "words": ["Ballet", "Opera"]
+      "words": ["Ballet", "Opera"],
+      "icebreakers": [
+        {
+          "label": "Attendance",
+          "statement": "Have you ever attended a live performance of this?"
+        },
+        {
+          "label": "Famous",
+          "statement": "Can you name a famous example of this art form?"
+        },
+        {
+          "label": "Experience",
+          "statement": "What aspects of this art form do you appreciate most?"
+        }
+      ]
     },
     {
       "category": "Foods",
-      "words": ["Hot Dog", "Corn Dog"]
+      "words": ["Hot Dog", "Corn Dog"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you enjoy eating this food?"
+        },
+        {
+          "label": "Toppings",
+          "statement": "What's your preferred way to eat this food?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Where do you associate eating this food - fairs, games, home?"
+        }
+      ]
     },
     {
       "category": "Metals",
-      "words": ["Gold", "Silver"]
+      "words": ["Gold", "Silver"],
+      "icebreakers": [
+        {
+          "label": "Jewelry",
+          "statement": "Do you own any jewelry made of this metal?"
+        },
+        {
+          "label": "Value",
+          "statement": "Why do you think this metal is considered valuable?"
+        },
+        {
+          "label": "Preference",
+          "statement": "Do you prefer the look of this metal over others?"
+        }
+      ]
     },
     {
       "category": "Water Sports",
-      "words": ["Sailing", "Surfing"]
+      "words": ["Sailing", "Surfing"],
+      "icebreakers": [
+        {
+          "label": "Experience",
+          "statement": "Have you ever tried this water sport?"
+        },
+        {
+          "label": "Interest",
+          "statement": "Would you like to learn or improve at this sport?"
+        },
+        {
+          "label": "Location",
+          "statement": "Where would be your dream location to do this sport?"
+        }
+      ]
     },
     {
       "category": "Superheroes",
-      "words": ["Spider-Man", "Batman"]
+      "words": ["Spider-Man", "Batman"],
+      "icebreakers": [
+        {
+          "label": "Power",
+          "statement": "What's your favorite power or gadget this superhero has?"
+        },
+        {
+          "label": "Movie",
+          "statement": "What's your favorite movie featuring this superhero?"
+        },
+        {
+          "label": "Villain",
+          "statement": "Who's your favorite villain that fights this superhero?"
+        }
+      ]
     },
     {
       "category": "Geography",
-      "words": ["Antarctica", "Sahara"]
+      "words": ["Antarctica", "Sahara"],
+      "icebreakers": [
+        {
+          "label": "Visit",
+          "statement": "Would you like to visit this place? Why or why not?"
+        },
+        {
+          "label": "Survival",
+          "statement": "What would be your strategy for surviving in this environment?"
+        },
+        {
+          "label": "Knowledge",
+          "statement": "Share an interesting fact you know about this place."
+        }
+      ]
     },
     {
       "category": "Musical Instruments",
-      "words": ["Flute", "Violin"]
+      "words": ["Flute", "Violin"],
+      "icebreakers": [
+        {
+          "label": "Play",
+          "statement": "Have you ever played this instrument?"
+        },
+        {
+          "label": "Sound",
+          "statement": "How would you describe the sound of this instrument?"
+        },
+        {
+          "label": "Concert",
+          "statement": "Have you ever heard this instrument played live in concert?"
+        }
+      ]
     },
     {
       "category": "Beverages",
-      "words": ["Red Wine", "White Wine"]
+      "words": ["Red Wine", "White Wine"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you prefer this type of wine?"
+        },
+        {
+          "label": "Pairing",
+          "statement": "What food would you pair with this wine?"
+        },
+        {
+          "label": "Knowledge",
+          "statement": "Do you know any specific varieties of this wine?"
+        }
+      ]
     },
     {
       "category": "Kitchen Utensils",
-      "words": ["Knife", "Fork"]
+      "words": ["Knife", "Fork"],
+      "icebreakers": [
+        {
+          "label": "Quality",
+          "statement": "What makes a good quality version of this utensil?"
+        },
+        {
+          "label": "Set",
+          "statement": "Do you have a special set of these at home?"
+        },
+        {
+          "label": "Usage",
+          "statement": "What's something unusual you've done with this utensil?"
+        }
+      ]
     },
     {
       "category": "Academic Subjects",
-      "words": ["Mathematics", "Physics"]
+      "words": ["Mathematics", "Physics"],
+      "icebreakers": [
+        {
+          "label": "School",
+          "statement": "How was your experience with this subject in school?"
+        },
+        {
+          "label": "Application",
+          "statement": "How do you apply knowledge from this field in your daily life?"
+        },
+        {
+          "label": "Interest",
+          "statement": "What aspect of this subject interests you most?"
+        }
+      ]
     },
     {
       "category": "Flavors",
-      "words": ["Vanilla", "Chocolate"]
+      "words": ["Vanilla", "Chocolate"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Is this your go-to flavor for desserts?"
+        },
+        {
+          "label": "Memory",
+          "statement": "What childhood memory do you associate with this flavor?"
+        },
+        {
+          "label": "Combination",
+          "statement": "What foods pair well with this flavor?"
+        }
+      ]
     },
     {
       "category": "Nature",
-      "words": ["Sunrise", "Sunset"]
+      "words": ["Sunrise", "Sunset"],
+      "icebreakers": [
+        {
+          "label": "Witness",
+          "statement": "When was the last time you witnessed this?"
+        },
+        {
+          "label": "Location",
+          "statement": "What's your favorite place to view this?"
+        },
+        {
+          "label": "Feeling",
+          "statement": "What emotions does this natural event evoke in you?"
+        }
+      ]
     },
     {
       "category": "Desserts",
-      "words": ["Ice Cream", "Sorbet"]
+      "words": ["Ice Cream", "Sorbet"],
+      "icebreakers": [
+        {
+          "label": "Flavor",
+          "statement": "What's your favorite flavor of this dessert?"
+        },
+        {
+          "label": "Season",
+          "statement": "Do you enjoy this dessert year-round or just in summer?"
+        },
+        {
+          "label": "Homemade",
+          "statement": "Have you ever made this dessert at home?"
+        }
+      ]
     },
     {
       "category": "Plants",
-      "words": ["Palm Tree", "Pine Tree"]
+      "words": ["Palm Tree", "Pine Tree"],
+      "icebreakers": [
+        {
+          "label": "Climate",
+          "statement": "Have you been to places where this tree is common?"
+        },
+        {
+          "label": "Symbol",
+          "statement": "What does this tree symbolize to you?"
+        },
+        {
+          "label": "Feature",
+          "statement": "What's your favorite feature of this tree?"
+        }
+      ]
     },
     {
       "category": "Condiments",
-      "words": ["Hot Sauce", "Ketchup"]
+      "words": ["Hot Sauce", "Ketchup"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "What foods do you like to put this on?"
+        },
+        {
+          "label": "Brand",
+          "statement": "Do you have a favorite brand of this condiment?"
+        },
+        {
+          "label": "Spicy",
+          "statement": "How do you feel about the spiciness level of this?"
+        }
+      ]
     },
     {
       "category": "Amphibians",
-      "words": ["Frog", "Toad"]
+      "words": ["Frog", "Toad"],
+      "icebreakers": [
+        {
+          "label": "Encounter",
+          "statement": "Have you ever encountered this amphibian in the wild?"
+        },
+        {
+          "label": "Sound",
+          "statement": "Can you imitate the sound this animal makes?"
+        },
+        {
+          "label": "Story",
+          "statement": "Do you know any stories or fairy tales featuring this creature?"
+        }
+      ]
     },
     {
       "category": "Leisure Activities",
-      "words": ["Bowling", "Billiards"]
+      "words": ["Bowling", "Billiards"],
+      "icebreakers": [
+        {
+          "label": "Skill",
+          "statement": "How would you rate your skill at this activity?"
+        },
+        {
+          "label": "Frequency",
+          "statement": "How often do you participate in this activity?"
+        },
+        {
+          "label": "Social",
+          "statement": "Do you prefer playing this with friends or family?"
+        }
+      ]
     },
     {
       "category": "Geography",
-      "words": ["Urban", "Rural"]
+      "words": ["Urban", "Rural"],
+      "icebreakers": [
+        {
+          "label": "Living",
+          "statement": "Have you ever lived in this type of environment?"
+        },
+        {
+          "label": "Preference",
+          "statement": "Do you prefer this type of setting? Why?"
+        },
+        {
+          "label": "Future",
+          "statement": "Where do you see yourself living in the future?"
+        }
+      ]
     },
     {
       "category": "Kitchenware",
-      "words": ["Cup", "Mug"]
+      "words": ["Cup", "Mug"],
+      "icebreakers": [
+        {
+          "label": "Favorite",
+          "statement": "Do you have a favorite one of these that you use regularly?"
+        },
+        {
+          "label": "Beverage",
+          "statement": "What beverage do you most often drink from this?"
+        },
+        {
+          "label": "Gift",
+          "statement": "Have you ever given or received one as a gift?"
+        }
+      ]
     },
     {
       "category": "Animals",
-      "words": ["Lion", "Leopard"]
+      "words": ["Lion", "Leopard"],
+      "icebreakers": [
+        {
+          "label": "Zoo",
+          "statement": "Have you seen this animal at a zoo?"
+        },
+        {
+          "label": "Safari",
+          "statement": "Would you like to see this animal in the wild?"
+        },
+        {
+          "label": "Trait",
+          "statement": "What trait of this animal do you admire?"
+        }
+      ]
     },
     {
       "category": "Music Playback",
-      "words": ["Shuffle", "Repeat"]
+      "words": ["Shuffle", "Repeat"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you use this playback feature often?"
+        },
+        {
+          "label": "Discovery",
+          "statement": "Have you discovered new music using this feature?"
+        },
+        {
+          "label": "Habit",
+          "statement": "What are your music listening habits?"
+        }
+      ]
     },
     {
       "category": "Technology",
-      "words": ["Laptop", "Desktop"]
+      "words": ["Laptop", "Desktop"],
+      "icebreakers": [
+        {
+          "label": "Own",
+          "statement": "Do you own this type of computer?"
+        },
+        {
+          "label": "Usage",
+          "statement": "What do you typically use this computer for?"
+        },
+        {
+          "label": "Preference",
+          "statement": "Which do you prefer for your computing needs?"
+        }
+      ]
     },
     {
       "category": "Nature",
-      "words": ["Beach", "Mountain"]
+      "words": ["Beach", "Mountain"],
+      "icebreakers": [
+        {
+          "label": "Vacation",
+          "statement": "Do you prefer vacationing in this setting?"
+        },
+        {
+          "label": "Activity",
+          "statement": "What's your favorite activity to do here?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Share a memorable experience you've had in this environment."
+        }
+      ]
     },
     {
       "category": "Music Genres",
-      "words": ["Pop", "R&B"]
+      "words": ["Pop", "R&B"],
+      "icebreakers": [
+        {
+          "label": "Artist",
+          "statement": "Who's your favorite artist in this genre?"
+        },
+        {
+          "label": "Concert",
+          "statement": "Have you been to a concert of this music genre?"
+        },
+        {
+          "label": "Song",
+          "statement": "What's a song from this genre that you know all the lyrics to?"
+        }
+      ]
     },
     {
-      "category": "Programming",
-      "words": ["HTML", "CSS"]
+      "category": "Home Entertainment",
+      "words": ["Television", "Radio"],
+      "icebreakers": [
+        {
+          "label": "Time",
+          "statement": "How much time do you spend using this each week?"
+        },
+        {
+          "label": "Content",
+          "statement": "What type of content do you enjoy most on this?"
+        },
+        {
+          "label": "Memory",
+          "statement": "What's a childhood memory you have involving this?"
+        }
+      ]
     },
     {
       "category": "Opposites",
-      "words": ["Fire", "Ice"]
+      "words": ["Fire", "Ice"],
+      "icebreakers": [
+        {
+          "label": "Metaphor",
+          "statement": "What personality traits would you associate with this element?"
+        },
+        {
+          "label": "Story",
+          "statement": "What stories or characters do you associate with this element?"
+        },
+        {
+          "label": "Power",
+          "statement": "If you could control this element, what would you do with it?"
+        }
+      ]
     },
     {
       "category": "Japanese Media",
-      "words": ["Manga", "Anime"]
+      "words": ["Manga", "Anime"],
+      "icebreakers": [
+        {
+          "label": "Favorite",
+          "statement": "Do you have a favorite title in this medium?"
+        },
+        {
+          "label": "Introduction",
+          "statement": "How were you introduced to this medium?"
+        },
+        {
+          "label": "Genre",
+          "statement": "What genre of this do you enjoy most?"
+        }
+      ]
     },
     {
       "category": "Australian Animals",
-      "words": ["Kangaroo", "Koala"]
+      "words": ["Kangaroo", "Koala"],
+      "icebreakers": [
+        {
+          "label": "Encounter",
+          "statement": "Have you ever seen this animal in person?"
+        },
+        {
+          "label": "Feature",
+          "statement": "What characteristic of this animal do you find most interesting?"
+        },
+        {
+          "label": "Visit",
+          "statement": "Would you like to visit Australia to see this animal?"
+        }
+      ]
     },
     {
       "category": "Vehicles",
-      "words": ["SUV", "Sedan"]
+      "words": ["SUV", "Sedan"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you prefer this type of vehicle? Why?"
+        },
+        {
+          "label": "Driving",
+          "statement": "Have you driven this type of vehicle before?"
+        },
+        {
+          "label": "Feature",
+          "statement": "What feature is most important in this type of vehicle?"
+        }
+      ]
     },
     {
       "category": "Tools",
-      "words": ["Hammer", "Screwdriver"]
+      "words": ["Hammer", "Screwdriver"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "When was the last time you used this tool?"
+        },
+        {
+          "label": "Own",
+          "statement": "Do you have this tool in your home?"
+        },
+        {
+          "label": "Skill",
+          "statement": "Are you good at using this tool?"
+        }
+      ]
     },
     {
       "category": "Science Fields",
-      "words": ["Genetics", "Robotics"]
+      "words": ["Genetics", "Robotics"],
+      "icebreakers": [
+        {
+          "label": "Interest",
+          "statement": "What aspects of this field interest you?"
+        },
+        {
+          "label": "Future",
+          "statement": "How do you think this field will change our future?"
+        },
+        {
+          "label": "Ethics",
+          "statement": "Are there ethical concerns in this field that worry you?"
+        }
+      ]
     },
     {
       "category": "Smartphones",
-      "words": ["Android", "iPhone"]
+      "words": ["Android", "iPhone"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "Do you currently use this type of phone?"
+        },
+        {
+          "label": "Feature",
+          "statement": "What feature do you like most about this platform?"
+        },
+        {
+          "label": "App",
+          "statement": "What's an app you use frequently on this platform?"
+        }
+      ]
     },
     {
       "category": "Art Techniques",
-      "words": ["Oil Painting", "Watercolor"]
+      "words": ["Oil Painting", "Watercolor"],
+      "icebreakers": [
+        {
+          "label": "Experience",
+          "statement": "Have you ever tried this art technique?"
+        },
+        {
+          "label": "Appreciation",
+          "statement": "What do you appreciate about this art style?"
+        },
+        {
+          "label": "Favorite",
+          "statement": "Do you have a favorite artist who works in this medium?"
+        }
+      ]
     },
     {
       "category": "Transportation",
-      "words": ["Trains", "Ships"]
+      "words": ["Trains", "Ships"],
+      "icebreakers": [
+        {
+          "label": "Travel",
+          "statement": "Have you traveled using this mode of transportation?"
+        },
+        {
+          "label": "Journey",
+          "statement": "Describe a memorable journey you've taken on this."
+        },
+        {
+          "label": "Preference",
+          "statement": "Would you choose this for a long-distance trip?"
+        }
+      ]
     },
     {
       "category": "Desserts",
-      "words": ["Cookies", "Brownies"]
+      "words": ["Cookies", "Brownies"],
+      "icebreakers": [
+        {
+          "label": "Baking",
+          "statement": "Have you ever baked these from scratch?"
+        },
+        {
+          "label": "Flavor",
+          "statement": "What's your favorite flavor or variety of this dessert?"
+        },
+        {
+          "label": "Occasion",
+          "statement": "On what occasions do you typically enjoy these treats?"
+        }
+      ]
     },
     {
       "category": "Stationery",
-      "words": ["Eraser", "Highlighter"]
+      "words": ["Eraser", "Highlighter"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "How often do you use this in your daily life?"
+        },
+        {
+          "label": "School",
+          "statement": "Did you use this frequently during school?"
+        },
+        {
+          "label": "Brand",
+          "statement": "Do you have a preferred brand for this item?"
+        }
+      ]
     },
     {
       "category": "Music Genres",
-      "words": ["Jazz", "Hip-Hop"]
+      "words": ["Jazz", "Hip-Hop"],
+      "icebreakers": [
+        {
+          "label": "Listening",
+          "statement": "Do you listen to this genre regularly?"
+        },
+        {
+          "label": "Artist",
+          "statement": "Who's an artist in this genre that you admire?"
+        },
+        {
+          "label": "Influence",
+          "statement": "How has this genre influenced other music styles?"
+        }
+      ]
     },
     {
       "category": "Plants",
-      "words": ["Cactus", "Flower"]
+      "words": ["Cactus", "Flower"],
+      "icebreakers": [
+        {
+          "label": "Garden",
+          "statement": "Do you have any of these in your home or garden?"
+        },
+        {
+          "label": "Care",
+          "statement": "What do you know about caring for this plant?"
+        },
+        {
+          "label": "Favorite",
+          "statement": "Do you have a favorite variety of this plant?"
+        }
+      ]
     },
     {
       "category": "Writing Instruments",
-      "words": ["Fountain Pen", "Quill"]
+      "words": ["Fountain Pen", "Quill"],
+      "icebreakers": [
+        {
+          "label": "Used",
+          "statement": "Have you ever written with this instrument?"
+        },
+        {
+          "label": "Appeal",
+          "statement": "What do you find appealing about this writing tool?"
+        },
+        {
+          "label": "Gift",
+          "statement": "Would you consider giving or receiving this as a gift?"
+        }
+      ]
     },
     {
       "category": "Navigation Tools",
-      "words": ["Map", "Compass"]
+      "words": ["Map", "Compass"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "When was the last time you used this navigation tool?"
+        },
+        {
+          "label": "Skill",
+          "statement": "How confident are you in using this tool?"
+        },
+        {
+          "label": "Digital",
+          "statement": "Do you prefer physical or digital versions of this?"
+        }
+      ]
     },
     {
       "category": "Metals",
-      "words": ["Rose Gold", "Platinum"]
+      "words": ["Rose Gold", "Platinum"],
+      "icebreakers": [
+        {
+          "label": "Jewelry",
+          "statement": "Do you own any jewelry made of this metal?"
+        },
+        {
+          "label": "Preference",
+          "statement": "Do you like the appearance of this metal?"
+        },
+        {
+          "label": "Value",
+          "statement": "What do you think makes this metal valuable?"
+        }
+      ]
     },
     {
       "category": "Recreational Sports",
-      "words": ["Roller Skates", "Skateboard"]
+      "words": ["Roller Skates", "Skateboard"],
+      "icebreakers": [
+        {
+          "label": "Skill",
+          "statement": "Have you ever tried using this?"
+        },
+        {
+          "label": "Memory",
+          "statement": "Share a memory of using or seeing someone use this."
+        },
+        {
+          "label": "Risk",
+          "statement": "Do you think this activity is dangerous?"
+        }
+      ]
     },
     {
       "category": "Marine Animals",
-      "words": ["Sea Turtle", "Dolphin"]
+      "words": ["Sea Turtle", "Dolphin"],
+      "icebreakers": [
+        {
+          "label": "Encounter",
+          "statement": "Have you ever seen this animal in the wild?"
+        },
+        {
+          "label": "Protection",
+          "statement": "What are your thoughts on conservation efforts for this animal?"
+        },
+        {
+          "label": "Attraction",
+          "statement": "What do you find most fascinating about this marine creature?"
+        }
+      ]
     },
     {
       "category": "Tools",
-      "words": ["Chisel", "Wrench"]
+      "words": ["Chisel", "Wrench"],
+      "icebreakers": [
+        {
+          "label": "Project",
+          "statement": "Have you used this tool for any projects?"
+        },
+        {
+          "label": "Ownership",
+          "statement": "Do you own this tool?"
+        },
+        {
+          "label": "Skill",
+          "statement": "Do you know how to properly use this tool?"
+        }
+      ]
     },
     {
       "category": "Concepts",
-      "words": ["Mind", "Body"]
+      "words": ["Mind", "Body"],
+      "icebreakers": [
+        {
+          "label": "Connection",
+          "statement": "How do you think this relates to wellness?"
+        },
+        {
+          "label": "Practice",
+          "statement": "Do you practice any activities that focus on this?"
+        },
+        {
+          "label": "Balance",
+          "statement": "What does balance mean to you in this context?"
+        }
+      ]
     },
     {
       "category": "Story Terminology",
-      "words": ["Prequel", "Sequel"]
+      "words": ["Prequel", "Sequel"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "Do you generally enjoy this type of story extension?"
+        },
+        {
+          "label": "Example",
+          "statement": "Can you name a successful example of this?"
+        },
+        {
+          "label": "Original",
+          "statement": "Do you think these are usually better or worse than the original?"
+        }
+      ]
     },
     {
       "category": "Architecture",
-      "words": ["Castle", "Palace"]
+      "words": ["Castle", "Palace"],
+      "icebreakers": [
+        {
+          "label": "Visit",
+          "statement": "Have you ever visited a famous one of these?"
+        },
+        {
+          "label": "Historical",
+          "statement": "What historical period do you associate with this structure?"
+        },
+        {
+          "label": "Fantasy",
+          "statement": "Does this structure feature in your favorite stories or films?"
+        }
+      ]
     },
     {
       "category": "Breakfast Foods",
-      "words": ["Omelet", "Scrambled Eggs"]
+      "words": ["Omelet", "Scrambled Eggs"],
+      "icebreakers": [
+        {
+          "label": "Preference",
+          "statement": "How do you prefer your eggs prepared?"
+        },
+        {
+          "label": "Ingredients",
+          "statement": "What ingredients do you like to add to this dish?"
+        },
+        {
+          "label": "Cooking",
+          "statement": "Do you make this dish at home often?"
+        }
+      ]
     },
     {
       "category": "Biomes",
-      "words": ["Jungle", "Coral Reef"]
+      "words": ["Jungle", "Coral Reef"],
+      "icebreakers": [
+        {
+          "label": "Visit",
+          "statement": "Have you ever visited this ecosystem?"
+        },
+        {
+          "label": "Wildlife",
+          "statement": "What wildlife in this environment interests you most?"
+        },
+        {
+          "label": "Preservation",
+          "statement": "What are your thoughts on preserving this ecosystem?"
+        }
+      ]
     },
     {
       "category": "Brain Teasers",
-      "words": ["Puzzle", "Riddle"]
+      "words": ["Puzzle", "Riddle"],
+      "icebreakers": [
+        {
+          "label": "Enjoy",
+          "statement": "Do you enjoy solving these mental challenges?"
+        },
+        {
+          "label": "Difficulty",
+          "statement": "What level of difficulty do you prefer?"
+        },
+        {
+          "label": "Share",
+          "statement": "Can you share your favorite example of this?"
+        }
+      ]
     },
     {
       "category": "Social Media Platforms",
-      "words": ["Facebook", "Twitter"]
+      "words": ["Facebook", "Twitter"],
+      "icebreakers": [
+        {
+          "label": "Usage",
+          "statement": "How often do you use this platform?"
+        },
+        {
+          "label": "Purpose",
+          "statement": "What do you primarily use this platform for?"
+        },
+        {
+          "label": "Alternative",
+          "statement": "Would you consider alternatives to this platform?"
+        }
+      ]
     }
   ]
 }

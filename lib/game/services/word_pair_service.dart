@@ -85,6 +85,7 @@ class WordPairService {
     return WordPairResult(
       words: shuffledWords,
       category: result.category,
+      icebreakers: result.icebreakers,
     );
   }
 
