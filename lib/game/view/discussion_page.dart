@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_button.dart';
-import '../../app_ui/widgets/app_icon_button.dart';
+import '../../app_ui/widgets/app_exit_scope.dart';
 import '../../app_ui/widgets/app_text.dart';
-import '../../home/home_page.dart';
 import '../../l10n/l10n.dart';
 import '../bloc/game_bloc.dart';
 import '../models/game.dart';
@@ -45,58 +43,11 @@ class _DiscussionViewState extends State<DiscussionView> {
     });
   }
 
-  Future<bool> _showExitConfirmationDialog(BuildContext context) async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        final l10n = context.l10n;
-
-        return AlertDialog(
-          title: AppText(l10n.exitGame),
-          content: AppText(
-            l10n.exitGameContent,
-          ),
-          actions: <Widget>[
-            AppButton(
-              variant: AppButtonVariant.outlined,
-              onPressed: () => Navigator.of(context).pop(true),
-              child: AppText(l10n.ok),
-            ),
-            AppButton(
-              variant: AppButtonVariant.filled,
-              onPressed: () => Navigator.of(context).pop(false),
-              child: AppText(l10n.cancel),
-            ),
-          ],
-        );
-      },
-    );
-    return result ?? false;
-  }
-
-  void _exitToMainMenu(BuildContext context) {
-    // Navigate to the HomePage and clear the navigation history
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute<void>(builder: (context) => const HomePage()),
-      (Route<dynamic> route) => false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    // Use PopScope to intercept system back button/gesture
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) async {
-        if (didPop) return;
-
-        final shouldExit = await _showExitConfirmationDialog(context);
-        if (shouldExit && context.mounted) {
-          _exitToMainMenu(context);
-        }
-      },
+    return AppExitScope(
       child: BlocBuilder<GameBloc, GameState>(
         builder: (context, state) {
           final game = state.game;
@@ -107,16 +58,7 @@ class _DiscussionViewState extends State<DiscussionView> {
                 l10n.wordDistribution,
                 variant: AppTextVariant.titleLarge,
               ),
-              leading: AppIconButton(
-                icon: const Icon(Icons.arrow_back),
-                tooltip: l10n.exitGame,
-                onPressed: () async {
-                  final shouldExit = await _showExitConfirmationDialog(context);
-                  if (shouldExit && context.mounted) {
-                    _exitToMainMenu(context);
-                  }
-                },
-              ),
+              leading: AppExitScope.createBackButton(context),
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
