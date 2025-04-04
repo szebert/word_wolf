@@ -48,27 +48,40 @@ class Game extends Equatable {
   final double wordPairSimilarity;
   final List<Icebreaker> icebreakers;
 
-  int get wolfCount {
-    if (customWolfCount != null) {
-      return customWolfCount!;
-    }
-
-    // Calculate based on player count if no custom count is set
+  int get generateWolfCount {
+    // Calculate default wolf count based on player count
     final defaultCount = _getDefaultWolfCount(players.length);
 
-    // If randomize is enabled, add or subtract 1 (keeping at least 1 wolf)
+    // If randomize is enabled, calculate all valid options and choose randomly
     if (randomizeWolfCount) {
-      final random = DateTime.now().millisecondsSinceEpoch % 3; // 0, 1, or 2
-      if (random == 0 && defaultCount > 1) {
-        return defaultCount - 1;
-      } else if (random == 1) {
-        // Keep default
-        return defaultCount;
-      } else {
-        // Make sure wolves stay less than citizens
-        final maxWolves = ((players.length - 1) / 2).floor();
-        return defaultCount < maxWolves ? defaultCount + 1 : defaultCount;
+      // Determine valid wolf count options
+      final validOptions = <int>[];
+
+      // Consider defaultCount - 1 (if above minimum)
+      if (defaultCount > 1) {
+        validOptions.add(defaultCount - 1);
       }
+
+      // Always include the default count
+      validOptions.add(defaultCount);
+
+      // Consider defaultCount + 1 (if below maximum allowed wolves)
+      final maxWolves = ((players.length - 1) / 2).floor();
+      if (defaultCount < maxWolves) {
+        validOptions.add(defaultCount + 1);
+      }
+
+      // Pick a random option from valid choices
+      final random =
+          DateTime.now().millisecondsSinceEpoch % validOptions.length;
+      final selectedOption = validOptions[random];
+
+      return selectedOption;
+    }
+
+    // If customWolfCount is explicitly set, use it
+    if (customWolfCount != null) {
+      return customWolfCount!;
     }
 
     return defaultCount;

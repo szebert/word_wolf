@@ -45,7 +45,11 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     // Automatically trigger the GameStarted event when the page loads
     Future.microtask(() {
       if (mounted) {
-        context.read<GameBloc>().add(const GameStarted());
+        final gameState = context.read<GameBloc>().state;
+        // Only start a new discussion if we're not in it already
+        if (gameState.game.phase != GamePhase.wordAssignment) {
+          context.read<GameBloc>().add(const GameStarted());
+        }
       }
     });
   }

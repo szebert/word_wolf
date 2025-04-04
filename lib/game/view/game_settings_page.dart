@@ -74,7 +74,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
         // Update the game state with new wolf count
         context.read<GameBloc>().add(
               WolvesCountUpdated(
-                numberOfWolves: newWolfCount,
+                customWolfCount: newWolfCount,
                 randomizeWolfCount: _randomizeWolfCount,
                 autoAssignWolves: _autoAssignComposition,
               ),
@@ -100,7 +100,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     });
     context.read<GameBloc>().add(
           WolvesCountUpdated(
-            numberOfWolves: _autoAssignComposition ? null : _numberOfWolves,
+            customWolfCount: _numberOfWolves,
             randomizeWolfCount: _randomizeWolfCount,
             autoAssignWolves: _autoAssignComposition,
           ),
@@ -114,7 +114,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     });
     context.read<GameBloc>().add(
           WolvesCountUpdated(
-            numberOfWolves: _randomizeWolfCount ? null : _numberOfWolves,
+            customWolfCount: _randomizeWolfCount ? null : _numberOfWolves,
             randomizeWolfCount: _randomizeWolfCount,
             autoAssignWolves: _autoAssignComposition,
           ),
@@ -128,7 +128,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
       });
       context.read<GameBloc>().add(
             WolvesCountUpdated(
-              numberOfWolves: _numberOfWolves,
+              customWolfCount: _numberOfWolves,
               randomizeWolfCount: _randomizeWolfCount,
               autoAssignWolves: _autoAssignComposition,
             ),
@@ -147,7 +147,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
       });
       context.read<GameBloc>().add(
             WolvesCountUpdated(
-              numberOfWolves: _numberOfWolves,
+              customWolfCount: _numberOfWolves,
               randomizeWolfCount: _randomizeWolfCount,
               autoAssignWolves: _autoAssignComposition,
             ),

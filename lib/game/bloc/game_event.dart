@@ -50,18 +50,18 @@ class GameCategoryUpdated extends GameEvent {
 
 class WolvesCountUpdated extends GameEvent {
   const WolvesCountUpdated({
-    this.numberOfWolves,
+    this.customWolfCount,
     required this.randomizeWolfCount,
     required this.autoAssignWolves,
   });
 
-  final int? numberOfWolves;
+  final int? customWolfCount;
   final bool randomizeWolfCount;
   final bool autoAssignWolves;
 
   @override
   List<Object?> get props =>
-      [numberOfWolves, randomizeWolfCount, autoAssignWolves];
+      [customWolfCount, randomizeWolfCount, autoAssignWolves];
 }
 
 class GameDiscussionTimeUpdated extends GameEvent {
@@ -77,8 +77,8 @@ class GameStarted extends GameEvent {
   const GameStarted();
 }
 
-class GamePhaseAdvanced extends GameEvent {
-  const GamePhaseAdvanced();
+class DiscussionStarted extends GameEvent {
+  const DiscussionStarted();
 }
 
 class GameTimerTicked extends GameEvent {
