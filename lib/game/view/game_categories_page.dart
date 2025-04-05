@@ -7,9 +7,9 @@ import '../../app_ui/widgets/app_button.dart';
 import '../../app_ui/widgets/app_icon_button.dart';
 import '../../app_ui/widgets/app_list_tile.dart';
 import '../../app_ui/widgets/app_text.dart';
+import '../../category/bloc/category_bloc.dart';
+import '../../category/models/saved_category.dart';
 import '../../l10n/l10n.dart';
-import '../bloc/game_bloc.dart';
-import '../models/saved_category.dart';
 import '../view/distribute_words_page.dart';
 
 class GameCategoriesPage extends StatelessWidget {
@@ -46,21 +46,19 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
   @override
   void initState() {
     super.initState();
-    // Load saved categories
-    context.read<GameBloc>().add(const SavedCategoriesLoaded());
-    // Load preset categories
-    context.read<GameBloc>().add(const PresetCategoriesLoaded());
+    // Load categories
+    context.read<CategoryBloc>().add(const CategoryInitialized());
 
-    final gameState = context.read<GameBloc>().state;
+    final categoryState = context.read<CategoryBloc>().state;
 
     // Initialize selected category from game state
-    if (gameState.game.category.isNotEmpty) {
-      _selectedCategory = gameState.game.category;
+    if (categoryState.selectedCategory.isNotEmpty) {
+      _selectedCategory = categoryState.selectedCategory;
     }
 
     // Restore search text if previously saved
-    if (gameState.game.categorySearchText.isNotEmpty) {
-      _searchController.text = gameState.game.categorySearchText;
+    if (categoryState.searchText.isNotEmpty) {
+      _searchController.text = categoryState.searchText;
     }
   }
 
@@ -77,10 +75,14 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
       // Toggle selection
       if (_selectedCategory == category) {
         _selectedCategory = '';
-        context.read<GameBloc>().add(const GameCategoryUpdated(''));
+        context
+            .read<CategoryBloc>()
+            .add(const CategorySelected(categoryName: ''));
       } else {
         _selectedCategory = category;
-        context.read<GameBloc>().add(GameCategoryUpdated(category));
+        context
+            .read<CategoryBloc>()
+            .add(CategorySelected(categoryName: category));
       }
     });
 
@@ -98,7 +100,9 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     });
 
     // Send to bloc which will save it
-    context.read<GameBloc>().add(GameCategoryUpdated(categoryName));
+    context
+        .read<CategoryBloc>()
+        .add(CategorySelected(categoryName: categoryName));
 
     // Clear the search field
     _searchController.clear();
@@ -111,7 +115,7 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     if (_isAddingCategory) return;
 
     // Send the remove event to the bloc
-    context.read<GameBloc>().add(CategoryRemoved(category));
+    context.read<CategoryBloc>().add(CategoryRemoved(categoryName: category));
 
     // Update selected category if it was removed
     if (_selectedCategory == category) {
@@ -154,8 +158,8 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
   // Update displayed categories based on search and saved categories
   void _updateDisplayedCategories(
       String searchQuery, List<String> savedCategories) {
-    final state = context.read<GameBloc>().state;
-    final presetCategories = state.game.presetCategories;
+    final state = context.read<CategoryBloc>().state;
+    final presetCategories = state.presetCategories;
 
     // Only perform filtering if we have preset categories
     if (presetCategories.isEmpty) {
@@ -237,20 +241,20 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GameBloc, GameState>(
+    return BlocConsumer<CategoryBloc, CategoryState>(
       listenWhen: (previous, current) {
         // Listen for any changes to the saved categories or selected category
-        return previous.game.savedCategories != current.game.savedCategories ||
-            previous.game.category != current.game.category;
+        return previous.savedCategories != current.savedCategories ||
+            previous.selectedCategory != current.selectedCategory;
       },
       listener: (context, state) {
         final savedCategoryNames =
-            state.game.savedCategories.map((c) => c.name).toList();
-        final presetCategories = state.game.presetCategories;
+            state.savedCategories.map((c) => c.name).toList();
+        final presetCategories = state.presetCategories;
 
         // If we were adding a category and the state has changed, check if our category is now saved
         if (_isAddingCategory && _lastAddedCategory != null) {
-          final bool isSaved = state.game.savedCategories
+          final bool isSaved = state.savedCategories
               .any((category) => category.name == _lastAddedCategory);
 
           if (isSaved) {
@@ -293,7 +297,7 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
       },
       builder: (context, state) {
         final l10n = context.l10n;
-        final savedCategories = state.game.savedCategories;
+        final savedCategories = state.savedCategories;
         final savedCategoryNames = savedCategories.map((c) => c.name).toList();
 
         // Only update displayed categories on first render or when explicitly needed
@@ -316,216 +320,237 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(AppSpacing.lg),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Category Selection Section
-                AppText(
-                  l10n.categorySelection,
-                  variant: AppTextVariant.titleMedium,
-                  weight: AppTextWeight.bold,
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                AppText(
-                  l10n.categoryDescription,
-                  variant: AppTextVariant.bodySmall,
-                ),
-                const SizedBox(height: AppSpacing.md),
-
-                // Search and add category field
-                TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: l10n.categorySearchHint,
-                    prefixIcon: const Icon(Icons.search),
-                    border: const OutlineInputBorder(),
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (_searchController.text.isNotEmpty)
-                          AppIconButton(
-                            icon: const Icon(Icons.clear),
-                            tooltip: l10n.categoryClear,
-                            onPressed: () {
-                              _searchController.clear();
-                              setState(() {
-                                _updateDisplayedCategories(
-                                    '', savedCategoryNames);
-                              });
-                              context
-                                  .read<GameBloc>()
-                                  .add(const GameCategorySearchUpdated(''));
-                            },
-                          ),
-                        if (_searchController.text.isNotEmpty)
-                          AppIconButton(
-                            icon: const Icon(Icons.check),
-                            tooltip: l10n.useCategory,
-                            onPressed: () {
-                              final category = _searchController.text.trim();
-                              _addNewCategory(category);
-                            },
-                          ),
-                      ],
-                    ),
-                  ),
-                  maxLength: 200, // To avoid abuse
-                  buildCounter: (
-                    context, {
-                    required int currentLength,
-                    required bool isFocused,
-                    required int? maxLength,
-                  }) =>
-                      null, // Hide the default counter
-                  onChanged: (value) {
-                    setState(() {
-                      _updateDisplayedCategories(value, savedCategoryNames);
-                    });
-                    context
-                        .read<GameBloc>()
-                        .add(GameCategorySearchUpdated(value));
-                  },
-                  onSubmitted: (value) {
-                    final trimmed = value.trim();
-                    if (trimmed.isNotEmpty) {
-                      _addNewCategory(trimmed);
-                    }
-                  },
-                  enabled: !_isAddingCategory, // Disable when adding a category
-                ),
-
-                const SizedBox(height: AppSpacing.md),
-
-                // Show loading indicator when adding a category
-                if (_isAddingCategory)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4),
-                    child: LinearProgressIndicator(),
-                  ),
-
-                // Category list
-                Expanded(
-                  flex: 1,
-                  child: Card(
-                    child: _displayedCategories.isEmpty
-                        ? Center(
-                            child: AppText(
-                              l10n.noCategoriesFound,
-                              variant: AppTextVariant.bodyMedium,
-                            ),
-                          )
-                        : ListView.separated(
-                            itemCount: _displayedCategories.length,
-                            separatorBuilder: (context, index) => const Divider(
-                              height: 1,
-                              indent: AppSpacing.md,
-                              endIndent: AppSpacing.md,
-                            ),
-                            itemBuilder: (context, index) {
-                              final category = _displayedCategories[index];
-                              final isSaved =
-                                  savedCategoryNames.contains(category);
-                              final isNewlyAdded =
-                                  category == _lastAddedCategory && !isSaved;
-
-                              // Find the saved category if it exists
-                              SavedCategory? savedCategory;
-                              if (isSaved) {
-                                savedCategory = savedCategories.firstWhere(
-                                  (c) => c.name == category,
-                                );
-                              }
-
-                              return AppListTile(
-                                dense: true,
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.md,
-                                  vertical: 0,
-                                ),
-                                visualDensity: const VisualDensity(
-                                  horizontal: 0,
-                                  vertical: -3,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  side: _selectedCategory == category
-                                      ? BorderSide(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          width: 2,
-                                        )
-                                      : BorderSide(
-                                          color: Colors.transparent,
-                                          width: 2,
-                                        ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                tileColor: _selectedCategory == category
-                                    ? Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer
-                                        .withAlpha(76)
-                                    : null,
-                                title: AppText(
-                                  category,
-                                  style: isNewlyAdded
-                                      ? const TextStyle(
-                                          fontStyle: FontStyle.italic)
-                                      : null,
-                                ),
-                                subtitle: savedCategory != null
-                                    ? AppText(
-                                        l10n.lastUsed(_formatLastUsed(
-                                            l10n, savedCategory)),
-                                        variant: AppTextVariant.labelSmall,
-                                      )
-                                    : isNewlyAdded
-                                        ? AppText(
-                                            l10n.addingCategory,
-                                            variant: AppTextVariant.labelSmall,
-                                          )
-                                        : null,
-                                selected: _selectedCategory == category,
-                                onTap: !_isAddingCategory
-                                    ? () => _selectCategory(category)
-                                    : null,
-                                trailing: SizedBox(
-                                  width: 48,
-                                  child: isSaved && !_isAddingCategory
-                                      ? AppIconButton(
-                                          icon:
-                                              const Icon(Icons.delete_outline),
-                                          tooltip: l10n.removeCategory,
-                                          onPressed: () =>
-                                              _removeCategory(category),
-                                        )
-                                      : null,
-                                ),
-                              );
-                            },
-                          ),
-                  ),
-                ),
-
-                // Continue button
-                Padding(
-                  padding: const EdgeInsets.only(top: AppSpacing.lg),
-                  child: SafeArea(
-                    child: AppButton(
-                      variant: AppButtonVariant.elevated,
-                      onPressed: _continueToNextStep,
-                      child: AppText(
-                        l10n.startGame,
-                        variant: AppTextVariant.titleMedium,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            child: _buildContent(
+              status: state.status,
+              savedCategoryNames: savedCategoryNames,
+              savedCategories: savedCategories,
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildContent({
+    required CategoryStatus status,
+    required List<String> savedCategoryNames,
+    required List<SavedCategory> savedCategories,
+  }) {
+    final l10n = context.l10n;
+
+    // Show loading indicator if the game is in loading state
+    if (status == CategoryStatus.loading) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(),
+            const SizedBox(height: AppSpacing.md),
+            AppText(l10n.categoriesLoading),
+          ],
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Category Selection Section
+        AppText(
+          l10n.categorySelection,
+          variant: AppTextVariant.titleMedium,
+          weight: AppTextWeight.bold,
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        AppText(
+          l10n.categoryDescription,
+          variant: AppTextVariant.bodySmall,
+        ),
+        const SizedBox(height: AppSpacing.md),
+
+        // Search and add category field
+        TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
+            hintText: l10n.categorySearchHint,
+            prefixIcon: const Icon(Icons.search),
+            border: const OutlineInputBorder(),
+            suffixIcon: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (_searchController.text.isNotEmpty)
+                  AppIconButton(
+                    icon: const Icon(Icons.clear),
+                    tooltip: l10n.categoryClear,
+                    onPressed: () {
+                      _searchController.clear();
+                      setState(() {
+                        _updateDisplayedCategories('', savedCategoryNames);
+                      });
+                      context
+                          .read<CategoryBloc>()
+                          .add(const CategorySearchUpdated(searchText: ''));
+                    },
+                  ),
+                if (_searchController.text.isNotEmpty)
+                  AppIconButton(
+                    icon: const Icon(Icons.check),
+                    tooltip: l10n.useCategory,
+                    onPressed: () {
+                      final category = _searchController.text.trim();
+                      _addNewCategory(category);
+                    },
+                  ),
+              ],
+            ),
+          ),
+          maxLength: 200, // To avoid abuse
+          buildCounter: (
+            context, {
+            required int currentLength,
+            required bool isFocused,
+            required int? maxLength,
+          }) =>
+              null, // Hide the default counter
+          onChanged: (value) {
+            setState(() {
+              _updateDisplayedCategories(value, savedCategoryNames);
+            });
+            context
+                .read<CategoryBloc>()
+                .add(CategorySearchUpdated(searchText: value));
+          },
+          onSubmitted: (value) {
+            final trimmed = value.trim();
+            if (trimmed.isNotEmpty) {
+              _addNewCategory(trimmed);
+            }
+          },
+          enabled: !_isAddingCategory, // Disable when adding a category
+        ),
+
+        const SizedBox(height: AppSpacing.md),
+
+        // Show loading indicator when adding a category
+        if (_isAddingCategory)
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4),
+            child: LinearProgressIndicator(),
+          ),
+
+        // Category list
+        Expanded(
+          flex: 1,
+          child: Card(
+            child: _displayedCategories.isEmpty
+                ? Center(
+                    child: AppText(
+                      l10n.noCategoriesFound,
+                      variant: AppTextVariant.bodyMedium,
+                    ),
+                  )
+                : ListView.separated(
+                    itemCount: _displayedCategories.length,
+                    separatorBuilder: (context, index) => const Divider(
+                      height: 1,
+                      indent: AppSpacing.md,
+                      endIndent: AppSpacing.md,
+                    ),
+                    itemBuilder: (context, index) {
+                      final category = _displayedCategories[index];
+                      final isSaved = savedCategoryNames.contains(category);
+                      final isNewlyAdded =
+                          category == _lastAddedCategory && !isSaved;
+
+                      // Find the saved category if it exists
+                      SavedCategory? savedCategory;
+                      if (isSaved) {
+                        savedCategory = savedCategories.firstWhere(
+                          (c) => c.name == category,
+                        );
+                      }
+
+                      return AppListTile(
+                        dense: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.md,
+                          vertical: 0,
+                        ),
+                        visualDensity: const VisualDensity(
+                          horizontal: 0,
+                          vertical: -3,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          side: _selectedCategory == category
+                              ? BorderSide(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  width: 2,
+                                )
+                              : BorderSide(
+                                  color: Colors.transparent,
+                                  width: 2,
+                                ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        tileColor: _selectedCategory == category
+                            ? Theme.of(context)
+                                .colorScheme
+                                .primaryContainer
+                                .withAlpha(76)
+                            : null,
+                        title: AppText(
+                          category,
+                          style: isNewlyAdded
+                              ? const TextStyle(fontStyle: FontStyle.italic)
+                              : null,
+                        ),
+                        subtitle: savedCategory != null
+                            ? AppText(
+                                l10n.lastUsed(
+                                    _formatLastUsed(l10n, savedCategory)),
+                                variant: AppTextVariant.labelSmall,
+                              )
+                            : isNewlyAdded
+                                ? AppText(
+                                    l10n.addingCategory,
+                                    variant: AppTextVariant.labelSmall,
+                                  )
+                                : null,
+                        selected: _selectedCategory == category,
+                        onTap: !_isAddingCategory
+                            ? () => _selectCategory(category)
+                            : null,
+                        trailing: SizedBox(
+                          width: 48,
+                          child: isSaved && !_isAddingCategory
+                              ? AppIconButton(
+                                  icon: const Icon(Icons.delete_outline),
+                                  tooltip: l10n.removeCategory,
+                                  onPressed: () => _removeCategory(category),
+                                )
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ),
+
+        // Continue button
+        Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
+          child: SafeArea(
+            child: AppButton(
+              variant: AppButtonVariant.elevated,
+              onPressed: _continueToNextStep,
+              child: AppText(
+                l10n.startGame,
+                variant: AppTextVariant.titleMedium,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

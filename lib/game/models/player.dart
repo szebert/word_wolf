@@ -35,4 +35,14 @@ class Player extends Equatable {
 
   @override
   List<Object?> get props => [id, name, role, isDefaultName];
+
+  /// Creates an empty player with a blank ID
+  factory Player.empty() {
+    return Player(
+      id: '',
+      name: '',
+      isDefaultName: true,
+      role: PlayerRole.undecided,
+    );
+  }
 }

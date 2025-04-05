@@ -5,9 +5,10 @@ import "../analytics/analytics_bloc.dart";
 import "../analytics_repository/analytics_repository.dart";
 import "../app_ui/app_config.dart";
 import "../app_ui/app_theme.dart";
+import "../category/bloc/category_bloc.dart";
+import "../category/repository/category_repository.dart";
 import "../feedback_repository/feedback_repository.dart";
 import "../game/bloc/game_bloc.dart";
-import "../game/repository/category_repository.dart";
 import "../game/repository/game_repository.dart";
 import "../game/repository/player_repository.dart";
 import "../game/services/used_words_storage.dart";
@@ -96,12 +97,18 @@ class App extends StatelessWidget {
               ),
               lazy: false,
             ),
+            BlocProvider<CategoryBloc>(
+              create: (context) => CategoryBloc(
+                categoryRepository: context.read<CategoryRepository>(),
+              ),
+              lazy: false,
+            ),
             BlocProvider<GameBloc>(
               create: (context) => GameBloc(
                 playerRepository: context.read<PlayerRepository>(),
-                categoryRepository: context.read<CategoryRepository>(),
                 gameRepository: context.read<GameRepository>(),
                 wordPairService: context.read<WordPairService>(),
+                categoryBloc: context.read<CategoryBloc>(),
               )..add(const GameInitialized()),
             ),
             BlocProvider<AppBloc>(

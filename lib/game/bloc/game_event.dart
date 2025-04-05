@@ -23,7 +23,7 @@ class PlayerRemoved extends GameEvent {
   final String playerId;
 
   @override
-  List<Object?> get props => [playerId];
+  List<Object> get props => [playerId];
 }
 
 class PlayerNameUpdated extends GameEvent {
@@ -36,16 +36,7 @@ class PlayerNameUpdated extends GameEvent {
   final String name;
 
   @override
-  List<Object?> get props => [playerId, name];
-}
-
-class GameCategoryUpdated extends GameEvent {
-  const GameCategoryUpdated(this.category);
-
-  final String category;
-
-  @override
-  List<Object?> get props => [category];
+  List<Object> get props => [playerId, name];
 }
 
 class WolvesCountUpdated extends GameEvent {
@@ -65,16 +56,36 @@ class WolvesCountUpdated extends GameEvent {
 }
 
 class GameDiscussionTimeUpdated extends GameEvent {
-  const GameDiscussionTimeUpdated(this.timeInSeconds);
+  const GameDiscussionTimeUpdated({
+    required this.timeInSeconds,
+  });
 
   final int timeInSeconds;
 
   @override
-  List<Object?> get props => [timeInSeconds];
+  List<Object> get props => [timeInSeconds];
+}
+
+class WordPairSimilarityUpdated extends GameEvent {
+  const WordPairSimilarityUpdated({
+    required this.similarity,
+  });
+
+  final double similarity;
+
+  @override
+  List<Object> get props => [similarity];
 }
 
 class GameStarted extends GameEvent {
-  const GameStarted();
+  const GameStarted({
+    required this.category,
+  });
+
+  final String category;
+
+  @override
+  List<Object> get props => [category];
 }
 
 class DiscussionStarted extends GameEvent {
@@ -82,60 +93,14 @@ class DiscussionStarted extends GameEvent {
 }
 
 class GameTimerTicked extends GameEvent {
-  const GameTimerTicked(this.remainingSeconds);
+  const GameTimerTicked({
+    required this.remainingSeconds,
+  });
 
   final int remainingSeconds;
 
   @override
-  List<Object?> get props => [remainingSeconds];
-}
-
-class GameReset extends GameEvent {
-  const GameReset();
-}
-
-class GameCategorySearchUpdated extends GameEvent {
-  const GameCategorySearchUpdated(this.searchText);
-
-  final String searchText;
-
-  @override
-  List<Object?> get props => [searchText];
-}
-
-class SavedCategoriesLoaded extends GameEvent {
-  const SavedCategoriesLoaded();
-}
-
-class PresetCategoriesLoaded extends GameEvent {
-  const PresetCategoriesLoaded();
-}
-
-class CategorySaved extends GameEvent {
-  const CategorySaved(this.category);
-
-  final String category;
-
-  @override
-  List<Object?> get props => [category];
-}
-
-class CategoryRemoved extends GameEvent {
-  const CategoryRemoved(this.category);
-
-  final String category;
-
-  @override
-  List<Object?> get props => [category];
-}
-
-class WordPairSimilarityUpdated extends GameEvent {
-  const WordPairSimilarityUpdated(this.similarity);
-
-  final double similarity;
-
-  @override
-  List<Object?> get props => [similarity];
+  List<Object> get props => [remainingSeconds];
 }
 
 class GameTimerPaused extends GameEvent {
@@ -144,22 +109,39 @@ class GameTimerPaused extends GameEvent {
   final bool paused;
 
   @override
-  List<Object?> get props => [paused];
+  List<Object> get props => [paused];
 }
 
 class GameTimerAdjusted extends GameEvent {
-  const GameTimerAdjusted(this.newTimeInSeconds);
+  const GameTimerAdjusted({
+    required this.newTimeInSeconds,
+  });
 
   final int newTimeInSeconds;
 
   @override
-  List<Object?> get props => [newTimeInSeconds];
+  List<Object> get props => [newTimeInSeconds];
+}
+
+class VotingStarted extends GameEvent {
+  const VotingStarted();
 }
 
 class SuddenDeathStarted extends GameEvent {
   const SuddenDeathStarted();
 }
 
-class VotingStarted extends GameEvent {
-  const VotingStarted();
+class PlayerVoted extends GameEvent {
+  const PlayerVoted({
+    required this.selectedPlayerId,
+  });
+
+  final String selectedPlayerId;
+
+  @override
+  List<Object> get props => [selectedPlayerId];
+}
+
+class GameReset extends GameEvent {
+  const GameReset();
 }

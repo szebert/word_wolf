@@ -4,10 +4,10 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../category/bloc/category_bloc.dart';
 import '../models/game.dart';
 import '../models/player.dart';
 import '../models/word_pair_results.dart';
-import '../repository/category_repository.dart';
 import '../repository/game_repository.dart';
 import '../repository/player_repository.dart';
 import '../services/word_pair_service.dart';
@@ -18,13 +18,13 @@ part 'game_state.dart';
 class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
     required PlayerRepository playerRepository,
-    required CategoryRepository categoryRepository,
     required GameRepository gameRepository,
     required WordPairService wordPairService,
+    required CategoryBloc categoryBloc,
   })  : _playerRepository = playerRepository,
-        _categoryRepository = categoryRepository,
         _gameRepository = gameRepository,
         _wordPairService = wordPairService,
+        _categoryBloc = categoryBloc,
         super(const GameState()) {
     on<GameInitialized>(_onGameInitialized);
 
@@ -38,16 +38,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameDiscussionTimeUpdated>(_onGameDiscussionTimeUpdated);
     on<WordPairSimilarityUpdated>(_onWordPairSimilarityUpdated);
 
-    // Game Categories Page preload events
-    on<PresetCategoriesLoaded>(_onPresetCategoriesLoaded);
-    on<SavedCategoriesLoaded>(_onSavedCategoriesLoaded);
-
-    // Game Categories Page events
-    on<GameCategorySearchUpdated>(_onGameCategorySearchUpdated);
-    on<GameCategoryUpdated>(_onGameCategoryUpdated);
-    on<CategorySaved>(_onCategorySaved);
-    on<CategoryRemoved>(_onCategoryRemoved);
-
     // Distribute Words Page events
     on<GameStarted>(_onGameStarted);
 
@@ -60,15 +50,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     // Voting Page events
     on<VotingStarted>(_onVotingStarted);
     on<SuddenDeathStarted>(_onSuddenDeathStarted);
+    on<PlayerVoted>(_onPlayerVoted);
 
     // Unused events
     on<GameReset>(_onGameReset);
   }
 
   final PlayerRepository _playerRepository;
-  final CategoryRepository _categoryRepository;
   final GameRepository _gameRepository;
   final WordPairService _wordPairService;
+  final CategoryBloc _categoryBloc;
   Timer? _timer;
 
   @override
@@ -86,13 +77,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       // Get players from repository
       final players = await _playerRepository.getPlayers();
 
-      // Get saved categories from repository
-      final savedCategories = await _categoryRepository.getSavedCategories();
-
       // Create initial game
       var game = Game(
         players: players,
-        savedCategories: savedCategories,
       );
 
       // Load and apply saved settings
@@ -117,7 +104,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   // Save current game settings to repository
   Future<void> _saveSettings() async {
     await _gameRepository.saveGameSettings(
-      category: state.game.category,
       customWolfCount: state.game.customWolfCount,
       randomizeWolfCount: state.game.randomizeWolfCount,
       autoAssignWolves: state.game.autoAssignWolves,
@@ -278,140 +264,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     _saveSettings();
   }
 
-  // Game Categories Page preload events
-  Future<void> _onPresetCategoriesLoaded(
-    PresetCategoriesLoaded event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final presetCategories = await _categoryRepository.getPresetCategories();
-      emit(
-        state.copyWith(
-          game: state.game.copyWith(presetCategories: presetCategories),
-        ),
-      );
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to load preset categories: $error',
-        ),
-      );
-    }
-  }
-
-  Future<void> _onSavedCategoriesLoaded(
-    SavedCategoriesLoaded event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final savedCategories = await _categoryRepository.getSavedCategories();
-      emit(
-        state.copyWith(
-          game: state.game.copyWith(savedCategories: savedCategories),
-        ),
-      );
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to load saved categories: $error',
-        ),
-      );
-    }
-  }
-
-  // Game Categories Page events
-  void _onGameCategorySearchUpdated(
-    GameCategorySearchUpdated event,
-    Emitter<GameState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        game: state.game.copyWith(categorySearchText: event.searchText),
-      ),
-    );
-  }
-
-  void _onGameCategoryUpdated(
-    GameCategoryUpdated event,
-    Emitter<GameState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        game: state.game.copyWith(category: event.category),
-      ),
-    );
-
-    // When a category is selected, update its lastUsedAt timestamp
-    if (event.category.isNotEmpty) {
-      add(CategorySaved(event.category));
-    }
-
-    // Save settings to repository
-    _saveSettings();
-  }
-
-  Future<void> _onCategorySaved(
-    CategorySaved event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final savedCategories = await _categoryRepository.addOrUpdateCategory(
-        event.category,
-      );
-      emit(
-        state.copyWith(
-          game: state.game.copyWith(savedCategories: savedCategories),
-        ),
-      );
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to save category: $error',
-        ),
-      );
-    }
-  }
-
-  Future<void> _onCategoryRemoved(
-    CategoryRemoved event,
-    Emitter<GameState> emit,
-  ) async {
-    try {
-      final savedCategories = await _categoryRepository.removeCategory(
-        event.category,
-      );
-
-      // Check if the removed category is the currently selected category
-      final updatedGame = state.game.copyWith(
-        savedCategories: savedCategories,
-        // If the removed category is the selected one, clear it
-        category:
-            state.game.category == event.category ? '' : state.game.category,
-      );
-
-      emit(
-        state.copyWith(
-          game: updatedGame,
-        ),
-      );
-
-      // Save settings if category changed
-      if (state.game.category != updatedGame.category) {
-        _saveSettings();
-      }
-    } catch (error) {
-      emit(
-        state.copyWith(
-          status: GameStatus.error,
-          error: 'Failed to remove category: $error',
-        ),
-      );
-    }
-  }
-
   // Distribute Words Page events
   Future<void> _onGameStarted(
     GameStarted event,
@@ -445,7 +297,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     try {
       // Get a random word pair based on selected category and similarity
       result = await _wordPairService.getRandomWordPair(
-        category: state.game.category,
+        category: event.category,
         similarity: state.game.wordPairSimilarity,
       );
     } catch (error) {
@@ -458,6 +310,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
 
+    // If there's already a selected category and it's different from the word
+    // pair service, override it
+    if (result.category.isNotEmpty &&
+        result.category != _categoryBloc.state.selectedCategory &&
+        _categoryBloc.state.selectedCategory.isNotEmpty) {
+      _categoryBloc.add(CategorySelected(categoryName: result.category));
+    }
+
     // Start the game with word assignment phase
     emit(
       state.copyWith(
@@ -466,8 +326,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           players: playersWithRoles,
           citizenWord: result.words[0],
           wolfWord: result.words[1],
-          // Override category if it was previously filled
-          category: state.game.category.isNotEmpty ? result.category : '',
           icebreakers: result.icebreakers,
           phase: GamePhase.wordAssignment,
         ),
@@ -497,7 +355,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       const Duration(seconds: 1),
       (timer) {
         final remainingSeconds = state.game.remainingTimeInSeconds - 1;
-        add(GameTimerTicked(remainingSeconds));
+        add(GameTimerTicked(remainingSeconds: remainingSeconds));
       },
     );
   }
@@ -580,6 +438,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     // Start the timer
     _startTimer();
+  }
+
+  void _onPlayerVoted(
+    PlayerVoted event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          selectedPlayerId: event.selectedPlayerId,
+        ),
+      ),
+    );
   }
 
   // Unused events

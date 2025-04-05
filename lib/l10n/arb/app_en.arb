@@ -367,6 +367,10 @@
   "@exampleExtremelyDifferent": {
     "description": "Example word pair for extremely different words"
   },
+  "categoriesLoading": "Loading categories...",
+  "@categoriesLoading": {
+    "description": "Text for the loading state in the category selection page"
+  },
   "categoriesTitle": "Word Choice",
   "@categoriesTitle": {
     "description": "The title of the category selection page"
@@ -469,7 +473,7 @@
   "@exitGame": {
     "description": "Title and tooltip for the exit game dialog"
   },
-  "exitGameContent": "If you exit to the main menu, the words chosen will be lost. Is that okay?",
+  "exitGameContent": "If you exit to the main menu, game progress and the words chosen will be lost. Is that okay?",
   "@exitGameContent": {
     "description": "Content text for the exit game dialog"
   },
@@ -521,6 +525,10 @@
   "@discussion": {
     "description": "Text for the discussion page title"
   },
+  "noCategorySelected": "No category selected",
+  "@noCategorySelected": {
+    "description": "Text for the no category selected state"
+  },
   "discussionTimerValue": "{minutes}:{seconds}",
   "@discussionTimerValue": {
     "description": "Text showing remaining time for the discussion",
@@ -557,6 +565,10 @@
   "@icebreakersSubtitle": {
     "description": "Text for the icebreakers subtitle"
   },
+  "icebreakerUnrevealed": "???",
+  "@icebreakerUnrevealed": {
+    "description": "Text for the icebreaker label when unrevealed"
+  },
   "voting": "Voting",
   "@voting": {
     "description": "Text for the voting page title"
@@ -564,5 +576,9 @@
   "suddenDeath": "Sudden Death",
   "@suddenDeath": {
     "description": "Text for the sudden death button"
+  },
+  "results": "Results",
+  "@results": {
+    "description": "Text for the results page title"
   }
 }

@@ -5,6 +5,7 @@ import '../../app_ui/app_spacing.dart';
 import '../../app_ui/widgets/app_button.dart';
 import '../../app_ui/widgets/app_exit_scope.dart';
 import '../../app_ui/widgets/app_text.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../../l10n/l10n.dart';
 import '../bloc/game_bloc.dart';
 import '../models/game.dart';
@@ -46,9 +47,12 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     Future.microtask(() {
       if (mounted) {
         final gameState = context.read<GameBloc>().state;
+        final categoryState = context.read<CategoryBloc>().state;
         // Only start a new discussion if we're not in it already
         if (gameState.game.phase != GamePhase.wordAssignment) {
-          context.read<GameBloc>().add(const GameStarted());
+          context
+              .read<GameBloc>()
+              .add(GameStarted(category: categoryState.selectedCategory));
         }
       }
     });
@@ -96,6 +100,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
       child: BlocBuilder<GameBloc, GameState>(
         builder: (context, state) {
           final game = state.game;
+          final categoryState = context.read<CategoryBloc>().state;
 
           return Scaffold(
             appBar: AppBar(
@@ -107,7 +112,8 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              child: _buildContent(game, state.status),
+              child: _buildContent(
+                  game, state.status, categoryState.selectedCategory),
             ),
           );
         },
@@ -115,7 +121,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     );
   }
 
-  Widget _buildContent(Game game, GameStatus status) {
+  Widget _buildContent(Game game, GameStatus status, String category) {
     final l10n = context.l10n;
 
     // Show loading indicator if the game is in loading state
@@ -140,7 +146,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     // Get the current player
     final currentPlayer = game.players[currentPlayerIndex];
 
-    return _buildPlayerWordView(currentPlayer, game);
+    return _buildPlayerWordView(currentPlayer, game, category);
   }
 
   Widget _buildAllPlayersFinishedView() {
@@ -177,7 +183,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     );
   }
 
-  Widget _buildPlayerWordView(Player player, Game game) {
+  Widget _buildPlayerWordView(Player player, Game game, String category) {
     final playerWord =
         (player.role == PlayerRole.wolf) ? game.wolfWord : game.citizenWord;
 
@@ -187,7 +193,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
         // Top section - name aligned to bottom
         Expanded(
           flex: 3,
-          child: _buildPhaseHeader(player, game.category),
+          child: _buildPhaseHeader(player, category),
         ),
 
         // Middle section - content centered

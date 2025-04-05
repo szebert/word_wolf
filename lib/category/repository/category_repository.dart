@@ -16,6 +16,7 @@ class CategoryRepository {
 
   final PersistentStorage _persistentStorage;
   static const String _kSavedCategoriesKey = 'saved_categories';
+  static const String _kSelectedCategoryKey = 'selected_category';
   static const String _kPresetCategoriesPath =
       'assets/data/preset_categories.json';
 
@@ -113,6 +114,10 @@ class CategoryRepository {
     // Use trimmed category name to avoid whitespace issues
     final trimmedName = categoryName.trim();
 
+    if (trimmedName.isEmpty) {
+      return categories;
+    }
+
     // Check if the category already exists
     final existingIndex = categories.indexWhere((c) => c.name == trimmedName);
 
@@ -146,6 +151,22 @@ class CategoryRepository {
     await saveCategories(categories);
 
     return categories;
+  }
+
+  /// Get the currently selected category
+  Future<String> getSelectedCategory() async {
+    final category = await _persistentStorage.read(
+      key: _kSelectedCategoryKey,
+    );
+    return category ?? '';
+  }
+
+  /// Save the selected category
+  Future<void> saveSelectedCategory(String category) async {
+    await _persistentStorage.write(
+      key: _kSelectedCategoryKey,
+      value: category,
+    );
   }
 
   /// Remove a category by name

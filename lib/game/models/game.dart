@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 import 'player.dart';
-import 'saved_category.dart';
 import 'word_pair_results.dart';
 
 enum GamePhase {
@@ -15,7 +14,6 @@ enum GamePhase {
 class Game extends Equatable {
   const Game({
     this.players = const [],
-    this.category = '',
     this.citizenWord = '',
     this.wolfWord = '',
     this.discussionTimeInSeconds = 180, // Default 3 minutes
@@ -24,15 +22,12 @@ class Game extends Equatable {
     this.customWolfCount,
     this.randomizeWolfCount = false,
     this.autoAssignWolves = true,
-    this.categorySearchText = '',
-    this.savedCategories = const [],
-    this.presetCategories = const [],
     this.wordPairSimilarity = 0.5, // Default medium similarity
     this.icebreakers = const [],
+    this.selectedPlayerId,
   });
 
   final List<Player> players;
-  final String category;
   final String citizenWord;
   final String wolfWord;
   final int discussionTimeInSeconds;
@@ -41,12 +36,10 @@ class Game extends Equatable {
   final int? customWolfCount;
   final bool randomizeWolfCount;
   final bool autoAssignWolves;
-  final String categorySearchText;
-  final List<SavedCategory> savedCategories;
-  final List<String> presetCategories;
   // Controls how similar or different word pairs should be
   final double wordPairSimilarity;
   final List<Icebreaker> icebreakers;
+  final String? selectedPlayerId;
 
   int get generateWolfCount {
     // Calculate default wolf count based on player count
@@ -93,7 +86,6 @@ class Game extends Equatable {
 
   Game copyWith({
     List<Player>? players,
-    String? category,
     String? citizenWord,
     String? wolfWord,
     int? discussionTimeInSeconds,
@@ -102,15 +94,12 @@ class Game extends Equatable {
     int? customWolfCount,
     bool? randomizeWolfCount,
     bool? autoAssignWolves,
-    String? categorySearchText,
-    List<SavedCategory>? savedCategories,
-    List<String>? presetCategories,
     double? wordPairSimilarity,
     List<Icebreaker>? icebreakers,
+    String? selectedPlayerId,
   }) {
     return Game(
       players: players ?? this.players,
-      category: category ?? this.category,
       citizenWord: citizenWord ?? this.citizenWord,
       wolfWord: wolfWord ?? this.wolfWord,
       discussionTimeInSeconds:
@@ -121,18 +110,15 @@ class Game extends Equatable {
       customWolfCount: customWolfCount ?? this.customWolfCount,
       randomizeWolfCount: randomizeWolfCount ?? this.randomizeWolfCount,
       autoAssignWolves: autoAssignWolves ?? this.autoAssignWolves,
-      categorySearchText: categorySearchText ?? this.categorySearchText,
-      savedCategories: savedCategories ?? this.savedCategories,
-      presetCategories: presetCategories ?? this.presetCategories,
       wordPairSimilarity: wordPairSimilarity ?? this.wordPairSimilarity,
       icebreakers: icebreakers ?? this.icebreakers,
+      selectedPlayerId: selectedPlayerId ?? this.selectedPlayerId,
     );
   }
 
   @override
   List<Object?> get props => [
         players,
-        category,
         citizenWord,
         wolfWord,
         discussionTimeInSeconds,
@@ -141,10 +127,8 @@ class Game extends Equatable {
         customWolfCount,
         randomizeWolfCount,
         autoAssignWolves,
-        categorySearchText,
-        savedCategories,
-        presetCategories,
         wordPairSimilarity,
         icebreakers,
+        selectedPlayerId,
       ];
 }

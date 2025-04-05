@@ -32,7 +32,6 @@ class GameRepository {
 
   /// Saves game settings to persistent storage
   Future<void> saveGameSettings({
-    required String? category,
     required int? customWolfCount,
     required bool randomizeWolfCount,
     required bool autoAssignWolves,
@@ -41,7 +40,6 @@ class GameRepository {
   }) async {
     try {
       final settings = {
-        'category': category ?? '',
         'customWolfCount': customWolfCount,
         'randomizeWolfCount': randomizeWolfCount,
         'autoAssignWolves': autoAssignWolves,
@@ -73,7 +71,6 @@ class GameRepository {
         : settings['customWolfCount'] as int? ?? game.customWolfCount;
 
     return game.copyWith(
-      category: settings['category'] as String? ?? game.category,
       customWolfCount: customWolfCount,
       randomizeWolfCount: randomizeWolfCount,
       autoAssignWolves: autoAssignWolves,

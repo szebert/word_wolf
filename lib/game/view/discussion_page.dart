@@ -8,6 +8,7 @@ import '../../app_ui/widgets/app_button.dart';
 import '../../app_ui/widgets/app_exit_scope.dart';
 import '../../app_ui/widgets/app_icon_button.dart';
 import '../../app_ui/widgets/app_text.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../../l10n/l10n.dart';
 import '../bloc/game_bloc.dart';
 import '../models/game.dart';
@@ -54,10 +55,11 @@ class _DiscussionViewState extends State<DiscussionView>
     Future.microtask(() {
       if (mounted) {
         final gameState = context.read<GameBloc>().state;
+        final categoryState = context.read<CategoryBloc>().state;
 
         // Reveal icebreaker labels if category is not empty
         setState(() {
-          if (gameState.game.category.isNotEmpty) {
+          if (categoryState.selectedCategory.isNotEmpty) {
             for (var i = 0; i < gameState.game.icebreakers.length; i++) {
               _revealedLabels.add(i);
             }
@@ -120,7 +122,9 @@ class _DiscussionViewState extends State<DiscussionView>
     final newValue = currentTime + (minutes * 60);
 
     if (newValue >= 0 && newValue < 100 * 60) {
-      context.read<GameBloc>().add(GameTimerAdjusted(newValue));
+      context.read<GameBloc>().add(GameTimerAdjusted(
+            newTimeInSeconds: newValue,
+          ));
     }
   }
 
@@ -167,6 +171,7 @@ class _DiscussionViewState extends State<DiscussionView>
       child: BlocBuilder<GameBloc, GameState>(
         builder: (context, state) {
           final game = state.game;
+          final categoryState = context.read<CategoryBloc>().state;
 
           return Scaffold(
             appBar: AppBar(
@@ -182,7 +187,7 @@ class _DiscussionViewState extends State<DiscussionView>
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _buildCategorySection(game),
+                  _buildCategorySection(game, categoryState.selectedCategory),
                   _buildTimerSection(),
                   _buildIcebreakersSection(game),
                 ],
@@ -194,7 +199,7 @@ class _DiscussionViewState extends State<DiscussionView>
     );
   }
 
-  Widget _buildCategorySection(Game game) {
+  Widget _buildCategorySection(Game game, String category) {
     final l10n = context.l10n;
 
     return Column(
@@ -218,14 +223,12 @@ class _DiscussionViewState extends State<DiscussionView>
                 const SizedBox(width: AppSpacing.xs),
                 Expanded(
                   child: AppText(
-                    game.category.isEmpty
-                        ? 'No category selected'
-                        : game.category,
+                    category.isEmpty ? l10n.noCategorySelected : category,
                     variant: AppTextVariant.labelLarge,
                     weight: AppTextWeight.medium,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    customColor: game.category.isEmpty
+                    customColor: category.isEmpty
                         ? Theme.of(context).colorScheme.onSurfaceVariant
                         : null,
                   ),
@@ -394,7 +397,9 @@ class _DiscussionViewState extends State<DiscussionView>
                     );
                   },
                   child: Text(
-                    isLabelRevealed ? icebreaker.label : '???',
+                    isLabelRevealed
+                        ? icebreaker.label
+                        : l10n.icebreakerUnrevealed,
                   ),
                 ),
               );
@@ -423,8 +428,8 @@ class _DiscussionViewState extends State<DiscussionView>
                 decoration: BoxDecoration(
                   color: Theme.of(context)
                       .colorScheme
-                      .surfaceVariant
-                      .withOpacity(0.3),
+                      .surfaceContainerHighest
+                      .withAlpha(76),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: _selectedIcebreakerIndex >= 0 &&
