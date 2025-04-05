@@ -84,7 +84,7 @@ class ResultsView extends StatelessWidget {
                           AppText(
                             l10n.category,
                             variant: AppTextVariant.labelLarge,
-                            customColor: Theme.of(context).colorScheme.primary,
+                            colorOption: AppTextColor.primary,
                           ),
                           const SizedBox(width: AppSpacing.xs),
                           Expanded(
@@ -111,9 +111,8 @@ class ResultsView extends StatelessWidget {
                     variant: AppTextVariant.headlineLarge,
                     weight: AppTextWeight.bold,
                     textAlign: TextAlign.center,
-                    customColor: citizenWon
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.error,
+                    colorOption:
+                        citizenWon ? AppTextColor.primary : AppTextColor.error,
                   ),
 
                   const SizedBox(height: AppSpacing.lg),
@@ -139,8 +138,7 @@ class ResultsView extends StatelessWidget {
                                 horizontal: AppSpacing.md,
                               ),
                               child: Card(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                color: Theme.of(context).colorScheme.secondary,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: AppSpacing.lg,
@@ -150,6 +148,7 @@ class ResultsView extends StatelessWidget {
                                     game.citizenWord,
                                     variant: AppTextVariant.titleLarge,
                                     textAlign: TextAlign.center,
+                                    colorOption: AppTextColor.onSecondary,
                                   ),
                                 ),
                               ),
@@ -175,8 +174,7 @@ class ResultsView extends StatelessWidget {
                                 horizontal: AppSpacing.md,
                               ),
                               child: Card(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                color: Theme.of(context).colorScheme.secondary,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: AppSpacing.lg,
@@ -186,6 +184,7 @@ class ResultsView extends StatelessWidget {
                                     game.wolfWord,
                                     variant: AppTextVariant.titleLarge,
                                     textAlign: TextAlign.center,
+                                    colorOption: AppTextColor.onSecondary,
                                   ),
                                 ),
                               ),
@@ -302,9 +301,7 @@ class ResultsView extends StatelessWidget {
                                           .playerDefaultName(originalIndex + 1)
                                       : '',
                                   variant: AppTextVariant.bodyMedium,
-                                  customColor: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
+                                  colorOption: AppTextColor.onSurfaceVariant,
                                 ),
                               ),
                               if (isEliminated)
@@ -320,8 +317,7 @@ class ResultsView extends StatelessWidget {
                                   child: AppText(
                                     l10n.eliminated,
                                     variant: AppTextVariant.labelSmall,
-                                    customColor:
-                                        Theme.of(context).colorScheme.onError,
+                                    colorOption: AppTextColor.onError,
                                   ),
                                 ),
                             ],

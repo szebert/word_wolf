@@ -194,7 +194,7 @@ class _VotingViewState extends State<VotingView> {
             subtitle: AppText(
               !player.isDefaultName ? l10n.playerDefaultName(index + 1) : '',
               variant: AppTextVariant.bodyMedium,
-              customColor: Theme.of(context).colorScheme.onSurfaceVariant,
+              colorOption: AppTextColor.onSurfaceVariant,
             ),
             selected: isSelected,
             selectedTileColor: Theme.of(context).colorScheme.primaryContainer,
@@ -206,7 +206,7 @@ class _VotingViewState extends State<VotingView> {
                       width: 2,
                     )
                   : BorderSide(
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: Theme.of(context).colorScheme.secondary,
                       width: 2,
                     ),
             ),

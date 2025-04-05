@@ -218,7 +218,7 @@ class _DiscussionViewState extends State<DiscussionView>
                 AppText(
                   l10n.category,
                   variant: AppTextVariant.labelLarge,
-                  customColor: Theme.of(context).colorScheme.primary,
+                  colorOption: AppTextColor.primary,
                 ),
                 const SizedBox(width: AppSpacing.xs),
                 Expanded(
@@ -228,9 +228,9 @@ class _DiscussionViewState extends State<DiscussionView>
                     weight: AppTextWeight.medium,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    customColor: category.isEmpty
-                        ? Theme.of(context).colorScheme.onSurfaceVariant
-                        : null,
+                    colorOption: category.isEmpty
+                        ? AppTextColor.onSurfaceVariant
+                        : AppTextColor.unspecified,
                   ),
                 ),
               ],
@@ -272,9 +272,9 @@ class _DiscussionViewState extends State<DiscussionView>
               ),
               variant: AppTextVariant.displayMedium,
               weight: AppTextWeight.bold,
-              customColor: gameState.remainingTimeInSeconds < 60
-                  ? Theme.of(context).colorScheme.error
-                  : null,
+              colorOption: gameState.remainingTimeInSeconds < 60
+                  ? AppTextColor.error
+                  : AppTextColor.unspecified,
             ),
 
             // Plus button on right
@@ -355,7 +355,7 @@ class _DiscussionViewState extends State<DiscussionView>
         AppText(
           l10n.icebreakersSubtitle,
           variant: AppTextVariant.bodySmall,
-          customColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          colorOption: AppTextColor.onSurfaceVariant,
         ),
         const SizedBox(height: AppSpacing.md),
 

@@ -238,7 +238,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
                   AppText(
                     l10n.category,
                     variant: AppTextVariant.labelLarge,
-                    customColor: Theme.of(context).colorScheme.primary,
+                    colorOption: AppTextColor.primary,
                   ),
                   const SizedBox(width: AppSpacing.xs),
                   Expanded(
@@ -276,7 +276,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
                   child: AppText(
                     l10n.playerDefaultName(currentPlayerIndex + 1),
                     variant: AppTextVariant.titleLarge,
-                    customColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                    colorOption: AppTextColor.onSurfaceVariant,
                   ),
                 ),
               SizedBox(height: AppSpacing.md),
