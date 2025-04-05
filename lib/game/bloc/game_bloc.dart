@@ -1,19 +1,19 @@
-import 'dart:async';
-import 'dart:math';
+import "dart:async";
+import "dart:math";
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import "package:bloc/bloc.dart";
+import "package:equatable/equatable.dart";
 
-import '../../category/bloc/category_bloc.dart';
-import '../models/game.dart';
-import '../models/player.dart';
-import '../models/word_pair_results.dart';
-import '../repository/game_repository.dart';
-import '../repository/player_repository.dart';
-import '../services/word_pair_service.dart';
+import "../../category/bloc/category_bloc.dart";
+import "../models/game.dart";
+import "../models/player.dart";
+import "../models/word_pair_results.dart";
+import "../repository/game_repository.dart";
+import "../repository/player_repository.dart";
+import "../services/word_pair_service.dart";
 
-part 'game_event.dart';
-part 'game_state.dart';
+part "game_event.dart";
+part "game_state.dart";
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({
@@ -52,6 +52,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<VotingStarted>(_onVotingStarted);
     on<SuddenDeathStarted>(_onSuddenDeathStarted);
     on<PlayerVoted>(_onPlayerVoted);
+
+    // Wolf's Revenge events
+    on<WolfRevengeGuess>(_onWolfRevengeGuess);
+    on<WolfRevengeVerbalGuess>(_onWolfRevengeVerbalGuess);
+    on<WolfRevengeSkipped>(_onWolfRevengeSkipped);
   }
 
   final PlayerRepository _playerRepository;
@@ -93,7 +98,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(
         state.copyWith(
           status: GameStatus.error,
-          error: 'Failed to load game data: $error',
+          error: "Failed to load game data: $error",
         ),
       );
     }
@@ -128,7 +133,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(
         state.copyWith(
           status: GameStatus.error,
-          error: 'Failed to add player: $error',
+          error: "Failed to add player: $error",
         ),
       );
     }
@@ -143,7 +148,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         emit(
           state.copyWith(
             status: GameStatus.error,
-            error: 'Cannot remove player. Minimum 3 players required.',
+            error: "Cannot remove player. Minimum 3 players required.",
           ),
         );
         return;
@@ -181,7 +186,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(
         state.copyWith(
           status: GameStatus.error,
-          error: 'Failed to remove player: $error',
+          error: "Failed to remove player: $error",
         ),
       );
     }
@@ -206,7 +211,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(
         state.copyWith(
           status: GameStatus.error,
-          error: 'Failed to update player name: $error',
+          error: "Failed to update player name: $error",
         ),
       );
     }
@@ -316,7 +321,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(
         state.copyWith(
           status: GameStatus.error,
-          error: 'Failed to get word pair: $error',
+          error: "Failed to get word pair: $error",
         ),
       );
       return;
@@ -456,10 +461,61 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     PlayerVoted event,
     Emitter<GameState> emit,
   ) {
+    // Immediately emit the updated state
     emit(
       state.copyWith(
         game: state.game.copyWith(
           selectedPlayerId: event.selectedPlayerId,
+          // Reset any previous wolf revenge attempts
+          wolfRevengeAttempted: false,
+          wolfRevengeSuccessful: false,
+        ),
+      ),
+    );
+  }
+
+  // Wolf's Revenge events
+  void _onWolfRevengeGuess(
+    WolfRevengeGuess event,
+    Emitter<GameState> emit,
+  ) {
+    // Compare with citizens' word (case-insensitive)
+    final isCorrect = event.guess.toLowerCase().trim() ==
+        state.game.citizenWord.toLowerCase().trim();
+
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          wolfRevengeAttempted: true,
+          wolfRevengeSuccessful: isCorrect,
+        ),
+      ),
+    );
+  }
+
+  void _onWolfRevengeVerbalGuess(
+    WolfRevengeVerbalGuess event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          wolfRevengeAttempted: true,
+          wolfRevengeSuccessful: event.correct,
+        ),
+      ),
+    );
+  }
+
+  void _onWolfRevengeSkipped(
+    WolfRevengeSkipped event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          wolfRevengeAttempted: true,
+          wolfRevengeSuccessful: false,
         ),
       ),
     );

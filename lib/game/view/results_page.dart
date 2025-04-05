@@ -47,7 +47,16 @@ class ResultsView extends StatelessWidget {
               : Player.empty();
 
           // Determine if citizens or wolves won
-          final citizenWon = selectedPlayer.role == PlayerRole.wolf;
+          final eliminatedPlayerIsWolf = selectedPlayer.role == PlayerRole.wolf;
+
+          // Wolf's Revenge reverses the outcome if successful
+          final wolfRevengeSuccessful = eliminatedPlayerIsWolf &&
+              game.wolfRevengeAttempted &&
+              game.wolfRevengeSuccessful;
+
+          // Citizens win if a wolf is eliminated (unless revenge was successful)
+          // Wolves win if a citizen is eliminated OR if wolf revenge was successful
+          final citizenWon = eliminatedPlayerIsWolf && !wolfRevengeSuccessful;
 
           // Get lists of citizens and wolves
           final citizens = game.players
@@ -206,6 +215,7 @@ class ResultsView extends StatelessWidget {
                             citizens,
                             selectedPlayer,
                             game.players,
+                            wolfRevengeSuccessful,
                           ),
                         ),
 
@@ -215,6 +225,7 @@ class ResultsView extends StatelessWidget {
                             wolves,
                             selectedPlayer,
                             game.players,
+                            wolfRevengeSuccessful,
                           ),
                         ),
                       ],
@@ -238,6 +249,7 @@ class ResultsView extends StatelessWidget {
     List<Player> players,
     Player selectedPlayer,
     List<Player> allPlayers,
+    bool wolfRevengeSuccessful,
   ) {
     return Column(
       children: [
@@ -311,13 +323,19 @@ class ResultsView extends StatelessWidget {
                                     vertical: 2,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.error,
+                                    color: wolfRevengeSuccessful
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(context).colorScheme.error,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: AppText(
-                                    l10n.eliminated,
+                                    wolfRevengeSuccessful
+                                        ? l10n.revenged
+                                        : l10n.eliminated,
                                     variant: AppTextVariant.labelSmall,
-                                    colorOption: AppTextColor.onError,
+                                    colorOption: wolfRevengeSuccessful
+                                        ? AppTextColor.onPrimary
+                                        : AppTextColor.onError,
                                   ),
                                 ),
                             ],

@@ -1,4 +1,4 @@
-part of 'game_bloc.dart';
+part of "game_bloc.dart";
 
 abstract class GameEvent extends Equatable {
   const GameEvent();
@@ -151,4 +151,30 @@ class PlayerVoted extends GameEvent {
 
   @override
   List<Object> get props => [selectedPlayerId];
+}
+
+class WolfRevengeGuess extends GameEvent {
+  const WolfRevengeGuess({
+    required this.guess,
+  });
+
+  final String guess;
+
+  @override
+  List<Object> get props => [guess];
+}
+
+class WolfRevengeVerbalGuess extends GameEvent {
+  const WolfRevengeVerbalGuess({
+    required this.correct,
+  });
+
+  final bool correct;
+
+  @override
+  List<Object> get props => [correct];
+}
+
+class WolfRevengeSkipped extends GameEvent {
+  const WolfRevengeSkipped();
 }

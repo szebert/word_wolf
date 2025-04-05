@@ -649,5 +649,63 @@
   "exitToMenu": "Exit to Menu",
   "@exitToMenu": {
     "description": "Text for the button to exit to main menu"
+  },
+  "wolfRevengePageTitle": "Wolf's Revenge",
+  "@wolfRevengePageTitle": {
+    "description": "Title for the Wolf's Revenge page"
+  },
+  "wolfRevengeEliminated": "{playerName}, you've been eliminated!",
+  "@wolfRevengeEliminated": {
+    "description": "Message shown to the eliminated wolf player",
+    "placeholders": {
+      "playerName": {
+        "type": "String",
+        "example": "Player 1"
+      }
+    }
+  },
+  "wolfRevengeExplanation": "But you can still win the game for the wolves! If you can correctly guess the citizens' word, you'll steal the victory.",
+  "@wolfRevengeExplanation": {
+    "description": "Explanation of the Wolf's Revenge mechanic"
+  },
+  "wolfRevengePrompt": "What do you think the citizens' word was?",
+  "@wolfRevengePrompt": {
+    "description": "Prompt for the wolf to guess the citizens' word"
+  },
+  "wolfRevengeGuessHint": "Enter your guess",
+  "@wolfRevengeGuessHint": {
+    "description": "Hint text for the word guess input field"
+  },
+  "wolfRevengeSubmit": "Submit Guess",
+  "@wolfRevengeSubmit": {
+    "description": "Text for the submit guess button"
+  },
+  "wolfRevengeEmptyError": "Please enter a word",
+  "@wolfRevengeEmptyError": {
+    "description": "Error message when no word is entered"
+  },
+  "wolfRevengeVerbal": "Guess Verbally",
+  "@wolfRevengeVerbal": {
+    "description": "Text for the verbal guess button"
+  },
+  "wolfRevengeGiveUp": "Give Up (wolves lose)",
+  "@wolfRevengeGiveUp": {
+    "description": "Text for the give up button"
+  },
+  "wolfRevengeVerbalTitle": "Was your verbal guess correct?",
+  "@wolfRevengeVerbalTitle": {
+    "description": "Title for the verbal guess confirmation dialog"
+  },
+  "wolfRevengeVerbalContent": "Did the citizens confirm your guess was correct?",
+  "@wolfRevengeVerbalContent": {
+    "description": "Content for the verbal guess confirmation dialog"
+  },
+  "wolfRevengeVerbalNo": "No",
+  "@wolfRevengeVerbalNo": {
+    "description": "Button text for incorrect verbal guess"
+  },
+  "wolfRevengeVerbalYes": "Yes",
+  "@wolfRevengeVerbalYes": {
+    "description": "Button text for correct verbal guess"
   }
 }

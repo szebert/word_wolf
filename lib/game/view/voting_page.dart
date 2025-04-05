@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_button.dart';
-import '../../app_ui/widgets/app_exit_scope.dart';
-import '../../app_ui/widgets/app_list_tile.dart';
-import '../../app_ui/widgets/app_text.dart';
-import '../../l10n/l10n.dart';
-import '../bloc/game_bloc.dart';
-import '../models/game.dart';
-import '../models/player.dart';
-import 'discussion_page.dart';
-import 'results_page.dart';
+import "../../app_ui/app_spacing.dart";
+import "../../app_ui/widgets/app_button.dart";
+import "../../app_ui/widgets/app_exit_scope.dart";
+import "../../app_ui/widgets/app_list_tile.dart";
+import "../../app_ui/widgets/app_text.dart";
+import "../../l10n/l10n.dart";
+import "../bloc/game_bloc.dart";
+import "../models/game.dart";
+import "../models/player.dart";
+import "discussion_page.dart";
+import "results_page.dart";
+import "wolf_revenge_page.dart";
 
 class VotingPage extends StatelessWidget {
   const VotingPage({super.key});
@@ -67,10 +68,11 @@ class _VotingViewState extends State<VotingView> {
 
   void _navigateToResults() {
     if (_selectedPlayerId != null) {
-      // Add the selected player ID to the game state
+      // Only update the state, don't navigate here - let the BlocConsumer handle navigation
       context
           .read<GameBloc>()
           .add(PlayerVoted(selectedPlayerId: _selectedPlayerId!));
+      // Navigation will be handled by the BlocConsumer listener
     }
   }
 
@@ -84,7 +86,21 @@ class _VotingViewState extends State<VotingView> {
             previous.game.selectedPlayerId != current.game.selectedPlayerId &&
             current.game.selectedPlayerId != null,
         listener: (context, state) {
-          Navigator.of(context).push(ResultsPage.route());
+          // Get the selected player
+          final selectedPlayer = state.game.players.firstWhere(
+            (player) => player.id == state.game.selectedPlayerId,
+            orElse: () => Player.empty(),
+          );
+
+          // Check if we need to show Wolf's Revenge page
+          if (selectedPlayer.role == PlayerRole.wolf &&
+              state.game.wolfRevengeEnabled) {
+            // Navigate to Wolf's Revenge page
+            Navigator.of(context).push(WolfRevengePage.route());
+          } else {
+            // Direct to results page
+            Navigator.of(context).push(ResultsPage.route());
+          }
         },
         builder: (context, state) {
           final game = state.game;
@@ -192,7 +208,7 @@ class _VotingViewState extends State<VotingView> {
               maxLines: 1,
             ),
             subtitle: AppText(
-              !player.isDefaultName ? l10n.playerDefaultName(index + 1) : '',
+              !player.isDefaultName ? l10n.playerDefaultName(index + 1) : "",
               variant: AppTextVariant.bodyMedium,
               colorOption: AppTextColor.onSurfaceVariant,
             ),
