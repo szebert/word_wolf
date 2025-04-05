@@ -29,7 +29,9 @@ class ToggleHaptic extends SettingsEvent {
 }
 
 class TextScaleChanged extends SettingsEvent {
-  const TextScaleChanged(this.scale);
+  const TextScaleChanged({
+    required this.scale,
+  });
 
   final double scale;
 

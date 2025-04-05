@@ -287,7 +287,9 @@ class FontSizeSection extends StatelessWidget {
                   return;
                 }
                 final double scale = _fontSizeScales[selection.first]!;
-                context.read<SettingsBloc>().add(TextScaleChanged(scale));
+                context
+                    .read<SettingsBloc>()
+                    .add(TextScaleChanged(scale: scale));
               },
             ),
           ),

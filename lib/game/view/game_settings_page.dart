@@ -162,7 +162,8 @@ class _GameSettingsViewState extends State<GameSettingsView> {
       });
       context.read<GameBloc>().add(
             GameDiscussionTimeUpdated(
-                _discussionDuration * 60), // Convert minutes to seconds
+              timeInSeconds: _discussionDuration * 60,
+            ),
           );
     }
   }
@@ -174,14 +175,15 @@ class _GameSettingsViewState extends State<GameSettingsView> {
       });
       context.read<GameBloc>().add(
             GameDiscussionTimeUpdated(
-                _discussionDuration * 60), // Convert minutes to seconds
+              timeInSeconds: _discussionDuration * 60,
+            ),
           );
     }
   }
 
   void _updateWordPairSimilarity(double value) {
     // Use the dedicated event for updating word pair similarity
-    context.read<GameBloc>().add(WordPairSimilarityUpdated(value));
+    context.read<GameBloc>().add(WordPairSimilarityUpdated(similarity: value));
   }
 
   String _getSimilarityDescription(

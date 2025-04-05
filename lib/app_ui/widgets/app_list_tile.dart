@@ -19,6 +19,7 @@ class AppListTile extends ListTile {
     super.title,
     super.subtitle,
     super.selected,
+    super.selectedTileColor,
     super.trailing,
     super.style,
   }) : super(
