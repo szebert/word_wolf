@@ -1,16 +1,16 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../app_ui/app_config.dart';
-import '../app_ui/app_spacing.dart';
-import '../app_ui/widgets/app_icon_button.dart';
-import '../app_ui/widgets/app_segmented_button.dart';
-import '../app_ui/widgets/app_switch.dart';
-import '../l10n/l10n.dart';
-import '../settings/settings_bloc.dart';
-import '../theme/theme_mode_bloc.dart';
+import "../app_ui/app_config.dart";
+import "../app_ui/app_spacing.dart";
+import "../app_ui/widgets/app_icon_button.dart";
+import "../app_ui/widgets/app_segmented_button.dart";
+import "../app_ui/widgets/app_switch.dart";
+import "../l10n/l10n.dart";
+import "../settings/settings_bloc.dart";
+import "../theme/theme_mode_bloc.dart";
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

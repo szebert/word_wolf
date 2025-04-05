@@ -1,10 +1,10 @@
-import 'dart:convert';
-import 'dart:math';
+import "dart:convert";
+import "dart:math";
 
-import 'package:flutter/services.dart';
+import "package:flutter/services.dart";
 
-import '../models/word_pair_results.dart';
-import 'used_words_storage.dart';
+import "../models/word_pair_results.dart";
+import "used_words_storage.dart";
 
 /// {@template word_pair_service}
 /// Service for managing word pairs for the game.
@@ -17,7 +17,7 @@ class WordPairService {
   }) : _usedWordsStorage = usedWordsStorage;
 
   final UsedWordsStorage _usedWordsStorage;
-  static const String _kOfflineWordsPath = 'assets/data/offline_words.json';
+  static const String _kOfflineWordsPath = "assets/data/offline_words.json";
   List<Map<String, dynamic>>? _offlinePairsCache;
 
   /// Loads word pairs from the offline JSON file
@@ -33,7 +33,7 @@ class WordPairService {
 
       // Extract the pairs list
       final pairs = List<Map<String, dynamic>>.from(
-        (data['pairs'] as List).map((e) => e as Map<String, dynamic>),
+        (data["pairs"] as List).map((e) => e as Map<String, dynamic>),
       );
 
       // Cache the results
@@ -44,8 +44,8 @@ class WordPairService {
       // If loading fails, return a default pair
       return [
         {
-          'words': ['Cat', 'Dog'],
-          'category': 'Animals',
+          "words": ["Cat", "Dog"],
+          "category": "Animals",
         },
       ];
     }
@@ -63,7 +63,7 @@ class WordPairService {
 
     // Filter pairs that don't contain any excluded words
     final eligiblePairs = pairs.where((pair) {
-      final words = (pair['words'] as List).cast<String>();
+      final words = (pair["words"] as List).cast<String>();
       // Check if any word in this pair is in the excluded list
       return !words
           .any((word) => lowerExcludeWords.contains(word.toLowerCase()));
@@ -91,7 +91,7 @@ class WordPairService {
 
   /// Returns a random word pair result with specified category and similarity
   Future<WordPairResult> getRandomWordPair({
-    String category = '',
+    String category = "",
     double similarity = 0.5,
   }) async {
     // Get previously used words if storage is available

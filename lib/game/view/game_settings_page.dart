@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_button.dart';
-import '../../app_ui/widgets/app_checkbox_list_tile.dart';
-import '../../app_ui/widgets/app_icon_button.dart';
-import '../../app_ui/widgets/app_text.dart';
-import '../../l10n/l10n.dart';
-import '../bloc/game_bloc.dart';
-import 'game_categories_page.dart';
+import "../../app_ui/app_spacing.dart";
+import "../../app_ui/widgets/app_button.dart";
+import "../../app_ui/widgets/app_checkbox_list_tile.dart";
+import "../../app_ui/widgets/app_icon_button.dart";
+import "../../app_ui/widgets/app_text.dart";
+import "../../l10n/l10n.dart";
+import "../bloc/game_bloc.dart";
+import "game_categories_page.dart";
 
 class GameSettingsPage extends StatelessWidget {
   const GameSettingsPage({super.key});
@@ -320,8 +320,8 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                             children: [
                               AppText(
                                 _randomizeWolfCount
-                                    ? '?'
-                                    : '${totalPlayers - _numberOfWolves}',
+                                    ? "?"
+                                    : "${totalPlayers - _numberOfWolves}",
                                 variant: AppTextVariant.displaySmall,
                                 textAlign: TextAlign.center,
                               ),
@@ -373,7 +373,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                           child: Column(
                             children: [
                               AppText(
-                                _randomizeWolfCount ? '?' : '$_numberOfWolves',
+                                _randomizeWolfCount ? "?" : "$_numberOfWolves",
                                 variant: AppTextVariant.displaySmall,
                                 textAlign: TextAlign.center,
                               ),
@@ -415,7 +415,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                           child: Column(
                             children: [
                               AppText(
-                                '$_discussionDuration',
+                                "$_discussionDuration",
                                 variant: AppTextVariant.displaySmall,
                                 textAlign: TextAlign.center,
                               ),

@@ -1,10 +1,10 @@
-import 'package:equatable/equatable.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import "package:equatable/equatable.dart";
+import "package:hydrated_bloc/hydrated_bloc.dart";
 
-import 'app_repository.dart';
+import "app_repository.dart";
 
-part 'app_event.dart';
-part 'app_state.dart';
+part "app_event.dart";
+part "app_state.dart";
 
 class AppBloc extends HydratedBloc<AppEvent, AppState> {
   AppBloc({
@@ -27,14 +27,14 @@ class AppBloc extends HydratedBloc<AppEvent, AppState> {
   @override
   AppState fromJson(Map<dynamic, dynamic> json) {
     return AppState(
-      hasViewedHowToPlay: json['has_viewed_how_to_play'] as bool? ?? false,
+      hasViewedHowToPlay: json["has_viewed_how_to_play"] as bool? ?? false,
     );
   }
 
   @override
   Map<String, dynamic> toJson(AppState state) {
     return <String, dynamic>{
-      'has_viewed_how_to_play': state.hasViewedHowToPlay,
+      "has_viewed_how_to_play": state.hasViewedHowToPlay,
     };
   }
 

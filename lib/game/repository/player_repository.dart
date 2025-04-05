@@ -1,9 +1,9 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:uuid/uuid.dart';
+import "package:uuid/uuid.dart";
 
-import '../../storage/persistent_storage.dart';
-import '../models/player.dart';
+import "../../storage/persistent_storage.dart";
+import "../models/player.dart";
 
 class PlayerRepository {
   PlayerRepository({
@@ -12,8 +12,8 @@ class PlayerRepository {
 
   final PersistentStorage _persistentStorage;
   String Function(int)? _formatPlayerName;
-  static const String _kPlayersKey = 'players';
-  static const String _kNameCacheKey = 'player_name_cache';
+  static const String _kPlayersKey = "players";
+  static const String _kNameCacheKey = "player_name_cache";
   final _uuid = const Uuid();
 
   /// Initialize the player name formatter
@@ -24,7 +24,7 @@ class PlayerRepository {
 
   /// Get the appropriate formatter function with fallback
   String Function(int) _getFormatter() {
-    return _formatPlayerName ?? ((number) => 'Player $number');
+    return _formatPlayerName ?? ((number) => "Player $number");
   }
 
   /// Saves a custom player name to the cache by position
@@ -110,9 +110,9 @@ class PlayerRepository {
       return playersJson.map((item) {
         final data = item as Map<String, dynamic>;
         return Player(
-          id: data['id'] as String,
-          name: data['name'] as String,
-          isDefaultName: data['isDefaultName'] as bool? ?? false,
+          id: data["id"] as String,
+          name: data["name"] as String,
+          isDefaultName: data["isDefaultName"] as bool? ?? false,
         );
       }).toList();
     } catch (e) {
@@ -133,9 +133,9 @@ class PlayerRepository {
     final playersJson = players
         .map(
           (player) => {
-            'id': player.id,
-            'name': player.name,
-            'isDefaultName': player.isDefaultName,
+            "id": player.id,
+            "name": player.name,
+            "isDefaultName": player.isDefaultName,
           },
         )
         .toList();

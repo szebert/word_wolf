@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 /// {@template analytics_event}
 /// An analytic event which can be tracked.

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key});
 
-  static const String _logoWhite = 'assets/images/logo_white.webp';
-  static const String _logoBlack = 'assets/images/logo_black.webp';
+  static const String _logoWhite = "assets/images/logo_white.webp";
+  static const String _logoBlack = "assets/images/logo_black.webp";
 
   @override
   Widget build(BuildContext context) {

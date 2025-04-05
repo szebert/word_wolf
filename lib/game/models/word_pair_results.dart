@@ -13,23 +13,23 @@ class Icebreaker {
 
   /// Creates an Icebreaker from a map
   factory Icebreaker.fromMap(Map<String, dynamic> map) {
-    if (!map.containsKey('label') || !map.containsKey('statement')) {
+    if (!map.containsKey("label") || !map.containsKey("statement")) {
       throw FormatException(
-        'Invalid format: icebreaker must have label and statement',
+        "Invalid format: icebreaker must have label and statement",
       );
     }
 
     return Icebreaker(
-      label: map['label'] as String,
-      statement: map['statement'] as String,
+      label: map["label"] as String,
+      statement: map["statement"] as String,
     );
   }
 
   /// Converts to a Map representation
   Map<String, dynamic> toMap() {
     return {
-      'label': label,
-      'statement': statement,
+      "label": label,
+      "statement": statement,
     };
   }
 }
@@ -47,35 +47,35 @@ class WordPairResult {
 
   WordPairResult({
     required this.words,
-    this.category = '',
+    this.category = "",
     this.icebreakers = const [],
   }) {
     // Validate the structure
     if (words.isEmpty) {
-      throw FormatException('Invalid format: must contain at least one word');
+      throw FormatException("Invalid format: must contain at least one word");
     }
   }
 
   /// Creates a WordPairResult from a map, with validation
   static WordPairResult fromMap(Map<String, dynamic> map) {
     // Validate required fields exist
-    if (!map.containsKey('words')) {
+    if (!map.containsKey("words")) {
       throw FormatException(
-        'Invalid format: missing required words field',
+        "Invalid format: missing required words field",
       );
     }
 
-    final wordsValue = map['words'];
+    final wordsValue = map["words"];
     // Category is optional, default to empty string
-    final categoryValue = map['category'] as String? ?? '';
+    final categoryValue = map["category"] as String? ?? "";
 
     // Icebreakers are optional
-    final icebreakersValue = map['icebreakers'] as List? ?? [];
+    final icebreakersValue = map["icebreakers"] as List? ?? [];
 
     // Validate types
     if (wordsValue is! List) {
       throw FormatException(
-        'Invalid format: words field must be a list',
+        "Invalid format: words field must be a list",
       );
     }
 
@@ -84,7 +84,7 @@ class WordPairResult {
       wordsValue.map((item) {
         if (item is! String) {
           throw FormatException(
-            'Invalid format: words must be strings',
+            "Invalid format: words must be strings",
           );
         }
         return item;
@@ -93,7 +93,7 @@ class WordPairResult {
 
     if (wordsList.length < 2) {
       throw FormatException(
-        'Invalid format: must contain at least two words',
+        "Invalid format: must contain at least two words",
       );
     }
 
@@ -113,9 +113,9 @@ class WordPairResult {
   /// Converts to a Map representation
   Map<String, dynamic> toMap() {
     return {
-      'words': words,
-      'category': category,
-      'icebreakers':
+      "words": words,
+      "category": category,
+      "icebreakers":
           icebreakers.map((icebreaker) => icebreaker.toMap()).toList(),
     };
   }

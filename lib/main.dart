@@ -1,10 +1,10 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:shared_preferences/shared_preferences.dart";
 
-import 'analytics_repository/analytics_repository.dart';
-import 'app/app.dart';
-import 'bootstrap.dart';
-import 'feedback_repository/feedback_repository.dart';
-import 'storage/persistent_storage.dart';
+import "analytics_repository/analytics_repository.dart";
+import "app/app.dart";
+import "bootstrap.dart";
+import "feedback_repository/feedback_repository.dart";
+import "storage/persistent_storage.dart";
 
 void main() async {
   await bootstrap(

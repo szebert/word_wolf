@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_button.dart';
-import '../../app_ui/widgets/app_exit_scope.dart';
-import '../../app_ui/widgets/app_text.dart';
-import '../../category/bloc/category_bloc.dart';
-import '../../l10n/l10n.dart';
-import '../bloc/game_bloc.dart';
-import '../models/game.dart';
-import '../models/player.dart';
-import 'discussion_page.dart';
+import "../../app_ui/app_spacing.dart";
+import "../../app_ui/widgets/app_button.dart";
+import "../../app_ui/widgets/app_exit_scope.dart";
+import "../../app_ui/widgets/app_text.dart";
+import "../../category/bloc/category_bloc.dart";
+import "../../l10n/l10n.dart";
+import "../bloc/game_bloc.dart";
+import "../models/game.dart";
+import "../models/player.dart";
+import "discussion_page.dart";
 
 class DistributeWordsPage extends StatelessWidget {
   const DistributeWordsPage({super.key});

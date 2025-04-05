@@ -1,4 +1,4 @@
-part of 'category_bloc.dart';
+part of "category_bloc.dart";
 
 enum CategoryStatus {
   initial,
@@ -10,11 +10,11 @@ enum CategoryStatus {
 class CategoryState extends Equatable {
   const CategoryState({
     this.status = CategoryStatus.initial,
-    this.searchText = '',
+    this.searchText = "",
     this.savedCategories = const [],
     this.presetCategories = const [],
-    this.selectedCategory = '',
-    this.error = '',
+    this.selectedCategory = "",
+    this.error = "",
   });
 
   final CategoryStatus status;

@@ -1,4 +1,4 @@
-part of 'game_bloc.dart';
+part of "game_bloc.dart";
 
 enum GameStatus {
   initial,
@@ -12,7 +12,7 @@ class GameState extends Equatable {
   const GameState({
     this.status = GameStatus.initial,
     this.game = const Game(),
-    this.error = '',
+    this.error = "",
   });
 
   final GameStatus status;

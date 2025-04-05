@@ -1,7 +1,7 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
-import 'player.dart';
-import 'word_pair_results.dart';
+import "player.dart";
+import "word_pair_results.dart";
 
 enum GamePhase {
   setup,
@@ -14,8 +14,8 @@ enum GamePhase {
 class Game extends Equatable {
   const Game({
     this.players = const [],
-    this.citizenWord = '',
-    this.wolfWord = '',
+    this.citizenWord = "",
+    this.wolfWord = "",
     this.discussionTimeInSeconds = 180, // Default 3 minutes
     this.phase = GamePhase.setup,
     this.remainingTimeInSeconds = 0,

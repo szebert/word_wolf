@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 /// The variant of the AppText.
 enum AppTextVariant {

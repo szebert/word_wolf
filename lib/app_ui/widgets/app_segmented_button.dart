@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
-import '../app_config.dart';
-import '../app_spacing.dart';
+import "../app_config.dart";
+import "../app_spacing.dart";
 
 /// {@template app_segmented_button}
 /// A customized segmented button widget that follows the app's design system.

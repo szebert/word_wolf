@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../app/app_bloc.dart';
-import '../app_ui/app_spacing.dart';
-import '../app_ui/widgets/app_button.dart';
-import '../app_ui/widgets/app_icon_button.dart';
-import '../app_ui/widgets/app_logo.dart';
-import '../app_ui/widgets/app_text.dart';
-import '../game/bloc/game_bloc.dart';
-import '../game/view/player_setup_page.dart';
-import '../how_to_play/how_to_play_page.dart';
-import '../l10n/l10n.dart';
-import '../settings/settings_page.dart';
+import "../app/app_bloc.dart";
+import "../app_ui/app_spacing.dart";
+import "../app_ui/widgets/app_button.dart";
+import "../app_ui/widgets/app_icon_button.dart";
+import "../app_ui/widgets/app_logo.dart";
+import "../app_ui/widgets/app_text.dart";
+import "../game/bloc/game_bloc.dart";
+import "../game/view/player_setup_page.dart";
+import "../how_to_play/how_to_play_page.dart";
+import "../l10n/l10n.dart";
+import "../settings/settings_page.dart";
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
-import '../app_config.dart';
+import "../app_config.dart";
 
 /// {@template app_list_tile}
 /// A ListTile with app-specific feedback settings.

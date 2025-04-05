@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 /// {@template saved_category}
 /// A model representing a user-saved category with a timestamp
@@ -30,16 +30,16 @@ class SavedCategory extends Equatable {
   /// Create a SavedCategory from a Map.
   factory SavedCategory.fromJson(Map<String, dynamic> json) {
     return SavedCategory(
-      name: json['name'] as String,
-      lastUsedAt: DateTime.parse(json['lastUsedAt'] as String),
+      name: json["name"] as String,
+      lastUsedAt: DateTime.parse(json["lastUsedAt"] as String),
     );
   }
 
   /// Convert this SavedCategory to a Map.
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'lastUsedAt': lastUsedAt.toIso8601String(),
+      "name": name,
+      "lastUsedAt": lastUsedAt.toIso8601String(),
     };
   }
 

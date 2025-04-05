@@ -1,7 +1,7 @@
-import 'dart:convert';
+import "dart:convert";
 
-import '../../storage/persistent_storage.dart';
-import '../models/game.dart';
+import "../../storage/persistent_storage.dart";
+import "../models/game.dart";
 
 /// {@template game_repository}
 /// Repository for managing game settings with persistent storage.
@@ -13,7 +13,7 @@ class GameRepository {
   }) : _persistentStorage = persistentStorage;
 
   final PersistentStorage _persistentStorage;
-  static const String _kGameSettingsKey = 'game_settings';
+  static const String _kGameSettingsKey = "game_settings";
 
   /// Loads game settings from persistent storage
   Future<Map<String, dynamic>> getGameSettings() async {
@@ -41,12 +41,12 @@ class GameRepository {
   }) async {
     try {
       final settings = {
-        'customWolfCount': customWolfCount,
-        'randomizeWolfCount': randomizeWolfCount,
-        'autoAssignWolves': autoAssignWolves,
-        'discussionTimeInSeconds': discussionTimeInSeconds,
-        'wordPairSimilarity': wordPairSimilarity,
-        'wolfRevengeEnabled': wolfRevengeEnabled,
+        "customWolfCount": customWolfCount,
+        "randomizeWolfCount": randomizeWolfCount,
+        "autoAssignWolves": autoAssignWolves,
+        "discussionTimeInSeconds": discussionTimeInSeconds,
+        "wordPairSimilarity": wordPairSimilarity,
+        "wolfRevengeEnabled": wolfRevengeEnabled,
       };
 
       await _persistentStorage.write(
@@ -63,25 +63,25 @@ class GameRepository {
     final settings = await getGameSettings();
 
     final randomizeWolfCount =
-        settings['randomizeWolfCount'] as bool? ?? game.randomizeWolfCount;
+        settings["randomizeWolfCount"] as bool? ?? game.randomizeWolfCount;
     final autoAssignWolves =
-        settings['autoAssignWolves'] as bool? ?? game.autoAssignWolves;
+        settings["autoAssignWolves"] as bool? ?? game.autoAssignWolves;
 
     // Only keep customWolfCount if we're not using randomize or auto-assign
     final customWolfCount = (randomizeWolfCount || autoAssignWolves)
         ? null
-        : settings['customWolfCount'] as int? ?? game.customWolfCount;
+        : settings["customWolfCount"] as int? ?? game.customWolfCount;
 
     return game.copyWith(
       customWolfCount: customWolfCount,
       randomizeWolfCount: randomizeWolfCount,
       autoAssignWolves: autoAssignWolves,
-      discussionTimeInSeconds: settings['discussionTimeInSeconds'] as int? ??
+      discussionTimeInSeconds: settings["discussionTimeInSeconds"] as int? ??
           game.discussionTimeInSeconds,
       wordPairSimilarity:
-          settings['wordPairSimilarity'] as double? ?? game.wordPairSimilarity,
+          settings["wordPairSimilarity"] as double? ?? game.wordPairSimilarity,
       wolfRevengeEnabled:
-          settings['wolfRevengeEnabled'] as bool? ?? game.wolfRevengeEnabled,
+          settings["wolfRevengeEnabled"] as bool? ?? game.wolfRevengeEnabled,
     );
   }
 }

@@ -1,11 +1,11 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import "package:bloc/bloc.dart";
+import "package:equatable/equatable.dart";
 
-import '../models/saved_category.dart';
-import '../repository/category_repository.dart';
+import "../models/saved_category.dart";
+import "../repository/category_repository.dart";
 
-part 'category_event.dart';
-part 'category_state.dart';
+part "category_event.dart";
+part "category_state.dart";
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc({
@@ -47,7 +47,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       emit(
         state.copyWith(
           status: CategoryStatus.error,
-          error: 'Failed to load category data: $error',
+          error: "Failed to load category data: $error",
         ),
       );
     }
@@ -100,7 +100,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       // If the removed category is the selected category, clear it
       final updatedSelectedCategory =
           state.selectedCategory == event.categoryName
-              ? ''
+              ? ""
               : state.selectedCategory;
 
       emit(
@@ -118,7 +118,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       emit(
         state.copyWith(
           status: CategoryStatus.error,
-          error: 'Failed to remove category: $error',
+          error: "Failed to remove category: $error",
         ),
       );
     }

@@ -1,7 +1,7 @@
-import 'package:equatable/equatable.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import "package:equatable/equatable.dart";
+import "package:firebase_analytics/firebase_analytics.dart";
 
-import 'analytics_event.dart';
+import "analytics_event.dart";
 
 /// {@template analytics_failure}
 /// A base failure for the analytics repository failures.

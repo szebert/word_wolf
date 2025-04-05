@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_exit_scope.dart';
-import '../../app_ui/widgets/app_text.dart';
-import '../../category/bloc/category_bloc.dart';
-import '../../l10n/l10n.dart';
-import '../bloc/game_bloc.dart';
-import '../models/player.dart';
+import "../../app_ui/app_spacing.dart";
+import "../../app_ui/widgets/app_exit_scope.dart";
+import "../../app_ui/widgets/app_text.dart";
+import "../../category/bloc/category_bloc.dart";
+import "../../l10n/l10n.dart";
+import "../bloc/game_bloc.dart";
+import "../models/player.dart";
 
 class ResultsPage extends StatelessWidget {
   const ResultsPage({super.key});
@@ -311,7 +311,7 @@ class ResultsView extends StatelessWidget {
                                   !player.isDefaultName
                                       ? l10n
                                           .playerDefaultName(originalIndex + 1)
-                                      : '',
+                                      : "",
                                   variant: AppTextVariant.bodyMedium,
                                   colorOption: AppTextColor.onSurfaceVariant,
                                 ),

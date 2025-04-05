@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../app/app_bloc.dart';
-import '../app_ui/app_spacing.dart';
-import '../app_ui/widgets/app_icon_button.dart';
-import '../app_ui/widgets/app_text.dart';
-import '../l10n/l10n.dart';
+import "../app/app_bloc.dart";
+import "../app_ui/app_spacing.dart";
+import "../app_ui/widgets/app_icon_button.dart";
+import "../app_ui/widgets/app_text.dart";
+import "../l10n/l10n.dart";
 
 class HowToPlayPage extends StatelessWidget {
   const HowToPlayPage({super.key});
@@ -80,7 +80,7 @@ class HowToPlayView extends StatelessWidget {
             const Divider(),
 
             // Word Assignment section
-            _buildSectionHeader(context, '1', l10n.howToPlayWordAssignment),
+            _buildSectionHeader(context, "1", l10n.howToPlayWordAssignment),
             _buildBulletPoint(context, l10n.howToPlayReceiveWord),
             _buildBulletPoint(context, l10n.howToPlayKeepSecret),
             _buildBulletPoint(context, l10n.howToPlayTwoWords),
@@ -88,14 +88,14 @@ class HowToPlayView extends StatelessWidget {
             const SizedBox(height: AppSpacing.md),
 
             // Discussion section
-            _buildSectionHeader(context, '2', l10n.howToPlayDiscussion),
+            _buildSectionHeader(context, "2", l10n.howToPlayDiscussion),
             _buildBulletPoint(context, l10n.howToPlayFindWolf),
             _buildBulletPoint(context, l10n.howToPlaySameWord),
             _buildBulletPoint(context, l10n.howToPlaySubtleMisleading),
             const SizedBox(height: AppSpacing.md),
 
             // Voting section
-            _buildSectionHeader(context, '3', l10n.howToPlayVoting),
+            _buildSectionHeader(context, "3", l10n.howToPlayVoting),
             _buildBulletPoint(context, l10n.howToPlayPoint),
             _buildBulletPoint(context, l10n.howToPlayElimination),
             _buildBulletPoint(context, l10n.howToPlayTie),
@@ -163,7 +163,7 @@ class HowToPlayView extends StatelessWidget {
       child: Row(
         children: [
           AppText(
-            '$number.',
+            "$number.",
             variant: AppTextVariant.titleLarge,
             weight: AppTextWeight.bold,
             colorOption: AppTextColor.primary,

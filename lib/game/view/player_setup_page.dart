@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_button.dart';
-import '../../app_ui/widgets/app_icon_button.dart';
-import '../../app_ui/widgets/app_text.dart';
-import '../../l10n/l10n.dart';
-import '../bloc/game_bloc.dart';
-import '../models/player.dart';
-import 'game_settings_page.dart';
+import "../../app_ui/app_spacing.dart";
+import "../../app_ui/widgets/app_button.dart";
+import "../../app_ui/widgets/app_icon_button.dart";
+import "../../app_ui/widgets/app_text.dart";
+import "../../l10n/l10n.dart";
+import "../bloc/game_bloc.dart";
+import "../models/player.dart";
+import "game_settings_page.dart";
 
 class PlayerSetupPage extends StatefulWidget {
   const PlayerSetupPage({super.key});
@@ -100,7 +100,7 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
                       child: Column(
                         children: [
                           AppText(
-                            '${state.game.players.length}',
+                            "${state.game.players.length}",
                             variant: AppTextVariant.displaySmall,
                             textAlign: TextAlign.center,
                           ),
@@ -259,7 +259,7 @@ class _PlayerListItemState extends State<PlayerListItem> {
   void _startEditing() {
     // Clear the text if it's the default name
     if (_isDefaultName) {
-      _controller.text = '';
+      _controller.text = "";
     }
     widget.onEditingChanged(true, _savePlayerName);
     _focusNode.requestFocus();

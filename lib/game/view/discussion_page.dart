@@ -1,18 +1,18 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
-import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_button.dart';
-import '../../app_ui/widgets/app_exit_scope.dart';
-import '../../app_ui/widgets/app_icon_button.dart';
-import '../../app_ui/widgets/app_text.dart';
-import '../../category/bloc/category_bloc.dart';
-import '../../l10n/l10n.dart';
-import '../bloc/game_bloc.dart';
-import '../models/game.dart';
-import 'voting_page.dart';
+import "../../app_ui/app_spacing.dart";
+import "../../app_ui/widgets/app_button.dart";
+import "../../app_ui/widgets/app_exit_scope.dart";
+import "../../app_ui/widgets/app_icon_button.dart";
+import "../../app_ui/widgets/app_text.dart";
+import "../../category/bloc/category_bloc.dart";
+import "../../l10n/l10n.dart";
+import "../bloc/game_bloc.dart";
+import "../models/game.dart";
+import "voting_page.dart";
 
 class DiscussionPage extends StatelessWidget {
   const DiscussionPage({super.key});
@@ -267,8 +267,8 @@ class _DiscussionViewState extends State<DiscussionView>
             // Timer display in center
             AppText(
               l10n.discussionTimerValue(
-                minutes.toString().padLeft(2, '0'),
-                seconds.toString().padLeft(2, '0'),
+                minutes.toString().padLeft(2, "0"),
+                seconds.toString().padLeft(2, "0"),
               ),
               variant: AppTextVariant.displayMedium,
               weight: AppTextWeight.bold,

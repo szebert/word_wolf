@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
-import '../app_config.dart';
-import '../app_spacing.dart';
+import "../app_config.dart";
+import "../app_spacing.dart";
 
 /// {@template app_switch}
 /// Switch with optional leading text displayed in the application.
@@ -12,8 +12,8 @@ class AppSwitch extends StatelessWidget {
   const AppSwitch({
     required this.value,
     required this.onChanged,
-    this.onText = '',
-    this.offText = '',
+    this.onText = "",
+    this.offText = "",
     this.enabled = true,
     this.loading = false,
     super.key,

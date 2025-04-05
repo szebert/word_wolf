@@ -1,9 +1,9 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:flutter/services.dart';
+import "package:flutter/services.dart";
 
-import '../../storage/persistent_storage.dart';
-import '../models/saved_category.dart';
+import "../../storage/persistent_storage.dart";
+import "../models/saved_category.dart";
 
 /// {@template category_repository}
 /// Repository for managing saved categories with persistent storage.
@@ -15,10 +15,10 @@ class CategoryRepository {
   }) : _persistentStorage = persistentStorage;
 
   final PersistentStorage _persistentStorage;
-  static const String _kSavedCategoriesKey = 'saved_categories';
-  static const String _kSelectedCategoryKey = 'selected_category';
+  static const String _kSavedCategoriesKey = "saved_categories";
+  static const String _kSelectedCategoryKey = "selected_category";
   static const String _kPresetCategoriesPath =
-      'assets/data/preset_categories.json';
+      "assets/data/preset_categories.json";
 
   // Cache for preset categories to avoid loading the file multiple times
   List<String>? _presetCategoriesCache;
@@ -36,7 +36,7 @@ class CategoryRepository {
       final data = jsonDecode(jsonString) as Map<String, dynamic>;
 
       // Extract the categories list
-      final categories = List<String>.from(data['categories'] as List);
+      final categories = List<String>.from(data["categories"] as List);
 
       // Cache the results
       _presetCategoriesCache = categories;
@@ -158,7 +158,7 @@ class CategoryRepository {
     final category = await _persistentStorage.read(
       key: _kSelectedCategoryKey,
     );
-    return category ?? '';
+    return category ?? "";
   }
 
   /// Save the selected category

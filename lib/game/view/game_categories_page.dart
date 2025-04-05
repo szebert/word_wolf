@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:intl/intl.dart";
 
-import '../../app_ui/app_spacing.dart';
-import '../../app_ui/widgets/app_button.dart';
-import '../../app_ui/widgets/app_icon_button.dart';
-import '../../app_ui/widgets/app_list_tile.dart';
-import '../../app_ui/widgets/app_text.dart';
-import '../../category/bloc/category_bloc.dart';
-import '../../category/models/saved_category.dart';
-import '../../l10n/l10n.dart';
-import '../view/distribute_words_page.dart';
+import "../../app_ui/app_spacing.dart";
+import "../../app_ui/widgets/app_button.dart";
+import "../../app_ui/widgets/app_icon_button.dart";
+import "../../app_ui/widgets/app_list_tile.dart";
+import "../../app_ui/widgets/app_text.dart";
+import "../../category/bloc/category_bloc.dart";
+import "../../category/models/saved_category.dart";
+import "../../l10n/l10n.dart";
+import "../view/distribute_words_page.dart";
 
 class GameCategoriesPage extends StatelessWidget {
   const GameCategoriesPage({super.key});
@@ -36,10 +36,10 @@ class GameCategoriesView extends StatefulWidget {
 
 class _GameCategoriesViewState extends State<GameCategoriesView> {
   final TextEditingController _searchController = TextEditingController();
-  String _selectedCategory = '';
+  String _selectedCategory = "";
   bool _isAddingCategory = false;
   String? _lastAddedCategory;
-  String _lastSearchQuery = '';
+  String _lastSearchQuery = "";
 
   List<String> _displayedCategories = [];
 
@@ -74,10 +74,10 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     setState(() {
       // Toggle selection
       if (_selectedCategory == category) {
-        _selectedCategory = '';
+        _selectedCategory = "";
         context
             .read<CategoryBloc>()
-            .add(const CategorySelected(categoryName: ''));
+            .add(const CategorySelected(categoryName: ""));
       } else {
         _selectedCategory = category;
         context
@@ -120,7 +120,7 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     // Update selected category if it was removed
     if (_selectedCategory == category) {
       setState(() {
-        _selectedCategory = '';
+        _selectedCategory = "";
       });
     }
   }
@@ -146,7 +146,7 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     } else if (difference.inDays < 30) {
       return l10n.timeWeeksAgo((difference.inDays / 7).floor());
     } else {
-      return DateFormat('MMM d').format(category.lastUsedAt);
+      return DateFormat("MMM d").format(category.lastUsedAt);
     }
   }
 
@@ -385,11 +385,11 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
                     onPressed: () {
                       _searchController.clear();
                       setState(() {
-                        _updateDisplayedCategories('', savedCategoryNames);
+                        _updateDisplayedCategories("", savedCategoryNames);
                       });
                       context
                           .read<CategoryBloc>()
-                          .add(const CategorySearchUpdated(searchText: ''));
+                          .add(const CategorySearchUpdated(searchText: ""));
                     },
                   ),
                 if (_searchController.text.isNotEmpty)

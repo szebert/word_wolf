@@ -1,6 +1,6 @@
-import 'dart:convert';
+import "dart:convert";
 
-import '../../storage/storage.dart';
+import "../../storage/storage.dart";
 
 /// {@template used_words_storage}
 /// Service for managing the storage of previously used words
@@ -13,7 +13,7 @@ class UsedWordsStorage {
   }) : _storage = storage;
 
   final Storage _storage;
-  static const String _storageKey = 'previously_used_words';
+  static const String _storageKey = "previously_used_words";
   static const int _maxStoredWords = 50;
 
   /// Retrieves the list of previously used words

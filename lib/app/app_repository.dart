@@ -1,6 +1,6 @@
-import 'dart:convert';
+import "dart:convert";
 
-import '../storage/persistent_storage.dart';
+import "../storage/persistent_storage.dart";
 
 /// {@template app_repository}
 /// Repository that handles app-level state persistence.
@@ -12,7 +12,7 @@ class AppRepository {
   }) : _persistentStorage = persistentStorage;
 
   final PersistentStorage _persistentStorage;
-  static const String _kHowToPlayViewedKey = 'has_viewed_how_to_play';
+  static const String _kHowToPlayViewedKey = "has_viewed_how_to_play";
 
   /// Fetches whether the user has viewed the "How to Play" screen.
   Future<bool> fetchHasViewedHowToPlay() async {

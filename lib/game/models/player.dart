@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import "package:equatable/equatable.dart";
 
 enum PlayerRole {
   citizen,
@@ -39,8 +39,8 @@ class Player extends Equatable {
   /// Creates an empty player with a blank ID
   factory Player.empty() {
     return Player(
-      id: '',
-      name: '',
+      id: "",
+      name: "",
       isDefaultName: true,
       role: PlayerRole.undecided,
     );

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '../../l10n/l10n.dart';
-import 'app_button.dart';
-import 'app_icon_button.dart';
-import 'app_text.dart';
+import "../../l10n/l10n.dart";
+import "app_button.dart";
+import "app_icon_button.dart";
+import "app_text.dart";
 
 /// {@template app_exit_scope}
 /// A widget that handles back navigation with a confirmation dialog.
