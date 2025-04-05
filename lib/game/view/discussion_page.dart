@@ -179,7 +179,7 @@ class _DiscussionViewState extends State<DiscussionView>
                 l10n.discussion,
                 variant: AppTextVariant.titleLarge,
               ),
-              leading: AppExitScope.createBackButton(context),
+              leading: AppExitScope.createBackIconButton(context),
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),

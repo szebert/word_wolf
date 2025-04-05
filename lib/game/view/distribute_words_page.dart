@@ -108,7 +108,7 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
                 l10n.wordDistribution,
                 variant: AppTextVariant.titleLarge,
               ),
-              leading: AppExitScope.createBackButton(context),
+              leading: AppExitScope.createBackIconButton(context),
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),

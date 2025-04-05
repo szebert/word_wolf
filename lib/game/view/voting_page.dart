@@ -98,7 +98,7 @@ class _VotingViewState extends State<VotingView> {
                 l10n.voting,
                 variant: AppTextVariant.titleLarge,
               ),
-              leading: AppExitScope.createBackButton(context),
+              leading: AppExitScope.createBackIconButton(context),
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),

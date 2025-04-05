@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../home/home_page.dart';
 import '../../l10n/l10n.dart';
 import 'app_button.dart';
 import 'app_icon_button.dart';
@@ -58,17 +57,14 @@ class AppExitScope extends StatelessWidget {
     return result ?? false;
   }
 
-  /// Navigates to the HomePage and clears the navigation history.
+  /// Navigates to the main menu and clears the navigation history.
   static void _exitToMainMenu(BuildContext context) {
-    // Navigate to the HomePage and clear the navigation history
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute<void>(builder: (context) => const HomePage()),
-      (Route<dynamic> route) => false,
-    );
+    // Navigate to the main menu and clear the navigation history
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   /// Creates a back button that shows the exit confirmation dialog.
-  static Widget createBackButton(BuildContext context) {
+  static Widget createBackIconButton(BuildContext context) {
     final l10n = context.l10n;
 
     return AppIconButton(
@@ -84,6 +80,29 @@ class AppExitScope extends StatelessWidget {
           _exitToMainMenu(context);
         }
       },
+    );
+  }
+
+  /// Creates an exit button that shows the exit confirmation dialog.
+  static Widget createExitButton(BuildContext context) {
+    final l10n = context.l10n;
+
+    return AppButton(
+      variant: AppButtonVariant.filled,
+      onPressed: () async {
+        final shouldExit = await showDialog<bool>(
+          context: context,
+          builder: (BuildContext context) =>
+              _buildExitConfirmationDialog(context),
+        );
+        if (shouldExit == true && context.mounted) {
+          _exitToMainMenu(context);
+        }
+      },
+      child: AppText(
+        l10n.exitToMenu,
+        variant: AppTextVariant.titleMedium,
+      ),
     );
   }
 
