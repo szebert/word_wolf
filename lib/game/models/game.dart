@@ -28,6 +28,7 @@ class Game extends Equatable {
     this.wolfRevengeEnabled = true, // Enable Wolf's Revenge by default
     this.wolfRevengeAttempted = false,
     this.wolfRevengeSuccessful = false,
+    this.revealedIcebreakerIndices = const <int>{},
   });
 
   final List<Player> players;
@@ -46,6 +47,7 @@ class Game extends Equatable {
   final bool wolfRevengeEnabled;
   final bool wolfRevengeAttempted;
   final bool wolfRevengeSuccessful;
+  final Set<int> revealedIcebreakerIndices;
 
   int get generateWolfCount {
     // Calculate default wolf count based on player count
@@ -106,6 +108,7 @@ class Game extends Equatable {
     bool? wolfRevengeEnabled,
     bool? wolfRevengeAttempted,
     bool? wolfRevengeSuccessful,
+    Set<int>? revealedIcebreakerIndices,
   }) {
     return Game(
       players: players ?? this.players,
@@ -126,6 +129,8 @@ class Game extends Equatable {
       wolfRevengeAttempted: wolfRevengeAttempted ?? this.wolfRevengeAttempted,
       wolfRevengeSuccessful:
           wolfRevengeSuccessful ?? this.wolfRevengeSuccessful,
+      revealedIcebreakerIndices:
+          revealedIcebreakerIndices ?? this.revealedIcebreakerIndices,
     );
   }
 
@@ -146,5 +151,6 @@ class Game extends Equatable {
         wolfRevengeEnabled,
         wolfRevengeAttempted,
         wolfRevengeSuccessful,
+        revealedIcebreakerIndices,
       ];
 }

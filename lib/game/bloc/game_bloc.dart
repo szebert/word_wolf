@@ -47,6 +47,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameTimerTicked>(_onGameTimerTicked);
     on<GameTimerPaused>(_onGameTimerPaused);
     on<GameTimerAdjusted>(_onGameTimerAdjusted);
+    on<IcebreakerLabelRevealed>(_onIcebreakerLabelRevealed);
 
     // Voting Page events
     on<VotingStarted>(_onVotingStarted);
@@ -416,6 +417,26 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       state.copyWith(
         game: state.game.copyWith(
           remainingTimeInSeconds: event.newTimeInSeconds,
+        ),
+      ),
+    );
+  }
+
+  void _onIcebreakerLabelRevealed(
+    IcebreakerLabelRevealed event,
+    Emitter<GameState> emit,
+  ) {
+    // Create a new set with the existing revealed indices
+    final updatedRevealedIndices =
+        Set<int>.from(state.game.revealedIcebreakerIndices);
+    // Add the newly revealed index
+    updatedRevealedIndices.add(event.index);
+
+    // Update the game state with the new set
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          revealedIcebreakerIndices: updatedRevealedIndices,
         ),
       ),
     );

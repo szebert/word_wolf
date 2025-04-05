@@ -134,6 +134,17 @@ class GameTimerAdjusted extends GameEvent {
   List<Object> get props => [newTimeInSeconds];
 }
 
+class IcebreakerLabelRevealed extends GameEvent {
+  const IcebreakerLabelRevealed({
+    required this.index,
+  });
+
+  final int index;
+
+  @override
+  List<Object> get props => [index];
+}
+
 class VotingStarted extends GameEvent {
   const VotingStarted();
 }

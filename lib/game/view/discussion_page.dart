@@ -42,7 +42,7 @@ class _DiscussionViewState extends State<DiscussionView>
   int _selectedIcebreakerIndex = -1;
 
   // Track which icebreakers have had their labels revealed
-  final Set<int> _revealedLabels = {};
+  Set<int> _revealedLabels = {};
 
   // Animation controller for statement fade
   late AnimationController _fadeController;
@@ -57,11 +57,18 @@ class _DiscussionViewState extends State<DiscussionView>
         final gameState = context.read<GameBloc>().state;
         final categoryState = context.read<CategoryBloc>().state;
 
-        // Reveal icebreaker labels if category is not empty
+        // Initialize _revealedLabels from game state
         setState(() {
-          if (categoryState.selectedCategory.isNotEmpty) {
+          _revealedLabels =
+              Set<int>.from(gameState.game.revealedIcebreakerIndices);
+
+          // If category is not empty and no labels revealed yet, reveal all
+          if (categoryState.selectedCategory.isNotEmpty &&
+              _revealedLabels.isEmpty) {
             for (var i = 0; i < gameState.game.icebreakers.length; i++) {
               _revealedLabels.add(i);
+              // Add events to update the bloc state
+              context.read<GameBloc>().add(IcebreakerLabelRevealed(index: i));
             }
           }
         });
@@ -157,6 +164,8 @@ class _DiscussionViewState extends State<DiscussionView>
         } else {
           // First time clicking - just reveal the label
           _revealedLabels.add(index);
+          // Also update the game state
+          context.read<GameBloc>().add(IcebreakerLabelRevealed(index: index));
           _selectedIcebreakerIndex = -1;
         }
       }
