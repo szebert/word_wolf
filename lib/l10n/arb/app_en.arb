@@ -610,5 +610,28 @@
   "results": "Results",
   "@results": {
     "description": "Text for the results page title"
+  },
+  "citizensWin": "The Citizens Win!",
+  "@citizensWin": {
+    "description": "Text shown when citizens win the game"
+  },
+  "wolvesWin": "{wolvesCount, plural, =1{The Wolf Wins!} other{The Wolves Win!}}",
+  "@wolvesWin": {
+    "description": "Text shown when wolves win the game",
+    "placeholders": {
+      "wolvesCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
+  },
+  "eliminated": "Eliminated",
+  "@eliminated": {
+    "description": "Label for the eliminated player"
+  },
+  "exitToMenu": "Exit to Menu",
+  "@exitToMenu": {
+    "description": "Text for the button to exit to main menu"
   }
 }
