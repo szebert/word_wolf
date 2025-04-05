@@ -188,11 +188,13 @@ class HowToPlayView extends StatelessWidget {
         bottom: AppSpacing.sm,
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 6),
-            child: Icon(Icons.circle, size: 8),
+          AppText(
+            "-",
+            variant: AppTextVariant.bodyLarge,
+            weight: AppTextWeight.black,
           ),
           const SizedBox(width: AppSpacing.sm),
           Expanded(
