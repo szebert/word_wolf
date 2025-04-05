@@ -299,9 +299,16 @@ class _DiscussionViewState extends State<DiscussionView>
                 child: AppButton(
                   onPressed: _togglePause,
                   variant: AppButtonVariant.filled,
-                  child: AppText(
-                    l10n.resume,
-                    variant: AppTextVariant.labelLarge,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText(
+                        l10n.resume,
+                        variant: AppTextVariant.labelLarge,
+                      ),
+                      const SizedBox(width: AppSpacing.sm),
+                      const Icon(Icons.play_arrow, size: 20),
+                    ],
                   ),
                 ),
               ),
@@ -311,9 +318,16 @@ class _DiscussionViewState extends State<DiscussionView>
                 child: AppButton(
                   onPressed: _endDiscussion,
                   variant: AppButtonVariant.outlined,
-                  child: AppText(
-                    l10n.endDiscussion,
-                    variant: AppTextVariant.labelLarge,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText(
+                        l10n.endDiscussion,
+                        variant: AppTextVariant.labelLarge,
+                      ),
+                      const SizedBox(width: AppSpacing.sm),
+                      const Icon(Icons.stop, size: 20),
+                    ],
                   ),
                 ),
               ),
@@ -325,9 +339,16 @@ class _DiscussionViewState extends State<DiscussionView>
             onPressed: _togglePause,
             minWidth: double.infinity,
             variant: AppButtonVariant.filled,
-            child: AppText(
-              l10n.pause,
-              variant: AppTextVariant.labelLarge,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText(
+                  l10n.pause,
+                  variant: AppTextVariant.labelLarge,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                const Icon(Icons.pause_outlined, size: 20),
+              ],
             ),
           ),
 
