@@ -1351,8 +1351,8 @@
       ]
     },
     {
-      "category": "Japanese Media",
-      "words": ["Manga", "Anime"],
+      "category": "Media",
+      "words": ["Movie", "TV Show"],
       "icebreakers": [
         {
           "label": "Favorite",
