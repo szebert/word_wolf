@@ -266,7 +266,7 @@ class _DiscussionViewState extends State<DiscussionView>
 
             // Timer display in center
             AppText(
-              l10n.discussionTimerValue(
+              l10n.timerValue(
                 minutes.toString().padLeft(2, "0"),
                 seconds.toString().padLeft(2, "0"),
               ),

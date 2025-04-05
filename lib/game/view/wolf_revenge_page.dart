@@ -195,11 +195,11 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
         final l10n = context.l10n;
         return AlertDialog(
           title: AppText(
-            l10n.wolfRevengeVerbalTitle,
+            l10n.revengeVerbalTitle,
             variant: AppTextVariant.titleMedium,
           ),
           content: AppText(
-            l10n.wolfRevengeVerbalContent,
+            l10n.revengeVerbalContent,
             variant: AppTextVariant.bodyMedium,
           ),
           actions: [
@@ -209,7 +209,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                 Navigator.of(context).pop(false);
               },
               child: AppText(
-                l10n.wolfRevengeVerbalNo,
+                l10n.revengeVerbalNo,
                 variant: AppTextVariant.titleMedium,
               ),
             ),
@@ -219,7 +219,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                 Navigator.of(context).pop(true);
               },
               child: AppText(
-                l10n.wolfRevengeVerbalYes,
+                l10n.revengeVerbalYes,
                 variant: AppTextVariant.titleMedium,
               ),
             ),
@@ -280,12 +280,12 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
           return Scaffold(
             appBar: AppBar(
               title: AppText(
-                l10n.wolfRevengePageTitle,
+                l10n.revengePageTitle,
                 variant: AppTextVariant.titleLarge,
               ),
             ),
-            // Use resizeToAvoidBottomInset: false to prevent the screen from resizing when keyboard appears
-            resizeToAvoidBottomInset: false,
+            // Allow screen to resize when keyboard appears
+            resizeToAvoidBottomInset: true,
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
               child: Column(
@@ -294,12 +294,14 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                   // Scrollable content area
                   Expanded(
                     child: SingleChildScrollView(
+                      // Enable physics to ensure it's scrollable
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           // Player name and explanation
                           AppText(
-                            l10n.wolfRevengeEliminated(selectedPlayer.name),
+                            l10n.revengeEliminated(selectedPlayer.name),
                             variant: AppTextVariant.headlineSmall,
                             weight: AppTextWeight.bold,
                             textAlign: TextAlign.center,
@@ -308,7 +310,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                           const SizedBox(height: AppSpacing.md),
 
                           AppText(
-                            l10n.wolfRevengeExplanation,
+                            l10n.revengeExplanation,
                             variant: AppTextVariant.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
@@ -328,7 +330,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                     icon: const Icon(
                                         Icons.remove_circle_outline,
                                         size: 36),
-                                    tooltip: l10n.wolfRevengeDecreaseTime,
+                                    tooltip: l10n.revengeDecreaseTime,
                                     onPressed: () => _adjustTime(-30),
                                     color:
                                         Theme.of(context).colorScheme.primary,
@@ -338,7 +340,12 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                   Column(
                                     children: [
                                       AppText(
-                                        "${_displaySeconds ~/ 60}:${(_displaySeconds % 60).toString().padLeft(2, "0")}",
+                                        l10n.timerValue(
+                                          (_displaySeconds ~/ 60).toString(),
+                                          (_displaySeconds % 60)
+                                              .toString()
+                                              .padLeft(2, "0"),
+                                        ),
                                         variant: AppTextVariant.displayMedium,
                                         weight: AppTextWeight.bold,
                                         colorOption: _displaySeconds < 10
@@ -346,7 +353,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                             : AppTextColor.unspecified,
                                       ),
                                       AppText(
-                                        l10n.wolfRevengeTimeRemaining,
+                                        l10n.revengeTimeRemaining,
                                         variant: AppTextVariant.bodySmall,
                                         colorOption:
                                             AppTextColor.onSurfaceVariant,
@@ -358,7 +365,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                   AppIconButton(
                                     icon: const Icon(Icons.add_circle_outline,
                                         size: 36),
-                                    tooltip: l10n.wolfRevengeIncreaseTime,
+                                    tooltip: l10n.revengeIncreaseTime,
                                     onPressed: () => _adjustTime(30),
                                     color:
                                         Theme.of(context).colorScheme.primary,
@@ -376,7 +383,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                             child: Column(
                               children: [
                                 AppText(
-                                  l10n.wolfRevengePrompt,
+                                  l10n.revengePrompt,
                                   variant: AppTextVariant.labelLarge,
                                   textAlign: TextAlign.center,
                                 ),
@@ -385,14 +392,14 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                   controller: _wordController,
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
-                                    hintText: l10n.wolfRevengeGuessHint,
+                                    hintText: l10n.revengeGuessHint,
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
-                                      return l10n.wolfRevengeEmptyError;
+                                      return l10n.revengeEmptyError;
                                     }
                                     return null;
                                   },
@@ -406,6 +413,8 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                     ),
                   ),
 
+                  const SizedBox(height: AppSpacing.lg),
+
                   // Fixed button area at the bottom
                   Column(
                     mainAxisSize: MainAxisSize.min,
@@ -417,36 +426,45 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                         isLoading: _isSubmitting,
                         onPressed: _submitGuess,
                         child: AppText(
-                          l10n.wolfRevengeSubmit,
+                          l10n.revengeSubmit,
                           variant: AppTextVariant.titleMedium,
                         ),
                       ),
 
                       const SizedBox(height: AppSpacing.md),
 
-                      // Verbal guess button
-                      AppButton(
-                        variant: AppButtonVariant.outlined,
-                        disabled: _isSubmitting,
-                        onPressed: _submitVerbalGuess,
-                        child: AppText(
-                          l10n.wolfRevengeVerbal,
-                          variant: AppTextVariant.titleMedium,
-                        ),
-                      ),
+                      // Verbal guess and Give up buttons in a row
+                      Row(
+                        children: [
+                          // Verbal guess button
+                          Expanded(
+                            child: AppButton(
+                              variant: AppButtonVariant.outlined,
+                              disabled: _isSubmitting,
+                              onPressed: _submitVerbalGuess,
+                              child: AppText(
+                                l10n.revengeVerbal,
+                                variant: AppTextVariant.titleMedium,
+                              ),
+                            ),
+                          ),
 
-                      const SizedBox(height: AppSpacing.md),
+                          const SizedBox(width: AppSpacing.md),
 
-                      // Give up button
-                      AppButton(
-                        variant: AppButtonVariant.outlined,
-                        disabled: _isSubmitting,
-                        onPressed: _skipRevenge,
-                        child: AppText(
-                          l10n.wolfRevengeGiveUp,
-                          variant: AppTextVariant.titleMedium,
-                          colorOption: AppTextColor.error,
-                        ),
+                          // Give up button
+                          Expanded(
+                            child: AppButton(
+                              variant: AppButtonVariant.outlined,
+                              disabled: _isSubmitting,
+                              onPressed: _skipRevenge,
+                              child: AppText(
+                                l10n.revengeGiveUp,
+                                variant: AppTextVariant.titleMedium,
+                                colorOption: AppTextColor.error,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

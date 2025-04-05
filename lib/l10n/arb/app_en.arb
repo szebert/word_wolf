@@ -545,9 +545,9 @@
   "@noCategorySelected": {
     "description": "Text for the no category selected state"
   },
-  "discussionTimerValue": "{minutes}:{seconds}",
-  "@discussionTimerValue": {
-    "description": "Text showing remaining time for the discussion",
+  "timerValue": "{minutes}:{seconds}",
+  "@timerValue": {
+    "description": "Text showing remaining time for the display timer",
     "placeholders": {
       "minutes": {
         "description": "Minutes",
@@ -654,12 +654,12 @@
   "@exitToMenu": {
     "description": "Text for the button to exit to main menu"
   },
-  "wolfRevengePageTitle": "Wolf's Revenge",
-  "@wolfRevengePageTitle": {
+  "revengePageTitle": "Wolf's Revenge",
+  "@revengePageTitle": {
     "description": "Title for the Wolf's Revenge page"
   },
-  "wolfRevengeEliminated": "{playerName}, you've been eliminated!",
-  "@wolfRevengeEliminated": {
+  "revengeEliminated": "{playerName}, you've been eliminated!",
+  "@revengeEliminated": {
     "description": "Message shown to the eliminated wolf player",
     "placeholders": {
       "playerName": {
@@ -668,60 +668,60 @@
       }
     }
   },
-  "wolfRevengeExplanation": "But you can still win the game for the wolves! If you can correctly guess the citizens' word, you'll steal the victory.",
-  "@wolfRevengeExplanation": {
+  "revengeExplanation": "But you can still win the game for the wolves! If you can correctly guess the citizens' word, you'll steal the victory.",
+  "@revengeExplanation": {
     "description": "Explanation of the Wolf's Revenge mechanic"
   },
-  "wolfRevengePrompt": "What do you think the citizens' word was?",
-  "@wolfRevengePrompt": {
+  "revengePrompt": "What do you think the citizens' word was?",
+  "@revengePrompt": {
     "description": "Prompt for the wolf to guess the citizens' word"
   },
-  "wolfRevengeGuessHint": "Enter your guess",
-  "@wolfRevengeGuessHint": {
+  "revengeGuessHint": "Enter your guess",
+  "@revengeGuessHint": {
     "description": "Hint text for the word guess input field"
   },
-  "wolfRevengeSubmit": "Submit Guess",
-  "@wolfRevengeSubmit": {
+  "revengeSubmit": "Submit Guess",
+  "@revengeSubmit": {
     "description": "Text for the submit guess button"
   },
-  "wolfRevengeEmptyError": "Please enter a word",
-  "@wolfRevengeEmptyError": {
-    "description": "Error message when no word is entered"
+  "revengeEmptyError": "Please enter a word",
+  "@revengeEmptyError": {
+    "description": "Error message when no word is entered into the guess input field"
   },
-  "wolfRevengeVerbal": "Guess Verbally",
-  "@wolfRevengeVerbal": {
+  "revengeVerbal": "Guess Verbally",
+  "@revengeVerbal": {
     "description": "Text for the verbal guess button"
   },
-  "wolfRevengeGiveUp": "Give Up (wolves lose)",
-  "@wolfRevengeGiveUp": {
+  "revengeGiveUp": "Give Up",
+  "@revengeGiveUp": {
     "description": "Text for the give up button"
   },
-  "wolfRevengeVerbalTitle": "Was your verbal guess correct?",
-  "@wolfRevengeVerbalTitle": {
+  "revengeVerbalTitle": "Was your verbal guess correct?",
+  "@revengeVerbalTitle": {
     "description": "Title for the verbal guess confirmation dialog"
   },
-  "wolfRevengeVerbalContent": "Did the citizens confirm your guess was correct?",
-  "@wolfRevengeVerbalContent": {
+  "revengeVerbalContent": "Did the citizens confirm your guess was correct?",
+  "@revengeVerbalContent": {
     "description": "Content for the verbal guess confirmation dialog"
   },
-  "wolfRevengeVerbalNo": "No",
-  "@wolfRevengeVerbalNo": {
+  "revengeVerbalNo": "No",
+  "@revengeVerbalNo": {
     "description": "Button text for incorrect verbal guess"
   },
-  "wolfRevengeVerbalYes": "Yes",
-  "@wolfRevengeVerbalYes": {
+  "revengeVerbalYes": "Yes",
+  "@revengeVerbalYes": {
     "description": "Button text for correct verbal guess"
   },
-  "wolfRevengeTimeRemaining": "Time Remaining",
-  "@wolfRevengeTimeRemaining": {
+  "revengeTimeRemaining": "Time Remaining",
+  "@revengeTimeRemaining": {
     "description": "Text for time remaining label"
   },
-  "wolfRevengeDecreaseTime": "Decrease Time",
-  "@wolfRevengeDecreaseTime": {
+  "revengeDecreaseTime": "Decrease Time",
+  "@revengeDecreaseTime": {
     "description": "Tooltip text for decrease time button"
   },
-  "wolfRevengeIncreaseTime": "Increase Time",
-  "@wolfRevengeIncreaseTime": {
+  "revengeIncreaseTime": "Increase Time",
+  "@revengeIncreaseTime": {
     "description": "Tooltip text for increase time button"
   }
 }
