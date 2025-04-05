@@ -37,6 +37,7 @@ class GameRepository {
     required bool autoAssignWolves,
     required int discussionTimeInSeconds,
     required double wordPairSimilarity,
+    required bool wolfRevengeEnabled,
   }) async {
     try {
       final settings = {
@@ -45,6 +46,7 @@ class GameRepository {
         'autoAssignWolves': autoAssignWolves,
         'discussionTimeInSeconds': discussionTimeInSeconds,
         'wordPairSimilarity': wordPairSimilarity,
+        'wolfRevengeEnabled': wolfRevengeEnabled,
       };
 
       await _persistentStorage.write(
@@ -78,6 +80,8 @@ class GameRepository {
           game.discussionTimeInSeconds,
       wordPairSimilarity:
           settings['wordPairSimilarity'] as double? ?? game.wordPairSimilarity,
+      wolfRevengeEnabled:
+          settings['wolfRevengeEnabled'] as bool? ?? game.wolfRevengeEnabled,
     );
   }
 }

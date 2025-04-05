@@ -77,6 +77,17 @@ class WordPairSimilarityUpdated extends GameEvent {
   List<Object> get props => [similarity];
 }
 
+class WolfRevengeUpdated extends GameEvent {
+  const WolfRevengeUpdated({
+    required this.enabled,
+  });
+
+  final bool enabled;
+
+  @override
+  List<Object> get props => [enabled];
+}
+
 class GameStarted extends GameEvent {
   const GameStarted({
     required this.category,

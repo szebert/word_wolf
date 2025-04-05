@@ -36,6 +36,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
   bool _randomizeWolfCount = false;
   int _discussionDuration = 3;
   int _numberOfWolves = 1;
+  bool _wolfRevengeEnabled = true;
 
   @override
   void initState() {
@@ -47,6 +48,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     _autoAssignComposition = gameState.game.autoAssignWolves;
     _randomizeWolfCount = gameState.game.randomizeWolfCount;
     _discussionDuration = (gameState.game.discussionTimeInSeconds / 60).round();
+    _wolfRevengeEnabled = gameState.game.wolfRevengeEnabled;
 
     // Set number of wolves based on auto-assign state
     if (_autoAssignComposition) {
@@ -221,6 +223,17 @@ class _GameSettingsViewState extends State<GameSettingsView> {
 
   void _continueToNextStep() {
     Navigator.of(context).push(GameCategoriesPage.route());
+  }
+
+  void _onWolfRevengeChanged(bool value) {
+    setState(() {
+      _wolfRevengeEnabled = value;
+    });
+    context.read<GameBloc>().add(
+          WolfRevengeUpdated(
+            enabled: value,
+          ),
+        );
   }
 
   @override
@@ -483,6 +496,30 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                           ),
                         );
                       },
+                    ),
+
+                    const SizedBox(height: AppSpacing.xs),
+                    const Divider(),
+                    const SizedBox(height: AppSpacing.xs),
+
+                    // Wolf's Revenge Section
+                    AppText(
+                      l10n.wolfRevenge,
+                      variant: AppTextVariant.titleMedium,
+                      weight: AppTextWeight.bold,
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+
+                    CheckboxListTile(
+                      dense: true,
+                      title: AppText(l10n.enableWolfRevenge),
+                      subtitle: AppText(
+                        l10n.wolfRevengeSubtitle,
+                        variant: AppTextVariant.bodySmall,
+                      ),
+                      value: _wolfRevengeEnabled,
+                      onChanged: (value) =>
+                          _onWolfRevengeChanged(value ?? false),
                     ),
                   ],
                 ),

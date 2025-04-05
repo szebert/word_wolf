@@ -367,6 +367,18 @@
   "@exampleExtremelyDifferent": {
     "description": "Example word pair for extremely different words"
   },
+  "wolfRevenge": "Wolf's Revenge",
+  "@wolfRevenge": {
+    "description": "Text for the wolf's revenge section in game settings"
+  },
+  "enableWolfRevenge": "Enable Wolf's Revenge",
+  "@enableWolfRevenge": {
+    "description": "Text for the enable wolf's revenge toggle in game settings"
+  },
+  "wolfRevengeSubtitle": "If a Wolf is voted out but correctly guesses the Citizens' word, the Wolves steal the win!",
+  "@wolfRevengeSubtitle": {
+    "description": "Description text for the wolf's revenge feature in game settings"
+  },
   "categoriesLoading": "Loading categories...",
   "@categoriesLoading": {
     "description": "Text for the loading state in the category selection page"
@@ -629,6 +641,10 @@
   "eliminated": "Eliminated",
   "@eliminated": {
     "description": "Label for the eliminated player"
+  },
+  "revenged": "Revenged",
+  "@revenged": {
+    "description": "Label for the revenged player"
   },
   "exitToMenu": "Exit to Menu",
   "@exitToMenu": {

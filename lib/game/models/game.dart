@@ -25,6 +25,7 @@ class Game extends Equatable {
     this.wordPairSimilarity = 0.5, // Default medium similarity
     this.icebreakers = const [],
     this.selectedPlayerId,
+    this.wolfRevengeEnabled = true, // Enable Wolf's Revenge by default
   });
 
   final List<Player> players;
@@ -40,6 +41,7 @@ class Game extends Equatable {
   final double wordPairSimilarity;
   final List<Icebreaker> icebreakers;
   final String? selectedPlayerId;
+  final bool wolfRevengeEnabled;
 
   int get generateWolfCount {
     // Calculate default wolf count based on player count
@@ -97,6 +99,7 @@ class Game extends Equatable {
     double? wordPairSimilarity,
     List<Icebreaker>? icebreakers,
     String? selectedPlayerId,
+    bool? wolfRevengeEnabled,
   }) {
     return Game(
       players: players ?? this.players,
@@ -113,6 +116,7 @@ class Game extends Equatable {
       wordPairSimilarity: wordPairSimilarity ?? this.wordPairSimilarity,
       icebreakers: icebreakers ?? this.icebreakers,
       selectedPlayerId: selectedPlayerId ?? this.selectedPlayerId,
+      wolfRevengeEnabled: wolfRevengeEnabled ?? this.wolfRevengeEnabled,
     );
   }
 
@@ -130,5 +134,6 @@ class Game extends Equatable {
         wordPairSimilarity,
         icebreakers,
         selectedPlayerId,
+        wolfRevengeEnabled,
       ];
 }

@@ -37,6 +37,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<WolvesCountUpdated>(_onWolvesCountUpdated);
     on<GameDiscussionTimeUpdated>(_onGameDiscussionTimeUpdated);
     on<WordPairSimilarityUpdated>(_onWordPairSimilarityUpdated);
+    on<WolfRevengeUpdated>(_onWolfRevengeUpdated);
 
     // Distribute Words Page events
     on<GameStarted>(_onGameStarted);
@@ -106,6 +107,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       autoAssignWolves: state.game.autoAssignWolves,
       discussionTimeInSeconds: state.game.discussionTimeInSeconds,
       wordPairSimilarity: state.game.wordPairSimilarity,
+      wolfRevengeEnabled: state.game.wolfRevengeEnabled,
     );
   }
 
@@ -253,6 +255,22 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       state.copyWith(
         game: state.game.copyWith(
           wordPairSimilarity: event.similarity,
+        ),
+      ),
+    );
+
+    // Save settings to repository
+    _saveSettings();
+  }
+
+  void _onWolfRevengeUpdated(
+    WolfRevengeUpdated event,
+    Emitter<GameState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          wolfRevengeEnabled: event.enabled,
         ),
       ),
     );
