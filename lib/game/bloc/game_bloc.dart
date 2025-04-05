@@ -479,18 +479,97 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     WolfRevengeGuess event,
     Emitter<GameState> emit,
   ) {
-    // Compare with citizens' word (case-insensitive)
-    final isCorrect = event.guess.toLowerCase().trim() ==
-        state.game.citizenWord.toLowerCase().trim();
+    final guess = event.guess.toLowerCase().trim();
+    final citizenWord = state.game.citizenWord.toLowerCase().trim();
 
+    // Exact match
+    if (guess == citizenWord) {
+      emit(
+        state.copyWith(
+          game: state.game.copyWith(
+            wolfRevengeAttempted: true,
+            wolfRevengeSuccessful: true,
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Fuzzy matching for similar words
+    if (_isSimilarEnough(guess, citizenWord)) {
+      emit(
+        state.copyWith(
+          game: state.game.copyWith(
+            wolfRevengeAttempted: true,
+            wolfRevengeSuccessful: true,
+          ),
+        ),
+      );
+      return;
+    }
+
+    // Not a match
     emit(
       state.copyWith(
         game: state.game.copyWith(
           wolfRevengeAttempted: true,
-          wolfRevengeSuccessful: isCorrect,
+          wolfRevengeSuccessful: false,
         ),
       ),
     );
+  }
+
+  // Simple fuzzy matching using Levenshtein distance algorithm
+  bool _isSimilarEnough(String input, String target) {
+    // Empty strings are never similar
+    if (input.isEmpty || target.isEmpty) return false;
+
+    // For very short words (3 chars or less), only allow 1 character difference
+    if (target.length <= 3) {
+      return _levenshteinDistance(input, target) <= 1;
+    }
+
+    // For words 4-6 chars, allow 2 character differences
+    if (target.length <= 6) {
+      return _levenshteinDistance(input, target) <= 2;
+    }
+
+    // For longer words, allow differences of up to 30% of the word length
+    final maxDistance = (target.length * 0.3).floor();
+    return _levenshteinDistance(input, target) <= maxDistance;
+  }
+
+  // Levenshtein distance calculation
+  int _levenshteinDistance(String a, String b) {
+    // Create a table to store results of sub-problems
+    final rows = a.length + 1;
+    final cols = b.length + 1;
+    final d = List.generate(rows, (_) => List<int>.filled(cols, 0));
+
+    // Source prefixes can be transformed into empty string by
+    // dropping all characters
+    for (var i = 0; i < rows; i++) {
+      d[i][0] = i;
+    }
+
+    // Target prefixes can be reached from empty source prefix
+    // by inserting every character
+    for (var j = 0; j < cols; j++) {
+      d[0][j] = j;
+    }
+
+    for (var j = 1; j < cols; j++) {
+      for (var i = 1; i < rows; i++) {
+        final substitutionCost = a[i - 1] == b[j - 1] ? 0 : 1;
+        d[i][j] = [
+          d[i - 1][j] + 1, // deletion
+          d[i][j - 1] + 1, // insertion
+          d[i - 1][j - 1] + substitutionCost, // substitution
+        ].reduce((curr, next) => curr < next ? curr : next);
+      }
+    }
+
+    return d[a.length][b.length];
   }
 
   void _onWolfRevengeVerbalGuess(
