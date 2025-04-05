@@ -419,17 +419,9 @@ class _DiscussionViewState extends State<DiscussionView>
             child: FadeTransition(
               opacity: _fadeAnimation,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.md,
-                  AppSpacing.lg,
-                  AppSpacing.md,
-                  AppSpacing.md,
-                ),
+                padding: const EdgeInsets.all(AppSpacing.md),
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .surfaceContainerHighest
-                      .withAlpha(76),
+                  color: Theme.of(context).colorScheme.onInverseSurface,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: _selectedIcebreakerIndex >= 0 &&

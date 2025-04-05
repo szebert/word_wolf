@@ -141,7 +141,3 @@ class PlayerVoted extends GameEvent {
   @override
   List<Object> get props => [selectedPlayerId];
 }
-
-class GameReset extends GameEvent {
-  const GameReset();
-}

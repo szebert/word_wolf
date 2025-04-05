@@ -51,9 +51,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<VotingStarted>(_onVotingStarted);
     on<SuddenDeathStarted>(_onSuddenDeathStarted);
     on<PlayerVoted>(_onPlayerVoted);
-
-    // Unused events
-    on<GameReset>(_onGameReset);
   }
 
   final PlayerRepository _playerRepository;
@@ -290,9 +287,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return player.copyWith(role: role);
     }).toList();
 
-    //TODO: Remove this after testing
-    await Future.delayed(const Duration(seconds: 1));
-
     WordPairResult result;
     try {
       // Get a random word pair based on selected category and similarity
@@ -448,31 +442,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       state.copyWith(
         game: state.game.copyWith(
           selectedPlayerId: event.selectedPlayerId,
-        ),
-      ),
-    );
-  }
-
-  // Unused events
-  void _onGameReset(
-    GameReset event,
-    Emitter<GameState> emit,
-  ) {
-    _timer?.cancel();
-
-    // Reset the game but keep players and settings
-    emit(
-      state.copyWith(
-        status: GameStatus.ready,
-        game: state.game.copyWith(
-          phase: GamePhase.setup,
-          remainingTimeInSeconds: 0,
-          // Reset player roles
-          players: state.game.players
-              .map(
-                (player) => player.copyWith(role: PlayerRole.undecided),
-              )
-              .toList(),
         ),
       ),
     );

@@ -571,11 +571,41 @@
   },
   "voting": "Voting",
   "@voting": {
-    "description": "Text for the voting page title"
+    "description": "Title for the voting page"
+  },
+  "votingTitle": "{wolfCount, plural, =1{Who is the Wolf?} other{Who is a Wolf?}}",
+  "@votingTitle": {
+    "description": "Title for the voting section, pluralized based on wolf count",
+    "placeholders": {
+      "wolfCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
+  },
+  "votingSubtitle": "{wolfCount, plural, =1{Everyone point to the person you think is the Wolf at the same time. Select the individual with the most votes.} other{Everyone point to a person you think is a Wolf at the same time. Select the individual with the most votes.}}",
+  "@votingSubtitle": {
+    "description": "Subtitle for the voting section, pluralized based on wolf count",
+    "placeholders": {
+      "wolfCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "1"
+      }
+    }
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Text for the confirm button"
   },
   "suddenDeath": "Sudden Death",
   "@suddenDeath": {
     "description": "Text for the sudden death button"
+  },
+  "suddenDeathSubtitle": "(when there's still a tie)",
+  "@suddenDeathSubtitle": {
+    "description": "Subtitle for the sudden death button explaining when to use it"
   },
   "results": "Results",
   "@results": {
