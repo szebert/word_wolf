@@ -4,6 +4,7 @@ import "package:firebase_analytics/firebase_analytics.dart";
 import "package:firebase_core/firebase_core.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/foundation.dart";
+import "package:flutter/services.dart";
 import "package:flutter/widgets.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:google_mobile_ads/google_mobile_ads.dart";
@@ -24,6 +25,12 @@ Future<void> bootstrap(final builder) async {
   await runZonedGuarded<Future<void>>(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+
+      // Set preferred orientations to portrait only (normal and upside down)
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
 
       await Firebase.initializeApp();
       final analyticsRepository =
