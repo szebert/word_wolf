@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app_ui/app_spacing.dart';
 import '../../app_ui/widgets/app_button.dart';
+import '../../app_ui/widgets/app_checkbox_list_tile.dart';
 import '../../app_ui/widgets/app_icon_button.dart';
 import '../../app_ui/widgets/app_text.dart';
 import '../../l10n/l10n.dart';
@@ -279,7 +280,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                     const SizedBox(height: AppSpacing.xs),
 
                     // Auto-assign toggle
-                    CheckboxListTile(
+                    AppCheckboxListTile(
                       dense: true,
                       title: AppText(l10n.autoAssign),
                       subtitle: AppText(
@@ -295,7 +296,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                     ),
 
                     // Randomize toggle
-                    CheckboxListTile(
+                    AppCheckboxListTile(
                       dense: true,
                       title: AppText(l10n.randomize),
                       subtitle: AppText(
@@ -510,7 +511,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                     ),
                     const SizedBox(height: AppSpacing.xs),
 
-                    CheckboxListTile(
+                    AppCheckboxListTile(
                       dense: true,
                       title: AppText(l10n.enableWolfRevenge),
                       subtitle: AppText(
