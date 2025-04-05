@@ -1,14 +1,60 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../../app_ui/app_spacing.dart";
 import "../../app_ui/widgets/app_button.dart";
 import "../../app_ui/widgets/app_exit_scope.dart";
+import "../../app_ui/widgets/app_icon_button.dart";
 import "../../app_ui/widgets/app_text.dart";
 import "../../l10n/l10n.dart";
 import "../bloc/game_bloc.dart";
 import "../models/player.dart";
 import "results_page.dart";
+
+// Timer manager to ensure only one timer exists globally
+class _TimerManager {
+  static Timer? _timer;
+  static final Stopwatch _stopwatch = Stopwatch();
+  static int _targetDuration = 0;
+
+  static void reset(int initialDuration) {
+    cancelTimer();
+    _targetDuration = initialDuration;
+    _stopwatch.reset();
+  }
+
+  static void cancelTimer() {
+    if (_timer != null) {
+      _timer!.cancel();
+      _timer = null;
+    }
+    _stopwatch.stop();
+  }
+
+  static int getRemainingSeconds() {
+    if (!_stopwatch.isRunning) return _targetDuration;
+
+    final elapsed = _stopwatch.elapsed.inSeconds;
+    final remaining = _targetDuration - elapsed;
+    return remaining > 0 ? remaining : 0;
+  }
+
+  static void adjustTime(int seconds) {
+    final elapsed = _stopwatch.elapsed.inSeconds;
+    final remaining = _targetDuration - elapsed;
+    if (remaining <= 0) return;
+
+    _targetDuration += seconds;
+  }
+
+  static void startTimer() {
+    if (!_stopwatch.isRunning) {
+      _stopwatch.start();
+    }
+  }
+}
 
 class WolfRevengePage extends StatelessWidget {
   const WolfRevengePage({super.key});
@@ -21,6 +67,7 @@ class WolfRevengePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Timer will be reset when the view initializes
     return const WolfRevengeView();
   }
 }
@@ -37,10 +84,94 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
   final _wordController = TextEditingController();
   bool _isSubmitting = false;
 
+  // Local state for display
+  static const _initialTimerDuration = 30;
+  int _displaySeconds = _initialTimerDuration;
+  Timer? _displayUpdateTimer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Reset timer with our initial duration
+    _TimerManager.reset(_initialTimerDuration);
+
+    // Start the global timer
+    _TimerManager.startTimer();
+
+    // Start the UI update timer
+    _startDisplayUpdates();
+  }
+
   @override
   void dispose() {
     _wordController.dispose();
+    if (_displayUpdateTimer != null) {
+      _displayUpdateTimer!.cancel();
+      _displayUpdateTimer = null;
+    }
     super.dispose();
+  }
+
+  void _startDisplayUpdates() {
+    // Cancel any existing UI update timer
+    if (_displayUpdateTimer != null) {
+      _displayUpdateTimer!.cancel();
+    }
+
+    // Create a timer just for UI updates
+    _displayUpdateTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        if (!mounted) return;
+
+        final remaining = _TimerManager.getRemainingSeconds();
+
+        // Only update if changed
+        if (remaining != _displaySeconds) {
+          setState(() {
+            _displaySeconds = remaining;
+          });
+
+          // Check for expiration
+          if (remaining <= 0) {
+            _displayUpdateTimer?.cancel();
+            _displayUpdateTimer = null;
+            _timeExpired();
+          }
+        }
+      },
+    );
+  }
+
+  void _timeExpired() {
+    // Wolf's time is up - they lose
+    if (!mounted) return;
+
+    _TimerManager.cancelTimer();
+    context.read<GameBloc>().add(const WolfRevengeSkipped());
+
+    // Navigate to results page
+    Navigator.of(context).pushReplacement(ResultsPage.route());
+  }
+
+  void _adjustTime(int seconds) {
+    if (!mounted) return;
+
+    final remaining = _TimerManager.getRemainingSeconds();
+
+    final newTarget = remaining + seconds;
+
+    // Validate time bounds (min 1 second, max 5 minutes)
+    if (newTarget < 1 || newTarget > 5 * 60) return;
+
+    // Adjust time in global timer
+    _TimerManager.adjustTime(seconds);
+
+    // Update display immediately
+    setState(() {
+      _displaySeconds = _TimerManager.getRemainingSeconds();
+    });
   }
 
   void _submitGuess() {
@@ -129,6 +260,8 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
         listener: (context, state) {
           // Check if Wolf's Revenge attempt has already been handled
           if (state.game.wolfRevengeAttempted) {
+            // Cancel timer when a decision is made
+            _TimerManager.cancelTimer();
             // If revenge has been attempted, go directly to results
             Navigator.of(context).push(ResultsPage.route());
           }
@@ -178,6 +311,61 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                             l10n.wolfRevengeExplanation,
                             variant: AppTextVariant.bodyLarge,
                             textAlign: TextAlign.center,
+                          ),
+
+                          const SizedBox(height: AppSpacing.xs),
+
+                          // Timer section
+                          Column(
+                            children: [
+                              // Timer with minus/plus buttons on the sides
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  // Minus 30s button on left
+                                  AppIconButton(
+                                    icon: const Icon(
+                                        Icons.remove_circle_outline,
+                                        size: 36),
+                                    tooltip: l10n.wolfRevengeDecreaseTime,
+                                    onPressed: () => _adjustTime(-30),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+
+                                  // Timer display in center
+                                  Column(
+                                    children: [
+                                      AppText(
+                                        "${_displaySeconds ~/ 60}:${(_displaySeconds % 60).toString().padLeft(2, "0")}",
+                                        variant: AppTextVariant.displayMedium,
+                                        weight: AppTextWeight.bold,
+                                        colorOption: _displaySeconds < 10
+                                            ? AppTextColor.error
+                                            : AppTextColor.unspecified,
+                                      ),
+                                      AppText(
+                                        l10n.wolfRevengeTimeRemaining,
+                                        variant: AppTextVariant.bodySmall,
+                                        colorOption:
+                                            AppTextColor.onSurfaceVariant,
+                                      ),
+                                    ],
+                                  ),
+
+                                  // Plus 30s button on right
+                                  AppIconButton(
+                                    icon: const Icon(Icons.add_circle_outline,
+                                        size: 36),
+                                    tooltip: l10n.wolfRevengeIncreaseTime,
+                                    onPressed: () => _adjustTime(30),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
 
                           const SizedBox(height: AppSpacing.lg),

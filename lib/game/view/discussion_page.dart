@@ -121,11 +121,11 @@ class _DiscussionViewState extends State<DiscussionView>
 
     final newValue = currentTime + (minutes * 60);
 
-    if (newValue >= 0 && newValue < 100 * 60) {
-      context.read<GameBloc>().add(GameTimerAdjusted(
-            newTimeInSeconds: newValue,
-          ));
-    }
+    if (newValue < 1 || newValue >= 100 * 60) return;
+
+    context.read<GameBloc>().add(GameTimerAdjusted(
+          newTimeInSeconds: newValue,
+        ));
   }
 
   void _endDiscussion() {

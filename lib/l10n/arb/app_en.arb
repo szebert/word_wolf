@@ -711,5 +711,17 @@
   "wolfRevengeVerbalYes": "Yes",
   "@wolfRevengeVerbalYes": {
     "description": "Button text for correct verbal guess"
+  },
+  "wolfRevengeTimeRemaining": "Time Remaining",
+  "@wolfRevengeTimeRemaining": {
+    "description": "Text for time remaining label"
+  },
+  "wolfRevengeDecreaseTime": "Decrease Time",
+  "@wolfRevengeDecreaseTime": {
+    "description": "Tooltip text for decrease time button"
+  },
+  "wolfRevengeIncreaseTime": "Increase Time",
+  "@wolfRevengeIncreaseTime": {
+    "description": "Tooltip text for increase time button"
   }
 }
