@@ -320,7 +320,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                             children: [
                               AppText(
                                 _randomizeWolfCount
-                                    ? "?"
+                                    ? l10n.hiddenNumber
                                     : "${totalPlayers - _numberOfWolves}",
                                 variant: AppTextVariant.displaySmall,
                                 textAlign: TextAlign.center,
@@ -373,7 +373,9 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                           child: Column(
                             children: [
                               AppText(
-                                _randomizeWolfCount ? "?" : "$_numberOfWolves",
+                                _randomizeWolfCount
+                                    ? l10n.hiddenNumber
+                                    : "$_numberOfWolves",
                                 variant: AppTextVariant.displaySmall,
                                 textAlign: TextAlign.center,
                               ),

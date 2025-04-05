@@ -271,6 +271,10 @@
   "@randomizeSubtitle": {
     "description": "The subtitle for explaining the randomize wolf scenario"
   },
+  "hiddenNumber": "?",
+  "@hiddenNumber": {
+    "description": "The text for the hidden number of citizens or wolves"
+  },
   "citizens": "Citizens",
   "@citizens": {
     "description": "The text for citizens label"
