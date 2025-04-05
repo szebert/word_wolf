@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 
 import "../app_config.dart";
 import "../app_spacing.dart";
@@ -67,14 +66,7 @@ class AppSwitch extends StatelessWidget {
                       onChanged: (loading || !enabled)
                           ? null
                           : (bool newValue) {
-                              if (feedbackSettings.hapticEnabled) {
-                                // Haptic feedback (vibrate)
-                                HapticFeedback.lightImpact();
-                              }
-                              if (feedbackSettings.soundEnabled) {
-                                // SystemSound (play a default click)
-                                SystemSound.play(SystemSoundType.click);
-                              }
+                              AppConfig.playFeedback();
                               onChanged(newValue);
                             },
                     ),

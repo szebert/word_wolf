@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 
 import "../app_config.dart";
 
@@ -184,12 +183,7 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
 
     // Otherwise, wrap with feedback
     return () {
-      if (feedbackSettings.hapticEnabled) {
-        HapticFeedback.lightImpact();
-      }
-      if (feedbackSettings.soundEnabled) {
-        SystemSound.play(SystemSoundType.click);
-      }
+      AppConfig.playFeedback();
       widget.onPressed?.call();
     };
   }

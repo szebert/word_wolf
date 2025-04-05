@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 
 import "../app_config.dart";
 import "../app_spacing.dart";
@@ -80,12 +79,7 @@ class AppSegmentedButton<T> extends StatelessWidget {
           segments: segments,
           selected: selected,
           onSelectionChanged: (newSelection) {
-            if (feedbackSettings.hapticEnabled) {
-              HapticFeedback.lightImpact();
-            }
-            if (feedbackSettings.soundEnabled) {
-              SystemSound.play(SystemSoundType.click);
-            }
+            AppConfig.playFeedback();
             onSelectionChanged(newSelection);
           },
           showSelectedIcon: showSelectedIcon,

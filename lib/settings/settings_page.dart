@@ -6,6 +6,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "../app_ui/app_config.dart";
 import "../app_ui/app_spacing.dart";
 import "../app_ui/widgets/app_icon_button.dart";
+import "../app_ui/widgets/app_list_tile.dart";
 import "../app_ui/widgets/app_segmented_button.dart";
 import "../app_ui/widgets/app_switch.dart";
 import "../l10n/l10n.dart";
@@ -322,7 +323,7 @@ class SettingItem extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final bool hasLeading = leading != null;
 
-    return ListTile(
+    return AppListTile(
       dense: true,
       leading: SizedBox(
         width: hasLeading ? _leadingWidth : 0,
@@ -340,19 +341,13 @@ class SettingItem extends StatelessWidget {
       ),
       horizontalTitleGap: 0,
       minLeadingWidth: hasLeading ? _leadingWidth : 0,
-      onTap: onTap == null
-          ? null
-          : () {
-              AppConfig.playFeedback();
-              onTap!.call();
-            },
+      onTap: onTap,
       title: Text(
         title,
         style: theme.textTheme.titleMedium?.copyWith(
           color: titleColor ?? theme.colorScheme.onSurface,
         ),
       ),
-      enableFeedback: false,
     );
   }
 }

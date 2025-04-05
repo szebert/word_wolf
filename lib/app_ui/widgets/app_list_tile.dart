@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 
 import "../app_config.dart";
 
@@ -22,18 +21,14 @@ class AppListTile extends ListTile {
     super.selectedTileColor,
     super.trailing,
     super.style,
+    super.leading,
+    super.horizontalTitleGap,
+    super.minLeadingWidth,
   }) : super(
           onTap: onTap == null
               ? null
               : () {
-                  final feedbackSettings =
-                      AppConfig.feedbackSettingsNotifier.value;
-                  if (feedbackSettings.hapticEnabled) {
-                    HapticFeedback.lightImpact();
-                  }
-                  if (feedbackSettings.soundEnabled) {
-                    SystemSound.play(SystemSoundType.click);
-                  }
+                  AppConfig.playFeedback();
                   onTap();
                 },
           enableFeedback: false,

@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 
 import "../app_config.dart";
 
@@ -29,14 +28,7 @@ class AppCheckboxListTile extends CheckboxListTile {
           onChanged: onChanged == null
               ? null
               : (bool? newValue) {
-                  final feedbackSettings =
-                      AppConfig.feedbackSettingsNotifier.value;
-                  if (feedbackSettings.hapticEnabled) {
-                    HapticFeedback.lightImpact();
-                  }
-                  if (feedbackSettings.soundEnabled) {
-                    SystemSound.play(SystemSoundType.click);
-                  }
+                  AppConfig.playFeedback();
                   onChanged(newValue);
                 },
           enableFeedback: false,

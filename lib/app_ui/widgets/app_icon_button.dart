@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 
 import "../app_config.dart";
 
@@ -23,14 +22,7 @@ class AppIconButton extends IconButton {
           onPressed: onPressed == null
               ? null
               : () {
-                  final feedbackSettings =
-                      AppConfig.feedbackSettingsNotifier.value;
-                  if (feedbackSettings.hapticEnabled) {
-                    HapticFeedback.lightImpact();
-                  }
-                  if (feedbackSettings.soundEnabled) {
-                    SystemSound.play(SystemSoundType.click);
-                  }
+                  AppConfig.playFeedback();
                   onPressed();
                 },
           style: const ButtonStyle(
