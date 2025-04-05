@@ -2,6 +2,7 @@ import "dart:io";
 
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:package_info_plus/package_info_plus.dart";
 
 import "../app_ui/app_config.dart";
 import "../app_ui/app_spacing.dart";
@@ -37,11 +38,21 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView>
     with WidgetsBindingObserver {
+  PackageInfo? _packageInfo;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     context.read<SettingsBloc>().add(const FetchFeedbackSettings());
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
   }
 
   @override
@@ -144,7 +155,7 @@ class _SettingsViewState extends State<SettingsView>
             const Divider(),
             SettingItem(
               title:
-                  "Version 0.1.0 Build 1", // TODO(szebert): Connect to actual version
+                  "Version ${_packageInfo?.version ?? "1.0.0"} Build ${_packageInfo?.buildNumber ?? "1"}",
               titleColor: theme.colorScheme.primary.withAlpha(153),
             ),
           ],
