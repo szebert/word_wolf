@@ -13,12 +13,16 @@ class AppExitScope extends StatelessWidget {
   /// {@macro app_exit_scope}
   const AppExitScope({
     required this.child,
+    this.disabled = false,
     this.onExit,
     super.key,
   });
 
   /// The widget below this widget in the tree.
   final Widget child;
+
+  /// Whether the exit scope is disabled.
+  final bool disabled;
 
   /// Optional callback when exit is confirmed.
   /// If not provided, defaults to navigating to HomePage.
@@ -108,6 +112,10 @@ class AppExitScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (disabled) {
+      return child;
+    }
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {

@@ -509,6 +509,22 @@
   "@wordDistributionLoading": {
     "description": "Text for the loading state in the word distribution page"
   },
+  "wordGenerationErrorTitle": "Word Generation Error",
+  "@wordGenerationErrorTitle": {
+    "description": "Text for the word generation error state in the word distribution page"
+  },
+  "wordGenerationErrorContent": "We couldn't properly connect to our online service to generate your word pair. You can still continue playing using our built-in word collection!",
+  "@wordGenerationErrorContent": {
+    "description": "Text for the word generation error content in the word distribution page"
+  },
+  "wordGenerationErrorCategoryNote": "Note: The offline words used will typically have a different category than the one you selected.",
+  "@wordGenerationErrorCategoryNote": {
+    "description": "Text for the word generation error category note in the word distribution page"
+  },
+  "wordGenerationErrorContinue": "Continue While Offline",
+  "@wordGenerationErrorContinue": {
+    "description": "Text for the word generation error continue while offline button in the word distribution page"
+  },
   "allPlayersFinished": "All players have seen their words!",
   "@allPlayersFinished": {
     "description": "Text for the all players finished state in the word distribution page"

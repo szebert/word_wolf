@@ -42,7 +42,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<WolfRevengeUpdated>(_onWolfRevengeUpdated);
 
     // Distribute Words Page events
-    on<GameStarted>(_onGameStarted);
+    on<GameStarted>(_onGameStartedOnline);
+    on<GameStartedOffline>(_onGameStartedOffline);
 
     // Discussion Page events
     on<DiscussionStarted>(_onDiscussionStarted);
@@ -363,7 +364,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   // Distribute Words Page events
   Future<void> _onGameStarted(
-    GameStarted event,
+    String category,
+    bool online,
     Emitter<GameState> emit,
   ) async {
     emit(state.copyWith(status: GameStatus.loading));
@@ -389,11 +391,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     WordPairResult result;
     try {
-      // Get a random word pair based on selected category and similarity
-      result = await _wordPairService.getRandomWordPair(
-        category: event.category,
-        similarity: state.game.wordPairSimilarity,
-      );
+      if (online) {
+        // Get a random word pair based on selected category and similarity
+        result = await _wordPairService.getRandomWordPair(
+          category: category,
+          similarity: state.game.wordPairSimilarity,
+        );
+      } else {
+        result = await _wordPairService.getRandomOfflineWordPair();
+      }
     } catch (error) {
       emit(
         state.copyWith(
@@ -425,6 +431,20 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         ),
       ),
     );
+  }
+
+  Future<void> _onGameStartedOnline(
+    GameStarted event,
+    Emitter<GameState> emit,
+  ) async {
+    await _onGameStarted(event.category, true, emit);
+  }
+
+  Future<void> _onGameStartedOffline(
+    GameStartedOffline event,
+    Emitter<GameState> emit,
+  ) async {
+    await _onGameStarted(event.category, false, emit);
   }
 
   // Discussion Page events

@@ -4,6 +4,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "../../app_ui/app_spacing.dart";
 import "../../app_ui/widgets/app_button.dart";
 import "../../app_ui/widgets/app_exit_scope.dart";
+import "../../app_ui/widgets/app_icon_button.dart";
 import "../../app_ui/widgets/app_text.dart";
 import "../../category/bloc/category_bloc.dart";
 import "../../l10n/l10n.dart";
@@ -92,32 +93,50 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
     Navigator.of(context).push(DiscussionPage.route());
   }
 
+  Widget _goBackButton() {
+    final l10n = context.l10n;
+
+    return AppIconButton(
+      icon: const Icon(Icons.arrow_back),
+      tooltip: l10n.back,
+      onPressed: () async {
+        Navigator.pop(context);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return AppExitScope(
-      child: BlocBuilder<GameBloc, GameState>(
-        builder: (context, state) {
-          final game = state.game;
-          final categoryState = context.read<CategoryBloc>().state;
+    return BlocBuilder<GameBloc, GameState>(
+      builder: (context, state) {
+        final game = state.game;
+        final categoryState = context.read<CategoryBloc>().state;
 
-          return Scaffold(
+        return AppExitScope(
+          disabled: state.status == GameStatus.error,
+          child: Scaffold(
             appBar: AppBar(
               title: AppText(
                 l10n.wordDistribution,
                 variant: AppTextVariant.titleLarge,
               ),
-              leading: AppExitScope.createBackIconButton(context),
+              leading: state.status == GameStatus.error
+                  ? _goBackButton()
+                  : AppExitScope.createBackIconButton(context),
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
               child: _buildContent(
-                  game, state.status, categoryState.selectedCategory),
+                game,
+                state.status,
+                categoryState.selectedCategory,
+              ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -133,6 +152,90 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
             const CircularProgressIndicator(),
             const SizedBox(height: AppSpacing.md),
             AppText(l10n.wordDistributionLoading),
+          ],
+        ),
+      );
+    }
+
+    if (status == GameStatus.error) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 64,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                const SizedBox(height: AppSpacing.md),
+                AppText(
+                  l10n.wordGenerationErrorTitle,
+                  variant: AppTextVariant.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppSpacing.md),
+                SizedBox(
+                  width: 300,
+                  child: AppText(
+                    l10n.wordGenerationErrorContent,
+                    variant: AppTextVariant.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                if (category.isNotEmpty)
+                  SizedBox(
+                    width: 300,
+                    child: AppText(
+                      l10n.wordGenerationErrorCategoryNote,
+                      variant: AppTextVariant.bodySmall,
+                      colorOption: AppTextColor.secondary,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                const SizedBox(height: AppSpacing.xlg),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      AppButton(
+                        variant: AppButtonVariant.filled,
+                        onPressed: () {
+                          // Use offline words instead
+                          context.read<GameBloc>().add(
+                                GameStartedOffline(
+                                  category: category,
+                                ),
+                              );
+                        },
+                        child: AppText(
+                          l10n.wordGenerationErrorContinue,
+                          variant: AppTextVariant.titleMedium,
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      AppButton(
+                        variant: AppButtonVariant.outlined,
+                        onPressed: () async {
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                        },
+                        child: AppText(
+                          l10n.exitToMenu,
+                          variant: AppTextVariant.titleMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       );

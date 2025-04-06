@@ -116,6 +116,17 @@ class GameStarted extends GameEvent {
   List<Object> get props => [category];
 }
 
+class GameStartedOffline extends GameEvent {
+  const GameStartedOffline({
+    required this.category,
+  });
+
+  final String category;
+
+  @override
+  List<Object> get props => [category];
+}
+
 class DiscussionStarted extends GameEvent {
   const DiscussionStarted();
 }
