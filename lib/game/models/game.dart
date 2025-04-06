@@ -51,7 +51,8 @@ class Game extends Equatable {
 
   int get generateWolfCount {
     // Calculate default wolf count based on player count
-    final defaultCount = _getDefaultWolfCount(players.length);
+    final defaultCount = getDefaultWolfCount(players.length);
+    final maxWolves = getMaxWolfCount(players.length);
 
     // If randomize is enabled, calculate all valid options and choose randomly
     if (randomizeWolfCount) {
@@ -67,7 +68,6 @@ class Game extends Equatable {
       validOptions.add(defaultCount);
 
       // Consider defaultCount + 1 (if below maximum allowed wolves)
-      final maxWolves = ((players.length - 1) / 2).floor();
       if (defaultCount < maxWolves) {
         validOptions.add(defaultCount + 1);
       }
@@ -80,16 +80,33 @@ class Game extends Equatable {
       return selectedOption;
     }
 
+    if (autoAssignWolves) {
+      return defaultCount;
+    }
+
     // If customWolfCount is explicitly set, use it
     if (customWolfCount != null) {
+      if (customWolfCount! > maxWolves) {
+        return maxWolves;
+      }
+      if (customWolfCount! < 1) {
+        return 1;
+      }
       return customWolfCount!;
     }
 
     return defaultCount;
   }
 
-  int _getDefaultWolfCount(int playerCount) {
-    return (playerCount / 5).ceil().clamp(1, (playerCount / 2).floor());
+  // Ideally between 20% and 33% of players
+  static int getDefaultWolfCount(int playerCount) {
+    final max = getMaxWolfCount(playerCount);
+    return (playerCount / 5).ceil().clamp(1, max);
+  }
+
+  // Wolves must be less than citizens
+  static int getMaxWolfCount(int playerCount) {
+    return ((playerCount - 1) / 2).floor();
   }
 
   Game copyWith({

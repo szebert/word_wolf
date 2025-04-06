@@ -10,6 +10,7 @@ class AppCheckboxListTile extends CheckboxListTile {
   AppCheckboxListTile({
     required bool value,
     required ValueChanged<bool?>? onChanged,
+    bool disabled = false,
     super.key,
     super.title,
     super.subtitle,
@@ -25,12 +26,14 @@ class AppCheckboxListTile extends CheckboxListTile {
     super.autofocus = false,
   }) : super(
           value: value,
-          onChanged: onChanged == null
+          onChanged: disabled
               ? null
-              : (bool? newValue) {
-                  AppConfig.playFeedback();
-                  onChanged(newValue);
-                },
+              : onChanged == null
+                  ? null
+                  : (bool? newValue) {
+                      AppConfig.playFeedback();
+                      onChanged(newValue);
+                    },
           enableFeedback: false,
         );
 }

@@ -11,6 +11,7 @@ class AppIconButton extends IconButton {
     required super.icon,
     required VoidCallback? onPressed,
     ButtonStyle? style,
+    bool disabled = false,
     super.key,
     super.iconSize,
     super.color,
@@ -19,12 +20,14 @@ class AppIconButton extends IconButton {
     super.visualDensity,
     super.padding,
   }) : super(
-          onPressed: onPressed == null
+          onPressed: disabled
               ? null
-              : () {
-                  AppConfig.playFeedback();
-                  onPressed();
-                },
+              : onPressed == null
+                  ? null
+                  : () {
+                      AppConfig.playFeedback();
+                      onPressed();
+                    },
           style: const ButtonStyle(
             enableFeedback: false,
           ).merge(style),

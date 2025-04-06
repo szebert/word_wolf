@@ -8,6 +8,7 @@ import "../../app_ui/widgets/app_icon_button.dart";
 import "../../app_ui/widgets/app_text.dart";
 import "../../l10n/l10n.dart";
 import "../bloc/game_bloc.dart";
+import "../models/game.dart";
 import "game_categories_page.dart";
 
 class GameSettingsPage extends StatelessWidget {
@@ -33,155 +34,249 @@ class GameSettingsView extends StatefulWidget {
 }
 
 class _GameSettingsViewState extends State<GameSettingsView> {
-  bool _autoAssignComposition = true;
-  bool _randomizeWolfCount = false;
-  int _discussionDuration = 3;
-  int _numberOfWolves = 1;
-  bool _wolfRevengeEnabled = true;
-
-  @override
-  void initState() {
-    super.initState();
-    final gameState = context.read<GameBloc>().state;
-    final totalPlayers = gameState.game.players.length;
-
-    // Initialize settings from game state
-    _autoAssignComposition = gameState.game.autoAssignWolves;
-    _randomizeWolfCount = gameState.game.randomizeWolfCount;
-    _discussionDuration = (gameState.game.discussionTimeInSeconds / 60).round();
-    _wolfRevengeEnabled = gameState.game.wolfRevengeEnabled;
-
-    // Set number of wolves based on auto-assign state
-    if (_autoAssignComposition) {
-      _numberOfWolves = getNumberOfBalancedWolves(totalPlayers);
-    } else {
-      _numberOfWolves = gameState.game.customWolfCount ??
-          getNumberOfBalancedWolves(totalPlayers);
-    }
+  void _continueToNextStep() {
+    Navigator.of(context).push(GameCategoriesPage.route());
   }
 
-  @override
-  void didUpdateWidget(GameSettingsView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    final gameState = context.read<GameBloc>().state;
-    final totalPlayers = gameState.game.players.length;
-
-    // If auto-assign is enabled, update wolf count when player count changes
-    if (_autoAssignComposition) {
-      final newWolfCount = getNumberOfBalancedWolves(totalPlayers);
-      if (_numberOfWolves != newWolfCount) {
-        setState(() {
-          _numberOfWolves = newWolfCount;
-        });
-        // Update the game state with new wolf count
-        context.read<GameBloc>().add(
-              WolvesCountUpdated(
-                customWolfCount: newWolfCount,
-                randomizeWolfCount: _randomizeWolfCount,
-                autoAssignWolves: _autoAssignComposition,
-              ),
-            );
-      }
-    }
+  void _onAutoAssignUpdated(bool value) {
+    context.read<GameBloc>().add(AutoAssignUpdated(enabled: value));
   }
 
-  int getNumberOfBalancedWolves(int totalPlayers) {
-    // Use ceil to round up - ensures enough wolves for larger groups
-    return (totalPlayers / 5).ceil();
-  }
+  Widget _buildAutoAssignToggle() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) {
+        return previous.game.autoAssignWolves != current.game.autoAssignWolves;
+      },
+      builder: (context, state) {
+        final l10n = context.l10n;
+        final totalPlayers = state.game.players.length;
+        final defaultWolfCount = Game.getDefaultWolfCount(totalPlayers);
 
-  void _onAutoAssignChanged(bool value) {
-    setState(() {
-      _autoAssignComposition = value;
-      _randomizeWolfCount = !value && _randomizeWolfCount;
-
-      if (value) {
-        final totalPlayers = context.read<GameBloc>().state.game.players.length;
-        _numberOfWolves = getNumberOfBalancedWolves(totalPlayers);
-      }
-    });
-    context.read<GameBloc>().add(
-          WolvesCountUpdated(
-            customWolfCount: _numberOfWolves,
-            randomizeWolfCount: _randomizeWolfCount,
-            autoAssignWolves: _autoAssignComposition,
+        return AppCheckboxListTile(
+          dense: true,
+          title: AppText(l10n.autoAssign),
+          subtitle: AppText(
+            l10n.autoAssignSubtitle(
+              defaultWolfCount,
+              totalPlayers,
+            ),
+            variant: AppTextVariant.bodySmall,
           ),
+          value: state.game.autoAssignWolves,
+          onChanged: (value) => _onAutoAssignUpdated(value ?? false),
         );
+      },
+    );
   }
 
-  void _onRandomizeWolfCountChanged(bool value) {
-    setState(() {
-      _randomizeWolfCount = value;
-      _autoAssignComposition = !value && _autoAssignComposition;
-    });
-    context.read<GameBloc>().add(
-          WolvesCountUpdated(
-            customWolfCount: _randomizeWolfCount ? null : _numberOfWolves,
-            randomizeWolfCount: _randomizeWolfCount,
-            autoAssignWolves: _autoAssignComposition,
+  void _onRandomizeWolfCountUpdated(bool value) {
+    context.read<GameBloc>().add(RandomizeWolfCountUpdated(enabled: value));
+  }
+
+  Widget _buildRandomizeToggle() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) {
+        return previous.game.randomizeWolfCount !=
+            current.game.randomizeWolfCount;
+      },
+      builder: (context, state) {
+        final l10n = context.l10n;
+        final totalPlayers = state.game.players.length;
+        final maxWolves = Game.getMaxWolfCount(totalPlayers);
+        final randomizeWolfCount = state.game.randomizeWolfCount;
+
+        return AppCheckboxListTile(
+          disabled: maxWolves < 2 && !randomizeWolfCount,
+          dense: true,
+          title: AppText(l10n.randomize),
+          subtitle: AppText(
+            l10n.randomizeSubtitle,
+            variant: AppTextVariant.bodySmall,
           ),
+          value: randomizeWolfCount,
+          onChanged: (value) => _onRandomizeWolfCountUpdated(value ?? false),
         );
+      },
+    );
+  }
+
+  Widget _buildCitizensCount() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) {
+        return previous.game.customWolfCount != current.game.customWolfCount ||
+            previous.game.randomizeWolfCount !=
+                current.game.randomizeWolfCount ||
+            previous.game.autoAssignWolves != current.game.autoAssignWolves;
+      },
+      builder: (context, state) {
+        final l10n = context.l10n;
+        final totalPlayers = state.game.players.length;
+        final defaultWolfCount = Game.getDefaultWolfCount(totalPlayers);
+        final defaultCitizenCount = totalPlayers - defaultWolfCount;
+        final customWolfCount = state.game.customWolfCount ?? defaultWolfCount;
+        final customCitizenCount = totalPlayers - customWolfCount;
+        final currentCitizenCount = state.game.autoAssignWolves
+            ? defaultCitizenCount
+            : customCitizenCount;
+
+        return AppText(
+          state.game.randomizeWolfCount
+              ? l10n.hiddenNumber
+              : "$currentCitizenCount",
+          variant: AppTextVariant.displaySmall,
+          textAlign: TextAlign.center,
+        );
+      },
+    );
+  }
+
+  Widget _buildWolvesCount() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) {
+        return previous.game.customWolfCount != current.game.customWolfCount ||
+            previous.game.randomizeWolfCount !=
+                current.game.randomizeWolfCount ||
+            previous.game.autoAssignWolves != current.game.autoAssignWolves;
+      },
+      builder: (context, state) {
+        final l10n = context.l10n;
+        final totalPlayers = state.game.players.length;
+        final defaultWolfCount = Game.getDefaultWolfCount(totalPlayers);
+        final customWolfCount = state.game.customWolfCount ?? defaultWolfCount;
+        final currentWolfCount =
+            state.game.autoAssignWolves ? defaultWolfCount : customWolfCount;
+
+        return AppText(
+          state.game.randomizeWolfCount
+              ? l10n.hiddenNumber
+              : "$currentWolfCount",
+          variant: AppTextVariant.displaySmall,
+          textAlign: TextAlign.center,
+        );
+      },
+    );
   }
 
   void _decrementWolves() {
-    if (_numberOfWolves > 1) {
-      setState(() {
-        _numberOfWolves--;
-      });
-      context.read<GameBloc>().add(
-            WolvesCountUpdated(
-              customWolfCount: _numberOfWolves,
-              randomizeWolfCount: _randomizeWolfCount,
-              autoAssignWolves: _autoAssignComposition,
-            ),
-          );
-    }
+    context.read<GameBloc>().add(WolvesCountUpdated(count: -1));
   }
 
   void _incrementWolves() {
-    final totalPlayers = context.read<GameBloc>().state.game.players.length;
-    // Wolves must be less than citizens, so max is (totalPlayers - 1) / 2
-    final maxWolves = ((totalPlayers - 1) / 2).floor();
+    context.read<GameBloc>().add(WolvesCountUpdated(count: 1));
+  }
 
-    if (_numberOfWolves < maxWolves) {
-      setState(() {
-        _numberOfWolves++;
-      });
-      context.read<GameBloc>().add(
-            WolvesCountUpdated(
-              customWolfCount: _numberOfWolves,
-              randomizeWolfCount: _randomizeWolfCount,
-              autoAssignWolves: _autoAssignComposition,
+  Widget _buildWolvesButtons() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) {
+        return previous.game.customWolfCount != current.game.customWolfCount ||
+            previous.game.randomizeWolfCount !=
+                current.game.randomizeWolfCount ||
+            previous.game.autoAssignWolves != current.game.autoAssignWolves;
+      },
+      builder: (context, state) {
+        final l10n = context.l10n;
+        final autoAssignComposition = state.game.autoAssignWolves;
+        final randomizeWolfCount = state.game.randomizeWolfCount;
+        final totalPlayers = state.game.players.length;
+        final defaultWolfCount = Game.getDefaultWolfCount(totalPlayers);
+        final maxWolves = Game.getMaxWolfCount(totalPlayers);
+        final customWolfCount = state.game.customWolfCount ?? defaultWolfCount;
+        final currentWolfCount =
+            autoAssignComposition ? defaultWolfCount : customWolfCount;
+        final enableCustomWolves =
+            !autoAssignComposition && !randomizeWolfCount;
+        final canDecrementWolves = currentWolfCount > 1 && enableCustomWolves;
+        final canIncrementWolves =
+            currentWolfCount < maxWolves && enableCustomWolves;
+
+        return SizedBox(
+          width: 120,
+          child: Visibility(
+            visible: enableCustomWolves,
+            maintainSize: true,
+            maintainAnimation: true,
+            maintainState: true,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppIconButton(
+                  icon: const Icon(Icons.arrow_circle_left),
+                  tooltip: l10n.moreCitizens,
+                  iconSize: 32,
+                  disabled: !canDecrementWolves,
+                  onPressed: _decrementWolves,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                AppIconButton(
+                  icon: const Icon(Icons.arrow_circle_right),
+                  tooltip: l10n.moreWolves,
+                  iconSize: 32,
+                  disabled: !canIncrementWolves,
+                  onPressed: _incrementWolves,
+                ),
+              ],
             ),
-          );
-    }
+          ),
+        );
+      },
+    );
   }
 
   void _decrementDuration() {
-    if (_discussionDuration > 1) {
-      setState(() {
-        _discussionDuration--;
-      });
-      context.read<GameBloc>().add(
-            GameDiscussionTimeUpdated(
-              timeInSeconds: _discussionDuration * 60,
-            ),
-          );
-    }
+    context.read<GameBloc>().add(GameDiscussionTimeUpdated(timeInSeconds: -60));
   }
 
   void _incrementDuration() {
-    if (_discussionDuration < 30) {
-      setState(() {
-        _discussionDuration++;
-      });
-      context.read<GameBloc>().add(
-            GameDiscussionTimeUpdated(
-              timeInSeconds: _discussionDuration * 60,
+    context.read<GameBloc>().add(GameDiscussionTimeUpdated(timeInSeconds: 60));
+  }
+
+  Widget _buildDurationWithButtons() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) =>
+          previous.game.discussionTimeInSeconds !=
+          current.game.discussionTimeInSeconds,
+      builder: (context, state) {
+        final l10n = context.l10n;
+        final discussionDuration = state.game.discussionTimeInSeconds;
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppIconButton(
+              icon: const Icon(Icons.remove_circle),
+              tooltip: l10n.decreaseDuration,
+              iconSize: 32,
+              disabled: discussionDuration <= 60,
+              onPressed: _decrementDuration,
             ),
-          );
-    }
+            SizedBox(
+              width: 100,
+              child: Column(
+                children: [
+                  AppText(
+                    "${discussionDuration ~/ 60}",
+                    variant: AppTextVariant.displaySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  AppText(
+                    l10n.minutes,
+                    variant: AppTextVariant.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            AppIconButton(
+              icon: const Icon(Icons.add_circle),
+              tooltip: l10n.increaseDuration,
+              iconSize: 32,
+              disabled: discussionDuration >= 30 * 60,
+              onPressed: _incrementDuration,
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _updateWordPairSimilarity(double value) {
@@ -206,6 +301,26 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     }
   }
 
+  Widget _buildWordPairSimilaritySlider() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) =>
+          previous.game.wordPairSimilarity != current.game.wordPairSimilarity,
+      builder: (context, state) {
+        final l10n = context.l10n;
+
+        return Slider(
+          value: state.game.wordPairSimilarity,
+          onChanged: _updateWordPairSimilarity,
+          divisions: 10,
+          label: _getSimilarityDescription(
+            l10n,
+            state.game.wordPairSimilarity,
+          ),
+        );
+      },
+    );
+  }
+
   String _getExampleWordPair(AppLocalizations l10n, double similarityValue) {
     if (similarityValue < 0.1) {
       return l10n.exampleExtremelySimilar;
@@ -222,32 +337,51 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     }
   }
 
-  void _continueToNextStep() {
-    Navigator.of(context).push(GameCategoriesPage.route());
+  Widget _buildExampleWordPair() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) =>
+          previous.game.wordPairSimilarity != current.game.wordPairSimilarity,
+      builder: (context, state) {
+        final l10n = context.l10n;
+
+        return Center(
+          child: AppText(
+            _getExampleWordPair(l10n, state.game.wordPairSimilarity),
+            variant: AppTextVariant.bodyMedium,
+          ),
+        );
+      },
+    );
   }
 
   void _onWolfRevengeChanged(bool value) {
-    setState(() {
-      _wolfRevengeEnabled = value;
-    });
-    context.read<GameBloc>().add(
-          WolfRevengeUpdated(
-            enabled: value,
+    context.read<GameBloc>().add(WolfRevengeUpdated(enabled: value));
+  }
+
+  Widget _buildWolfRevengeToggle() {
+    return BlocBuilder<GameBloc, GameState>(
+      buildWhen: (previous, current) =>
+          previous.game.wolfRevengeEnabled != current.game.wolfRevengeEnabled,
+      builder: (context, state) {
+        final l10n = context.l10n;
+
+        return AppCheckboxListTile(
+          dense: true,
+          title: AppText(l10n.enableWolfRevenge),
+          subtitle: AppText(
+            l10n.wolfRevengeSubtitle,
+            variant: AppTextVariant.bodySmall,
           ),
+          value: state.game.wolfRevengeEnabled,
+          onChanged: (value) => _onWolfRevengeChanged(value ?? false),
         );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final gameState = context.watch<GameBloc>().state;
-    final totalPlayers = gameState.game.players.length;
-    final maxWolves = ((totalPlayers - 1) / 2).floor();
-    final canDecrementWolves =
-        _numberOfWolves > 1 && !_autoAssignComposition && !_randomizeWolfCount;
-    final canIncrementWolves = _numberOfWolves < maxWolves &&
-        !_autoAssignComposition &&
-        !_randomizeWolfCount;
 
     return Scaffold(
       appBar: AppBar(
@@ -280,33 +414,10 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                     const SizedBox(height: AppSpacing.xs),
 
                     // Auto-assign toggle
-                    AppCheckboxListTile(
-                      dense: true,
-                      title: AppText(l10n.autoAssign),
-                      subtitle: AppText(
-                        l10n.autoAssignSubtitle(
-                          getNumberOfBalancedWolves(totalPlayers),
-                          totalPlayers,
-                        ),
-                        variant: AppTextVariant.bodySmall,
-                      ),
-                      value: _autoAssignComposition,
-                      onChanged: (value) =>
-                          _onAutoAssignChanged(value ?? false),
-                    ),
+                    _buildAutoAssignToggle(),
 
                     // Randomize toggle
-                    AppCheckboxListTile(
-                      dense: true,
-                      title: AppText(l10n.randomize),
-                      subtitle: AppText(
-                        l10n.randomizeSubtitle,
-                        variant: AppTextVariant.bodySmall,
-                      ),
-                      value: _randomizeWolfCount,
-                      onChanged: (value) =>
-                          _onRandomizeWolfCountChanged(value ?? false),
-                    ),
+                    _buildRandomizeToggle(),
 
                     const SizedBox(height: AppSpacing.xs),
 
@@ -318,13 +429,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                         Expanded(
                           child: Column(
                             children: [
-                              AppText(
-                                _randomizeWolfCount
-                                    ? l10n.hiddenNumber
-                                    : "${totalPlayers - _numberOfWolves}",
-                                variant: AppTextVariant.displaySmall,
-                                textAlign: TextAlign.center,
-                              ),
+                              _buildCitizensCount(),
                               AppText(
                                 l10n.citizens,
                                 variant: AppTextVariant.bodySmall,
@@ -335,50 +440,13 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                         ),
 
                         // Arrows to adjust wolves/citizens ratio
-                        SizedBox(
-                          width: 120,
-                          child: Visibility(
-                            visible:
-                                !_autoAssignComposition && !_randomizeWolfCount,
-                            maintainSize: true,
-                            maintainAnimation: true,
-                            maintainState: true,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AppIconButton(
-                                  icon: const Icon(Icons.arrow_circle_left),
-                                  tooltip: l10n.moreCitizens,
-                                  iconSize: 32,
-                                  onPressed: canDecrementWolves
-                                      ? _decrementWolves
-                                      : null,
-                                ),
-                                const SizedBox(width: AppSpacing.sm),
-                                AppIconButton(
-                                  icon: const Icon(Icons.arrow_circle_right),
-                                  tooltip: l10n.moreWolves,
-                                  iconSize: 32,
-                                  onPressed: canIncrementWolves
-                                      ? _incrementWolves
-                                      : null,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        _buildWolvesButtons(),
 
                         // Wolves count
                         Expanded(
                           child: Column(
                             children: [
-                              AppText(
-                                _randomizeWolfCount
-                                    ? l10n.hiddenNumber
-                                    : "$_numberOfWolves",
-                                variant: AppTextVariant.displaySmall,
-                                textAlign: TextAlign.center,
-                              ),
+                              _buildWolvesCount(),
                               AppText(
                                 l10n.wolves,
                                 variant: AppTextVariant.bodySmall,
@@ -401,44 +469,8 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                       weight: AppTextWeight.bold,
                     ),
                     const SizedBox(height: AppSpacing.sm),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppIconButton(
-                          icon: const Icon(Icons.remove_circle),
-                          tooltip: l10n.decreaseDuration,
-                          iconSize: 32,
-                          onPressed: _discussionDuration > 1
-                              ? _decrementDuration
-                              : null,
-                        ),
-                        SizedBox(
-                          width: 100,
-                          child: Column(
-                            children: [
-                              AppText(
-                                "$_discussionDuration",
-                                variant: AppTextVariant.displaySmall,
-                                textAlign: TextAlign.center,
-                              ),
-                              AppText(
-                                l10n.minutes,
-                                variant: AppTextVariant.bodySmall,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                        AppIconButton(
-                          icon: const Icon(Icons.add_circle),
-                          tooltip: l10n.increaseDuration,
-                          iconSize: 32,
-                          onPressed: _discussionDuration < 30
-                              ? _incrementDuration
-                              : null,
-                        ),
-                      ],
-                    ),
+                    _buildDurationWithButtons(),
+
                     const SizedBox(height: AppSpacing.xs),
                     const Divider(),
                     const SizedBox(height: AppSpacing.xs),
@@ -462,22 +494,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                           variant: AppTextVariant.bodySmall,
                         ),
                         Expanded(
-                          child: BlocBuilder<GameBloc, GameState>(
-                            buildWhen: (previous, current) =>
-                                previous.game.wordPairSimilarity !=
-                                current.game.wordPairSimilarity,
-                            builder: (context, state) {
-                              return Slider(
-                                value: state.game.wordPairSimilarity,
-                                onChanged: _updateWordPairSimilarity,
-                                divisions: 10,
-                                label: _getSimilarityDescription(
-                                  l10n,
-                                  state.game.wordPairSimilarity,
-                                ),
-                              );
-                            },
-                          ),
+                          child: _buildWordPairSimilaritySlider(),
                         ),
                         AppText(
                           l10n.different,
@@ -486,20 +503,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                       ],
                     ),
 
-                    BlocBuilder<GameBloc, GameState>(
-                      buildWhen: (previous, current) =>
-                          previous.game.wordPairSimilarity !=
-                          current.game.wordPairSimilarity,
-                      builder: (context, state) {
-                        return Center(
-                          child: AppText(
-                            _getExampleWordPair(
-                                l10n, state.game.wordPairSimilarity),
-                            variant: AppTextVariant.bodyMedium,
-                          ),
-                        );
-                      },
-                    ),
+                    _buildExampleWordPair(),
 
                     const SizedBox(height: AppSpacing.xs),
                     const Divider(),
@@ -513,17 +517,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
                     ),
                     const SizedBox(height: AppSpacing.xs),
 
-                    AppCheckboxListTile(
-                      dense: true,
-                      title: AppText(l10n.enableWolfRevenge),
-                      subtitle: AppText(
-                        l10n.wolfRevengeSubtitle,
-                        variant: AppTextVariant.bodySmall,
-                      ),
-                      value: _wolfRevengeEnabled,
-                      onChanged: (value) =>
-                          _onWolfRevengeChanged(value ?? false),
-                    ),
+                    _buildWolfRevengeToggle(),
                   ],
                 ),
               ),

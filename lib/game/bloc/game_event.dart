@@ -39,20 +39,37 @@ class PlayerNameUpdated extends GameEvent {
   List<Object> get props => [playerId, name];
 }
 
-class WolvesCountUpdated extends GameEvent {
-  const WolvesCountUpdated({
-    this.customWolfCount,
-    required this.randomizeWolfCount,
-    required this.autoAssignWolves,
+class AutoAssignUpdated extends GameEvent {
+  const AutoAssignUpdated({
+    required this.enabled,
   });
 
-  final int? customWolfCount;
-  final bool randomizeWolfCount;
-  final bool autoAssignWolves;
+  final bool enabled;
 
   @override
-  List<Object?> get props =>
-      [customWolfCount, randomizeWolfCount, autoAssignWolves];
+  List<Object> get props => [enabled];
+}
+
+class RandomizeWolfCountUpdated extends GameEvent {
+  const RandomizeWolfCountUpdated({
+    required this.enabled,
+  });
+
+  final bool enabled;
+
+  @override
+  List<Object> get props => [enabled];
+}
+
+class WolvesCountUpdated extends GameEvent {
+  const WolvesCountUpdated({
+    required this.count,
+  });
+
+  final int count;
+
+  @override
+  List<Object> get props => [count];
 }
 
 class GameDiscussionTimeUpdated extends GameEvent {

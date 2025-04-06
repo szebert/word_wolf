@@ -34,6 +34,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<PlayerNameUpdated>(_onPlayerNameUpdated);
 
     // Game Settings Page events
+    on<AutoAssignUpdated>(_onAutoAssignUpdated);
+    on<RandomizeWolfCountUpdated>(_onRandomizeWolfCountUpdated);
     on<WolvesCountUpdated>(_onWolvesCountUpdated);
     on<GameDiscussionTimeUpdated>(_onGameDiscussionTimeUpdated);
     on<WordPairSimilarityUpdated>(_onWordPairSimilarityUpdated);
@@ -161,25 +163,32 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         event.playerId,
       );
 
-      // Calculate max allowed wolves for new player count
-      final maxWolves = ((updatedPlayers.length - 1) / 2).floor();
-      final currentWolves = state.game.customWolfCount ??
-          (state.game.autoAssignWolves
-              ? (updatedPlayers.length / 5).ceil()
-              : state.game.customWolfCount ?? 1);
+      final updatedPlayerCount = updatedPlayers.length;
+      final updatedMaxWolves = Game.getMaxWolfCount(updatedPlayerCount);
 
-      // Adjust wolf count if it exceeds the maximum allowed
-      final adjustedWolves =
-          currentWolves > maxWolves ? maxWolves : currentWolves;
+      int? adjustedCustomWolfCount;
+      final currentCustomWolfCount = state.game.customWolfCount;
+      if (currentCustomWolfCount != null) {
+        if (currentCustomWolfCount < 1) {
+          adjustedCustomWolfCount = 1;
+        } else if (currentCustomWolfCount > updatedMaxWolves) {
+          adjustedCustomWolfCount = updatedMaxWolves;
+        } else {
+          adjustedCustomWolfCount = currentCustomWolfCount;
+        }
+      }
+
+      bool adjustedRandomizeWolfCount = state.game.randomizeWolfCount;
+      if (adjustedRandomizeWolfCount && updatedMaxWolves < 2) {
+        adjustedRandomizeWolfCount = false;
+      }
 
       emit(
         state.copyWith(
           game: state.game.copyWith(
             players: updatedPlayers,
-            // Update wolf count if it needed adjustment
-            customWolfCount: adjustedWolves != currentWolves
-                ? adjustedWolves
-                : state.game.customWolfCount,
+            customWolfCount: adjustedCustomWolfCount,
+            randomizeWolfCount: adjustedRandomizeWolfCount,
           ),
         ),
       );
@@ -219,16 +228,70 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   // Game Settings Page events
+  void _onAutoAssignUpdated(
+    AutoAssignUpdated event,
+    Emitter<GameState> emit,
+  ) {
+    final defaultWolfCount = Game.getDefaultWolfCount(
+      state.game.players.length,
+    );
+
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          autoAssignWolves: event.enabled,
+          randomizeWolfCount: !event.enabled && state.game.randomizeWolfCount,
+          customWolfCount: defaultWolfCount,
+        ),
+      ),
+    );
+
+    // Save settings to repository
+    _saveSettings();
+  }
+
+  void _onRandomizeWolfCountUpdated(
+    RandomizeWolfCountUpdated event,
+    Emitter<GameState> emit,
+  ) {
+    final customWolfCount = state.game.customWolfCount;
+
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(
+          randomizeWolfCount: event.enabled,
+          autoAssignWolves: !event.enabled && state.game.autoAssignWolves,
+          customWolfCount: event.enabled ? null : customWolfCount,
+        ),
+      ),
+    );
+
+    // Save settings to repository
+    _saveSettings();
+  }
+
   void _onWolvesCountUpdated(
     WolvesCountUpdated event,
     Emitter<GameState> emit,
   ) {
+    final currentWolfCount = state.game.customWolfCount ?? 1;
+    final newWolfCount = currentWolfCount + event.count;
+    final maxWolves = Game.getMaxWolfCount(state.game.players.length);
+
+    if (newWolfCount > maxWolves || newWolfCount < 1) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: "Cannot have more wolves than players or less than 1 wolf.",
+        ),
+      );
+      return;
+    }
+
     emit(
       state.copyWith(
         game: state.game.copyWith(
-          customWolfCount: event.customWolfCount,
-          randomizeWolfCount: event.randomizeWolfCount,
-          autoAssignWolves: event.autoAssignWolves,
+          customWolfCount: newWolfCount,
         ),
       ),
     );
@@ -241,10 +304,23 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameDiscussionTimeUpdated event,
     Emitter<GameState> emit,
   ) {
+    final currentTimeInSeconds = state.game.discussionTimeInSeconds;
+    final newTimeInSeconds = currentTimeInSeconds + event.timeInSeconds;
+
+    if (newTimeInSeconds > 30 * 60 || newTimeInSeconds <= 0) {
+      emit(
+        state.copyWith(
+          status: GameStatus.error,
+          error: "Discussion time must be between 0 and 30 minutes.",
+        ),
+      );
+      return;
+    }
+
     emit(
       state.copyWith(
         game: state.game.copyWith(
-          discussionTimeInSeconds: event.timeInSeconds,
+          discussionTimeInSeconds: newTimeInSeconds,
         ),
       ),
     );
