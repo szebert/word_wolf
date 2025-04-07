@@ -69,9 +69,9 @@ class _VotingViewState extends State<VotingView> {
   void _navigateToResults() {
     if (_selectedPlayerId != null) {
       // Only update the state, don't navigate here - let the BlocConsumer handle navigation
-      context
-          .read<GameBloc>()
-          .add(PlayerVoted(selectedPlayerId: _selectedPlayerId!));
+      context.read<GameBloc>().add(PlayerVoted(
+            selectedPlayerId: _selectedPlayerId!,
+          ));
       // Navigation will be handled by the BlocConsumer listener
     }
   }

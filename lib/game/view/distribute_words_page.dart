@@ -51,9 +51,9 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
         final categoryState = context.read<CategoryBloc>().state;
         // Only start a new discussion if we're not in it already
         if (gameState.game.phase != GamePhase.wordAssignment) {
-          context
-              .read<GameBloc>()
-              .add(GameStarted(category: categoryState.selectedCategory));
+          context.read<GameBloc>().add(GameStarted(
+                category: categoryState.selectedCategory,
+              ));
         }
       }
     });

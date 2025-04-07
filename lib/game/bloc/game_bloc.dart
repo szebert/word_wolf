@@ -370,6 +370,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) async {
     emit(state.copyWith(status: GameStatus.loading));
 
+    // Save settings to repository
+    _saveSettings();
+
     final random = Random();
     final wolfCount = state.game.generateWolfCount;
     final playerCount = state.game.players.length;

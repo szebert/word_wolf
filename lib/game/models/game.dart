@@ -106,6 +106,10 @@ class Game extends Equatable {
 
   // Wolves must be less than citizens
   static int getMaxWolfCount(int playerCount) {
+    // Check if somehow there are less than 3 players
+    if (playerCount <= 2) {
+      return 1;
+    }
     return ((playerCount - 1) / 2).floor();
   }
 

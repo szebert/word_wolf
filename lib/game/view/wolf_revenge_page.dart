@@ -237,9 +237,9 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
       context.read<GameBloc>().add(const WolfRevengeVerbalGuess(correct: true));
     } else {
       // Failed verbal guess
-      context
-          .read<GameBloc>()
-          .add(const WolfRevengeVerbalGuess(correct: false));
+      context.read<GameBloc>().add(const WolfRevengeVerbalGuess(
+            correct: false,
+          ));
     }
   }
 

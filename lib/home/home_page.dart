@@ -7,7 +7,6 @@ import "../app_ui/widgets/app_button.dart";
 import "../app_ui/widgets/app_icon_button.dart";
 import "../app_ui/widgets/app_logo.dart";
 import "../app_ui/widgets/app_text.dart";
-import "../game/bloc/game_bloc.dart";
 import "../game/view/player_setup_page.dart";
 import "../how_to_play/how_to_play_page.dart";
 import "../l10n/l10n.dart";
@@ -63,8 +62,6 @@ class HomePage extends StatelessWidget {
                 size: AppButtonSize.xlarge,
                 minWidth: 200,
                 onPressed: () {
-                  // Initialize the game state before navigating
-                  context.read<GameBloc>().add(const GameInitialized());
                   Navigator.of(context).push(PlayerSetupPage.route());
                 },
                 child: AppText(

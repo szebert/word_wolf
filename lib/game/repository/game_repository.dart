@@ -62,20 +62,26 @@ class GameRepository {
   Future<Game> loadSettings(Game game) async {
     final settings = await getGameSettings();
 
-    final randomizeWolfCount =
-        settings["randomizeWolfCount"] as bool? ?? game.randomizeWolfCount;
-    final autoAssignWolves =
-        settings["autoAssignWolves"] as bool? ?? game.autoAssignWolves;
+    final loadedWolfCount =
+        settings["customWolfCount"] as int? ?? game.customWolfCount ?? 1;
 
-    // Only keep customWolfCount if we're not using randomize or auto-assign
-    final customWolfCount = (randomizeWolfCount || autoAssignWolves)
-        ? null
-        : settings["customWolfCount"] as int? ?? game.customWolfCount;
+    final maxWolves = Game.getMaxWolfCount(game.players.length);
+
+    int adjustedWolfCount;
+    if (loadedWolfCount > maxWolves) {
+      adjustedWolfCount = maxWolves;
+    } else if (loadedWolfCount < 1) {
+      adjustedWolfCount = 1;
+    } else {
+      adjustedWolfCount = loadedWolfCount;
+    }
 
     return game.copyWith(
-      customWolfCount: customWolfCount,
-      randomizeWolfCount: randomizeWolfCount,
-      autoAssignWolves: autoAssignWolves,
+      autoAssignWolves:
+          settings["autoAssignWolves"] as bool? ?? game.autoAssignWolves,
+      randomizeWolfCount:
+          settings["randomizeWolfCount"] as bool? ?? game.randomizeWolfCount,
+      customWolfCount: adjustedWolfCount,
       discussionTimeInSeconds: settings["discussionTimeInSeconds"] as int? ??
           game.discussionTimeInSeconds,
       wordPairSimilarity:
