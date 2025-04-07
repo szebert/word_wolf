@@ -30,6 +30,17 @@ class _PlayerSetupPageState extends State<PlayerSetupPage> {
   // Reference to save function for current editor
   VoidCallback? _saveCurrentEdit;
 
+  @override
+  void initState() {
+    super.initState();
+    // Automatically trigger the SetupStarted event when the page loads
+    Future.microtask(() {
+      if (mounted) {
+        context.read<GameBloc>().add(const SetupStarted());
+      }
+    });
+  }
+
   // Save current edit and set new editing player
   void _setEditingPlayer(String? playerId, [VoidCallback? saveCallback]) {
     // If there's a current edit active, save it first

@@ -34,6 +34,17 @@ class GameSettingsView extends StatefulWidget {
 }
 
 class _GameSettingsViewState extends State<GameSettingsView> {
+  @override
+  void initState() {
+    super.initState();
+    // Automatically trigger the SetupStarted event when the page loads
+    Future.microtask(() {
+      if (mounted) {
+        context.read<GameBloc>().add(const SetupStarted());
+      }
+    });
+  }
+
   void _continueToNextStep() {
     Navigator.of(context).push(GameCategoriesPage.route());
   }
@@ -284,23 +295,6 @@ class _GameSettingsViewState extends State<GameSettingsView> {
     context.read<GameBloc>().add(WordPairSimilarityUpdated(similarity: value));
   }
 
-  String _getSimilarityDescription(
-      AppLocalizations l10n, double similarityValue) {
-    if (similarityValue < 0.1) {
-      return l10n.extremelySimilar;
-    } else if (similarityValue < 0.3) {
-      return l10n.verySimilar;
-    } else if (similarityValue < 0.5) {
-      return l10n.similar;
-    } else if (similarityValue <= 0.7) {
-      return l10n.different;
-    } else if (similarityValue <= 0.9) {
-      return l10n.veryDifferent;
-    } else {
-      return l10n.extremelyDifferent;
-    }
-  }
-
   Widget _buildWordPairSimilaritySlider() {
     return BlocBuilder<GameBloc, GameState>(
       buildWhen: (previous, current) =>
@@ -312,7 +306,7 @@ class _GameSettingsViewState extends State<GameSettingsView> {
           value: state.game.wordPairSimilarity,
           onChanged: _updateWordPairSimilarity,
           divisions: 10,
-          label: _getSimilarityDescription(
+          label: Game.getSimilarityDescription(
             l10n,
             state.game.wordPairSimilarity,
           ),

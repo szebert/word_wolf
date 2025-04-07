@@ -49,10 +49,13 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
       if (mounted) {
         final gameState = context.read<GameBloc>().state;
         final categoryState = context.read<CategoryBloc>().state;
+        final l10n = context.l10n;
+
         // Only start a new discussion if we're not in it already
         if (gameState.game.phase != GamePhase.wordAssignment) {
           context.read<GameBloc>().add(GameStarted(
                 category: categoryState.selectedCategory,
+                l10n: l10n,
               ));
         }
       }
@@ -208,9 +211,11 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
                         variant: AppButtonVariant.filled,
                         onPressed: () {
                           // Use offline words instead
+                          final l10n = context.l10n;
                           context.read<GameBloc>().add(
                                 GameStartedOffline(
                                   category: category,
+                                  l10n: l10n,
                                 ),
                               );
                         },

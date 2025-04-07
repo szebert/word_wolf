@@ -11,6 +11,10 @@ class GameInitialized extends GameEvent {
   const GameInitialized();
 }
 
+class SetupStarted extends GameEvent {
+  const SetupStarted();
+}
+
 class PlayerAdded extends GameEvent {
   const PlayerAdded();
 }
@@ -108,9 +112,11 @@ class WolfRevengeUpdated extends GameEvent {
 class GameStarted extends GameEvent {
   const GameStarted({
     required this.category,
+    required this.l10n,
   });
 
   final String category;
+  final AppLocalizations l10n;
 
   @override
   List<Object> get props => [category];
@@ -119,9 +125,11 @@ class GameStarted extends GameEvent {
 class GameStartedOffline extends GameEvent {
   const GameStartedOffline({
     required this.category,
+    required this.l10n,
   });
 
   final String category;
+  final AppLocalizations l10n;
 
   @override
   List<Object> get props => [category];

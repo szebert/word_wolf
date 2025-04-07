@@ -1,5 +1,6 @@
 import "package:equatable/equatable.dart";
 
+import "../../l10n/l10n.dart";
 import "player.dart";
 import "word_pair_results.dart";
 
@@ -111,6 +112,25 @@ class Game extends Equatable {
       return 1;
     }
     return ((playerCount - 1) / 2).floor();
+  }
+
+  static String getSimilarityDescription(
+    AppLocalizations l10n,
+    double similarityValue,
+  ) {
+    if (similarityValue < 0.1) {
+      return l10n.extremelySimilar;
+    } else if (similarityValue < 0.3) {
+      return l10n.verySimilar;
+    } else if (similarityValue < 0.5) {
+      return l10n.similar;
+    } else if (similarityValue <= 0.7) {
+      return l10n.different;
+    } else if (similarityValue <= 0.9) {
+      return l10n.veryDifferent;
+    } else {
+      return l10n.extremelyDifferent;
+    }
   }
 
   Game copyWith({

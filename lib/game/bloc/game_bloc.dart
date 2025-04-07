@@ -5,6 +5,7 @@ import "package:bloc/bloc.dart";
 import "package:equatable/equatable.dart";
 
 import "../../category/bloc/category_bloc.dart";
+import "../../l10n/l10n.dart";
 import "../models/game.dart";
 import "../models/player.dart";
 import "../models/word_pair_results.dart";
@@ -29,6 +30,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameInitialized>(_onGameInitialized);
 
     // Player Setup Page events
+    on<SetupStarted>(_onSetupStarted);
     on<PlayerAdded>(_onPlayerAdded);
     on<PlayerRemoved>(_onPlayerRemoved);
     on<PlayerNameUpdated>(_onPlayerNameUpdated);
@@ -121,6 +123,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
 
   // Player Setup Page events
+  Future<void> _onSetupStarted(
+    SetupStarted event,
+    Emitter<GameState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        game: state.game.copyWith(phase: GamePhase.setup),
+      ),
+    );
+  }
+
   Future<void> _onPlayerAdded(
     PlayerAdded event,
     Emitter<GameState> emit,
@@ -367,6 +380,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     String category,
     bool online,
     Emitter<GameState> emit,
+    AppLocalizations l10n,
   ) async {
     emit(state.copyWith(status: GameStatus.loading));
 
@@ -393,14 +407,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }).toList();
 
     WordPairResult result;
+    bool isOnline = online;
     try {
       if (online) {
         // Get a random word pair based on selected category and similarity
         result = await _wordPairService.getRandomWordPair(
           category: category,
           similarity: state.game.wordPairSimilarity,
+          l10n: l10n,
         );
       } else {
+        isOnline = false;
         result = await _wordPairService.getRandomOfflineWordPair();
       }
     } catch (error) {
@@ -414,8 +431,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
 
     // If there's already a selected category and it's different from the word
-    // pair service, override it
-    if (result.category.isNotEmpty &&
+    // pair service, override it for offline games
+    if (!isOnline &&
+        result.category.isNotEmpty &&
         result.category != _categoryBloc.state.selectedCategory &&
         _categoryBloc.state.selectedCategory.isNotEmpty) {
       _categoryBloc.add(CategorySelected(categoryName: result.category));
@@ -431,6 +449,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           wolfWord: result.words[1],
           icebreakers: result.icebreakers,
           phase: GamePhase.wordAssignment,
+          revealedIcebreakerIndices: const <int>{},
+          selectedPlayerId: "",
+          wolfRevengeAttempted: false,
+          wolfRevengeSuccessful: false,
         ),
       ),
     );
@@ -440,14 +462,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameStarted event,
     Emitter<GameState> emit,
   ) async {
-    await _onGameStarted(event.category, true, emit);
+    await _onGameStarted(event.category, true, emit, event.l10n);
   }
 
   Future<void> _onGameStartedOffline(
     GameStartedOffline event,
     Emitter<GameState> emit,
   ) async {
-    await _onGameStarted(event.category, false, emit);
+    await _onGameStarted(event.category, false, emit, event.l10n);
   }
 
   // Discussion Page events
@@ -585,6 +607,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(
       state.copyWith(
         game: state.game.copyWith(
+          phase: GamePhase.results,
           selectedPlayerId: event.selectedPlayerId,
           // Reset any previous wolf revenge attempts
           wolfRevengeAttempted: false,
