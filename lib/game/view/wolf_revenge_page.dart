@@ -11,6 +11,7 @@ import "../../app_ui/widgets/app_text.dart";
 import "../../l10n/l10n.dart";
 import "../bloc/game_bloc.dart";
 import "../models/player.dart";
+import "../services/timer_feedback_manager.dart";
 import "results_page.dart";
 
 // Timer manager to ensure only one timer exists globally
@@ -89,9 +90,15 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
   int _displaySeconds = _initialTimerDuration;
   Timer? _displayUpdateTimer;
 
+  // Timer feedback manager for audio and haptic feedback
+  final _feedbackManager = TimerFeedbackManager();
+
   @override
   void initState() {
     super.initState();
+
+    // Initialize audio/haptic feedback
+    _feedbackManager.initialize();
 
     // Reset timer with our initial duration
     _TimerManager.reset(_initialTimerDuration);
@@ -110,6 +117,10 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
       _displayUpdateTimer!.cancel();
       _displayUpdateTimer = null;
     }
+
+    // Dispose of audio/haptic feedback
+    _feedbackManager.dispose();
+
     super.dispose();
   }
 
@@ -133,6 +144,11 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
             _displaySeconds = remaining;
           });
 
+          // Play tick-tock sounds for last 10 seconds
+          if (remaining > 0 && remaining <= 10) {
+            _feedbackManager.playTickTock(remaining);
+          }
+
           // Check for expiration
           if (remaining <= 0) {
             _displayUpdateTimer?.cancel();
@@ -149,6 +165,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
     if (!mounted) return;
 
     _TimerManager.cancelTimer();
+    _feedbackManager.stopFeedback();
     context.read<GameBloc>().add(const WolfRevengeSkipped());
 
     // Navigate to results page
@@ -172,6 +189,11 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
     setState(() {
       _displaySeconds = _TimerManager.getRemainingSeconds();
     });
+
+    // Reset tick tracking if we adjust above 10 seconds
+    if (newTarget > 10) {
+      _feedbackManager.resetTickTracking();
+    }
   }
 
   void _submitGuess() {
@@ -180,6 +202,9 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
         _isSubmitting = true;
       });
 
+      // Stop feedback when submitting
+      _feedbackManager.stopFeedback();
+
       final guess = _wordController.text.trim();
       // Add the wolf revenge guess event
       context.read<GameBloc>().add(WolfRevengeGuess(guess: guess));
@@ -187,6 +212,9 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
   }
 
   Future<void> _submitVerbalGuess() async {
+    // Stop feedback when submitting verbal guess
+    _feedbackManager.stopFeedback();
+
     // Show dialog to confirm if verbal guess was correct
     final wasCorrect = await showDialog<bool>(
       context: context,
@@ -244,6 +272,9 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
   }
 
   void _skipRevenge() {
+    // Stop feedback when skipping
+    _feedbackManager.stopFeedback();
+
     // Skip the revenge attempt
     context.read<GameBloc>().add(const WolfRevengeSkipped());
   }
@@ -262,6 +293,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
           if (state.game.wolfRevengeAttempted) {
             // Cancel timer when a decision is made
             _TimerManager.cancelTimer();
+            _feedbackManager.stopFeedback();
             // If revenge has been attempted, go directly to results
             Navigator.of(context).pushReplacement(ResultsPage.route());
           }
@@ -348,7 +380,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                         ),
                                         variant: AppTextVariant.displayMedium,
                                         weight: AppTextWeight.bold,
-                                        colorOption: _displaySeconds < 10
+                                        colorOption: _displaySeconds <= 10
                                             ? AppTextColor.error
                                             : AppTextColor.unspecified,
                                       ),
