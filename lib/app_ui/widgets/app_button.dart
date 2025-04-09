@@ -174,8 +174,8 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
   bool get enabled =>
       widget.onPressed != null && !widget.isLoading && !widget.disabled;
 
-  /// Wraps the onPressed callback to include feedback if needed
-  VoidCallback? _wrapOnPressed(FeedbackSettings feedbackSettings) {
+  /// Wraps the onPressed callback to include feedback
+  VoidCallback? _wrapOnPressed() {
     // If button is disabled or has no callback, return null
     if (!enabled || widget.onPressed == null) {
       return null;
@@ -291,20 +291,14 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
     final baseStyle = _getSizeStyle();
     final effectiveStyle = _getEffectiveStyle(baseStyle);
 
-    return ValueListenableBuilder<FeedbackSettings>(
-      valueListenable: AppConfig.feedbackSettingsNotifier,
-      builder: (context, feedbackSettings, _) {
-        final button =
-            _buildButton(effectiveStyle, colorScheme, feedbackSettings);
+    final button = _buildButton(effectiveStyle, colorScheme);
 
-        // Only wrap with pulse if needed
-        if (widget.pulse && _pulseAnimation != null && enabled) {
-          return _wrapWithPulse(context, button);
-        }
+    // Only wrap with pulse if needed
+    if (widget.pulse && _pulseAnimation != null && enabled) {
+      return _wrapWithPulse(context, button);
+    }
 
-        return button;
-      },
-    );
+    return button;
   }
 
   Widget _wrapWithPulse(BuildContext context, Widget button) {
@@ -342,8 +336,7 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
     };
   }
 
-  Widget _buildButton(ButtonStyle effectiveStyle, ColorScheme colorScheme,
-      FeedbackSettings feedbackSettings) {
+  Widget _buildButton(ButtonStyle effectiveStyle, ColorScheme colorScheme) {
     // If loading, replace child with a centered progress indicator that maintains button size
     final effectiveChild = Stack(
       alignment: Alignment.center,
@@ -368,7 +361,7 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
     );
 
     // Get onPressed callback with appropriate feedback
-    final onPressed = _wrapOnPressed(feedbackSettings);
+    final onPressed = _wrapOnPressed();
 
     switch (widget.variant) {
       case AppButtonVariant.elevated:

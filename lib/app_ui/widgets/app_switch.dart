@@ -44,48 +44,42 @@ class AppSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return ValueListenableBuilder<FeedbackSettings>(
-      // Listen to our global feedback setting
-      valueListenable: AppConfig.feedbackSettingsNotifier,
-      builder: (context, feedbackSettings, child) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              value ? onText : offText,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: AppSpacing.xs),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Opacity(
-                    opacity: loading ? 0.5 : 1.0,
-                    child: Switch(
-                      value: value,
-                      onChanged: (loading || !enabled)
-                          ? null
-                          : (bool newValue) {
-                              AppConfig.playFeedback();
-                              onChanged(newValue);
-                            },
-                    ),
-                  ),
-                  if (loading)
-                    SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: theme.colorScheme.primary,
-                      ),
-                    ),
-                ],
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          value ? onText : offText,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: AppSpacing.xs),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Opacity(
+                opacity: loading ? 0.5 : 1.0,
+                child: Switch(
+                  value: value,
+                  onChanged: (loading || !enabled)
+                      ? null
+                      : (bool newValue) {
+                          AppConfig.playFeedback();
+                          onChanged(newValue);
+                        },
+                ),
               ),
-            ),
-          ],
-        );
-      },
+              if (loading)
+                SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

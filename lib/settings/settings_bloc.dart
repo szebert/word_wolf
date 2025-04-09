@@ -22,7 +22,6 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
   @override
   SettingsState fromJson(final Map<dynamic, dynamic> json) {
     return SettingsState(
-      status: SettingsStatus.initial,
       textScale: (json["text_scale"] as num?)?.toDouble() ?? 1.0,
     );
   }
@@ -39,14 +38,14 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
     final Emitter<SettingsState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: SettingsStatus.fetchingFeedbackSettings));
+      emit(state.copyWith(fetchStatus: FeedbackStatus.loading));
 
       final (bool hapticEnabled, bool soundEnabled) feedbackSettings =
           await _feedbackRepository.fetchFeedbackSettings();
 
       emit(
         state.copyWith(
-          status: SettingsStatus.fetchingFeedbackSettingsSucceeded,
+          fetchStatus: FeedbackStatus.success,
           hapticEnabled: feedbackSettings.$1,
           soundEnabled: feedbackSettings.$2,
         ),
@@ -54,7 +53,7 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
     } catch (error, stackTrace) {
       emit(
         state.copyWith(
-          status: SettingsStatus.fetchingFeedbackSettingsFailed,
+          fetchStatus: FeedbackStatus.failure,
         ),
       );
       addError(error, stackTrace);
@@ -71,8 +70,7 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
     try {
       emit(
         state.copyWith(
-          status: SettingsStatus.togglingSound,
-          soundEnabled: updatedSoundEnabled,
+          soundStatus: FeedbackStatus.loading,
         ),
       );
 
@@ -80,13 +78,14 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
 
       emit(
         state.copyWith(
-          status: SettingsStatus.togglingSoundSucceeded,
+          soundStatus: FeedbackStatus.success,
+          soundEnabled: updatedSoundEnabled,
         ),
       );
     } catch (error, stackTrace) {
       emit(
         state.copyWith(
-          status: SettingsStatus.togglingSoundFailed,
+          soundStatus: FeedbackStatus.failure,
           soundEnabled: initialSoundEnabled,
         ),
       );
@@ -104,8 +103,7 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
     try {
       emit(
         state.copyWith(
-          status: SettingsStatus.togglingHaptic,
-          hapticEnabled: updatedHapticEnabled,
+          hapticStatus: FeedbackStatus.loading,
         ),
       );
 
@@ -113,13 +111,14 @@ class SettingsBloc extends HydratedBloc<SettingsEvent, SettingsState> {
 
       emit(
         state.copyWith(
-          status: SettingsStatus.togglingHapticSucceeded,
+          hapticStatus: FeedbackStatus.success,
+          hapticEnabled: updatedHapticEnabled,
         ),
       );
     } catch (error, stackTrace) {
       emit(
         state.copyWith(
-          status: SettingsStatus.togglingHapticFailed,
+          hapticStatus: FeedbackStatus.failure,
           hapticEnabled: initialHapticEnabled,
         ),
       );

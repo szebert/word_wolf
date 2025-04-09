@@ -85,30 +85,26 @@ class _SettingsViewState extends State<SettingsView>
 
     final bool isLoadingSound = context.select(
       (final SettingsBloc bloc) =>
-          bloc.state.status == SettingsStatus.togglingSound ||
-          bloc.state.status == SettingsStatus.fetchingFeedbackSettings,
+          bloc.state.soundStatus == FeedbackStatus.loading ||
+          bloc.state.fetchStatus == FeedbackStatus.loading,
     );
 
     final bool isLoadingHaptic = context.select(
       (final SettingsBloc bloc) =>
-          bloc.state.status == SettingsStatus.togglingHaptic ||
-          bloc.state.status == SettingsStatus.fetchingFeedbackSettings,
+          bloc.state.hapticStatus == FeedbackStatus.loading ||
+          bloc.state.fetchStatus == FeedbackStatus.loading,
     );
 
     return BlocListener<SettingsBloc, SettingsState>(
       listener: (final BuildContext context, final SettingsState state) {
         // Configure sound for UI components when sound setting changes
-        if (state.status == SettingsStatus.togglingSoundSucceeded) {
-          final current = AppConfig.feedbackSettingsNotifier.value;
-          AppConfig.feedbackSettingsNotifier.value =
-              current.copyWith(soundEnabled: !current.soundEnabled);
+        if (state.soundStatus == FeedbackStatus.success) {
+          AppConfig.setSoundEnabled(state.soundEnabled);
         }
 
         // Configure haptic for UI components when haptic setting changes
-        if (state.status == SettingsStatus.togglingHapticSucceeded) {
-          final current = AppConfig.feedbackSettingsNotifier.value;
-          AppConfig.feedbackSettingsNotifier.value =
-              current.copyWith(hapticEnabled: !current.hapticEnabled);
+        if (state.hapticStatus == FeedbackStatus.success) {
+          AppConfig.setHapticEnabled(state.hapticEnabled);
         }
       },
       child: Scaffold(

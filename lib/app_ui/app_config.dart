@@ -30,7 +30,7 @@ class FeedbackSettings {
 /// Configuration settings for app UI components across the app
 class AppConfig {
   /// Single notifier that holds UI settings
-  static final ValueNotifier<FeedbackSettings> feedbackSettingsNotifier =
+  static final ValueNotifier<FeedbackSettings> _feedbackSettingsNotifier =
       ValueNotifier(
     const FeedbackSettings(
       hapticEnabled: true,
@@ -43,7 +43,7 @@ class AppConfig {
     Future<(bool, bool)> Function() fetchFeedbackSettings,
   ) {
     fetchFeedbackSettings().then(
-      (value) => feedbackSettingsNotifier.value = FeedbackSettings(
+      (value) => _feedbackSettingsNotifier.value = FeedbackSettings(
         hapticEnabled: value.$1,
         soundEnabled: value.$2,
       ),
@@ -52,12 +52,30 @@ class AppConfig {
 
   /// Play feedback if enabled
   static void playFeedback() {
-    final feedbackSettings = feedbackSettingsNotifier.value;
+    final feedbackSettings = _feedbackSettingsNotifier.value;
     if (feedbackSettings.hapticEnabled) {
       HapticFeedback.lightImpact();
     }
     if (feedbackSettings.soundEnabled) {
       SystemSound.play(SystemSoundType.click);
     }
+  }
+
+  /// Get the current feedback settings
+  static FeedbackSettings get feedbackSettings =>
+      _feedbackSettingsNotifier.value;
+
+  /// Set the sound settings
+  static void setSoundEnabled(bool enabled) {
+    _feedbackSettingsNotifier.value = feedbackSettings.copyWith(
+      soundEnabled: enabled,
+    );
+  }
+
+  /// Set the haptic settings
+  static void setHapticEnabled(bool enabled) {
+    _feedbackSettingsNotifier.value = feedbackSettings.copyWith(
+      hapticEnabled: enabled,
+    );
   }
 }

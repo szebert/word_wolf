@@ -1,41 +1,48 @@
 part of "settings_bloc.dart";
 
-enum SettingsStatus {
+enum FeedbackStatus {
   initial,
-  fetchingFeedbackSettings,
-  fetchingFeedbackSettingsFailed,
-  fetchingFeedbackSettingsSucceeded,
-  togglingSound,
-  togglingSoundFailed,
-  togglingSoundSucceeded,
-  togglingHaptic,
-  togglingHapticFailed,
-  togglingHapticSucceeded,
+  loading,
+  success,
+  failure,
 }
 
 class SettingsState extends Equatable {
   const SettingsState({
-    required this.status,
+    this.soundStatus = FeedbackStatus.initial,
+    this.hapticStatus = FeedbackStatus.initial,
+    this.fetchStatus = FeedbackStatus.initial,
     this.soundEnabled = true,
     this.hapticEnabled = true,
     this.textScale = 1.0,
   });
 
-  const SettingsState.initial() : this(status: SettingsStatus.initial);
+  const SettingsState.initial()
+      : this(
+          soundStatus: FeedbackStatus.initial,
+          hapticStatus: FeedbackStatus.initial,
+          fetchStatus: FeedbackStatus.initial,
+        );
 
-  final SettingsStatus status;
+  final FeedbackStatus soundStatus;
+  final FeedbackStatus hapticStatus;
+  final FeedbackStatus fetchStatus;
   final bool soundEnabled;
   final bool hapticEnabled;
   final double textScale;
 
   SettingsState copyWith({
-    final SettingsStatus? status,
-    final bool? soundEnabled,
-    final bool? hapticEnabled,
-    final double? textScale,
+    FeedbackStatus? soundStatus,
+    FeedbackStatus? hapticStatus,
+    FeedbackStatus? fetchStatus,
+    bool? soundEnabled,
+    bool? hapticEnabled,
+    double? textScale,
   }) {
     return SettingsState(
-      status: status ?? this.status,
+      soundStatus: soundStatus ?? this.soundStatus,
+      hapticStatus: hapticStatus ?? this.hapticStatus,
+      fetchStatus: fetchStatus ?? this.fetchStatus,
       soundEnabled: soundEnabled ?? this.soundEnabled,
       hapticEnabled: hapticEnabled ?? this.hapticEnabled,
       textScale: textScale ?? this.textScale,
@@ -44,7 +51,9 @@ class SettingsState extends Equatable {
 
   @override
   List<Object> get props => <Object>[
-        status,
+        soundStatus,
+        hapticStatus,
+        fetchStatus,
         soundEnabled,
         hapticEnabled,
         textScale,
