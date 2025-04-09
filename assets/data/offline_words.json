@@ -134,19 +134,13 @@
         "first_word": "Cat",
         "second_word": "Dog",
         "first_alternative": [
-          "Siamese",
-          "Persian",
-          "Maine Coon",
-          "Tabby",
-          "Calico"
+          "Hamster",
+          "Rabbit",
+          "Guinea Pig",
+          "Ferret",
+          "Parakeet"
         ],
-        "second_alternative": [
-          "Labrador",
-          "Poodle",
-          "Beagle",
-          "Bulldog",
-          "Shepherd"
-        ]
+        "second_alternative": ["Fish", "Bird", "Turtle", "Lizard", "Snake"]
       },
       "icebreakers": [
         {
@@ -169,13 +163,7 @@
         "first_word": "Lion",
         "second_word": "Tiger",
         "first_alternative": ["Panther", "Cheetah", "Jaguar", "Cougar", "Lynx"],
-        "second_alternative": [
-          "Bengal",
-          "Siberian",
-          "White Tiger",
-          "Sumatran",
-          "Malayan"
-        ]
+        "second_alternative": ["Leopard", "Puma", "Ocelot", "Bobcat", "Serval"]
       },
       "icebreakers": [
         {
@@ -227,17 +215,17 @@
         "first_word": "Coffee",
         "second_word": "Tea",
         "first_alternative": [
-          "Espresso",
+          "Hot Chocolate",
           "Latte",
           "Cappuccino",
-          "Americano",
+          "Espresso",
           "Mocha"
         ],
         "second_alternative": [
           "Chai",
-          "Oolong",
-          "Earl Grey",
-          "Herbal",
+          "Green Tea",
+          "Herbal Tea",
+          "Black Tea",
           "Matcha"
         ]
       },
@@ -296,18 +284,12 @@
       "words": {
         "first_word": "Knife",
         "second_word": "Spoon",
-        "first_alternative": [
-          "Cleaver",
-          "Paring Knife",
-          "Chef's Knife",
-          "Santoku",
-          "Butter Knife"
-        ],
+        "first_alternative": ["Fork", "Spatula", "Tongs", "Peeler", "Whisk"],
         "second_alternative": [
           "Ladle",
-          "Wooden Spoon",
-          "Teaspoon",
-          "Tablespoon",
+          "Measuring Cup",
+          "Measuring Spoon",
+          "Strainer",
           "Serving Spoon"
         ]
       },
@@ -332,18 +314,18 @@
         "first_word": "Comedy",
         "second_word": "Horror",
         "first_alternative": [
-          "Sitcom",
-          "Stand-up",
-          "Parody",
-          "Sketch",
-          "Satire"
+          "Action",
+          "Drama",
+          "Romance",
+          "Sci-Fi",
+          "Fantasy"
         ],
         "second_alternative": [
           "Thriller",
-          "Slasher",
-          "Supernatural",
-          "Psychological",
-          "Gothic"
+          "Mystery",
+          "Western",
+          "Documentary",
+          "Animation"
         ]
       },
       "icebreakers": [
@@ -366,13 +348,19 @@
       "words": {
         "first_word": "Summer",
         "second_word": "Winter",
-        "first_alternative": ["July", "August", "Heat", "Vacation", "Sunshine"],
+        "first_alternative": [
+          "Spring",
+          "Fall",
+          "Monsoon",
+          "Rainy Season",
+          "Dry Season"
+        ],
         "second_alternative": [
-          "December",
-          "January",
-          "Snow",
-          "Frost",
-          "Holiday"
+          "Autumn",
+          "Wet Season",
+          "Harvest Season",
+          "Growing Season",
+          "Hurricane Season"
         ]
       },
       "icebreakers": [
@@ -395,19 +383,13 @@
       "words": {
         "first_word": "Pizza",
         "second_word": "Burger",
-        "first_alternative": [
-          "Calzone",
-          "Flatbread",
-          "Deep Dish",
-          "Margherita",
-          "Sicilian"
-        ],
+        "first_alternative": ["Pasta", "Taco", "Sandwich", "Sushi", "Steak"],
         "second_alternative": [
-          "Cheeseburger",
-          "Veggie Burger",
-          "Slider",
-          "Patty",
-          "Quarter Pounder"
+          "Hot Dog",
+          "Burrito",
+          "Kebab",
+          "Falafel",
+          "Curry"
         ]
       },
       "icebreakers": [
@@ -431,18 +413,18 @@
         "first_word": "Soda",
         "second_word": "Juice",
         "first_alternative": [
-          "Cola",
-          "Fizzy Drink",
-          "Carbonated",
-          "Soft Drink",
-          "Sparkling Water"
+          "Iced Tea",
+          "Energy Drink",
+          "Sparkling Water",
+          "Root Beer",
+          "Ginger Ale"
         ],
         "second_alternative": [
-          "Orange Juice",
-          "Apple Juice",
           "Smoothie",
-          "Nectar",
-          "Lemonade"
+          "Lemonade",
+          "Milk",
+          "Water",
+          "Iced Coffee"
         ]
       },
       "icebreakers": [
@@ -501,18 +483,18 @@
         "first_word": "Pen",
         "second_word": "Pencil",
         "first_alternative": [
-          "Ballpoint",
-          "Fountain Pen",
-          "Gel Pen",
-          "Rollerball",
-          "Marker"
+          "Marker",
+          "Highlighter",
+          "Stylus",
+          "Sharpie",
+          "Chalk"
         ],
         "second_alternative": [
-          "Mechanical Pencil",
-          "Graphite",
-          "Colored Pencil",
+          "Crayon",
+          "Paintbrush",
           "Charcoal",
-          "Lead"
+          "Quill",
+          "Calligraphy Pen"
         ]
       },
       "icebreakers": [
@@ -535,19 +517,13 @@
       "words": {
         "first_word": "Ocean",
         "second_word": "Desert",
-        "first_alternative": [
-          "Sea",
-          "Pacific",
-          "Atlantic",
-          "Mediterranean",
-          "Caribbean"
-        ],
+        "first_alternative": ["Lake", "River", "Valley", "Mountain", "Glacier"],
         "second_alternative": [
-          "Sahara",
-          "Gobi",
-          "Mojave",
-          "Kalahari",
-          "Atacama"
+          "Tundra",
+          "Savanna",
+          "Rainforest",
+          "Wetland",
+          "Grassland"
         ]
       },
       "icebreakers": [
@@ -616,7 +592,7 @@
           "Empress",
           "Princess",
           "Duchess",
-          "Monarch",
+          "Countess",
           "Majesty"
         ]
       },
@@ -711,13 +687,7 @@
           "Indie",
           "Classic Rock"
         ],
-        "second_alternative": [
-          "Blues",
-          "Bebop",
-          "Swing",
-          "Fusion",
-          "Smooth Jazz"
-        ]
+        "second_alternative": ["Blues", "Bebop", "Swing", "Fusion", "Pop"]
       },
       "icebreakers": [
         {
@@ -775,18 +745,18 @@
         "first_word": "Baseball",
         "second_word": "Cricket",
         "first_alternative": [
-          "MLB",
-          "Pitcher",
-          "Bat and Ball",
-          "Infield",
-          "Dugout"
+          "Football",
+          "Basketball",
+          "Soccer",
+          "Tennis",
+          "Golf"
         ],
         "second_alternative": [
-          "Wicket",
-          "Bowler",
-          "Test Match",
-          "Innings",
-          "Ashes"
+          "Rugby",
+          "Hockey",
+          "Volleyball",
+          "Badminton",
+          "Table Tennis"
         ]
       },
       "icebreakers": [
@@ -840,14 +810,14 @@
       ]
     },
     {
-      "category": "Technology",
+      "category": "Device",
       "words": {
         "first_word": "Phone",
         "second_word": "Laptop",
         "first_alternative": [
           "Smartphone",
-          "Mobile",
-          "Cellular",
+          "Watch",
+          "Router",
           "iPhone",
           "Android"
         ],
@@ -855,8 +825,8 @@
           "Notebook",
           "Chromebook",
           "MacBook",
-          "Ultrabook",
-          "ThinkPad"
+          "Tablet",
+          "Server"
         ]
       },
       "icebreakers": [
@@ -879,19 +849,13 @@
       "words": {
         "first_word": "Spider",
         "second_word": "Ant",
-        "first_alternative": [
-          "Tarantula",
-          "Black Widow",
-          "Daddy Long Legs",
-          "Orb Weaver",
-          "Brown Recluse"
-        ],
+        "first_alternative": ["Beetle", "Scorpion", "Wasp", "Bee", "Moth"],
         "second_alternative": [
-          "Fire Ant",
-          "Carpenter Ant",
-          "Bullet Ant",
-          "Army Ant",
-          "Leafcutter Ant"
+          "Fly",
+          "Mosquito",
+          "Roach",
+          "Termite",
+          "Grasshopper"
         ]
       },
       "icebreakers": [
@@ -915,13 +879,19 @@
         "first_word": "Drum",
         "second_word": "Trumpet",
         "first_alternative": [
-          "Percussion",
-          "Snare",
-          "Bongo",
-          "Timpani",
-          "Bass Drum"
+          "Guitar",
+          "Piano",
+          "Violin",
+          "Saxophone",
+          "Flute"
         ],
-        "second_alternative": ["Brass", "Bugle", "Cornet", "Horn", "Trombone"]
+        "second_alternative": [
+          "Clarinet",
+          "Trombone",
+          "French Horn",
+          "Tuba",
+          "Oboe"
+        ]
       },
       "icebreakers": [
         {
@@ -944,18 +914,18 @@
         "first_word": "Waterfall",
         "second_word": "Volcano",
         "first_alternative": [
-          "Cascade",
-          "Cataract",
-          "Rapids",
-          "Niagara",
-          "Victoria Falls"
+          "Canyon",
+          "Geyser",
+          "Hot Spring",
+          "Mountain",
+          "Glacier"
         ],
         "second_alternative": [
-          "Mount Vesuvius",
-          "Krakatoa",
-          "Lava",
-          "Eruption",
-          "Magma"
+          "Cave",
+          "Coral Reef",
+          "Redwood",
+          "Island",
+          "Oasis"
         ]
       },
       "icebreakers": [
@@ -1014,18 +984,18 @@
         "first_word": "Coke",
         "second_word": "Pepsi",
         "first_alternative": [
-          "Coca-Cola",
-          "Diet Coke",
-          "Coke Zero",
-          "Cherry Coke",
-          "Vanilla Coke"
+          "Sprite",
+          "Dr. Pepper",
+          "Fanta",
+          "Mountain Dew",
+          "7Up"
         ],
         "second_alternative": [
-          "Diet Pepsi",
-          "Pepsi Max",
-          "Crystal Pepsi",
-          "Wild Cherry Pepsi",
-          "Pepsi Zero Sugar"
+          "Ginger Ale",
+          "Root Beer",
+          "Lemonade",
+          "Iced Tea",
+          "Orange Juice"
         ]
       },
       "icebreakers": [
@@ -1048,19 +1018,13 @@
       "words": {
         "first_word": "Airplane",
         "second_word": "Helicopter",
-        "first_alternative": [
-          "Jet",
-          "Boeing",
-          "Airbus",
-          "Propeller Plane",
-          "Jumbo Jet"
-        ],
+        "first_alternative": ["Train", "Car", "Bus", "Ship", "Submarine"],
         "second_alternative": [
-          "Chopper",
-          "Rotor Craft",
-          "Apache",
-          "Black Hawk",
-          "Chinook"
+          "Motorcycle",
+          "Bicycle",
+          "Truck",
+          "Boat",
+          "Scooter"
         ]
       },
       "icebreakers": [
@@ -1084,18 +1048,18 @@
         "first_word": "Butter",
         "second_word": "Margarine",
         "first_alternative": [
-          "Salted Butter",
-          "Unsalted Butter",
-          "Grass-fed Butter",
-          "Clarified Butter",
-          "Ghee"
+          "Olive Oil",
+          "Coconut Oil",
+          "Mayonnaise",
+          "Cream Cheese",
+          "Peanut Butter"
         ],
         "second_alternative": [
-          "Plant-based Spread",
-          "Vegan Butter",
-          "I Can't Believe It's Not Butter",
-          "Spread",
-          "Oleo"
+          "Vegetable Oil",
+          "Shortening",
+          "Lard",
+          "Avocado",
+          "Hummus"
         ]
       },
       "icebreakers": [
@@ -1187,20 +1151,26 @@
       "category": "Technology",
       "words": {
         "first_word": "Laptop",
-        "second_word": "Tablet",
-        "first_alternative": ["Notebook", "Dell", "Lenovo", "HP", "Asus"],
+        "second_word": "Desktop",
+        "first_alternative": [
+          "Notebook",
+          "Chromebook",
+          "Tablet",
+          "MacBook",
+          "TV"
+        ],
         "second_alternative": [
-          "iPad",
-          "Surface",
-          "Galaxy Tab",
-          "Kindle",
-          "Android Tablet"
+          "Microwave",
+          "Workstation",
+          "Gaming PC",
+          "All-in-One",
+          "Refrigerator"
         ]
       },
       "icebreakers": [
         {
           "label": "Usage",
-          "statement": "What do you primarily use this device for?"
+          "statement": "What do you primarily use this technology for?"
         },
         {
           "label": "Brand",
@@ -1386,20 +1356,8 @@
       "words": {
         "first_word": "Forest",
         "second_word": "Jungle",
-        "first_alternative": [
-          "Woods",
-          "Pine Forest",
-          "Woodland",
-          "Grove",
-          "Temperate Forest"
-        ],
-        "second_alternative": [
-          "Rainforest",
-          "Tropical",
-          "Amazon",
-          "Congo",
-          "Dense Vegetation"
-        ]
+        "first_alternative": ["Woods", "Grove", "Woodland", "Marsh", "Wetland"],
+        "second_alternative": ["Rainforest", "Desert", "Amazon", "Bog", "Swamp"]
       },
       "icebreakers": [
         {
@@ -1411,8 +1369,8 @@
           "statement": "What wildlife would you hope to see here?"
         },
         {
-          "label": "Survival",
-          "statement": "Could you survive for a week in this environment?"
+          "label": "Adventure",
+          "statement": "Would you go on an adventure in this environment?"
         }
       ]
     },
@@ -1423,12 +1381,18 @@
         "second_word": "Basketball",
         "first_alternative": [
           "Football",
-          "FIFA",
-          "Premier League",
-          "World Cup",
-          "Goalie"
+          "Rugby",
+          "Tennis",
+          "Volleyball",
+          "Hockey"
         ],
-        "second_alternative": ["NBA", "Hoops", "Dunk", "Three-pointer", "Court"]
+        "second_alternative": [
+          "Baseball",
+          "Lacrosse",
+          "Handball",
+          "Cricket",
+          "Badminton"
+        ]
       },
       "icebreakers": [
         {
@@ -1451,18 +1415,18 @@
         "first_word": "Ferrari",
         "second_word": "Lamborghini",
         "first_alternative": [
-          "Prancing Horse",
-          "Testarossa",
-          "458",
-          "F40",
-          "Maranello"
+          "Porsche",
+          "Hyundai",
+          "Bugatti",
+          "Toyota",
+          "Honda"
         ],
         "second_alternative": [
-          "Aventador",
-          "Gallardo",
-          "Huracan",
-          "Bull",
-          "Italian Supercar"
+          "Ford",
+          "Chevrolet",
+          "Bentley",
+          "Rolls-Royce",
+          "Nissan"
         ]
       },
       "icebreakers": [
@@ -1521,19 +1485,13 @@
         "first_word": "E-mail",
         "second_word": "Letter",
         "first_alternative": [
+          "Text Message",
           "Gmail",
-          "Outlook",
-          "Digital Message",
-          "Electronic Mail",
-          "Inbox"
+          "Direct Message",
+          "Inbox",
+          "Video Call"
         ],
-        "second_alternative": [
-          "Postcard",
-          "Mail",
-          "Handwritten",
-          "Envelope",
-          "Stamp"
-        ]
+        "second_alternative": ["Postcard", "Note", "Telegram", "Memo", "Card"]
       },
       "icebreakers": [
         {
@@ -1584,20 +1542,8 @@
       "words": {
         "first_word": "Puppy",
         "second_word": "Kitten",
-        "first_alternative": [
-          "Pup",
-          "Doggy",
-          "Canine Baby",
-          "Young Dog",
-          "Pooch"
-        ],
-        "second_alternative": [
-          "Cat Baby",
-          "Kitty",
-          "Feline Baby",
-          "Young Cat",
-          "Tabby"
-        ]
+        "first_alternative": ["Cub", "Chick", "Calf", "Foal", "Piglet"],
+        "second_alternative": ["Joey", "Hatchling", "Duckling", "Fawn", "Lamb"]
       },
       "icebreakers": [
         {
@@ -1619,20 +1565,8 @@
       "words": {
         "first_word": "Eagle",
         "second_word": "Hawk",
-        "first_alternative": [
-          "Bald Eagle",
-          "Golden Eagle",
-          "Harpy Eagle",
-          "Sea Eagle",
-          "Raptor"
-        ],
-        "second_alternative": [
-          "Falcon",
-          "Kestrel",
-          "Red-tailed Hawk",
-          "Buzzard",
-          "Bird of Prey"
-        ]
+        "first_alternative": ["Falcon", "Robin", "Crow", "Vulture", "Owl"],
+        "second_alternative": ["Raven", "Pigeon", "Swan", "Crane", "Sparrow"]
       },
       "icebreakers": [
         {
@@ -1655,18 +1589,18 @@
         "first_word": "Ballet",
         "second_word": "Opera",
         "first_alternative": [
-          "Dance",
-          "Pointe",
-          "Choreography",
-          "Tutu",
-          "Classical Dance"
+          "Contemporary Dance",
+          "Tap Dance",
+          "Jazz Dance",
+          "Flamenco",
+          "Ballroom Dance"
         ],
         "second_alternative": [
-          "Soprano",
-          "Aria",
-          "Libretto",
-          "Conductor",
-          "Symphony"
+          "Musical Theater",
+          "Orchestral Performance",
+          "Operetta",
+          "Chamber Music",
+          "Recital"
         ]
       },
       "icebreakers": [
@@ -1690,19 +1624,13 @@
         "first_word": "Hot Dog",
         "second_word": "Corn Dog",
         "first_alternative": [
-          "Frankfurter",
-          "Wiener",
+          "Apple",
+          "Popcorn",
           "Sausage",
-          "Bratwurst",
-          "Polish Dog"
+          "Pretzel",
+          "Waffle"
         ],
-        "second_alternative": [
-          "Battered Sausage",
-          "State Fair Food",
-          "Cornbread",
-          "Stick Food",
-          "Carnival Food"
-        ]
+        "second_alternative": ["Corn", "Rice", "Pancake", "Steak", "Salad"]
       },
       "icebreakers": [
         {
@@ -1725,18 +1653,18 @@
         "first_word": "Gold",
         "second_word": "Silver",
         "first_alternative": [
-          "Bullion",
-          "Precious Metal",
-          "Karat",
-          "Nugget",
-          "Golden"
+          "Platinum",
+          "Copper",
+          "Bronze",
+          "Brass",
+          "Aluminum"
         ],
         "second_alternative": [
-          "Sterling",
-          "Precious Metal",
-          "Silverware",
-          "Jewellery",
-          "Coinage"
+          "Palladium",
+          "Steel",
+          "Nickel",
+          "Titanium",
+          "Chrome"
         ]
       },
       "icebreakers": [
@@ -1761,17 +1689,17 @@
         "second_word": "Surfing",
         "first_alternative": [
           "Yachting",
-          "Boating",
-          "Regatta",
-          "Navigation",
-          "Windsurfing"
+          "Windsurfing",
+          "Kayaking",
+          "Canoeing",
+          "Rowing"
         ],
         "second_alternative": [
-          "Riding Waves",
-          "Longboard",
-          "Shortboard",
-          "Hang Ten",
-          "Swell"
+          "Wakeboarding",
+          "Paddleboarding",
+          "Kitesurfing",
+          "Bodyboarding",
+          "Jet Skiing"
         ]
       },
       "icebreakers": [
@@ -1795,18 +1723,18 @@
         "first_word": "Spider-Man",
         "second_word": "Batman",
         "first_alternative": [
-          "Web-Slinger",
-          "Peter Parker",
-          "Friendly Neighborhood",
-          "Marvel",
-          "Spidey"
+          "Iron Man",
+          "Captain America",
+          "Hulk",
+          "Thor",
+          "Wolverine"
         ],
         "second_alternative": [
-          "Dark Knight",
-          "Bruce Wayne",
-          "Caped Crusader",
-          "DC",
-          "Gotham"
+          "Superman",
+          "Wonder Woman",
+          "Flash",
+          "Green Lantern",
+          "Aquaman"
         ]
       },
       "icebreakers": [
@@ -1830,18 +1758,18 @@
         "first_word": "Antarctica",
         "second_word": "Sahara",
         "first_alternative": [
-          "South Pole",
-          "Frozen Continent",
-          "Icy Wasteland",
-          "Polar Region",
-          "Ice Cap"
+          "Arctic",
+          "Greenland",
+          "Siberia",
+          "Alaska",
+          "Iceland"
         ],
         "second_alternative": [
-          "Desert",
-          "North Africa",
-          "Sand Dunes",
-          "Arid Region",
-          "Hot Wasteland"
+          "Germany",
+          "France",
+          "Spain",
+          "Italy",
+          "Portugal"
         ]
       },
       "icebreakers": [
@@ -1934,13 +1862,19 @@
       "words": {
         "first_word": "Knife",
         "second_word": "Fork",
-        "first_alternative": ["Blade", "Cutter", "Chopper", "Dagger", "Slicer"],
+        "first_alternative": [
+          "Mixing Bowl",
+          "Paring Knife",
+          "Saucepan",
+          "Bread Knife",
+          "Steak Knife"
+        ],
         "second_alternative": [
-          "Prongs",
-          "Tines",
-          "Cutlery",
-          "Dining Utensil",
-          "Pitchfork"
+          "Spoon",
+          "Salad Fork",
+          "Cooling Rack",
+          "Ladle",
+          "Tongs"
         ]
       },
       "icebreakers": [
@@ -1964,18 +1898,18 @@
         "first_word": "Mathematics",
         "second_word": "Physics",
         "first_alternative": [
-          "Algebra",
-          "Calculus",
-          "Geometry",
-          "Arithmetic",
-          "Trigonometry"
+          "Chemistry",
+          "Biology",
+          "English",
+          "History",
+          "Geography"
         ],
         "second_alternative": [
-          "Mechanics",
-          "Quantum",
-          "Relativity",
+          "Philosophy",
+          "Psychology",
+          "Economics",
           "Astrophysics",
-          "Thermodynamics"
+          "Religious Studies"
         ]
       },
       "icebreakers": [
@@ -1998,8 +1932,14 @@
       "words": {
         "first_word": "Vanilla",
         "second_word": "Chocolate",
-        "first_alternative": ["Cream", "Bean", "Extract", "Sweet", "Mild"],
-        "second_alternative": ["Cocoa", "Dark", "Milk", "Bitter", "Cacao"]
+        "first_alternative": [
+          "Strawberry",
+          "Caramel",
+          "Coconut",
+          "Almond",
+          "Hazelnut"
+        ],
+        "second_alternative": ["Sweet", "Sour", "Salty", "Bitter", "Umami"]
       },
       "icebreakers": [
         {
@@ -2017,21 +1957,21 @@
       ]
     },
     {
-      "category": "Nature",
+      "category": "Time",
       "words": {
         "first_word": "Sunrise",
         "second_word": "Sunset",
         "first_alternative": [
           "Dawn",
           "Daybreak",
-          "Morning Light",
-          "First Light",
-          "Early Hours"
+          "Morning",
+          "Noon",
+          "Afternoon"
         ],
         "second_alternative": [
           "Dusk",
           "Twilight",
-          "Evening Sky",
+          "Evening",
           "Nightfall",
           "Sundown"
         ]
@@ -2047,7 +1987,7 @@
         },
         {
           "label": "Feeling",
-          "statement": "What emotions does this natural event evoke in you?"
+          "statement": "What emotions does this event evoke in you?"
         }
       ]
     },
@@ -2055,20 +1995,20 @@
       "category": "Desserts",
       "words": {
         "first_word": "Ice Cream",
-        "second_word": "Sorbet",
+        "second_word": "Parfait",
         "first_alternative": [
           "Gelato",
           "Frozen Yogurt",
           "Sundae",
-          "Scoop",
-          "Soft Serve"
+          "Sprinkles",
+          "Flan"
         ],
         "second_alternative": [
-          "Frozen Dessert",
+          "Popsicle",
           "Sherbet",
-          "Italian Ice",
-          "Fruit Ice",
-          "Granita"
+          "Apple Pie",
+          "Sorbet",
+          "Cupcake"
         ]
       },
       "icebreakers": [
@@ -2078,7 +2018,7 @@
         },
         {
           "label": "Season",
-          "statement": "Do you enjoy this dessert year-round or just in summer?"
+          "statement": "Do you enjoy this dessert year-round or just in a specific season?"
         },
         {
           "label": "Homemade",
@@ -2092,19 +2032,13 @@
         "first_word": "Palm Tree",
         "second_word": "Pine Tree",
         "first_alternative": [
-          "Coconut Tree",
+          "Coconut Palm",
           "Date Palm",
-          "Tropical",
-          "Beach Tree",
-          "Fronds"
+          "Royal Palm",
+          "Fan Palm",
+          "Oil Palm"
         ],
-        "second_alternative": [
-          "Evergreen",
-          "Conifer",
-          "Fir",
-          "Christmas Tree",
-          "Needles"
-        ]
+        "second_alternative": ["Spruce", "Fir", "Cedar", "Redwood", "Cypress"]
       },
       "icebreakers": [
         {
@@ -2127,18 +2061,18 @@
         "first_word": "Hot Sauce",
         "second_word": "Ketchup",
         "first_alternative": [
-          "Sriracha",
-          "Tabasco",
-          "Chili Sauce",
-          "Spicy",
-          "Cayenne"
+          "Sugar",
+          "Honey",
+          "Ranch Dressing",
+          "BBQ Sauce",
+          "Guacamole"
         ],
         "second_alternative": [
-          "Tomato Sauce",
-          "Catsup",
-          "Heinz",
-          "Condiment",
-          "Tomato"
+          "Mustard",
+          "Mayonnaise",
+          "Salt",
+          "Relish",
+          "Soy Sauce"
         ]
       },
       "icebreakers": [
@@ -2161,20 +2095,8 @@
       "words": {
         "first_word": "Frog",
         "second_word": "Toad",
-        "first_alternative": [
-          "Tadpole",
-          "Croaker",
-          "Tree Frog",
-          "Bullfrog",
-          "Hoppers"
-        ],
-        "second_alternative": [
-          "Warty",
-          "Bufo",
-          "Garden Toad",
-          "Cane Toad",
-          "Hopper"
-        ]
+        "first_alternative": ["Tadpole", "Bullfrog", "Tree Frog"],
+        "second_alternative": ["Axolotl", "Newt", "Salamander"]
       },
       "icebreakers": [
         {
@@ -2197,18 +2119,18 @@
         "first_word": "Bowling",
         "second_word": "Billiards",
         "first_alternative": [
-          "Ten-pin",
-          "Alley",
-          "Strikes",
-          "Spares",
-          "Bowling Ball"
+          "Hiking",
+          "Camping",
+          "Fishing",
+          "Gardening",
+          "Swimming"
         ],
         "second_alternative": [
-          "Pool",
-          "Snooker",
-          "Cue Sports",
-          "8-Ball",
-          "Pocket Game"
+          "Meditation",
+          "Reading",
+          "Drawing",
+          "Photography",
+          "Shopping"
         ]
       },
       "icebreakers": [
@@ -2268,17 +2190,17 @@
         "second_word": "Mug",
         "first_alternative": [
           "Teacup",
-          "Glass",
-          "Tumbler",
-          "Goblet",
-          "Chalice"
+          "Microwave",
+          "Blender",
+          "Air Fryer",
+          "Electric Kettle"
         ],
         "second_alternative": [
-          "Coffee Mug",
-          "Stein",
-          "Tankard",
-          "Beer Mug",
-          "Handled Cup"
+          "Wok",
+          "Whisk",
+          "Can Opener",
+          "Bread Knife",
+          "Measuring Cup"
         ]
       },
       "icebreakers": [
@@ -2287,8 +2209,8 @@
           "statement": "Do you have a favorite one of these that you use regularly?"
         },
         {
-          "label": "Beverage",
-          "statement": "What beverage do you most often drink from this?"
+          "label": "Quality",
+          "statement": "How do you rate the quality of this kitchenware?"
         },
         {
           "label": "Gift",
@@ -2300,14 +2222,14 @@
       "category": "Animals",
       "words": {
         "first_word": "Lion",
-        "second_word": "Leopard",
-        "first_alternative": ["Pride", "Mane", "Simba", "King", "Roar"],
+        "second_word": "Bear",
+        "first_alternative": ["Tiger", "Wolf", "Leopard", "Jaguar", "Panther"],
         "second_alternative": [
-          "Spots",
-          "Rosettes",
-          "Big Cat",
-          "Jungle",
-          "Predator"
+          "Grizzly",
+          "Panda",
+          "Polar Bear",
+          "Koala",
+          "Gorilla"
         ]
       },
       "icebreakers": [
@@ -2333,17 +2255,11 @@
         "first_alternative": [
           "Random",
           "Mix",
-          "Randomize",
-          "Surprise",
-          "Spotify Feature"
+          "Share",
+          "Fast Forward",
+          "Rewind"
         ],
-        "second_alternative": [
-          "Loop",
-          "Replay",
-          "On Repeat",
-          "Continuous",
-          "Encore"
-        ]
+        "second_alternative": ["Loop", "Replay", "Volume", "Mute", "Stop"]
       },
       "icebreakers": [
         {
@@ -2366,26 +2282,26 @@
         "first_word": "Laptop",
         "second_word": "Desktop",
         "first_alternative": [
-          "Portable Computer",
-          "MacBook",
-          "Notebook",
-          "Surface",
-          "ThinkPad"
+          "TV",
+          "Wireless Charger",
+          "5G",
+          "Smart Watch",
+          "Smart Glasses"
         ],
-        "second_alternative": ["PC", "Tower", "Workstation", "iMac", "Computer"]
+        "second_alternative": ["Smartphone", "WiFi", "PC", "iMac", "Computer"]
       },
       "icebreakers": [
         {
           "label": "Own",
-          "statement": "Do you own this type of computer?"
+          "statement": "Do you own this type of technology?"
         },
         {
           "label": "Usage",
-          "statement": "What do you typically use this computer for?"
+          "statement": "What do you typically use this technology for?"
         },
         {
-          "label": "Preference",
-          "statement": "Which do you prefer for your computing needs?"
+          "label": "Impact",
+          "statement": "How does this affect society at large?"
         }
       ]
     },
@@ -2395,13 +2311,13 @@
         "first_word": "Beach",
         "second_word": "Mountain",
         "first_alternative": [
-          "Shore",
           "Coast",
-          "Seaside",
-          "Sand",
-          "Ocean Front"
+          "Island",
+          "Shoreline",
+          "Bay",
+          "Peninsula"
         ],
-        "second_alternative": ["Peak", "Summit", "Range", "Highland", "Alps"]
+        "second_alternative": ["Hill", "Volcano", "Peak", "Cliff", "Ridge"]
       },
       "icebreakers": [
         {
@@ -2424,19 +2340,13 @@
         "first_word": "Pop",
         "second_word": "R&B",
         "first_alternative": [
-          "Top 40",
-          "Chart Music",
-          "Billboard",
-          "Popular",
-          "Mainstream"
+          "Rock",
+          "Country",
+          "Hip-Hop",
+          "Electronic",
+          "Folk"
         ],
-        "second_alternative": [
-          "Rhythm and Blues",
-          "Soul",
-          "Motown",
-          "Funk",
-          "Neo-Soul"
-        ]
+        "second_alternative": ["Dance", "Reggae", "Blues", "Soul", "Opera"]
       },
       "icebreakers": [
         {
@@ -2459,13 +2369,19 @@
         "first_word": "Television",
         "second_word": "Radio",
         "first_alternative": [
-          "TV",
+          "Satellite Speakers",
           "Flat Screen",
           "Monitor",
           "Smart TV",
           "Streaming Device"
         ],
-        "second_alternative": ["FM", "AM", "Stereo", "Broadcast", "Tuner"]
+        "second_alternative": [
+          "Projector",
+          "Surround Sound",
+          "Stereo",
+          "DVD Player",
+          "Game Console"
+        ]
       },
       "icebreakers": [
         {
@@ -2552,18 +2468,18 @@
         "first_word": "Kangaroo",
         "second_word": "Koala",
         "first_alternative": [
-          "Joey",
-          "Marsupial",
-          "Hopper",
-          "Outback",
-          "Pouch"
+          "Emu",
+          "Tasmanian Devil",
+          "Wallaby",
+          "Platypus",
+          "Echidna"
         ],
         "second_alternative": [
-          "Bear",
-          "Eucalyptus",
-          "Marsupial",
-          "Tree Dweller",
-          "Cuddly"
+          "Dingo",
+          "Kookaburra",
+          "Wombat",
+          "Cassowary",
+          "Crocodile"
         ]
       },
       "icebreakers": [
@@ -2586,19 +2502,13 @@
       "words": {
         "first_word": "SUV",
         "second_word": "Sedan",
-        "first_alternative": [
-          "Sport Utility",
-          "Crossover",
-          "4x4",
-          "Jeep",
-          "Range Rover"
-        ],
+        "first_alternative": ["Train", "Crossover", "Hatchback", "Jeep", "Bus"],
         "second_alternative": [
-          "Four-door",
-          "Saloon",
-          "Toyota Camry",
-          "Honda Civic",
-          "Compact Car"
+          "Bicycle",
+          "Horse",
+          "Motorcycle",
+          "Truck",
+          "Tractor"
         ]
       },
       "icebreakers": [
@@ -2624,11 +2534,17 @@
         "first_alternative": [
           "Mallet",
           "Sledgehammer",
-          "Claw Hammer",
-          "Ball-peen",
-          "Nail Driver"
+          "Bucket",
+          "Chainsaw",
+          "Drill"
         ],
-        "second_alternative": ["Phillips", "Flathead", "Driver", "Tool", "Torx"]
+        "second_alternative": [
+          "Flashlight",
+          "Hair dryer",
+          "Hose",
+          "Nail Clipper",
+          "Wrench"
+        ]
       },
       "icebreakers": [
         {
@@ -2651,18 +2567,18 @@
         "first_word": "Genetics",
         "second_word": "Robotics",
         "first_alternative": [
-          "DNA",
-          "Heredity",
-          "Genome",
-          "Gene Editing",
-          "CRISPR"
+          "Computer Science",
+          "Astronomy",
+          "Biochemistry",
+          "Geography",
+          "Neuroscience"
         ],
         "second_alternative": [
-          "Automation",
-          "AI",
-          "Mechanical",
-          "Engineering",
-          "Cyborg"
+          "Geology",
+          "Botany",
+          "Chemistry",
+          "Meteorology",
+          "Anthropology"
         ]
       },
       "icebreakers": [
@@ -2686,18 +2602,18 @@
         "first_word": "Android",
         "second_word": "iPhone",
         "first_alternative": [
-          "Google",
           "Samsung",
-          "Pixel",
-          "OnePlus",
-          "Mobile OS"
+          "Google Pixel",
+          "Xiaomi",
+          "Huawei",
+          "OnePlus"
         ],
         "second_alternative": [
-          "Apple",
-          "iOS",
-          "Smartphone",
-          "Mobile Device",
-          "App Store"
+          "Blackberry",
+          "Windows Phone",
+          "Nokia",
+          "Motorola",
+          "Sony"
         ]
       },
       "icebreakers": [
@@ -2756,13 +2672,19 @@
         "first_word": "Trains",
         "second_word": "Ships",
         "first_alternative": [
-          "Railway",
-          "Locomotive",
-          "Rail",
-          "Track",
-          "Bullet Train"
+          "Subways",
+          "Trams",
+          "Monorails",
+          "Locomotives",
+          "Streetcars"
         ],
-        "second_alternative": ["Boats", "Vessels", "Naval", "Cruise", "Ferry"]
+        "second_alternative": [
+          "Boats",
+          "Vessels",
+          "Ferries",
+          "Cruisers",
+          "Yachts"
+        ]
       },
       "icebreakers": [
         {
@@ -2786,17 +2708,17 @@
         "second_word": "Brownies",
         "first_alternative": [
           "Biscuits",
-          "Chocolate Chip",
-          "Snickerdoodle",
-          "Sugar Cookies",
+          "Ice Cream",
+          "Cupcake",
+          "Cake",
           "Macaroons"
         ],
         "second_alternative": [
-          "Fudge",
-          "Chocolate Square",
-          "Baked Good",
-          "Dessert Bar",
-          "Blondie"
+          "Pie",
+          "Chocolate",
+          "Pastry",
+          "Doughnut",
+          "Gelato"
         ]
       },
       "icebreakers": [
@@ -2820,18 +2742,18 @@
         "first_word": "Eraser",
         "second_word": "Highlighter",
         "first_alternative": [
-          "Rubber",
+          "Clipboard",
           "White Out",
-          "Correction",
-          "Pencil Eraser",
-          "Gum Eraser"
+          "Envelope",
+          "Folder",
+          "Stapler"
         ],
         "second_alternative": [
           "Marker",
-          "Fluorescent",
-          "Yellow",
-          "Text Marker",
-          "Neon"
+          "Pen",
+          "Calculator",
+          "Notebook",
+          "Pencil"
         ]
       },
       "icebreakers": [
@@ -2855,13 +2777,13 @@
         "first_word": "Jazz",
         "second_word": "Hip-Hop",
         "first_alternative": [
-          "Bebop",
-          "Swing",
           "Blues",
-          "Improvisation",
-          "Saxophone"
+          "Swing",
+          "Bebop",
+          "Fusion",
+          "Smooth Jazz"
         ],
-        "second_alternative": ["Rap", "Urban", "Beats", "MC", "Breakdancing"]
+        "second_alternative": ["Rap", "R&B", "Trap", "Drill", "Grime"]
       },
       "icebreakers": [
         {
@@ -2914,17 +2836,17 @@
         "second_word": "Quill",
         "first_alternative": [
           "Ink Pen",
-          "Mont Blanc",
-          "Nib",
+          "Mechanical Pencil",
+          "Stylus",
           "Cartridge",
-          "Classic Pen"
+          "Eraser"
         ],
         "second_alternative": [
-          "Feather",
-          "Historical",
+          "Pencil",
+          "Typewriter",
           "Calligraphy",
           "Inkwell",
-          "Old-fashioned"
+          "Keyboard"
         ]
       },
       "icebreakers": [
@@ -2952,7 +2874,7 @@
           "Navigation",
           "North",
           "Magnetic",
-          "Direction Finder",
+          "Coordinates",
           "Orienteering"
         ]
       },
@@ -2974,21 +2896,15 @@
     {
       "category": "Metals",
       "words": {
-        "first_word": "Rose Gold",
+        "first_word": "Aluminum",
         "second_word": "Platinum",
-        "first_alternative": [
-          "Pink Gold",
-          "Copper Alloy",
-          "Jewelry Metal",
-          "Blush Metal",
-          "Copper-Gold"
-        ],
+        "first_alternative": ["Gold", "Chromium", "Zinc", "Tin", "Silver"],
         "second_alternative": [
-          "White Metal",
-          "Precious Metal",
-          "Noble Metal",
-          "Silver-like",
-          "Jewelry Metal"
+          "Lithium",
+          "Iron",
+          "Titanium",
+          "Tungsten",
+          "Copper"
         ]
       },
       "icebreakers": [
@@ -3012,18 +2928,18 @@
         "first_word": "Roller Skates",
         "second_word": "Skateboard",
         "first_alternative": [
-          "Roller Derby",
-          "Quad Skates",
-          "Inline Skates",
-          "Rollerblade",
-          "Wheels"
+          "Rollerblades",
+          "Ice Skates",
+          "Scooter",
+          "Bicycle",
+          "Hoverboard"
         ],
         "second_alternative": [
           "Longboard",
-          "Deck",
-          "Wheels",
-          "Tony Hawk",
-          "Street Sport"
+          "Snowboard",
+          "Surfboard",
+          "Wakeboard",
+          "Boogie Board"
         ]
       },
       "icebreakers": [
@@ -3047,18 +2963,18 @@
         "first_word": "Sea Turtle",
         "second_word": "Dolphin",
         "first_alternative": [
-          "Chelonia",
-          "Loggerhead",
-          "Hawksbill",
-          "Green Turtle",
-          "Leatherback"
+          "Starfish",
+          "Seahorse",
+          "Jellyfish",
+          "Octopus",
+          "Seal"
         ],
         "second_alternative": [
-          "Porpoise",
-          "Bottlenose",
-          "Flipper",
-          "Cetacean",
-          "Marine Mammal"
+          "Whale",
+          "Shark",
+          "Fish",
+          "Clownfish",
+          "Sea Urchin"
         ]
       },
       "icebreakers": [
@@ -3082,19 +2998,13 @@
         "first_word": "Chisel",
         "second_word": "Wrench",
         "first_alternative": [
-          "Carving Tool",
-          "Wood Chisel",
-          "Sculptor's Tool",
-          "Gouge",
-          "Cold Chisel"
+          "Pliers",
+          "Screwdriver",
+          "Hammer",
+          "Nail",
+          "Knife"
         ],
-        "second_alternative": [
-          "Spanner",
-          "Adjustable",
-          "Socket",
-          "Monkey Wrench",
-          "Pipe Wrench"
-        ]
+        "second_alternative": ["Spanner", "Saw", "Socket", "Drill", "Clamp"]
       },
       "icebreakers": [
         {
@@ -3117,19 +3027,13 @@
         "first_word": "Mind",
         "second_word": "Body",
         "first_alternative": [
-          "Brain",
+          "Soul",
+          "Spirit",
+          "Psyche",
           "Intellect",
-          "Consciousness",
-          "Thought",
-          "Mental"
+          "Consciousness"
         ],
-        "second_alternative": [
-          "Physical",
-          "Corporeal",
-          "Physique",
-          "Anatomy",
-          "Embodiment"
-        ]
+        "second_alternative": ["Form", "Flesh", "Physique", "Figure", "Anatomy"]
       },
       "icebreakers": [
         {
@@ -3152,18 +3056,18 @@
         "first_word": "Prequel",
         "second_word": "Sequel",
         "first_alternative": [
-          "Origin Story",
-          "Before",
-          "Backstory",
-          "Star Wars Episodes 1-3",
-          "Earlier"
+          "Reboot",
+          "Remake",
+          "Adaptation",
+          "Spinoff",
+          "Pilot"
         ],
         "second_alternative": [
-          "Follow-up",
-          "Continuation",
-          "Next Chapter",
-          "Part 2",
-          "Later"
+          "Trilogy",
+          "Series",
+          "Franchise",
+          "Saga",
+          "Anthology"
         ]
       },
       "icebreakers": [
@@ -3193,13 +3097,7 @@
           "Moat",
           "Drawbridge"
         ],
-        "second_alternative": [
-          "Royal Residence",
-          "Mansion",
-          "Chateau",
-          "Buckingham",
-          "Versailles"
-        ]
+        "second_alternative": ["Mansion", "Villa", "Estate", "Manor", "Bridge"]
       },
       "icebreakers": [
         {
@@ -3258,17 +3156,17 @@
         "second_word": "Coral Reef",
         "first_alternative": [
           "Rainforest",
-          "Tropical Forest",
-          "Amazon",
-          "Congo",
-          "Dense Vegetation"
+          "Temperate Forest",
+          "Desert",
+          "Steppe",
+          "Wetland"
         ],
         "second_alternative": [
-          "Marine Ecosystem",
-          "Great Barrier Reef",
-          "Ocean Life",
-          "Underwater Forest",
-          "Aquatic"
+          "Kelp Forest",
+          "Mangrove",
+          "Tide Pool",
+          "Estuary",
+          "Lagoon"
         ]
       },
       "icebreakers": [
@@ -3291,19 +3189,13 @@
       "words": {
         "first_word": "Puzzle",
         "second_word": "Riddle",
-        "first_alternative": [
-          "Jigsaw",
-          "Crossword",
-          "Sudoku",
-          "Logic Problem",
-          "Brain Game"
-        ],
+        "first_alternative": ["Jigsaw", "Crossword", "Sudoku", "Quiz", "Maze"],
         "second_alternative": [
-          "Enigma",
-          "Brainteaser",
           "Question",
+          "Enigma",
+          "Conundrum",
           "Mystery",
-          "Conundrum"
+          "Charade"
         ]
       },
       "icebreakers": [
@@ -3327,19 +3219,13 @@
         "first_word": "Facebook",
         "second_word": "Twitter",
         "first_alternative": [
-          "Meta",
-          "Social Network",
-          "FB",
-          "Blue App",
-          "Mark Zuckerberg"
+          "Instagram",
+          "TikTok",
+          "Snapchat",
+          "WhatsApp",
+          "Pinterest"
         ],
-        "second_alternative": [
-          "X",
-          "Microblogging",
-          "Tweets",
-          "Timeline",
-          "Elon Musk"
-        ]
+        "second_alternative": ["LinkedIn", "Reddit", "Tumblr", "X", "Discord"]
       },
       "icebreakers": [
         {
