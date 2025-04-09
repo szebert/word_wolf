@@ -6,6 +6,7 @@ import "../../app_ui/widgets/app_button.dart";
 import "../../app_ui/widgets/app_checkbox_list_tile.dart";
 import "../../app_ui/widgets/app_icon_button.dart";
 import "../../app_ui/widgets/app_text.dart";
+import "../../category/bloc/category_bloc.dart";
 import "../../l10n/l10n.dart";
 import "../bloc/game_bloc.dart";
 import "../models/game.dart";
@@ -46,6 +47,8 @@ class _GameSettingsViewState extends State<GameSettingsView> {
   }
 
   void _continueToNextStep() {
+    context.read<CategoryBloc>().add(const CategoryInitialized());
+
     Navigator.of(context).push(GameCategoriesPage.route());
   }
 

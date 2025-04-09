@@ -41,27 +41,6 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
   int currentPhase = 1;
   bool allPlayersFinished = false;
 
-  @override
-  void initState() {
-    super.initState();
-    // Automatically trigger the GameStarted event when the page loads
-    Future.microtask(() {
-      if (mounted) {
-        final gameState = context.read<GameBloc>().state;
-        final categoryState = context.read<CategoryBloc>().state;
-        final l10n = context.l10n;
-
-        // Only start a new discussion if we're not in it already
-        if (gameState.game.phase != GamePhase.wordAssignment) {
-          context.read<GameBloc>().add(GameStarted(
-                category: categoryState.selectedCategory,
-                l10n: l10n,
-              ));
-        }
-      }
-    });
-  }
-
   void _toggleWordVisibility() {
     setState(() {
       if (currentPhase < 3) {
@@ -92,6 +71,8 @@ class _DistributeWordsViewState extends State<DistributeWordsView> {
   }
 
   void _continueToNextStep() {
+    context.read<GameBloc>().add(const DiscussionStarted());
+
     // Navigate to the discussion page
     Navigator.of(context).push(DiscussionPage.route());
   }

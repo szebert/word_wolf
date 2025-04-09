@@ -263,7 +263,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
             // Cancel timer when a decision is made
             _TimerManager.cancelTimer();
             // If revenge has been attempted, go directly to results
-            Navigator.of(context).push(ResultsPage.route());
+            Navigator.of(context).pushReplacement(ResultsPage.route());
           }
         },
         builder: (context, state) {

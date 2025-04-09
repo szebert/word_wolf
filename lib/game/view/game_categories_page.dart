@@ -10,6 +10,7 @@ import "../../app_ui/widgets/app_text.dart";
 import "../../category/bloc/category_bloc.dart";
 import "../../category/models/saved_category.dart";
 import "../../l10n/l10n.dart";
+import "../bloc/game_bloc.dart";
 import "../view/distribute_words_page.dart";
 
 class GameCategoriesPage extends StatelessWidget {
@@ -46,20 +47,24 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
   @override
   void initState() {
     super.initState();
-    // Load categories
-    context.read<CategoryBloc>().add(const CategoryInitialized());
 
-    final categoryState = context.read<CategoryBloc>().state;
+    Future.microtask(() {
+      if (!mounted) return;
 
-    // Initialize selected category from game state
-    if (categoryState.selectedCategory.isNotEmpty) {
-      _selectedCategory = categoryState.selectedCategory;
-    }
+      final categoryState = context.read<CategoryBloc>().state;
 
-    // Restore search text if previously saved
-    if (categoryState.searchText.isNotEmpty) {
-      _searchController.text = categoryState.searchText;
-    }
+      setState(() {
+        // Initialize selected category from game state
+        if (categoryState.selectedCategory.isNotEmpty) {
+          _selectedCategory = categoryState.selectedCategory;
+        }
+
+        // Restore search text if previously saved
+        if (categoryState.searchText.isNotEmpty) {
+          _searchController.text = categoryState.searchText;
+        }
+      });
+    });
   }
 
   @override
@@ -151,6 +156,13 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
   }
 
   void _continueToNextStep() {
+    final l10n = context.l10n;
+
+    context.read<GameBloc>().add(GameStarted(
+          category: _selectedCategory,
+          l10n: l10n,
+        ));
+
     // Navigate to the word distribution page
     Navigator.of(context).push(DistributeWordsPage.route());
   }

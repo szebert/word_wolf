@@ -2,7 +2,18 @@
   "pairs": [
     {
       "category": "Fruits",
-      "words": ["Apple", "Banana"],
+      "words": {
+        "first_word": "Apple",
+        "second_word": "Banana",
+        "first_alternative": ["Orange", "Pear", "Grape", "Kiwi", "Mango"],
+        "second_alternative": [
+          "Pineapple",
+          "Watermelon",
+          "Strawberry",
+          "Cherry",
+          "Peach"
+        ]
+      },
       "icebreakers": [
         {
           "label": "When",
@@ -20,7 +31,24 @@
     },
     {
       "category": "Sports",
-      "words": ["Basketball", "Hockey"],
+      "words": {
+        "first_word": "Basketball",
+        "second_word": "Hockey",
+        "first_alternative": [
+          "Football",
+          "Tennis",
+          "Golf",
+          "Cricket",
+          "Baseball"
+        ],
+        "second_alternative": [
+          "Soccer",
+          "Volleyball",
+          "Track and Field",
+          "Gymnastics",
+          "Swimming"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Experience",
@@ -38,7 +66,24 @@
     },
     {
       "category": "Vehicles",
-      "words": ["Car", "Truck"],
+      "words": {
+        "first_word": "Car",
+        "second_word": "Truck",
+        "first_alternative": [
+          "Motorcycle",
+          "Scooter",
+          "Van",
+          "Jeep",
+          "Convertible"
+        ],
+        "second_alternative": [
+          "Pickup",
+          "Semi",
+          "Trailer",
+          "Lorry",
+          "Dump Truck"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Dream",
@@ -56,7 +101,18 @@
     },
     {
       "category": "Musical Instruments",
-      "words": ["Guitar", "Piano"],
+      "words": {
+        "first_word": "Guitar",
+        "second_word": "Piano",
+        "first_alternative": ["Ukulele", "Banjo", "Mandolin", "Bass", "Harp"],
+        "second_alternative": [
+          "Keyboard",
+          "Organ",
+          "Harpsichord",
+          "Synthesizer",
+          "Accordion"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Play",
@@ -74,7 +130,24 @@
     },
     {
       "category": "Animals",
-      "words": ["Cat", "Dog"],
+      "words": {
+        "first_word": "Cat",
+        "second_word": "Dog",
+        "first_alternative": [
+          "Siamese",
+          "Persian",
+          "Maine Coon",
+          "Tabby",
+          "Calico"
+        ],
+        "second_alternative": [
+          "Labrador",
+          "Poodle",
+          "Beagle",
+          "Bulldog",
+          "Shepherd"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Pet",
@@ -92,7 +165,18 @@
     },
     {
       "category": "Animals",
-      "words": ["Lion", "Tiger"],
+      "words": {
+        "first_word": "Lion",
+        "second_word": "Tiger",
+        "first_alternative": ["Panther", "Cheetah", "Jaguar", "Cougar", "Lynx"],
+        "second_alternative": [
+          "Bengal",
+          "Siberian",
+          "White Tiger",
+          "Sumatran",
+          "Malayan"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Zoo",
@@ -110,7 +194,18 @@
     },
     {
       "category": "Plants",
-      "words": ["Rose", "Sunflower"],
+      "words": {
+        "first_word": "Rose",
+        "second_word": "Sunflower",
+        "first_alternative": ["Tulip", "Lily", "Orchid", "Daisy", "Carnation"],
+        "second_alternative": [
+          "Daffodil",
+          "Marigold",
+          "Dahlia",
+          "Chrysanthemum",
+          "Poppy"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Gift",
@@ -128,7 +223,24 @@
     },
     {
       "category": "Beverages",
-      "words": ["Coffee", "Tea"],
+      "words": {
+        "first_word": "Coffee",
+        "second_word": "Tea",
+        "first_alternative": [
+          "Espresso",
+          "Latte",
+          "Cappuccino",
+          "Americano",
+          "Mocha"
+        ],
+        "second_alternative": [
+          "Chai",
+          "Oolong",
+          "Earl Grey",
+          "Herbal",
+          "Matcha"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Morning",
@@ -146,7 +258,24 @@
     },
     {
       "category": "Furniture",
-      "words": ["Chair", "Table"],
+      "words": {
+        "first_word": "Chair",
+        "second_word": "Table",
+        "first_alternative": [
+          "Stool",
+          "Bench",
+          "Armchair",
+          "Recliner",
+          "Ottoman"
+        ],
+        "second_alternative": [
+          "Desk",
+          "Counter",
+          "Nightstand",
+          "Console",
+          "Dining Table"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Style",
@@ -164,7 +293,24 @@
     },
     {
       "category": "Kitchen Utensils",
-      "words": ["Knife", "Spoon"],
+      "words": {
+        "first_word": "Knife",
+        "second_word": "Spoon",
+        "first_alternative": [
+          "Cleaver",
+          "Paring Knife",
+          "Chef's Knife",
+          "Santoku",
+          "Butter Knife"
+        ],
+        "second_alternative": [
+          "Ladle",
+          "Wooden Spoon",
+          "Teaspoon",
+          "Tablespoon",
+          "Serving Spoon"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -182,7 +328,24 @@
     },
     {
       "category": "Entertainment Genres",
-      "words": ["Comedy", "Horror"],
+      "words": {
+        "first_word": "Comedy",
+        "second_word": "Horror",
+        "first_alternative": [
+          "Sitcom",
+          "Stand-up",
+          "Parody",
+          "Sketch",
+          "Satire"
+        ],
+        "second_alternative": [
+          "Thriller",
+          "Slasher",
+          "Supernatural",
+          "Psychological",
+          "Gothic"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Example",
@@ -200,7 +363,18 @@
     },
     {
       "category": "Seasons",
-      "words": ["Summer", "Winter"],
+      "words": {
+        "first_word": "Summer",
+        "second_word": "Winter",
+        "first_alternative": ["July", "August", "Heat", "Vacation", "Sunshine"],
+        "second_alternative": [
+          "December",
+          "January",
+          "Snow",
+          "Frost",
+          "Holiday"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Activity",
@@ -218,7 +392,24 @@
     },
     {
       "category": "Foods",
-      "words": ["Pizza", "Burger"],
+      "words": {
+        "first_word": "Pizza",
+        "second_word": "Burger",
+        "first_alternative": [
+          "Calzone",
+          "Flatbread",
+          "Deep Dish",
+          "Margherita",
+          "Sicilian"
+        ],
+        "second_alternative": [
+          "Cheeseburger",
+          "Veggie Burger",
+          "Slider",
+          "Patty",
+          "Quarter Pounder"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Toppings",
@@ -236,7 +427,24 @@
     },
     {
       "category": "Beverages",
-      "words": ["Soda", "Juice"],
+      "words": {
+        "first_word": "Soda",
+        "second_word": "Juice",
+        "first_alternative": [
+          "Cola",
+          "Fizzy Drink",
+          "Carbonated",
+          "Soft Drink",
+          "Sparkling Water"
+        ],
+        "second_alternative": [
+          "Orange Juice",
+          "Apple Juice",
+          "Smoothie",
+          "Nectar",
+          "Lemonade"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Flavor",
@@ -254,7 +462,24 @@
     },
     {
       "category": "Transportation",
-      "words": ["Subway", "Taxi"],
+      "words": {
+        "first_word": "Subway",
+        "second_word": "Taxi",
+        "first_alternative": [
+          "Metro",
+          "Underground",
+          "Tube",
+          "Train",
+          "Light Rail"
+        ],
+        "second_alternative": [
+          "Cab",
+          "Uber",
+          "Lyft",
+          "Ride Share",
+          "Car Service"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Experience",
@@ -272,7 +497,24 @@
     },
     {
       "category": "Office Supplies",
-      "words": ["Pen", "Pencil"],
+      "words": {
+        "first_word": "Pen",
+        "second_word": "Pencil",
+        "first_alternative": [
+          "Ballpoint",
+          "Fountain Pen",
+          "Gel Pen",
+          "Rollerball",
+          "Marker"
+        ],
+        "second_alternative": [
+          "Mechanical Pencil",
+          "Graphite",
+          "Colored Pencil",
+          "Charcoal",
+          "Lead"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -290,7 +532,24 @@
     },
     {
       "category": "Nature",
-      "words": ["Ocean", "Desert"],
+      "words": {
+        "first_word": "Ocean",
+        "second_word": "Desert",
+        "first_alternative": [
+          "Sea",
+          "Pacific",
+          "Atlantic",
+          "Mediterranean",
+          "Caribbean"
+        ],
+        "second_alternative": [
+          "Sahara",
+          "Gobi",
+          "Mojave",
+          "Kalahari",
+          "Atacama"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Visit",
@@ -308,7 +567,24 @@
     },
     {
       "category": "Literature",
-      "words": ["Novel", "Comic"],
+      "words": {
+        "first_word": "Novel",
+        "second_word": "Comic",
+        "first_alternative": [
+          "Fiction",
+          "Biography",
+          "Mystery",
+          "Thriller",
+          "Fantasy"
+        ],
+        "second_alternative": [
+          "Graphic Novel",
+          "Manga",
+          "Cartoon",
+          "Webcomic",
+          "Superhero"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Favorite",
@@ -326,7 +602,24 @@
     },
     {
       "category": "Titles",
-      "words": ["King", "Queen"],
+      "words": {
+        "first_word": "King",
+        "second_word": "Queen",
+        "first_alternative": [
+          "Monarch",
+          "Emperor",
+          "Ruler",
+          "Sovereign",
+          "Prince"
+        ],
+        "second_alternative": [
+          "Empress",
+          "Princess",
+          "Duchess",
+          "Monarch",
+          "Majesty"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Historical",
@@ -344,7 +637,18 @@
     },
     {
       "category": "Colors",
-      "words": ["Red", "Blue"],
+      "words": {
+        "first_word": "Red",
+        "second_word": "Blue",
+        "first_alternative": [
+          "Crimson",
+          "Scarlet",
+          "Ruby",
+          "Maroon",
+          "Vermilion"
+        ],
+        "second_alternative": ["Navy", "Cobalt", "Azure", "Indigo", "Turquoise"]
+      },
       "icebreakers": [
         {
           "label": "Wardrobe",
@@ -362,7 +666,24 @@
     },
     {
       "category": "Streaming Platforms",
-      "words": ["Netflix", "YouTube"],
+      "words": {
+        "first_word": "Netflix",
+        "second_word": "YouTube",
+        "first_alternative": [
+          "Hulu",
+          "Prime Video",
+          "Disney+",
+          "HBO Max",
+          "Apple TV+"
+        ],
+        "second_alternative": [
+          "Twitch",
+          "Vimeo",
+          "TikTok",
+          "Dailymotion",
+          "Rumble"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Time",
@@ -380,7 +701,24 @@
     },
     {
       "category": "Music Genres",
-      "words": ["Rock", "Jazz"],
+      "words": {
+        "first_word": "Rock",
+        "second_word": "Jazz",
+        "first_alternative": [
+          "Alternative",
+          "Punk",
+          "Metal",
+          "Indie",
+          "Classic Rock"
+        ],
+        "second_alternative": [
+          "Blues",
+          "Bebop",
+          "Swing",
+          "Fusion",
+          "Smooth Jazz"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Artist",
@@ -398,7 +736,24 @@
     },
     {
       "category": "Clothing",
-      "words": ["Suit", "Dress"],
+      "words": {
+        "first_word": "Suit",
+        "second_word": "Dress",
+        "first_alternative": [
+          "Tuxedo",
+          "Blazer",
+          "Jacket",
+          "Formal Wear",
+          "Three-Piece"
+        ],
+        "second_alternative": [
+          "Gown",
+          "Cocktail Dress",
+          "Sundress",
+          "Evening Wear",
+          "Formal Dress"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Occasion",
@@ -416,7 +771,24 @@
     },
     {
       "category": "Sports",
-      "words": ["Baseball", "Cricket"],
+      "words": {
+        "first_word": "Baseball",
+        "second_word": "Cricket",
+        "first_alternative": [
+          "MLB",
+          "Pitcher",
+          "Bat and Ball",
+          "Infield",
+          "Dugout"
+        ],
+        "second_alternative": [
+          "Wicket",
+          "Bowler",
+          "Test Match",
+          "Innings",
+          "Ashes"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Played",
@@ -434,7 +806,24 @@
     },
     {
       "category": "Foods",
-      "words": ["Bread", "Rice"],
+      "words": {
+        "first_word": "Bread",
+        "second_word": "Rice",
+        "first_alternative": [
+          "Sourdough",
+          "Baguette",
+          "Ciabatta",
+          "Flatbread",
+          "Rye"
+        ],
+        "second_alternative": [
+          "Basmati",
+          "Jasmine",
+          "Brown Rice",
+          "Wild Rice",
+          "Risotto"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Frequency",
@@ -452,7 +841,24 @@
     },
     {
       "category": "Technology",
-      "words": ["Phone", "Laptop"],
+      "words": {
+        "first_word": "Phone",
+        "second_word": "Laptop",
+        "first_alternative": [
+          "Smartphone",
+          "Mobile",
+          "Cellular",
+          "iPhone",
+          "Android"
+        ],
+        "second_alternative": [
+          "Notebook",
+          "Chromebook",
+          "MacBook",
+          "Ultrabook",
+          "ThinkPad"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Brand",
@@ -470,7 +876,24 @@
     },
     {
       "category": "Insects",
-      "words": ["Spider", "Ant"],
+      "words": {
+        "first_word": "Spider",
+        "second_word": "Ant",
+        "first_alternative": [
+          "Tarantula",
+          "Black Widow",
+          "Daddy Long Legs",
+          "Orb Weaver",
+          "Brown Recluse"
+        ],
+        "second_alternative": [
+          "Fire Ant",
+          "Carpenter Ant",
+          "Bullet Ant",
+          "Army Ant",
+          "Leafcutter Ant"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Fear",
@@ -488,7 +911,18 @@
     },
     {
       "category": "Musical Instruments",
-      "words": ["Drum", "Trumpet"],
+      "words": {
+        "first_word": "Drum",
+        "second_word": "Trumpet",
+        "first_alternative": [
+          "Percussion",
+          "Snare",
+          "Bongo",
+          "Timpani",
+          "Bass Drum"
+        ],
+        "second_alternative": ["Brass", "Bugle", "Cornet", "Horn", "Trombone"]
+      },
       "icebreakers": [
         {
           "label": "Play",
@@ -506,7 +940,24 @@
     },
     {
       "category": "Nature",
-      "words": ["Waterfall", "Volcano"],
+      "words": {
+        "first_word": "Waterfall",
+        "second_word": "Volcano",
+        "first_alternative": [
+          "Cascade",
+          "Cataract",
+          "Rapids",
+          "Niagara",
+          "Victoria Falls"
+        ],
+        "second_alternative": [
+          "Mount Vesuvius",
+          "Krakatoa",
+          "Lava",
+          "Eruption",
+          "Magma"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Visit",
@@ -524,7 +975,24 @@
     },
     {
       "category": "Entertainment",
-      "words": ["Movie", "Play"],
+      "words": {
+        "first_word": "Movie",
+        "second_word": "Play",
+        "first_alternative": [
+          "Film",
+          "Cinema",
+          "Feature",
+          "Documentary",
+          "Blockbuster"
+        ],
+        "second_alternative": [
+          "Theater",
+          "Drama",
+          "Stage Show",
+          "Musical",
+          "Production"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Recent",
@@ -542,7 +1010,24 @@
     },
     {
       "category": "Beverages",
-      "words": ["Coke", "Pepsi"],
+      "words": {
+        "first_word": "Coke",
+        "second_word": "Pepsi",
+        "first_alternative": [
+          "Coca-Cola",
+          "Diet Coke",
+          "Coke Zero",
+          "Cherry Coke",
+          "Vanilla Coke"
+        ],
+        "second_alternative": [
+          "Diet Pepsi",
+          "Pepsi Max",
+          "Crystal Pepsi",
+          "Wild Cherry Pepsi",
+          "Pepsi Zero Sugar"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -560,7 +1045,24 @@
     },
     {
       "category": "Vehicles",
-      "words": ["Airplane", "Helicopter"],
+      "words": {
+        "first_word": "Airplane",
+        "second_word": "Helicopter",
+        "first_alternative": [
+          "Jet",
+          "Boeing",
+          "Airbus",
+          "Propeller Plane",
+          "Jumbo Jet"
+        ],
+        "second_alternative": [
+          "Chopper",
+          "Rotor Craft",
+          "Apache",
+          "Black Hawk",
+          "Chinook"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Travel",
@@ -578,7 +1080,24 @@
     },
     {
       "category": "Foods",
-      "words": ["Butter", "Margarine"],
+      "words": {
+        "first_word": "Butter",
+        "second_word": "Margarine",
+        "first_alternative": [
+          "Salted Butter",
+          "Unsalted Butter",
+          "Grass-fed Butter",
+          "Clarified Butter",
+          "Ghee"
+        ],
+        "second_alternative": [
+          "Plant-based Spread",
+          "Vegan Butter",
+          "I Can't Believe It's Not Butter",
+          "Spread",
+          "Oleo"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Cooking",
@@ -596,7 +1115,24 @@
     },
     {
       "category": "Literary Genres",
-      "words": ["Fiction", "Nonfiction"],
+      "words": {
+        "first_word": "Fiction",
+        "second_word": "Nonfiction",
+        "first_alternative": [
+          "Novel",
+          "Short Story",
+          "Novella",
+          "Science Fiction",
+          "Fantasy"
+        ],
+        "second_alternative": [
+          "Biography",
+          "Memoir",
+          "History",
+          "Essay",
+          "Self-Help"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -614,7 +1150,24 @@
     },
     {
       "category": "Concepts",
-      "words": ["War", "Peace"],
+      "words": {
+        "first_word": "War",
+        "second_word": "Peace",
+        "first_alternative": [
+          "Conflict",
+          "Battle",
+          "Combat",
+          "Warfare",
+          "Hostility"
+        ],
+        "second_alternative": [
+          "Harmony",
+          "Ceasefire",
+          "Truce",
+          "Tranquility",
+          "Accord"
+        ]
+      },
       "icebreakers": [
         {
           "label": "History",
@@ -632,7 +1185,18 @@
     },
     {
       "category": "Technology",
-      "words": ["Laptop", "Tablet"],
+      "words": {
+        "first_word": "Laptop",
+        "second_word": "Tablet",
+        "first_alternative": ["Notebook", "Dell", "Lenovo", "HP", "Asus"],
+        "second_alternative": [
+          "iPad",
+          "Surface",
+          "Galaxy Tab",
+          "Kindle",
+          "Android Tablet"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -650,7 +1214,24 @@
     },
     {
       "category": "Fruits",
-      "words": ["Strawberry", "Blueberry"],
+      "words": {
+        "first_word": "Strawberry",
+        "second_word": "Blueberry",
+        "first_alternative": [
+          "Raspberry",
+          "Blackberry",
+          "Cranberry",
+          "Loganberry",
+          "Wild Strawberry"
+        ],
+        "second_alternative": [
+          "Huckleberry",
+          "Bilberry",
+          "Currant",
+          "Elderberry",
+          "Wild Blueberry"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Dessert",
@@ -668,7 +1249,24 @@
     },
     {
       "category": "Theater Genres",
-      "words": ["Comedy", "Tragedy"],
+      "words": {
+        "first_word": "Comedy",
+        "second_word": "Tragedy",
+        "first_alternative": [
+          "Farce",
+          "Slapstick",
+          "Satire",
+          "Humor",
+          "Romantic Comedy"
+        ],
+        "second_alternative": [
+          "Drama",
+          "Shakespearean",
+          "Greek Tragedy",
+          "Pathos",
+          "Melodrama"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -686,7 +1284,24 @@
     },
     {
       "category": "Literary Genres",
-      "words": ["Fairy Tale", "Legend"],
+      "words": {
+        "first_word": "Fairy Tale",
+        "second_word": "Legend",
+        "first_alternative": [
+          "Fable",
+          "Folk Tale",
+          "Children's Story",
+          "Bedtime Story",
+          "Disney"
+        ],
+        "second_alternative": [
+          "Myth",
+          "Folklore",
+          "Epic",
+          "Saga",
+          "Traditional Story"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Childhood",
@@ -704,7 +1319,24 @@
     },
     {
       "category": "Reptiles",
-      "words": ["Snakes", "Lizards"],
+      "words": {
+        "first_word": "Snakes",
+        "second_word": "Lizards",
+        "first_alternative": [
+          "Python",
+          "Cobra",
+          "Viper",
+          "Rattlesnake",
+          "Anaconda"
+        ],
+        "second_alternative": [
+          "Gecko",
+          "Iguana",
+          "Chameleon",
+          "Monitor",
+          "Komodo Dragon"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Fear",
@@ -722,7 +1354,18 @@
     },
     {
       "category": "Herbs and Spices",
-      "words": ["Rosemary", "Thyme"],
+      "words": {
+        "first_word": "Rosemary",
+        "second_word": "Thyme",
+        "first_alternative": ["Sage", "Basil", "Oregano", "Mint", "Lavender"],
+        "second_alternative": [
+          "Parsley",
+          "Dill",
+          "Cilantro",
+          "Marjoram",
+          "Bay Leaf"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Cooking",
@@ -740,7 +1383,24 @@
     },
     {
       "category": "Nature",
-      "words": ["Forest", "Jungle"],
+      "words": {
+        "first_word": "Forest",
+        "second_word": "Jungle",
+        "first_alternative": [
+          "Woods",
+          "Pine Forest",
+          "Woodland",
+          "Grove",
+          "Temperate Forest"
+        ],
+        "second_alternative": [
+          "Rainforest",
+          "Tropical",
+          "Amazon",
+          "Congo",
+          "Dense Vegetation"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Visit",
@@ -758,7 +1418,18 @@
     },
     {
       "category": "Sports",
-      "words": ["Soccer", "Basketball"],
+      "words": {
+        "first_word": "Soccer",
+        "second_word": "Basketball",
+        "first_alternative": [
+          "Football",
+          "FIFA",
+          "Premier League",
+          "World Cup",
+          "Goalie"
+        ],
+        "second_alternative": ["NBA", "Hoops", "Dunk", "Three-pointer", "Court"]
+      },
       "icebreakers": [
         {
           "label": "Watch",
@@ -776,7 +1447,24 @@
     },
     {
       "category": "Car Brands",
-      "words": ["Ferrari", "Lamborghini"],
+      "words": {
+        "first_word": "Ferrari",
+        "second_word": "Lamborghini",
+        "first_alternative": [
+          "Prancing Horse",
+          "Testarossa",
+          "458",
+          "F40",
+          "Maranello"
+        ],
+        "second_alternative": [
+          "Aventador",
+          "Gallardo",
+          "Huracan",
+          "Bull",
+          "Italian Supercar"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Dream",
@@ -794,7 +1482,24 @@
     },
     {
       "category": "Beverages",
-      "words": ["Black Tea", "Green Tea"],
+      "words": {
+        "first_word": "Black Tea",
+        "second_word": "Green Tea",
+        "first_alternative": [
+          "Earl Grey",
+          "English Breakfast",
+          "Darjeeling",
+          "Ceylon",
+          "Orange Pekoe"
+        ],
+        "second_alternative": [
+          "Sencha",
+          "Matcha",
+          "Jasmine",
+          "Gunpowder",
+          "Dragon Well"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Frequency",
@@ -812,7 +1517,24 @@
     },
     {
       "category": "Communication",
-      "words": ["E-mail", "Letter"],
+      "words": {
+        "first_word": "E-mail",
+        "second_word": "Letter",
+        "first_alternative": [
+          "Gmail",
+          "Outlook",
+          "Digital Message",
+          "Electronic Mail",
+          "Inbox"
+        ],
+        "second_alternative": [
+          "Postcard",
+          "Mail",
+          "Handwritten",
+          "Envelope",
+          "Stamp"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -830,7 +1552,18 @@
     },
     {
       "category": "Literature",
-      "words": ["Poem", "Novel"],
+      "words": {
+        "first_word": "Poem",
+        "second_word": "Novel",
+        "first_alternative": ["Sonnet", "Haiku", "Verse", "Rhyme", "Poetry"],
+        "second_alternative": [
+          "Book",
+          "Story",
+          "Paperback",
+          "Series",
+          "Fiction"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Reading",
@@ -848,7 +1581,24 @@
     },
     {
       "category": "Animals",
-      "words": ["Puppy", "Kitten"],
+      "words": {
+        "first_word": "Puppy",
+        "second_word": "Kitten",
+        "first_alternative": [
+          "Pup",
+          "Doggy",
+          "Canine Baby",
+          "Young Dog",
+          "Pooch"
+        ],
+        "second_alternative": [
+          "Cat Baby",
+          "Kitty",
+          "Feline Baby",
+          "Young Cat",
+          "Tabby"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Pet",
@@ -866,7 +1616,24 @@
     },
     {
       "category": "Birds",
-      "words": ["Eagle", "Hawk"],
+      "words": {
+        "first_word": "Eagle",
+        "second_word": "Hawk",
+        "first_alternative": [
+          "Bald Eagle",
+          "Golden Eagle",
+          "Harpy Eagle",
+          "Sea Eagle",
+          "Raptor"
+        ],
+        "second_alternative": [
+          "Falcon",
+          "Kestrel",
+          "Red-tailed Hawk",
+          "Buzzard",
+          "Bird of Prey"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Sighting",
@@ -884,7 +1651,24 @@
     },
     {
       "category": "Performing Arts",
-      "words": ["Ballet", "Opera"],
+      "words": {
+        "first_word": "Ballet",
+        "second_word": "Opera",
+        "first_alternative": [
+          "Dance",
+          "Pointe",
+          "Choreography",
+          "Tutu",
+          "Classical Dance"
+        ],
+        "second_alternative": [
+          "Soprano",
+          "Aria",
+          "Libretto",
+          "Conductor",
+          "Symphony"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Attendance",
@@ -902,7 +1686,24 @@
     },
     {
       "category": "Foods",
-      "words": ["Hot Dog", "Corn Dog"],
+      "words": {
+        "first_word": "Hot Dog",
+        "second_word": "Corn Dog",
+        "first_alternative": [
+          "Frankfurter",
+          "Wiener",
+          "Sausage",
+          "Bratwurst",
+          "Polish Dog"
+        ],
+        "second_alternative": [
+          "Battered Sausage",
+          "State Fair Food",
+          "Cornbread",
+          "Stick Food",
+          "Carnival Food"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -920,7 +1721,24 @@
     },
     {
       "category": "Metals",
-      "words": ["Gold", "Silver"],
+      "words": {
+        "first_word": "Gold",
+        "second_word": "Silver",
+        "first_alternative": [
+          "Bullion",
+          "Precious Metal",
+          "Karat",
+          "Nugget",
+          "Golden"
+        ],
+        "second_alternative": [
+          "Sterling",
+          "Precious Metal",
+          "Silverware",
+          "Jewellery",
+          "Coinage"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Jewelry",
@@ -938,7 +1756,24 @@
     },
     {
       "category": "Water Sports",
-      "words": ["Sailing", "Surfing"],
+      "words": {
+        "first_word": "Sailing",
+        "second_word": "Surfing",
+        "first_alternative": [
+          "Yachting",
+          "Boating",
+          "Regatta",
+          "Navigation",
+          "Windsurfing"
+        ],
+        "second_alternative": [
+          "Riding Waves",
+          "Longboard",
+          "Shortboard",
+          "Hang Ten",
+          "Swell"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Experience",
@@ -956,7 +1791,24 @@
     },
     {
       "category": "Superheroes",
-      "words": ["Spider-Man", "Batman"],
+      "words": {
+        "first_word": "Spider-Man",
+        "second_word": "Batman",
+        "first_alternative": [
+          "Web-Slinger",
+          "Peter Parker",
+          "Friendly Neighborhood",
+          "Marvel",
+          "Spidey"
+        ],
+        "second_alternative": [
+          "Dark Knight",
+          "Bruce Wayne",
+          "Caped Crusader",
+          "DC",
+          "Gotham"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Power",
@@ -974,7 +1826,24 @@
     },
     {
       "category": "Geography",
-      "words": ["Antarctica", "Sahara"],
+      "words": {
+        "first_word": "Antarctica",
+        "second_word": "Sahara",
+        "first_alternative": [
+          "South Pole",
+          "Frozen Continent",
+          "Icy Wasteland",
+          "Polar Region",
+          "Ice Cap"
+        ],
+        "second_alternative": [
+          "Desert",
+          "North Africa",
+          "Sand Dunes",
+          "Arid Region",
+          "Hot Wasteland"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Visit",
@@ -992,7 +1861,24 @@
     },
     {
       "category": "Musical Instruments",
-      "words": ["Flute", "Violin"],
+      "words": {
+        "first_word": "Flute",
+        "second_word": "Violin",
+        "first_alternative": [
+          "Piccolo",
+          "Recorder",
+          "Woodwind",
+          "Transverse",
+          "Fife"
+        ],
+        "second_alternative": [
+          "Fiddle",
+          "String Instrument",
+          "Stradivarius",
+          "Bow",
+          "Cello"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Play",
@@ -1010,7 +1896,24 @@
     },
     {
       "category": "Beverages",
-      "words": ["Red Wine", "White Wine"],
+      "words": {
+        "first_word": "Red Wine",
+        "second_word": "White Wine",
+        "first_alternative": [
+          "Cabernet",
+          "Merlot",
+          "Shiraz",
+          "Pinot Noir",
+          "Malbec"
+        ],
+        "second_alternative": [
+          "Chardonnay",
+          "Sauvignon Blanc",
+          "Pinot Grigio",
+          "Riesling",
+          "Moscato"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -1028,7 +1931,18 @@
     },
     {
       "category": "Kitchen Utensils",
-      "words": ["Knife", "Fork"],
+      "words": {
+        "first_word": "Knife",
+        "second_word": "Fork",
+        "first_alternative": ["Blade", "Cutter", "Chopper", "Dagger", "Slicer"],
+        "second_alternative": [
+          "Prongs",
+          "Tines",
+          "Cutlery",
+          "Dining Utensil",
+          "Pitchfork"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Quality",
@@ -1046,7 +1960,24 @@
     },
     {
       "category": "Academic Subjects",
-      "words": ["Mathematics", "Physics"],
+      "words": {
+        "first_word": "Mathematics",
+        "second_word": "Physics",
+        "first_alternative": [
+          "Algebra",
+          "Calculus",
+          "Geometry",
+          "Arithmetic",
+          "Trigonometry"
+        ],
+        "second_alternative": [
+          "Mechanics",
+          "Quantum",
+          "Relativity",
+          "Astrophysics",
+          "Thermodynamics"
+        ]
+      },
       "icebreakers": [
         {
           "label": "School",
@@ -1064,7 +1995,12 @@
     },
     {
       "category": "Flavors",
-      "words": ["Vanilla", "Chocolate"],
+      "words": {
+        "first_word": "Vanilla",
+        "second_word": "Chocolate",
+        "first_alternative": ["Cream", "Bean", "Extract", "Sweet", "Mild"],
+        "second_alternative": ["Cocoa", "Dark", "Milk", "Bitter", "Cacao"]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -1082,7 +2018,24 @@
     },
     {
       "category": "Nature",
-      "words": ["Sunrise", "Sunset"],
+      "words": {
+        "first_word": "Sunrise",
+        "second_word": "Sunset",
+        "first_alternative": [
+          "Dawn",
+          "Daybreak",
+          "Morning Light",
+          "First Light",
+          "Early Hours"
+        ],
+        "second_alternative": [
+          "Dusk",
+          "Twilight",
+          "Evening Sky",
+          "Nightfall",
+          "Sundown"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Witness",
@@ -1100,7 +2053,24 @@
     },
     {
       "category": "Desserts",
-      "words": ["Ice Cream", "Sorbet"],
+      "words": {
+        "first_word": "Ice Cream",
+        "second_word": "Sorbet",
+        "first_alternative": [
+          "Gelato",
+          "Frozen Yogurt",
+          "Sundae",
+          "Scoop",
+          "Soft Serve"
+        ],
+        "second_alternative": [
+          "Frozen Dessert",
+          "Sherbet",
+          "Italian Ice",
+          "Fruit Ice",
+          "Granita"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Flavor",
@@ -1118,7 +2088,24 @@
     },
     {
       "category": "Plants",
-      "words": ["Palm Tree", "Pine Tree"],
+      "words": {
+        "first_word": "Palm Tree",
+        "second_word": "Pine Tree",
+        "first_alternative": [
+          "Coconut Tree",
+          "Date Palm",
+          "Tropical",
+          "Beach Tree",
+          "Fronds"
+        ],
+        "second_alternative": [
+          "Evergreen",
+          "Conifer",
+          "Fir",
+          "Christmas Tree",
+          "Needles"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Climate",
@@ -1136,7 +2123,24 @@
     },
     {
       "category": "Condiments",
-      "words": ["Hot Sauce", "Ketchup"],
+      "words": {
+        "first_word": "Hot Sauce",
+        "second_word": "Ketchup",
+        "first_alternative": [
+          "Sriracha",
+          "Tabasco",
+          "Chili Sauce",
+          "Spicy",
+          "Cayenne"
+        ],
+        "second_alternative": [
+          "Tomato Sauce",
+          "Catsup",
+          "Heinz",
+          "Condiment",
+          "Tomato"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -1154,7 +2158,24 @@
     },
     {
       "category": "Amphibians",
-      "words": ["Frog", "Toad"],
+      "words": {
+        "first_word": "Frog",
+        "second_word": "Toad",
+        "first_alternative": [
+          "Tadpole",
+          "Croaker",
+          "Tree Frog",
+          "Bullfrog",
+          "Hoppers"
+        ],
+        "second_alternative": [
+          "Warty",
+          "Bufo",
+          "Garden Toad",
+          "Cane Toad",
+          "Hopper"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Encounter",
@@ -1172,7 +2193,24 @@
     },
     {
       "category": "Leisure Activities",
-      "words": ["Bowling", "Billiards"],
+      "words": {
+        "first_word": "Bowling",
+        "second_word": "Billiards",
+        "first_alternative": [
+          "Ten-pin",
+          "Alley",
+          "Strikes",
+          "Spares",
+          "Bowling Ball"
+        ],
+        "second_alternative": [
+          "Pool",
+          "Snooker",
+          "Cue Sports",
+          "8-Ball",
+          "Pocket Game"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Skill",
@@ -1190,7 +2228,24 @@
     },
     {
       "category": "Geography",
-      "words": ["Urban", "Rural"],
+      "words": {
+        "first_word": "Urban",
+        "second_word": "Rural",
+        "first_alternative": [
+          "City",
+          "Metropolitan",
+          "Downtown",
+          "Suburban",
+          "Cityscape"
+        ],
+        "second_alternative": [
+          "Countryside",
+          "Farm",
+          "Village",
+          "Agricultural",
+          "Pastoral"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Living",
@@ -1208,7 +2263,24 @@
     },
     {
       "category": "Kitchenware",
-      "words": ["Cup", "Mug"],
+      "words": {
+        "first_word": "Cup",
+        "second_word": "Mug",
+        "first_alternative": [
+          "Teacup",
+          "Glass",
+          "Tumbler",
+          "Goblet",
+          "Chalice"
+        ],
+        "second_alternative": [
+          "Coffee Mug",
+          "Stein",
+          "Tankard",
+          "Beer Mug",
+          "Handled Cup"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Favorite",
@@ -1226,7 +2298,18 @@
     },
     {
       "category": "Animals",
-      "words": ["Lion", "Leopard"],
+      "words": {
+        "first_word": "Lion",
+        "second_word": "Leopard",
+        "first_alternative": ["Pride", "Mane", "Simba", "King", "Roar"],
+        "second_alternative": [
+          "Spots",
+          "Rosettes",
+          "Big Cat",
+          "Jungle",
+          "Predator"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Zoo",
@@ -1244,7 +2327,24 @@
     },
     {
       "category": "Music Playback",
-      "words": ["Shuffle", "Repeat"],
+      "words": {
+        "first_word": "Shuffle",
+        "second_word": "Repeat",
+        "first_alternative": [
+          "Random",
+          "Mix",
+          "Randomize",
+          "Surprise",
+          "Spotify Feature"
+        ],
+        "second_alternative": [
+          "Loop",
+          "Replay",
+          "On Repeat",
+          "Continuous",
+          "Encore"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -1262,7 +2362,18 @@
     },
     {
       "category": "Technology",
-      "words": ["Laptop", "Desktop"],
+      "words": {
+        "first_word": "Laptop",
+        "second_word": "Desktop",
+        "first_alternative": [
+          "Portable Computer",
+          "MacBook",
+          "Notebook",
+          "Surface",
+          "ThinkPad"
+        ],
+        "second_alternative": ["PC", "Tower", "Workstation", "iMac", "Computer"]
+      },
       "icebreakers": [
         {
           "label": "Own",
@@ -1280,7 +2391,18 @@
     },
     {
       "category": "Nature",
-      "words": ["Beach", "Mountain"],
+      "words": {
+        "first_word": "Beach",
+        "second_word": "Mountain",
+        "first_alternative": [
+          "Shore",
+          "Coast",
+          "Seaside",
+          "Sand",
+          "Ocean Front"
+        ],
+        "second_alternative": ["Peak", "Summit", "Range", "Highland", "Alps"]
+      },
       "icebreakers": [
         {
           "label": "Vacation",
@@ -1298,7 +2420,24 @@
     },
     {
       "category": "Music Genres",
-      "words": ["Pop", "R&B"],
+      "words": {
+        "first_word": "Pop",
+        "second_word": "R&B",
+        "first_alternative": [
+          "Top 40",
+          "Chart Music",
+          "Billboard",
+          "Popular",
+          "Mainstream"
+        ],
+        "second_alternative": [
+          "Rhythm and Blues",
+          "Soul",
+          "Motown",
+          "Funk",
+          "Neo-Soul"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Artist",
@@ -1316,7 +2455,18 @@
     },
     {
       "category": "Home Entertainment",
-      "words": ["Television", "Radio"],
+      "words": {
+        "first_word": "Television",
+        "second_word": "Radio",
+        "first_alternative": [
+          "TV",
+          "Flat Screen",
+          "Monitor",
+          "Smart TV",
+          "Streaming Device"
+        ],
+        "second_alternative": ["FM", "AM", "Stereo", "Broadcast", "Tuner"]
+      },
       "icebreakers": [
         {
           "label": "Time",
@@ -1334,7 +2484,18 @@
     },
     {
       "category": "Opposites",
-      "words": ["Fire", "Ice"],
+      "words": {
+        "first_word": "Fire",
+        "second_word": "Ice",
+        "first_alternative": [
+          "Flame",
+          "Heat",
+          "Blaze",
+          "Inferno",
+          "Combustion"
+        ],
+        "second_alternative": ["Frost", "Frozen", "Cold", "Glacier", "Icicle"]
+      },
       "icebreakers": [
         {
           "label": "Metaphor",
@@ -1352,7 +2513,24 @@
     },
     {
       "category": "Media",
-      "words": ["Movie", "TV Show"],
+      "words": {
+        "first_word": "Movie",
+        "second_word": "TV Show",
+        "first_alternative": [
+          "Film",
+          "Feature",
+          "Cinema",
+          "Flick",
+          "Motion Picture"
+        ],
+        "second_alternative": [
+          "Series",
+          "Program",
+          "Episodes",
+          "Sitcom",
+          "Drama"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Favorite",
@@ -1370,7 +2548,24 @@
     },
     {
       "category": "Australian Animals",
-      "words": ["Kangaroo", "Koala"],
+      "words": {
+        "first_word": "Kangaroo",
+        "second_word": "Koala",
+        "first_alternative": [
+          "Joey",
+          "Marsupial",
+          "Hopper",
+          "Outback",
+          "Pouch"
+        ],
+        "second_alternative": [
+          "Bear",
+          "Eucalyptus",
+          "Marsupial",
+          "Tree Dweller",
+          "Cuddly"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Encounter",
@@ -1388,7 +2583,24 @@
     },
     {
       "category": "Vehicles",
-      "words": ["SUV", "Sedan"],
+      "words": {
+        "first_word": "SUV",
+        "second_word": "Sedan",
+        "first_alternative": [
+          "Sport Utility",
+          "Crossover",
+          "4x4",
+          "Jeep",
+          "Range Rover"
+        ],
+        "second_alternative": [
+          "Four-door",
+          "Saloon",
+          "Toyota Camry",
+          "Honda Civic",
+          "Compact Car"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -1406,7 +2618,18 @@
     },
     {
       "category": "Tools",
-      "words": ["Hammer", "Screwdriver"],
+      "words": {
+        "first_word": "Hammer",
+        "second_word": "Screwdriver",
+        "first_alternative": [
+          "Mallet",
+          "Sledgehammer",
+          "Claw Hammer",
+          "Ball-peen",
+          "Nail Driver"
+        ],
+        "second_alternative": ["Phillips", "Flathead", "Driver", "Tool", "Torx"]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -1424,7 +2647,24 @@
     },
     {
       "category": "Science Fields",
-      "words": ["Genetics", "Robotics"],
+      "words": {
+        "first_word": "Genetics",
+        "second_word": "Robotics",
+        "first_alternative": [
+          "DNA",
+          "Heredity",
+          "Genome",
+          "Gene Editing",
+          "CRISPR"
+        ],
+        "second_alternative": [
+          "Automation",
+          "AI",
+          "Mechanical",
+          "Engineering",
+          "Cyborg"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Interest",
@@ -1442,7 +2682,24 @@
     },
     {
       "category": "Smartphones",
-      "words": ["Android", "iPhone"],
+      "words": {
+        "first_word": "Android",
+        "second_word": "iPhone",
+        "first_alternative": [
+          "Google",
+          "Samsung",
+          "Pixel",
+          "OnePlus",
+          "Mobile OS"
+        ],
+        "second_alternative": [
+          "Apple",
+          "iOS",
+          "Smartphone",
+          "Mobile Device",
+          "App Store"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -1460,7 +2717,24 @@
     },
     {
       "category": "Art Techniques",
-      "words": ["Oil Painting", "Watercolor"],
+      "words": {
+        "first_word": "Oil Painting",
+        "second_word": "Watercolor",
+        "first_alternative": [
+          "Canvas",
+          "Brush",
+          "Bob Ross",
+          "Traditional",
+          "Slow-drying"
+        ],
+        "second_alternative": [
+          "Translucent",
+          "Transparent",
+          "Paper",
+          "Wash",
+          "Aquarelle"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Experience",
@@ -1478,7 +2752,18 @@
     },
     {
       "category": "Transportation",
-      "words": ["Trains", "Ships"],
+      "words": {
+        "first_word": "Trains",
+        "second_word": "Ships",
+        "first_alternative": [
+          "Railway",
+          "Locomotive",
+          "Rail",
+          "Track",
+          "Bullet Train"
+        ],
+        "second_alternative": ["Boats", "Vessels", "Naval", "Cruise", "Ferry"]
+      },
       "icebreakers": [
         {
           "label": "Travel",
@@ -1496,7 +2781,24 @@
     },
     {
       "category": "Desserts",
-      "words": ["Cookies", "Brownies"],
+      "words": {
+        "first_word": "Cookies",
+        "second_word": "Brownies",
+        "first_alternative": [
+          "Biscuits",
+          "Chocolate Chip",
+          "Snickerdoodle",
+          "Sugar Cookies",
+          "Macaroons"
+        ],
+        "second_alternative": [
+          "Fudge",
+          "Chocolate Square",
+          "Baked Good",
+          "Dessert Bar",
+          "Blondie"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Baking",
@@ -1514,7 +2816,24 @@
     },
     {
       "category": "Stationery",
-      "words": ["Eraser", "Highlighter"],
+      "words": {
+        "first_word": "Eraser",
+        "second_word": "Highlighter",
+        "first_alternative": [
+          "Rubber",
+          "White Out",
+          "Correction",
+          "Pencil Eraser",
+          "Gum Eraser"
+        ],
+        "second_alternative": [
+          "Marker",
+          "Fluorescent",
+          "Yellow",
+          "Text Marker",
+          "Neon"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -1532,7 +2851,18 @@
     },
     {
       "category": "Music Genres",
-      "words": ["Jazz", "Hip-Hop"],
+      "words": {
+        "first_word": "Jazz",
+        "second_word": "Hip-Hop",
+        "first_alternative": [
+          "Bebop",
+          "Swing",
+          "Blues",
+          "Improvisation",
+          "Saxophone"
+        ],
+        "second_alternative": ["Rap", "Urban", "Beats", "MC", "Breakdancing"]
+      },
       "icebreakers": [
         {
           "label": "Listening",
@@ -1550,7 +2880,18 @@
     },
     {
       "category": "Plants",
-      "words": ["Cactus", "Flower"],
+      "words": {
+        "first_word": "Cactus",
+        "second_word": "Flower",
+        "first_alternative": [
+          "Succulent",
+          "Desert Plant",
+          "Spines",
+          "Prickly",
+          "Aloe"
+        ],
+        "second_alternative": ["Blossom", "Petals", "Rose", "Tulip", "Bouquet"]
+      },
       "icebreakers": [
         {
           "label": "Garden",
@@ -1568,7 +2909,24 @@
     },
     {
       "category": "Writing Instruments",
-      "words": ["Fountain Pen", "Quill"],
+      "words": {
+        "first_word": "Fountain Pen",
+        "second_word": "Quill",
+        "first_alternative": [
+          "Ink Pen",
+          "Mont Blanc",
+          "Nib",
+          "Cartridge",
+          "Classic Pen"
+        ],
+        "second_alternative": [
+          "Feather",
+          "Historical",
+          "Calligraphy",
+          "Inkwell",
+          "Old-fashioned"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Used",
@@ -1586,7 +2944,18 @@
     },
     {
       "category": "Navigation Tools",
-      "words": ["Map", "Compass"],
+      "words": {
+        "first_word": "Map",
+        "second_word": "Compass",
+        "first_alternative": ["Atlas", "GPS", "Chart", "Directions", "Guide"],
+        "second_alternative": [
+          "Navigation",
+          "North",
+          "Magnetic",
+          "Direction Finder",
+          "Orienteering"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",
@@ -1604,7 +2973,24 @@
     },
     {
       "category": "Metals",
-      "words": ["Rose Gold", "Platinum"],
+      "words": {
+        "first_word": "Rose Gold",
+        "second_word": "Platinum",
+        "first_alternative": [
+          "Pink Gold",
+          "Copper Alloy",
+          "Jewelry Metal",
+          "Blush Metal",
+          "Copper-Gold"
+        ],
+        "second_alternative": [
+          "White Metal",
+          "Precious Metal",
+          "Noble Metal",
+          "Silver-like",
+          "Jewelry Metal"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Jewelry",
@@ -1622,7 +3008,24 @@
     },
     {
       "category": "Recreational Sports",
-      "words": ["Roller Skates", "Skateboard"],
+      "words": {
+        "first_word": "Roller Skates",
+        "second_word": "Skateboard",
+        "first_alternative": [
+          "Roller Derby",
+          "Quad Skates",
+          "Inline Skates",
+          "Rollerblade",
+          "Wheels"
+        ],
+        "second_alternative": [
+          "Longboard",
+          "Deck",
+          "Wheels",
+          "Tony Hawk",
+          "Street Sport"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Skill",
@@ -1640,7 +3043,24 @@
     },
     {
       "category": "Marine Animals",
-      "words": ["Sea Turtle", "Dolphin"],
+      "words": {
+        "first_word": "Sea Turtle",
+        "second_word": "Dolphin",
+        "first_alternative": [
+          "Chelonia",
+          "Loggerhead",
+          "Hawksbill",
+          "Green Turtle",
+          "Leatherback"
+        ],
+        "second_alternative": [
+          "Porpoise",
+          "Bottlenose",
+          "Flipper",
+          "Cetacean",
+          "Marine Mammal"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Encounter",
@@ -1658,7 +3078,24 @@
     },
     {
       "category": "Tools",
-      "words": ["Chisel", "Wrench"],
+      "words": {
+        "first_word": "Chisel",
+        "second_word": "Wrench",
+        "first_alternative": [
+          "Carving Tool",
+          "Wood Chisel",
+          "Sculptor's Tool",
+          "Gouge",
+          "Cold Chisel"
+        ],
+        "second_alternative": [
+          "Spanner",
+          "Adjustable",
+          "Socket",
+          "Monkey Wrench",
+          "Pipe Wrench"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Project",
@@ -1676,7 +3113,24 @@
     },
     {
       "category": "Concepts",
-      "words": ["Mind", "Body"],
+      "words": {
+        "first_word": "Mind",
+        "second_word": "Body",
+        "first_alternative": [
+          "Brain",
+          "Intellect",
+          "Consciousness",
+          "Thought",
+          "Mental"
+        ],
+        "second_alternative": [
+          "Physical",
+          "Corporeal",
+          "Physique",
+          "Anatomy",
+          "Embodiment"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Connection",
@@ -1694,7 +3148,24 @@
     },
     {
       "category": "Story Terminology",
-      "words": ["Prequel", "Sequel"],
+      "words": {
+        "first_word": "Prequel",
+        "second_word": "Sequel",
+        "first_alternative": [
+          "Origin Story",
+          "Before",
+          "Backstory",
+          "Star Wars Episodes 1-3",
+          "Earlier"
+        ],
+        "second_alternative": [
+          "Follow-up",
+          "Continuation",
+          "Next Chapter",
+          "Part 2",
+          "Later"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -1712,7 +3183,24 @@
     },
     {
       "category": "Architecture",
-      "words": ["Castle", "Palace"],
+      "words": {
+        "first_word": "Castle",
+        "second_word": "Palace",
+        "first_alternative": [
+          "Fortress",
+          "Medieval",
+          "Tower",
+          "Moat",
+          "Drawbridge"
+        ],
+        "second_alternative": [
+          "Royal Residence",
+          "Mansion",
+          "Chateau",
+          "Buckingham",
+          "Versailles"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Visit",
@@ -1730,7 +3218,24 @@
     },
     {
       "category": "Breakfast Foods",
-      "words": ["Omelet", "Scrambled Eggs"],
+      "words": {
+        "first_word": "Omelet",
+        "second_word": "Scrambled Eggs",
+        "first_alternative": [
+          "Folded Eggs",
+          "French Omelet",
+          "Denver Omelet",
+          "Fluffy",
+          "Filled"
+        ],
+        "second_alternative": [
+          "Beaten Eggs",
+          "Whisked",
+          "Breakfast Dish",
+          "Simple Eggs",
+          "Gordon Ramsay Style"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Preference",
@@ -1748,7 +3253,24 @@
     },
     {
       "category": "Biomes",
-      "words": ["Jungle", "Coral Reef"],
+      "words": {
+        "first_word": "Jungle",
+        "second_word": "Coral Reef",
+        "first_alternative": [
+          "Rainforest",
+          "Tropical Forest",
+          "Amazon",
+          "Congo",
+          "Dense Vegetation"
+        ],
+        "second_alternative": [
+          "Marine Ecosystem",
+          "Great Barrier Reef",
+          "Ocean Life",
+          "Underwater Forest",
+          "Aquatic"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Visit",
@@ -1766,7 +3288,24 @@
     },
     {
       "category": "Brain Teasers",
-      "words": ["Puzzle", "Riddle"],
+      "words": {
+        "first_word": "Puzzle",
+        "second_word": "Riddle",
+        "first_alternative": [
+          "Jigsaw",
+          "Crossword",
+          "Sudoku",
+          "Logic Problem",
+          "Brain Game"
+        ],
+        "second_alternative": [
+          "Enigma",
+          "Brainteaser",
+          "Question",
+          "Mystery",
+          "Conundrum"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Enjoy",
@@ -1784,7 +3323,24 @@
     },
     {
       "category": "Social Media Platforms",
-      "words": ["Facebook", "Twitter"],
+      "words": {
+        "first_word": "Facebook",
+        "second_word": "Twitter",
+        "first_alternative": [
+          "Meta",
+          "Social Network",
+          "FB",
+          "Blue App",
+          "Mark Zuckerberg"
+        ],
+        "second_alternative": [
+          "X",
+          "Microblogging",
+          "Tweets",
+          "Timeline",
+          "Elon Musk"
+        ]
+      },
       "icebreakers": [
         {
           "label": "Usage",

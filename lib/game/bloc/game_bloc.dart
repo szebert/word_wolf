@@ -445,8 +445,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         status: GameStatus.inProgress,
         game: state.game.copyWith(
           players: playersWithRoles,
-          citizenWord: result.words[0],
-          wolfWord: result.words[1],
+          citizenWord: result.words.firstWord,
+          wolfWord: result.words.secondWord,
           icebreakers: result.icebreakers,
           phase: GamePhase.wordAssignment,
           revealedIcebreakerIndices: const <int>{},

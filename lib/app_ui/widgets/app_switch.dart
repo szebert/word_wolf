@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 import "../app_config.dart";
 import "../app_spacing.dart";
+import "app_text.dart";
 
 /// {@template app_switch}
 /// Switch with optional leading text displayed in the application.
@@ -47,7 +48,7 @@ class AppSwitch extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
+        AppText(
           value ? onText : offText,
         ),
         Padding(

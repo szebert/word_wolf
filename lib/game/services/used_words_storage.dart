@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "../../storage/storage.dart";
+import "../models/word_pair_results.dart";
 
 /// {@template used_words_storage}
 /// Service for managing the storage of previously used words
@@ -34,14 +35,20 @@ class UsedWordsStorage {
 
   /// Adds new words to the list of previously used words
   /// Maintains a maximum of [_maxStoredWords] by removing oldest entries
-  Future<void> addUsedWords(List<String> newWords) async {
+  Future<void> addUsedWords(Words newWords) async {
     try {
+      // Convert the Words object to a list of used words to add
+      final newWordsList = [
+        newWords.firstWord,
+        newWords.secondWord,
+      ];
+
       // Get current words
       final currentWords = await getPreviouslyUsedWords();
 
       // Add new words (ensuring uniqueness)
       final Set<String> uniqueWords = {...currentWords};
-      for (final word in newWords) {
+      for (final word in newWordsList) {
         // Only add words that aren't already in the list
         uniqueWords.add(word.toLowerCase().trim());
       }

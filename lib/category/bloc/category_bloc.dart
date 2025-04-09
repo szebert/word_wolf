@@ -24,6 +24,10 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     CategoryInitialized event,
     Emitter<CategoryState> emit,
   ) async {
+    if (state.status == CategoryStatus.ready ||
+        state.status == CategoryStatus.loading) {
+      return;
+    }
     emit(state.copyWith(status: CategoryStatus.loading));
     try {
       // Load saved categories

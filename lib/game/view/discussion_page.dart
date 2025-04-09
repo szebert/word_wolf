@@ -557,7 +557,9 @@ class _DiscussionViewState extends State<DiscussionView>
               final isSelected = index == _selectedIcebreakerIndex;
               final isLabelRevealed = _revealedLabels.contains(index);
 
-              return OutlinedButton(
+              return AppButton(
+                variant: AppButtonVariant.outlined,
+                shape: AppButtonShape.pill,
                 onPressed: () => _handleIcebreakerTap(index),
                 style: isSelected
                     ? OutlinedButton.styleFrom(
@@ -581,7 +583,7 @@ class _DiscussionViewState extends State<DiscussionView>
                       ),
                     );
                   },
-                  child: Text(
+                  child: AppText(
                     isLabelRevealed
                         ? icebreaker.label
                         : l10n.icebreakerUnrevealed,

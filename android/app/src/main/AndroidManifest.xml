@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Vibration permission for alarm feature -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Internet permission for API requests -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="Word Wolf"
         android:name="${applicationName}"

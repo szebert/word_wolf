@@ -10,6 +10,7 @@ import "../app_ui/widgets/app_icon_button.dart";
 import "../app_ui/widgets/app_list_tile.dart";
 import "../app_ui/widgets/app_segmented_button.dart";
 import "../app_ui/widgets/app_switch.dart";
+import "../app_ui/widgets/app_text.dart";
 import "../l10n/l10n.dart";
 import "../settings/settings_bloc.dart";
 import "../theme/theme_mode_bloc.dart";
@@ -109,7 +110,7 @@ class _SettingsViewState extends State<SettingsView>
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.settings),
+          title: AppText(l10n.settings),
           leading: AppIconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.of(context).pop(),
@@ -181,7 +182,7 @@ class ColorModeSection extends StatelessWidget {
                 Platform.isAndroid ? Icons.tablet_android : Icons.tablet_mac,
               ),
               const SizedBox(width: 16),
-              Text(
+              AppText(
                 l10n.colorModeTitle,
                 style: theme.textTheme.titleMedium,
               ),
@@ -194,15 +195,15 @@ class ColorModeSection extends StatelessWidget {
               segments: [
                 ButtonSegment<ThemeMode>(
                   value: ThemeMode.light,
-                  label: Text(l10n.colorModeLight),
+                  label: AppText(l10n.colorModeLight),
                 ),
                 ButtonSegment<ThemeMode>(
                   value: ThemeMode.system,
-                  label: Text(l10n.colorModeSystem),
+                  label: AppText(l10n.colorModeSystem),
                 ),
                 ButtonSegment<ThemeMode>(
                   value: ThemeMode.dark,
-                  label: Text(l10n.colorModeDark),
+                  label: AppText(l10n.colorModeDark),
                 ),
               ],
               selected: {currentThemeMode},
@@ -265,7 +266,7 @@ class FontSizeSection extends StatelessWidget {
             children: <Widget>[
               const Icon(Icons.format_size),
               const SizedBox(width: 16),
-              Text(
+              AppText(
                 l10n.fontSizeTitle,
                 style: theme.textTheme.titleMedium,
               ),
@@ -278,15 +279,15 @@ class FontSizeSection extends StatelessWidget {
               segments: <ButtonSegment<FontSize>>[
                 ButtonSegment<FontSize>(
                   value: FontSize.smaller,
-                  label: Text(l10n.fontSizeSmaller),
+                  label: AppText(l10n.fontSizeSmaller),
                 ),
                 ButtonSegment<FontSize>(
                   value: FontSize.regular,
-                  label: Text(l10n.fontSizeRegular),
+                  label: AppText(l10n.fontSizeRegular),
                 ),
                 ButtonSegment<FontSize>(
                   value: FontSize.larger,
-                  label: Text(l10n.fontSizeLarger),
+                  label: AppText(l10n.fontSizeLarger),
                 ),
               ],
               selected: <FontSize>{currentValue},
@@ -349,7 +350,7 @@ class SettingItem extends StatelessWidget {
       horizontalTitleGap: 0,
       minLeadingWidth: hasLeading ? _leadingWidth : 0,
       onTap: onTap,
-      title: Text(
+      title: AppText(
         title,
         style: theme.textTheme.titleMedium?.copyWith(
           color: titleColor ?? theme.colorScheme.onSurface,
