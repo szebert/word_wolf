@@ -1,8 +1,11 @@
 import "dart:async";
 
+import "package:audioplayers/audioplayers.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:vibration/vibration.dart";
 
+import "../../app_ui/app_config.dart";
 import "../../app_ui/app_spacing.dart";
 import "../../app_ui/widgets/app_button.dart";
 import "../../app_ui/widgets/app_exit_scope.dart";
@@ -48,49 +51,191 @@ class _DiscussionViewState extends State<DiscussionView>
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
+  // Track time for tick sounds
+  int _lastTickedSecond = -1;
+
+  // Single static audio players to be shared across instances
+  static AudioPlayer? _sharedTickPlayer;
+  static AudioPlayer? _sharedTockPlayer;
+  static int _instanceCount = 0;
+  static bool _hasVibrator = false;
+
+  // Local references to shared players
+  AudioPlayer? get _tickPlayer => _sharedTickPlayer;
+  AudioPlayer? get _tockPlayer => _sharedTockPlayer;
+
+  Future<void> _initAudio() async {
+    // Check if vibration is supported
+    _hasVibrator = await Vibration.hasVibrator();
+
+    try {
+      // Increment instance counter
+      _instanceCount++;
+
+      // Create the shared players only once
+      if (_sharedTickPlayer == null) {
+        // Create the audio player.
+        _sharedTickPlayer = AudioPlayer();
+        // Set the release mode to keep the source after playback has completed.
+        await _sharedTickPlayer?.setReleaseMode(ReleaseMode.stop);
+        // Set the source to the asset.
+        await _sharedTickPlayer?.setSource(AssetSource("audio/tick.mp3"));
+      }
+
+      if (_sharedTockPlayer == null) {
+        _sharedTockPlayer = AudioPlayer();
+        await _sharedTockPlayer?.setReleaseMode(ReleaseMode.stop);
+        await _sharedTockPlayer?.setSource(AssetSource("audio/tock.mp3"));
+      }
+    } catch (e) {
+      // Do nothing
+    }
+  }
+
+  void _disposeAudio() {
+    // Stop tick and tock sounds
+    try {
+      _sharedTickPlayer?.stop();
+      _sharedTockPlayer?.stop();
+    } catch (e) {
+      // Do nothing
+    }
+
+    // Decrement instance counter
+    _instanceCount--;
+
+    // Only dispose when the last instance is disposed
+    if (_instanceCount <= 0) {
+      try {
+        _sharedTickPlayer?.dispose();
+        _sharedTockPlayer?.dispose();
+        _sharedTickPlayer = null;
+        _sharedTockPlayer = null;
+        _instanceCount = 0; // Reset counter to prevent negative counts
+      } catch (e) {
+        // Do nothing
+      }
+    }
+  }
+
+  // Play tick sound for countdown - alternating between tick and tock
+  Future<void> _playTickTock(int seconds) async {
+    final feedbackSettings = AppConfig.feedbackSettings;
+
+    // Choose between tick and tock based on even/odd seconds
+    final isTick = seconds % 2 == 0;
+
+    // Vibrate with pattern
+    if (_hasVibrator && feedbackSettings.hapticEnabled) {
+      Vibration.cancel();
+      if (isTick) {
+        Vibration.vibrate(
+          pattern: [0, 100],
+          intensities: [0, 200],
+        );
+      } else {
+        Vibration.vibrate(
+          pattern: [0, 100],
+          intensities: [0, 125],
+        );
+      }
+    }
+
+    // Don't attempt to play if audio isn't ready or sound is disabled
+    if (_tickPlayer == null ||
+        _tockPlayer == null ||
+        !feedbackSettings.soundEnabled) {
+      return;
+    }
+
+    try {
+      if (isTick) {
+        // Stop any previous tick audio
+        await _tickPlayer!.pause();
+        // Reset position to beginning
+        await _tickPlayer!.seek(Duration.zero);
+        // Use resume instead of play to avoid reloading
+        await _tickPlayer!.resume();
+      } else {
+        await _tockPlayer!.pause();
+        await _tockPlayer!.seek(Duration.zero);
+        await _tockPlayer!.resume();
+      }
+    } catch (e) {
+      // Do nothing
+    }
+  }
+
+  // Stop tick and tock sounds and vibration
+  void _stopTickTock() {
+    try {
+      _tickPlayer?.stop();
+      _tockPlayer?.stop();
+      Vibration.cancel();
+    } catch (e) {
+      // Do nothing
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
+    // Initialize audio players
+    _initAudio();
+
     // Initialize game timer and advance to discussion phase if needed
     Future.microtask(() {
-      if (mounted) {
-        final gameState = context.read<GameBloc>().state;
-        final categoryState = context.read<CategoryBloc>().state;
+      if (!mounted) return;
 
-        // Initialize _revealedLabels from game state
-        setState(() {
-          _revealedLabels =
-              Set<int>.from(gameState.game.revealedIcebreakerIndices);
+      final gameState = context.read<GameBloc>().state;
+      final categoryState = context.read<CategoryBloc>().state;
 
-          // If category is not empty and no labels revealed yet, reveal all
-          if (categoryState.selectedCategory.isNotEmpty &&
-              _revealedLabels.isEmpty) {
-            for (var i = 0; i < gameState.game.icebreakers.length; i++) {
-              _revealedLabels.add(i);
-              // Add events to update the bloc state
-              context.read<GameBloc>().add(IcebreakerLabelRevealed(index: i));
-            }
+      // Initialize _revealedLabels from game state
+      setState(() {
+        _revealedLabels =
+            Set<int>.from(gameState.game.revealedIcebreakerIndices);
+
+        // If category is not empty and no labels revealed yet, reveal all
+        if (categoryState.selectedCategory.isNotEmpty &&
+            _revealedLabels.isEmpty) {
+          for (var i = 0; i < gameState.game.icebreakers.length; i++) {
+            _revealedLabels.add(i);
+            // Add events to update the bloc state
+            context.read<GameBloc>().add(IcebreakerLabelRevealed(index: i));
           }
-        });
-
-        // Only start a new discussion if we're not in it already
-        if (gameState.game.phase != GamePhase.discussion) {
-          context.read<GameBloc>().add(const DiscussionStarted());
         }
-      }
+      });
     });
 
     // Add a listener for game phase changes
     Future.microtask(() {
-      if (mounted) {
-        // Listen for game phase changes and navigate when it changes to voting
-        context.read<GameBloc>().stream.listen((state) {
-          if (state.game.phase == GamePhase.voting && mounted) {
-            _isPaused = false;
-            Navigator.of(context).push(VotingPage.route());
-          }
-        });
-      }
+      if (!mounted) return;
+
+      // Listen for game phase changes and navigate when it changes to voting
+      context.read<GameBloc>().stream.listen((state) {
+        if (state.game.phase == GamePhase.voting && mounted) {
+          _stopTickTock();
+          _isPaused = false;
+          Navigator.of(context).pushReplacement(VotingPage.route());
+        }
+
+        // Monitor timer for ticking functionality
+        final timeRemaining = state.game.remainingTimeInSeconds;
+
+        // Handle tick sounds for last 10 seconds (once per second only)
+        if (timeRemaining > 0 &&
+            timeRemaining <= 10 &&
+            timeRemaining != _lastTickedSecond &&
+            !_isPaused) {
+          // Only play tick if we haven't played it for this second yet
+          _playTickTock(timeRemaining);
+          _lastTickedSecond = timeRemaining;
+        } else if (timeRemaining > 10) {
+          // Reset when we go back above 10 seconds
+          _lastTickedSecond = -1;
+        }
+      });
     });
 
     // Initialize animation controller
@@ -107,6 +252,9 @@ class _DiscussionViewState extends State<DiscussionView>
   @override
   void dispose() {
     _fadeController.dispose();
+
+    _disposeAudio();
+
     super.dispose();
   }
 
@@ -133,14 +281,21 @@ class _DiscussionViewState extends State<DiscussionView>
     context.read<GameBloc>().add(GameTimerAdjusted(
           newTimeInSeconds: newValue,
         ));
+
+    // Reset tick tracking if needed
+    if (newValue > 10) {
+      _lastTickedSecond = -1;
+    }
   }
 
   void _endDiscussion() {
+    _stopTickTock();
     _isPaused = false;
     // Update game phase first
     context.read<GameBloc>().add(const VotingStarted());
-    // Advance to voting phase
-    Navigator.of(context).push(VotingPage.route());
+    // Advance to voting page with alarm disabled
+    Navigator.of(context)
+        .pushReplacement(VotingPage.route(shouldPlayAlarm: false));
   }
 
   void _handleIcebreakerTap(int index) {
