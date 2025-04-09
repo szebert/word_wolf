@@ -513,7 +513,7 @@
   "@wordGenerationErrorTitle": {
     "description": "Text for the word generation error state in the word distribution page"
   },
-  "wordGenerationErrorContent": "We couldn't properly connect to our online service to generate your word pair. You can still continue playing using our built-in word collection!",
+  "wordGenerationErrorContent": "We couldn't properly connect to the online service to generate your word pair. You can still continue playing using our built-in word collection!",
   "@wordGenerationErrorContent": {
     "description": "Text for the word generation error content in the word distribution page"
   },

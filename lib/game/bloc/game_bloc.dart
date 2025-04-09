@@ -410,6 +410,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     bool isOnline = online;
     try {
       if (online) {
+        // Check if AI is configured
+        final isAIConfigured = await _wordPairService.isAIConfigured;
+
+        if (!isAIConfigured) {
+          emit(
+            state.copyWith(
+              status: GameStatus.error,
+              error: "AI service is not properly configured.",
+            ),
+          );
+          return;
+        }
+
         // Get a random word pair based on selected category and similarity
         result = await _wordPairService.getRandomWordPair(
           category: category,

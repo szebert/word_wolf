@@ -3,6 +3,10 @@ import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../analytics/analytics_bloc.dart";
 import "../analytics_repository/analytics_repository.dart";
+import "../api/api_service_provider.dart";
+import "../api/bloc/api_config_bloc.dart";
+import "../api/repository/api_config_repository.dart";
+import "../api/services/ai_service_manager.dart";
 import "../app_ui/app_config.dart";
 import "../app_ui/app_theme.dart";
 import "../category/bloc/category_bloc.dart";
@@ -73,9 +77,21 @@ class App extends StatelessWidget {
             storage: _persistentStorage,
           ),
         ),
+        RepositoryProvider<APIConfigRepository>(
+          create: (context) => APIConfigRepository(
+            persistentStorage: _persistentStorage,
+          ),
+        ),
+        RepositoryProvider<AIServiceManager>(
+          create: (context) => AIServiceManager(
+            apiConfigRepository: context.read<APIConfigRepository>(),
+          ),
+          lazy: false,
+        ),
         RepositoryProvider<WordPairService>(
           create: (context) => WordPairService(
             usedWordsStorage: context.read<UsedWordsStorage>(),
+            aiServiceManager: context.read<AIServiceManager>(),
           ),
         ),
       ],
@@ -117,8 +133,16 @@ class App extends StatelessWidget {
               ),
               lazy: false,
             ),
+            BlocProvider<APIConfigBloc>(
+              create: (context) => APIConfigBloc(
+                apiConfigRepository: context.read<APIConfigRepository>(),
+              )..add(const APIConfigInitialized()),
+              lazy: false,
+            ),
           ],
-          child: const AppView(),
+          child: APIServiceProvider(
+            child: const AppView(),
+          ),
         );
       }),
     );
