@@ -27,7 +27,7 @@ class WordPairService {
 
   /// Check if the AI service is properly configured
   Future<bool> get isAIConfigured async =>
-      _aiServiceManager != null ? await _aiServiceManager!.isConfigured : false;
+      _aiServiceManager != null ? await _aiServiceManager.isConfigured : false;
 
   /// Loads word pairs from the offline JSON file
   Future<List<WordPairResult>> _loadOfflineWordPairs() async {

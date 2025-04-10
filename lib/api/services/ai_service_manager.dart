@@ -93,7 +93,7 @@ class AIServiceManager {
           l10n: l10n,
         );
       } catch (e) {
-        print('Error generating word pair with OpenAI: $e');
+        print("Error generating word pair with OpenAI: $e");
       }
     }
 
@@ -107,7 +107,7 @@ class AIServiceManager {
           l10n: l10n,
         );
       } catch (e) {
-        print('Error generating word pair with Gemini: $e');
+        print("Error generating word pair with Gemini: $e");
       }
     }
 
