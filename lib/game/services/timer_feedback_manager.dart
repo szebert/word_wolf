@@ -1,7 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
-import 'package:vibration/vibration.dart';
+import "package:audioplayers/audioplayers.dart";
+import "package:vibration/vibration.dart";
 
-import '../../app_ui/app_config.dart';
+import "../../app_ui/app_config.dart";
 
 /// Manages audio and haptic feedback for timers throughout the application.
 /// Ensures resource sharing and proper cleanup.
@@ -25,7 +25,7 @@ class TimerFeedbackManager {
     if (_isInitialized) return;
 
     // Check if vibration is supported
-    _hasVibrator = await Vibration.hasVibrator() ?? false;
+    _hasVibrator = await Vibration.hasVibrator();
 
     try {
       // Increment instance counter
