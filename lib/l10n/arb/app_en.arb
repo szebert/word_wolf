@@ -739,5 +739,81 @@
   "revengeIncreaseTime": "Increase Time",
   "@revengeIncreaseTime": {
     "description": "Tooltip text for increase time button"
+  },
+  "aiCustomizationTitle": "AI Customization",
+  "@aiCustomizationTitle": {
+    "description": "Title for the AI customization page"
+  },
+  "openaiConnectionTitle": "OpenAI Connection",
+  "@openaiConnectionTitle": {
+    "description": "Title for the OpenAI connection page"
+  },
+  "enableOpenai": "Enable OpenAI",
+  "@enableOpenai": {
+    "description": "Text for the enable OpenAI button"
+  },
+  "enableOpenaiSubtitle": "Use OpenAI to generate word pairs",
+  "@enableOpenaiSubtitle": {
+    "description": "Subtitle for the enable OpenAI button"
+  },
+  "openaiApiKey": "OpenAI API Key",
+  "@openaiApiKey": {
+    "description": "Title for the OpenAI API key input field"
+  },
+  "openaiApiKeyHint": "Enter your OpenAI API key",
+  "@openaiApiKeyHint": {
+    "description": "Hint text for the OpenAI API key input field"
+  },
+  "openaiApiKeyRequired": "API key is required when OpenAI is enabled",
+  "@openaiApiKeyRequired": {
+    "description": "Error message when no OpenAI API key is entered"
+  },
+  "openaiApiUrl": "OpenAI API URL (Optional)",
+  "@openaiApiUrl": {
+    "description": "Title for the OpenAI API URL input field"
+  },
+  "openaiApiUrlHint": "Custom API URL (leave empty for default)",
+  "@openaiApiUrlHint": {
+    "description": "Hint text for the OpenAI API URL input field"
+  },
+  "openaiModel": "OpenAI Model",
+  "@openaiModel": {
+    "description": "Title for the OpenAI model input field"
+  },
+  "openaiInformational": "Using OpenAI can help generate better customized word pairs and improve the game experience. Your credentials are stored only locally on your device.",
+  "@openaiInformational": {
+    "description": "Informational text for the OpenAI connection page"
+  },
+  "saveSettings": "Save Settings",
+  "@saveSettings": {
+    "description": "Text for the save settings button"
+  },
+  "saveSettingsSuccess": "Configuration saved",
+  "@saveSettingsSuccess": {
+    "description": "Text for the save settings success message"
+  },
+  "unknownError": "An unknown error occurred",
+  "@unknownError": {
+    "description": "Text for the unknown error message"
+  },
+  "openaiOfflineError": "Unable to connect to OpenAI. Please check your internet connection.",
+  "@openaiOfflineError": {
+    "description": "Text for the OpenAI offline error message"
+  },
+  "openaiInvalidKeyError": "The API key appears to be invalid. Please check your API key.",
+  "@openaiInvalidKeyError": {
+    "description": "Text for the OpenAI invalid key error message"
+  },
+  "openaiInsufficientPermissionsError": "Your API key doesn't have sufficient permissions. Missing scope: model.request.",
+  "@openaiInsufficientPermissionsError": {
+    "description": "Text for the OpenAI insufficient permissions error message"
+  },
+  "openaiInvalidModelError": "The selected model does not exist or you do not have access to it.",
+  "@openaiInvalidModelError": {
+    "description": "Text for the OpenAI invalid model error message"
+  },
+  "openaiModelNotSupportedError": "The selected model doesn't support JSON schema response format. Please choose a different model.",
+  "@openaiModelNotSupportedError": {
+    "description": "Text for the OpenAI model not supported error message"
   }
 }

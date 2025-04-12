@@ -74,7 +74,7 @@ class _APIConfigViewState extends State<APIConfigView> {
     super.dispose();
   }
 
-  void _saveOpenAISettings() {
+  void _saveOpenAISettings(AppLocalizations l10n) {
     if (_formKey.currentState?.validate() ?? false) {
       // Create updated config
       final updatedConfig = _openAIConfig.copyWith(
@@ -88,12 +88,11 @@ class _APIConfigViewState extends State<APIConfigView> {
 
       // Update configuration
       context.read<APIConfigBloc>().add(
-            OpenAIConfigUpdated(config: updatedConfig),
+            OpenAIConfigUpdated(
+              config: updatedConfig,
+              l10n: l10n,
+            ),
           );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: AppText("Configuration saved")),
-      );
     }
   }
 
@@ -105,7 +104,7 @@ class _APIConfigViewState extends State<APIConfigView> {
     return Scaffold(
       appBar: AppBar(
         title: AppText(
-          "AI Customization",
+          l10n.aiCustomizationTitle,
           variant: AppTextVariant.titleLarge,
         ),
         leading: AppIconButton(
@@ -116,25 +115,32 @@ class _APIConfigViewState extends State<APIConfigView> {
       ),
       body: BlocConsumer<APIConfigBloc, APIConfigState>(
         listener: (context, state) {
-          if (state.status == APIConfigStatus.error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: AppText(state.error ?? "Unknown error")),
-            );
-          } else if (state.status == APIConfigStatus.loaded) {
-            // Update local state when bloc state changes
-            setState(() {
-              _openAIConfig = state.openAIConfig;
+          switch (state.status) {
+            case APIConfigStatus.error:
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: AppText(state.error ?? l10n.unknownError)),
+              );
+              break;
+            case APIConfigStatus.loaded:
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: AppText(l10n.saveSettingsSuccess)),
+              );
+              // Update local state when bloc state changes
+              setState(() {
+                _openAIConfig = state.openAIConfig;
 
-              if (state.openAIConfig.apiKey != null &&
-                  _apiKeyController.text != state.openAIConfig.apiKey) {
-                _apiKeyController.text = state.openAIConfig.apiKey!;
-              }
+                if (state.openAIConfig.apiKey != null &&
+                    _apiKeyController.text != state.openAIConfig.apiKey) {
+                  _apiKeyController.text = state.openAIConfig.apiKey!;
+                }
 
-              if (state.openAIConfig.apiUrl != null &&
-                  _apiUrlController.text != state.openAIConfig.apiUrl) {
-                _apiUrlController.text = state.openAIConfig.apiUrl!;
-              }
-            });
+                if (state.openAIConfig.apiUrl != null &&
+                    _apiUrlController.text != state.openAIConfig.apiUrl) {
+                  _apiUrlController.text = state.openAIConfig.apiUrl!;
+                }
+              });
+              break;
+            default:
           }
         },
         builder: (context, state) {
@@ -155,7 +161,7 @@ class _APIConfigViewState extends State<APIConfigView> {
                         children: [
                           // OpenAI Title
                           AppText(
-                            "OpenAI API Connection",
+                            l10n.openaiConnectionTitle,
                             variant: AppTextVariant.titleMedium,
                             weight: AppTextWeight.bold,
                           ),
@@ -167,8 +173,8 @@ class _APIConfigViewState extends State<APIConfigView> {
                             onTap: null,
                             dense: true,
                             trailing: AppSwitch(
-                              onText: "On",
-                              offText: "Off",
+                              onText: l10n.on,
+                              offText: l10n.off,
                               value: _openAIConfig.enabled,
                               onChanged: (value) {
                                 setState(() {
@@ -182,9 +188,9 @@ class _APIConfigViewState extends State<APIConfigView> {
                             ),
                             horizontalTitleGap: 0,
                             minLeadingWidth: 0,
-                            title: const AppText("Enable OpenAI"),
-                            subtitle: const AppText(
-                              "Use OpenAI to generate word pairs",
+                            title: AppText(l10n.enableOpenai),
+                            subtitle: AppText(
+                              l10n.enableOpenaiSubtitle,
                               variant: AppTextVariant.bodySmall,
                             ),
                           ),
@@ -193,22 +199,22 @@ class _APIConfigViewState extends State<APIConfigView> {
 
                           // API Key field
                           AppText(
-                            "OpenAI API Key",
+                            l10n.openaiApiKey,
                             variant: AppTextVariant.titleSmall,
                           ),
                           const SizedBox(height: AppSpacing.xs),
                           TextFormField(
                             controller: _apiKeyController,
                             enabled: _openAIConfig.enabled,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              hintText: "Enter your OpenAI API key",
+                              hintText: l10n.openaiApiKeyHint,
                             ),
                             obscureText: true,
                             validator: (value) {
                               if (_openAIConfig.enabled &&
                                   (value == null || value.isEmpty)) {
-                                return "API key is required when OpenAI is enabled";
+                                return l10n.openaiApiKeyRequired;
                               }
                               return null;
                             },
@@ -218,17 +224,16 @@ class _APIConfigViewState extends State<APIConfigView> {
 
                           // API URL field
                           AppText(
-                            "OpenAI API URL (Optional)",
+                            l10n.openaiApiUrl,
                             variant: AppTextVariant.titleSmall,
                           ),
                           const SizedBox(height: AppSpacing.xs),
                           TextFormField(
                             controller: _apiUrlController,
                             enabled: _openAIConfig.enabled,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              hintText:
-                                  "Custom API URL (leave empty for default)",
+                              hintText: l10n.openaiApiUrlHint,
                             ),
                           ),
 
@@ -236,7 +241,7 @@ class _APIConfigViewState extends State<APIConfigView> {
 
                           // Model selection dropdown
                           AppText(
-                            "OpenAI Model",
+                            l10n.openaiModel,
                             variant: AppTextVariant.titleSmall,
                           ),
                           const SizedBox(height: AppSpacing.xs),
@@ -282,7 +287,7 @@ class _APIConfigViewState extends State<APIConfigView> {
                                 const SizedBox(width: AppSpacing.sm),
                                 Expanded(
                                   child: AppText(
-                                    "Using OpenAI can help generate better customized word pairs and improve the game experience. Your credentials are stored only locally on your device.",
+                                    l10n.openaiInformational,
                                     variant: AppTextVariant.bodySmall,
                                     colorOption: AppTextColor.onSurfaceVariant,
                                   ),
@@ -307,11 +312,11 @@ class _APIConfigViewState extends State<APIConfigView> {
                 width: double.infinity,
                 child: SafeArea(
                   child: AppButton(
-                    onPressed: _saveOpenAISettings,
+                    onPressed: () => _saveOpenAISettings(l10n),
                     minWidth: double.infinity,
                     variant: AppButtonVariant.elevated,
                     child: AppText(
-                      "Save Settings",
+                      l10n.saveSettings,
                       variant: AppTextVariant.titleMedium,
                     ),
                   ),
