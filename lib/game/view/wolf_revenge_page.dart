@@ -179,8 +179,8 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
 
     final newTarget = remaining + seconds;
 
-    // Validate time bounds (min 1 second, max 5 minutes)
-    if (newTarget < 1 || newTarget > 5 * 60) return;
+    // Validate time bounds (min 1 second, max sub 10 minutes)
+    if (newTarget < 1 || newTarget >= 10 * 60) return;
 
     // Adjust time in global timer
     _TimerManager.adjustTime(seconds);
@@ -399,7 +399,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                     icon: const Icon(Icons.add_circle_outline,
                                         size: 36),
                                     tooltip: l10n.revengeIncreaseTime,
-                                    disabled: _displaySeconds > (60 * 5) - 30,
+                                    disabled: _displaySeconds >= (60 * 10) - 30,
                                     onPressed: () => _adjustTime(30),
                                     color:
                                         Theme.of(context).colorScheme.primary,
@@ -469,6 +469,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
 
                       // Verbal guess and Give up buttons in a row
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Verbal guess button
                           Expanded(

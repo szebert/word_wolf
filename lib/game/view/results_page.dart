@@ -126,109 +126,138 @@ class ResultsView extends StatelessWidget {
 
                   const SizedBox(height: AppSpacing.lg),
 
-                  // Words section
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Citizen word column
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AppText(
-                              l10n.citizens,
-                              variant: AppTextVariant.titleLarge,
-                              weight: AppTextWeight.medium,
-                              textAlign: TextAlign.center,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: AppSpacing.md,
-                              ),
-                              child: Card(
-                                color: Theme.of(context).colorScheme.secondary,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: AppSpacing.lg,
-                                    vertical: AppSpacing.md,
-                                  ),
-                                  child: AppText(
-                                    game.citizenWord,
-                                    variant: AppTextVariant.titleLarge,
-                                    textAlign: TextAlign.center,
-                                    colorOption: AppTextColor.onSecondary,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // Wolf word column
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AppText(
-                              l10n.wolves,
-                              variant: AppTextVariant.titleLarge,
-                              weight: AppTextWeight.medium,
-                              textAlign: TextAlign.center,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: AppSpacing.md,
-                              ),
-                              child: Card(
-                                color: Theme.of(context).colorScheme.secondary,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: AppSpacing.lg,
-                                    vertical: AppSpacing.md,
-                                  ),
-                                  child: AppText(
-                                    game.wolfWord,
-                                    variant: AppTextVariant.titleLarge,
-                                    textAlign: TextAlign.center,
-                                    colorOption: AppTextColor.onSecondary,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // Player lists
                   Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Citizens list
-                        Expanded(
-                          child: _buildPlayerList(
-                            citizens,
-                            selectedPlayer,
-                            game.players,
-                            wolfRevengeSuccessful,
-                          ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            Theme.of(context).colorScheme.primary.withAlpha(50),
+                            Theme.of(context).colorScheme.error.withAlpha(50),
+                          ],
+                          stops: const [0.47, 0.53],
                         ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // Words section
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Citizen word column
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AppText(
+                                      l10n.citizens,
+                                      variant: AppTextVariant.titleLarge,
+                                      weight: AppTextWeight.medium,
+                                      colorOption: AppTextColor.primary,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: AppSpacing.md,
+                                      ),
+                                      child: Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: AppSpacing.lg,
+                                            vertical: AppSpacing.md,
+                                          ),
+                                          child: AppText(
+                                            game.citizenWord,
+                                            variant: AppTextVariant.titleLarge,
+                                            textAlign: TextAlign.center,
+                                            colorOption:
+                                                AppTextColor.onSecondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
 
-                        // Wolves list
-                        Expanded(
-                          child: _buildPlayerList(
-                            wolves,
-                            selectedPlayer,
-                            game.players,
-                            wolfRevengeSuccessful,
+                              // Wolf word column
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AppText(
+                                      l10n.wolves,
+                                      variant: AppTextVariant.titleLarge,
+                                      weight: AppTextWeight.medium,
+                                      colorOption: AppTextColor.error,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: AppSpacing.md,
+                                      ),
+                                      child: Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: AppSpacing.lg,
+                                            vertical: AppSpacing.md,
+                                          ),
+                                          child: AppText(
+                                            game.wolfWord,
+                                            variant: AppTextVariant.titleLarge,
+                                            textAlign: TextAlign.center,
+                                            colorOption:
+                                                AppTextColor.onSecondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+
+                          // Player lists
+                          Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Citizens list
+                                Expanded(
+                                  child: _buildPlayerList(
+                                    citizens,
+                                    selectedPlayer,
+                                    game.players,
+                                    wolfRevengeSuccessful,
+                                  ),
+                                ),
+
+                                // Wolves list
+                                Expanded(
+                                  child: _buildPlayerList(
+                                    wolves,
+                                    selectedPlayer,
+                                    game.players,
+                                    wolfRevengeSuccessful,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 
@@ -273,6 +302,7 @@ class ResultsView extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   Card(
+                    color: Theme.of(context).colorScheme.surface,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                       side: BorderSide(
@@ -301,6 +331,7 @@ class ResultsView extends StatelessWidget {
                             player.name,
                             variant: AppTextVariant.titleMedium,
                             weight: AppTextWeight.medium,
+                            colorOption: AppTextColor.onSurface,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
