@@ -72,6 +72,10 @@
   "@fontSizeLarger": {
     "description": "The text of the larger font size button"
   },
+  "fontSizeLargest": "Huge",
+  "@fontSizeLargest": {
+    "description": "The text of the largest (huge) font size button"
+  },
   "howToPlayGameTitle": "Word Wolf",
   "@howToPlayGameTitle": {
     "description": "The title of the game in the how to play page"

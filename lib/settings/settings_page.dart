@@ -224,6 +224,7 @@ enum FontSize {
   smaller,
   regular,
   larger,
+  largest,
 }
 
 class FontSizeSection extends StatelessWidget {
@@ -233,6 +234,7 @@ class FontSizeSection extends StatelessWidget {
     FontSize.smaller: 0.85,
     FontSize.regular: 1.0,
     FontSize.larger: 1.15,
+    FontSize.largest: 1.5,
   };
 
   @override
@@ -288,6 +290,10 @@ class FontSizeSection extends StatelessWidget {
                 ButtonSegment<FontSize>(
                   value: FontSize.larger,
                   label: AppText(l10n.fontSizeLarger),
+                ),
+                ButtonSegment<FontSize>(
+                  value: FontSize.largest,
+                  label: AppText(l10n.fontSizeLargest),
                 ),
               ],
               selected: <FontSize>{currentValue},
