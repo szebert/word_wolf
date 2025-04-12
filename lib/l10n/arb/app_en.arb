@@ -772,10 +772,6 @@
   "@openaiApiUrl": {
     "description": "Title for the OpenAI API URL input field"
   },
-  "openaiApiUrlHint": "Custom API URL (leave empty for default)",
-  "@openaiApiUrlHint": {
-    "description": "Hint text for the OpenAI API URL input field"
-  },
   "openaiModel": "OpenAI Model",
   "@openaiModel": {
     "description": "Title for the OpenAI model input field"

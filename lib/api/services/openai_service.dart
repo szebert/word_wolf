@@ -75,7 +75,7 @@ class OpenAIService implements AIService {
               "content": "Test message",
             }
           ],
-          "max_tokens": 25,
+          "max_completion_tokens": 25,
           "response_format": {
             "type": "json_schema",
             "json_schema": {
@@ -209,7 +209,7 @@ ${category.isEmpty ? "The icebreakers should be extremely general, and not speci
               "content": userContent,
             }
           ],
-          "max_tokens": 2048,
+          "max_completion_tokens": 4096,
           "response_format": {
             "type": "json_schema",
             "json_schema": {

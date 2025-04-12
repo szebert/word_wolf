@@ -84,6 +84,22 @@ class OpenAIConfig extends AIConfig {
     );
   }
 
+  /// Create a copy with explicit handling of null values for nullable fields
+  /// This allows setting a field to null, overriding the existing value
+  OpenAIConfig copyWithExplicitNulls({
+    bool? enabled,
+    Object? apiKey = const Object(),
+    Object? apiUrl = const Object(),
+    String? model,
+  }) {
+    return OpenAIConfig(
+      enabled: enabled ?? this.enabled,
+      apiKey: apiKey == const Object() ? this.apiKey : apiKey as String?,
+      apiUrl: apiUrl == const Object() ? this.apiUrl : apiUrl as String?,
+      model: model ?? this.model,
+    );
+  }
+
   /// Check if the OpenAI configuration is valid for use
   bool get isValid => enabled && apiKey != null && apiKey!.isNotEmpty;
 }
