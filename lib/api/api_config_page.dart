@@ -270,9 +270,7 @@ class _APIConfigViewState extends State<APIConfigView> {
           }
         },
         builder: (context, state) {
-          if (state.status == APIConfigStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+          final isLoading = state.status == APIConfigStatus.loading;
 
           return Column(
             children: [
@@ -299,6 +297,7 @@ class _APIConfigViewState extends State<APIConfigView> {
                             onTap: null,
                             dense: true,
                             trailing: AppSwitch(
+                              loading: isLoading,
                               onText: l10n.on,
                               offText: l10n.off,
                               value: _openAIConfig.enabled,
@@ -344,7 +343,7 @@ class _APIConfigViewState extends State<APIConfigView> {
                           TextFormField(
                             controller: _apiKeyController,
                             focusNode: _apiKeyFocusNode,
-                            enabled: _openAIConfig.enabled,
+                            enabled: _openAIConfig.enabled && !isLoading,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: l10n.openaiApiKeyHint,
@@ -391,7 +390,7 @@ class _APIConfigViewState extends State<APIConfigView> {
                           const SizedBox(height: AppSpacing.xs),
                           TextFormField(
                             controller: _apiUrlController,
-                            enabled: _openAIConfig.enabled,
+                            enabled: _openAIConfig.enabled && !isLoading,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               hintText:
@@ -432,7 +431,7 @@ class _APIConfigViewState extends State<APIConfigView> {
                                 child: AppText(model),
                               );
                             }).toList(),
-                            disabled: !_openAIConfig.enabled,
+                            disabled: !_openAIConfig.enabled || isLoading,
                             onChanged: (value) {
                               if (value == null) return;
                               setState(() {
