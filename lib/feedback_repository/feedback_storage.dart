@@ -38,10 +38,10 @@ class FeedbackStorage {
       fetchFeedbackSettings() async => (
             (await _storage.read(key: FeedbackStorageKeys.hapticEnabled))
                     ?.parseBool() ??
-                false,
+                true,
             (await _storage.read(key: FeedbackStorageKeys.soundEnabled))
                     ?.parseBool() ??
-                false,
+                true,
           );
 }
 
