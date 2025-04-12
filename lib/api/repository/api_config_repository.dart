@@ -28,14 +28,14 @@ class APIConfigRepository {
       final configJson = await _persistentStorage.read(key: _kOpenAIConfigKey);
       if (configJson == null || configJson.isEmpty) {
         // Return default config - OpenAI is disabled by default
-        return const OpenAIConfig(enabled: false);
+        return OpenAIConfig.defaultConfig;
       }
 
       final map = jsonDecode(configJson) as Map<String, dynamic>;
       return OpenAIConfig.fromMap(map);
     } catch (e) {
       // If parsing fails, return default config
-      return const OpenAIConfig(enabled: false);
+      return OpenAIConfig.defaultConfig;
     }
   }
 

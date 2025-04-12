@@ -37,6 +37,9 @@ class OpenAIConfig extends AIConfig {
     this.model = "gpt-o3-mini",
   });
 
+  /// Default OpenAI configuration with disabled state
+  static const OpenAIConfig defaultConfig = OpenAIConfig(enabled: false);
+
   /// The OpenAI API key
   final String? apiKey;
 

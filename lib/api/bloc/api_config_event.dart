@@ -15,10 +15,12 @@ class APIConfigInitialized extends APIConfigEvent {
 class OpenAIConfigUpdated extends APIConfigEvent {
   const OpenAIConfigUpdated({
     required this.config,
+    required this.l10n,
   });
 
   final OpenAIConfig config;
+  final AppLocalizations l10n;
 
   @override
-  List<Object> get props => [config];
+  List<Object> get props => [config, l10n];
 }
