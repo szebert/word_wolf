@@ -363,6 +363,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                         Icons.remove_circle_outline,
                                         size: 36),
                                     tooltip: l10n.revengeDecreaseTime,
+                                    disabled: _displaySeconds <= 30 + 1,
                                     onPressed: () => _adjustTime(-30),
                                     color:
                                         Theme.of(context).colorScheme.primary,
@@ -398,6 +399,7 @@ class _WolfRevengeViewState extends State<WolfRevengeView> {
                                     icon: const Icon(Icons.add_circle_outline,
                                         size: 36),
                                     tooltip: l10n.revengeIncreaseTime,
+                                    disabled: _displaySeconds > (60 * 5) - 30,
                                     onPressed: () => _adjustTime(30),
                                     color:
                                         Theme.of(context).colorScheme.primary,

@@ -297,6 +297,7 @@ class _DiscussionViewState extends State<DiscussionView>
             AppIconButton(
               icon: const Icon(Icons.remove_circle_outline, size: 36),
               tooltip: l10n.decreaseDuration,
+              disabled: gameState.remainingTimeInSeconds <= 60 + 1,
               onPressed: () => _adjustTime(-1),
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -318,6 +319,7 @@ class _DiscussionViewState extends State<DiscussionView>
             AppIconButton(
               icon: const Icon(Icons.add_circle_outline, size: 36),
               tooltip: l10n.increaseDuration,
+              disabled: gameState.remainingTimeInSeconds >= 60 * (100 - 1),
               onPressed: () => _adjustTime(1),
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -326,68 +328,51 @@ class _DiscussionViewState extends State<DiscussionView>
 
         const SizedBox(height: AppSpacing.lg),
 
-        // Control Buttons - Full width pause or side-by-side resume/end
-        if (_isPaused)
-          // Show Resume and End buttons side by side when paused
-          Row(
-            children: [
-              // Resume button
-              Expanded(
-                child: AppButton(
-                  onPressed: _togglePause,
-                  variant: AppButtonVariant.filled,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        l10n.resume,
-                        variant: AppTextVariant.labelLarge,
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      const Icon(Icons.play_arrow, size: 20),
-                    ],
-                  ),
+        // Control Buttons - Side-by-side pause/resume and end
+        Row(
+          children: [
+            // Pause/Resume button
+            Expanded(
+              child: AppButton(
+                onPressed: _togglePause,
+                variant: AppButtonVariant.filled,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      _isPaused ? l10n.resume : l10n.pause,
+                      variant: AppTextVariant.labelLarge,
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Icon(
+                      _isPaused ? Icons.play_arrow : Icons.pause_outlined,
+                      size: 20,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: AppSpacing.md),
-              // End button
-              Expanded(
-                child: AppButton(
-                  onPressed: _endDiscussion,
-                  variant: AppButtonVariant.outlined,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        l10n.endDiscussion,
-                        variant: AppTextVariant.labelLarge,
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      const Icon(Icons.stop, size: 20),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          )
-        else
-          // Show full width Pause button when not paused
-          AppButton(
-            onPressed: _togglePause,
-            minWidth: double.infinity,
-            variant: AppButtonVariant.filled,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppText(
-                  l10n.pause,
-                  variant: AppTextVariant.labelLarge,
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                const Icon(Icons.pause_outlined, size: 20),
-              ],
             ),
-          ),
+            const SizedBox(width: AppSpacing.md),
+            // End button
+            Expanded(
+              child: AppButton(
+                onPressed: _isPaused ? _endDiscussion : null,
+                variant: AppButtonVariant.outlined,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      l10n.endDiscussion,
+                      variant: AppTextVariant.labelLarge,
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    const Icon(Icons.stop, size: 20),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
 
         const SizedBox(height: AppSpacing.xxlg),
       ],
