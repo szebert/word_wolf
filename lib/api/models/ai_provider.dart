@@ -34,7 +34,7 @@ class OpenAIConfig extends AIConfig {
     required super.enabled,
     this.apiKey,
     this.apiUrl,
-    this.model = "gpt-o3-mini",
+    this.model = "o3-mini",
   });
 
   /// Default OpenAI configuration with disabled state
@@ -55,7 +55,7 @@ class OpenAIConfig extends AIConfig {
       enabled: map["enabled"] as bool? ?? false,
       apiKey: map["apiKey"] as String?,
       apiUrl: map["apiUrl"] as String?,
-      model: map["model"] as String? ?? "gpt-o3-mini",
+      model: map["model"] as String? ?? "o3-mini",
     );
   }
 

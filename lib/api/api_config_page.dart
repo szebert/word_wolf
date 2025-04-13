@@ -238,12 +238,18 @@ class _APIConfigViewState extends State<APIConfigView> {
           switch (state.status) {
             case APIConfigStatus.error:
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: AppText(state.error ?? l10n.unknownError)),
+                SnackBar(
+                  content: AppText(state.error ?? l10n.unknownError),
+                  showCloseIcon: true,
+                ),
               );
               break;
             case APIConfigStatus.loaded:
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: AppText(l10n.saveSettingsSuccess)),
+                SnackBar(
+                  content: AppText(l10n.saveSettingsSuccess),
+                  showCloseIcon: true,
+                ),
               );
               // Update local state when bloc state changes
               setState(() {
