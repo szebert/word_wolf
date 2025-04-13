@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../analytics/analytics_bloc.dart";
+import "../analytics/logging_service.dart";
 import "../analytics_repository/analytics_repository.dart";
 import "../api/api_service_provider.dart";
 import "../api/bloc/api_config_bloc.dart";
@@ -52,6 +53,10 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider<AnalyticsRepository>.value(
           value: _analyticsRepository,
+        ),
+        RepositoryProvider<LoggingService>(
+          create: (context) => LoggingService(),
+          lazy: false,
         ),
         RepositoryProvider<AppRepository>(
           create: (context) => AppRepository(

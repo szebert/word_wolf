@@ -2,6 +2,7 @@ import "dart:convert";
 
 import "package:http/http.dart" as http;
 
+import "../../analytics/logging_service.dart";
 import "../../l10n/l10n.dart";
 import "../models/ai_provider.dart";
 import "ai_service.dart";
@@ -35,11 +36,14 @@ class OpenAIService implements AIService {
   OpenAIService({
     required OpenAIConfig config,
     http.Client? httpClient,
+    LoggingService? loggingService,
   })  : _config = config,
-        _httpClient = httpClient ?? http.Client();
+        _httpClient = httpClient ?? http.Client(),
+        _loggingService = loggingService ?? LoggingService();
 
   OpenAIConfig _config;
   final http.Client _httpClient;
+  final LoggingService _loggingService;
 
   /// Updates the API configuration
   void updateConfig(OpenAIConfig config) {
@@ -120,11 +124,31 @@ class OpenAIService implements AIService {
         return OpenAIConfigError.modelNotSupported;
       }
 
+      _loggingService.logError(
+        Exception("OpenAI test configuration error"),
+        StackTrace.current,
+        reason: "OpenAI test configuration error",
+        information: [
+          "Error message: $errorMessage",
+          "Error code: $errorCode",
+          "API URL: ${_config.apiUrl}",
+          "Model: ${_config.model}",
+        ],
+      );
+
       return OpenAIConfigError.unknown;
     } on http.ClientException {
       return OpenAIConfigError.offline;
     } catch (e) {
-      print("OpenAI test configuration error: $e");
+      _loggingService.logError(
+        e,
+        StackTrace.current,
+        reason: "OpenAI test configuration error",
+        information: [
+          "API URL: ${_config.apiUrl}",
+          "Model: ${_config.model}",
+        ],
+      );
       return OpenAIConfigError.unknown;
     }
   }
@@ -201,28 +225,44 @@ class OpenAIService implements AIService {
           final content =
               jsonResponse["choices"][0]["message"]["content"] as String;
 
-          print("content: $content");
-
           // Try to parse the content
           try {
             return jsonDecode(content) as Map<String, dynamic>;
           } catch (e) {
-            print("Content JSON decode error: $e");
-            print("Raw content: $content");
+            _loggingService.logError(
+              e,
+              StackTrace.current,
+              reason: "OpenAI content JSON decode error",
+              information: ["Raw content: $content"],
+            );
           }
         } catch (e) {
-          print("JSON decode error: $e");
-          print("Raw response body: ${response.body}");
-          print("Raw response bytes: ${response.bodyBytes}");
+          _loggingService.logError(
+            e,
+            StackTrace.current,
+            reason: "OpenAI JSON decode error",
+            information: [
+              "Raw response body: ${response.body}",
+              "Raw response bytes: ${response.bodyBytes}"
+            ],
+          );
         }
       } else {
-        print("API error response body: ${response.body}");
-        print("API error response bytes: ${response.bodyBytes}");
+        _loggingService.logError(
+          Exception("API error - status code: ${response.statusCode}"),
+          StackTrace.current,
+          reason: "OpenAI API error response",
+          information: ["Response body: ${response.body}"],
+        );
       }
 
       return null;
     } catch (e) {
-      print("OpenAI API error: $e");
+      _loggingService.logError(
+        e,
+        StackTrace.current,
+        reason: "OpenAI API error",
+      );
       return null;
     }
   }

@@ -2,6 +2,7 @@ import "dart:convert";
 
 import "package:firebase_vertexai/firebase_vertexai.dart";
 
+import "../../analytics/logging_service.dart";
 import "ai_service.dart";
 
 /// {@template gemini_service}
@@ -10,7 +11,10 @@ import "ai_service.dart";
 /// {@endtemplate}
 class GeminiService implements AIService {
   /// {@macro gemini_service}
-  GeminiService();
+  GeminiService({LoggingService? loggingService})
+      : _loggingService = loggingService ?? LoggingService();
+
+  final LoggingService _loggingService;
 
   @override
   bool get isConfigured => true; // Always configured through Firebase
@@ -47,22 +51,27 @@ class GeminiService implements AIService {
       // Generate content
       final response = await model.generateContent(contents);
 
-      // Parse the generated content
-      if (response.text != null) {
-        try {
-          final jsonResponse =
-              jsonDecode(response.text!) as Map<String, dynamic>;
-          return jsonResponse;
-        } catch (e) {
-          print("Error parsing Gemini response: $e");
-          print("Raw response: ${response.text}");
-          return null;
-        }
-      }
+      if (response.text == null) return null;
 
-      return null;
+      // Parse the generated content
+      try {
+        final jsonResponse = jsonDecode(response.text!) as Map<String, dynamic>;
+        return jsonResponse;
+      } catch (e) {
+        _loggingService.logError(
+          e,
+          StackTrace.current,
+          reason: "Gemini JSON decode error",
+          information: ["Raw response text: ${response.text}"],
+        );
+        return null;
+      }
     } catch (e) {
-      print("Gemini API error: $e");
+      _loggingService.logError(
+        e,
+        StackTrace.current,
+        reason: "Gemini API error",
+      );
       return null;
     }
   }

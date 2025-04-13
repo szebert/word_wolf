@@ -1,5 +1,6 @@
 import "package:http/http.dart" as http;
 
+import "../../analytics/logging_service.dart";
 import "../models/ai_provider.dart";
 import "../repository/api_config_repository.dart";
 import "gemini_service.dart";
@@ -15,13 +16,16 @@ class AIServiceManager {
   AIServiceManager({
     required APIConfigRepository apiConfigRepository,
     http.Client? httpClient,
+    LoggingService? loggingService,
   })  : _apiConfigRepository = apiConfigRepository,
-        _httpClient = httpClient ?? http.Client() {
+        _httpClient = httpClient ?? http.Client(),
+        _loggingService = loggingService ?? LoggingService() {
     _initializeServices();
   }
 
   final APIConfigRepository _apiConfigRepository;
   final http.Client _httpClient;
+  final LoggingService _loggingService;
 
   late final OpenAIService _openAIService;
   late final GeminiService _geminiService;
@@ -35,11 +39,14 @@ class AIServiceManager {
     _openAIService = OpenAIService(
       config: openAIConfig,
       httpClient: _httpClient,
+      loggingService: _loggingService,
     );
 
     // Initialize Gemini service without configuration
     // It will use Firebase Vertex AI
-    _geminiService = GeminiService();
+    _geminiService = GeminiService(
+      loggingService: _loggingService,
+    );
   }
 
   /// Update configurations for all services
@@ -89,7 +96,11 @@ class AIServiceManager {
           schema: schema,
         );
       } catch (e) {
-        print("Error generating response with OpenAI: $e");
+        _loggingService.logError(
+          e,
+          StackTrace.current,
+          reason: "Error generating response with OpenAI",
+        );
       }
     }
 
@@ -102,7 +113,11 @@ class AIServiceManager {
           schema: schema,
         );
       } catch (e) {
-        print("Error generating response with Gemini: $e");
+        _loggingService.logError(
+          e,
+          StackTrace.current,
+          reason: "Error generating response with Gemini",
+        );
       }
     }
 

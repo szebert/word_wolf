@@ -1,8 +1,10 @@
+import "dart:async";
 import "dart:convert";
 import "dart:math";
 
 import "package:flutter/services.dart";
 
+import "../../analytics/logging_service.dart";
 import "../../api/services/ai_service_manager.dart";
 import "../../l10n/l10n.dart";
 import "../models/game.dart";
@@ -121,19 +123,23 @@ ${category.isEmpty ? "The icebreakers should be extremely general, and not speci
 }
 
 /// {@template word_pair_service}
-/// Service for managing word pairs for the game.
-/// Can provide word pairs from offline data or AI API.
+/// Service for generating word pairs for the game.
+/// Uses AI services to generate new words based on categories and similarity.
+/// Has fallback to offline words if AI services are unavailable.
 /// {@endtemplate}
 class WordPairService {
   /// {@macro word_pair_service}
   WordPairService({
     required UsedWordsStorage usedWordsStorage,
     AIServiceManager? aiServiceManager,
+    LoggingService? loggingService,
   })  : _usedWordsStorage = usedWordsStorage,
-        _aiServiceManager = aiServiceManager;
+        _aiServiceManager = aiServiceManager,
+        _loggingService = loggingService ?? LoggingService();
 
   final UsedWordsStorage _usedWordsStorage;
   final AIServiceManager? _aiServiceManager;
+  final LoggingService _loggingService;
   static const String _kOfflineWordsPath = "assets/data/offline_words.json";
   List<WordPairResult>? _offlinePairsCache;
 
@@ -391,37 +397,44 @@ class WordPairService {
     final schema = WordPairSchema.getSchema();
 
     // Try to get word pair from AI service manager
-    if (_aiServiceManager != null) {
-      final jsonResponse = await _aiServiceManager.generateStructuredResponse(
-        systemPrompt: systemPrompt,
-        userPrompt: userPrompt,
-        schema: schema,
-      );
-
-      // Convert to WordPairResult if successful
-      if (jsonResponse != null) {
-        try {
-          final wordPairResult = WordPairResult.fromMap(jsonResponse);
-
-          // Apply additional processing
-          final processedResult = wordPairResult
-              .avoidingWords(
-                excludeWords: previouslyUsedWords,
-              )
-              .shuffle();
-
-          // Store the new words for future use
-          await _usedWordsStorage.addUsedWords(processedResult.words);
-
-          return processedResult;
-        } catch (e) {
-          print("Error converting AI response to WordPairResult: $e");
-          throw Exception("Failed to parse AI response: $e");
-        }
-      }
+    if (_aiServiceManager == null) {
+      throw Exception("AI service is not properly configured.");
     }
 
-    // If we get here, API call failed
-    throw Exception("Failed to generate word pair from AI API");
+    final jsonResponse = await _aiServiceManager.generateStructuredResponse(
+      systemPrompt: systemPrompt,
+      userPrompt: userPrompt,
+      schema: schema,
+    );
+
+    // Convert to WordPairResult if successful
+    if (jsonResponse == null) {
+      throw Exception("Failed to generate word pair from AI API.");
+    }
+
+    try {
+      final wordPairResult = WordPairResult.fromMap(jsonResponse);
+
+      // Apply additional processing
+      final processedResult = wordPairResult
+          .avoidingWords(
+            excludeWords: previouslyUsedWords,
+          )
+          .shuffle();
+
+      // Store the new words for future use
+      await _usedWordsStorage.addUsedWords(processedResult.words);
+
+      return processedResult;
+    } catch (e) {
+      _loggingService.logError(
+        e,
+        StackTrace.current,
+        reason: "Error converting AI response to WordPairResult",
+        information: ["JSON response: $jsonResponse"],
+      );
+      throw Exception(
+          "Failed to convert AI response to a valid WordPair object.");
+    }
   }
 }

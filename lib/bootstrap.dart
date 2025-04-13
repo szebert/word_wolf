@@ -13,6 +13,7 @@ import "package:hydrated_bloc/hydrated_bloc.dart";
 import "package:path_provider/path_provider.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
+import "analytics/logging_service.dart";
 import "analytics_repository/analytics_repository.dart";
 import "app/app_bloc_observer.dart";
 import "firebase_options.dart";
@@ -63,8 +64,21 @@ Future<void> bootstrap(final builder) async {
         await HydratedBloc.storage.clear();
       }
 
+      // Set up Firebase Crashlytics
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+      // Configure crash handling for Flutter errors
+      FlutterError.onError = (FlutterErrorDetails details) {
+        LoggingService().logError(
+          details.exception,
+          details.stack ?? StackTrace.current,
+          reason: "Flutter error: ${details.library}",
+          information: [
+            "Context: ${details.context}",
+            "Summary: ${details.summary}",
+          ],
+        );
+      };
 
       final sharedPreferences = await SharedPreferences.getInstance();
 
@@ -83,6 +97,13 @@ Future<void> bootstrap(final builder) async {
         ),
       );
     },
-    (_, __) {},
+    (error, stack) {
+      // Handle uncaught async errors with Crashlytics
+      LoggingService().logError(
+        error,
+        stack,
+        reason: "Uncaught zone error",
+      );
+    },
   );
 }
