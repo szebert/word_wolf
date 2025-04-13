@@ -9,6 +9,7 @@ import "../api/repository/api_config_repository.dart";
 import "../api/services/ai_service_manager.dart";
 import "../app_ui/app_config.dart";
 import "../app_ui/app_theme.dart";
+import "../app_ui/widgets/app_logo.dart";
 import "../category/bloc/category_bloc.dart";
 import "../category/repository/category_repository.dart";
 import "../feedback_repository/feedback_repository.dart";
@@ -154,6 +155,10 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    // Precache logo images to avoid loading delay
+    precacheImage(AppLogo.logoWhiteImage, context);
+    precacheImage(AppLogo.logoBlackImage, context);
+
     return BlocBuilder<ThemeModeBloc, ThemeMode>(
       builder: (final context, final themeMode) {
         return Builder(
