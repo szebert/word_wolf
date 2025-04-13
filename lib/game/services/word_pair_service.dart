@@ -5,8 +5,120 @@ import "package:flutter/services.dart";
 
 import "../../api/services/ai_service_manager.dart";
 import "../../l10n/l10n.dart";
+import "../models/game.dart";
 import "../models/word_pair_results.dart";
 import "used_words_storage.dart";
+
+/// Schema for generating word pairs with AI
+class WordPairSchema {
+  /// Gets the schema for word pair generation
+  static Map<String, dynamic> getSchema() {
+    return {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "The general category for the word pair."
+        },
+        "words": {
+          "type": "object",
+          "properties": {
+            "first_word": {
+              "type": "string",
+              "description": "The first word in the word pair."
+            },
+            "first_alternative": {
+              "type": "array",
+              "description":
+                  "A list of 5-10 words that would fit as an alternative to the first word in the word pair.",
+              "items": {"type": "string"}
+            },
+            "second_word": {
+              "type": "string",
+              "description": "The second word in the word pair."
+            },
+            "second_alternative": {
+              "type": "array",
+              "description":
+                  "A list of 5-10 words that would fit as an alternative to the second word in the word pair.",
+              "items": {"type": "string"}
+            },
+          },
+          "required": [
+            "first_word",
+            "second_word",
+            "first_alternative",
+            "second_alternative"
+          ],
+          "additionalProperties": false
+        },
+        "icebreakers": {
+          "type": "array",
+          "description":
+              "Between 3 to 6 neutral icebreaker statements to encourage discussion.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Concise 1-2 word label."
+              },
+              "statement": {
+                "type": "string",
+                "description":
+                    "Engaging conversational icebreaker that shall never include the the word pair or any of the alternatives."
+              }
+            },
+            "required": ["label", "statement"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["category", "words", "icebreakers"],
+      "additionalProperties": false
+    };
+  }
+}
+
+/// Handles generating prompts for AI services
+class WordPairPromptGenerator {
+  /// Generates the system prompt for word pair generation
+  static String getSystemPrompt() {
+    return """
+You are a helpful, creative assistant who generates word pairs and 3-6 relevant icebreaker prompts for an engaging and fun 'Word Wolf' game. Every player is given a secret word (or short phrase). The majority of players (citizens) are each given the same secret word, and the minority (wolf/wolves) are secretly given a different one. No one knows if they are a citizen or a wolf.
+
+The word pair should be roughly within the same category, though this is not strictly required. The word pairs shall never be the category itself.
+
+Each pair must consist of entirely distinct lexical roots—never pairs that differ by prefixes (e.g., "anti-", "bi-", "counter-", "dis-", "un-") or suffixes (e.g., "-less", "-ful", "-tion", "-al"), such as "claim"/"counterclaim", "thesis"/"antithesis", "directional"/"bidirectional", "concord"/"discord", or "happy"/"unhappy".
+
+Generate icebreakers that are neutral and inclusive to encourage discussion of the word pairs without benefiting citizens or wolves, and without revealing details about the secret word pair. The icebreakers shall never explicitly include the words from the word pair.
+
+For each word in the pair, provide legitimate alternative words or short phrases that could feasibly replace the original word in the same category or context. For example, if the category is "90s movies" and you pick "Titanic," then suitable alternatives might include "Romeo + Juliet," "The English Patient," "Sleepless in Seattle," "Ghost," or "Pretty Woman." In contrast, purely descriptive terms like "boat," "ocean," "love," or "ship" are not acceptable as alternatives, because they are not legitimate replacements of the original word in that category.
+
+Ensure all responses comply with any excluded words or phrases specified by the user.
+""";
+  }
+
+  /// Generates the user prompt for word pair generation
+  static String getUserPrompt({
+    required String category,
+    required double similarity,
+    required List<String> excludeWords,
+    required AppLocalizations l10n,
+  }) {
+    return """
+Generate a word pair and relevant icebreakers for a 'Word Wolf' game.
+
+${category.isEmpty ? "There is currently no assigned category to the word pair." : "The category is '$category'."}
+
+On a scale of 0.0 to 1.0, where 0.0 means the words are near identical (e.g. 'Sofa' and 'Couch') in meaning, where 0.3 means there's a strong connection between the words (e.g. 'Sofa' and 'Coffee table'), where 0.5 means they have some vague similarity (e.g. 'Sofa' and 'Indoors'), where 0.7 means they have almost no connection at all (e.g. 'Sofa' and 'Helicopter'), and where 1.0 means they have no connection at all and are extremely different in meaning and/or concept (e.g. 'Sofa' and 'Algebra'), the current word pair would be a $similarity (${Game.getSimilarityDescription(l10n, similarity)}) on that scale.
+
+${excludeWords.isNotEmpty ? "You must NEVER use any of these in either of the words in the word pair: ${excludeWords.join(', ')}." : ""}
+
+${category.isEmpty ? "The icebreakers should be extremely general, and not specific to the word pair since the players won't know the assigned category." : ""}
+""";
+  }
+}
 
 /// {@template word_pair_service}
 /// Service for managing word pairs for the game.
@@ -268,29 +380,44 @@ class WordPairService {
     List<String> previouslyUsedWords =
         await _usedWordsStorage.getPreviouslyUsedWords();
 
+    // Create prompts and schema for AI services
+    final systemPrompt = WordPairPromptGenerator.getSystemPrompt();
+    final userPrompt = WordPairPromptGenerator.getUserPrompt(
+      category: category,
+      similarity: similarity,
+      excludeWords: previouslyUsedWords,
+      l10n: l10n,
+    );
+    final schema = WordPairSchema.getSchema();
+
     // Try to get word pair from AI service manager
-    WordPairResult? aiWordPair;
     if (_aiServiceManager != null) {
-      aiWordPair = await _aiServiceManager.generateWordPair(
-        category: category,
-        similarity: similarity,
-        excludeWords: previouslyUsedWords,
-        l10n: l10n,
+      final jsonResponse = await _aiServiceManager.generateStructuredResponse(
+        systemPrompt: systemPrompt,
+        userPrompt: userPrompt,
+        schema: schema,
       );
 
-      // If AI word pair generation succeeded, use it
-      if (aiWordPair != null) {
-        aiWordPair = aiWordPair.avoidingWords(
-          excludeWords: previouslyUsedWords,
-        );
+      // Convert to WordPairResult if successful
+      if (jsonResponse != null) {
+        try {
+          final wordPairResult = WordPairResult.fromMap(jsonResponse);
 
-        // Create a new result with shuffled words
-        aiWordPair = aiWordPair.shuffle();
+          // Apply additional processing
+          final processedResult = wordPairResult
+              .avoidingWords(
+                excludeWords: previouslyUsedWords,
+              )
+              .shuffle();
 
-        // Store the new words for future use
-        await _usedWordsStorage.addUsedWords(aiWordPair.words);
+          // Store the new words for future use
+          await _usedWordsStorage.addUsedWords(processedResult.words);
 
-        return aiWordPair;
+          return processedResult;
+        } catch (e) {
+          print("Error converting AI response to WordPairResult: $e");
+          throw Exception("Failed to parse AI response: $e");
+        }
       }
     }
 

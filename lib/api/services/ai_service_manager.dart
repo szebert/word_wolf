@@ -1,7 +1,5 @@
 import "package:http/http.dart" as http;
 
-import "../../game/models/word_pair_results.dart";
-import "../../l10n/l10n.dart";
 import "../models/ai_provider.dart";
 import "../repository/api_config_repository.dart";
 import "gemini_service.dart";
@@ -73,41 +71,38 @@ class AIServiceManager {
     }
   }
 
-  /// Generate a word pair using the active AI service
-  Future<WordPairResult?> generateWordPair({
-    required String category,
-    required double similarity,
-    required List<String> excludeWords,
-    required AppLocalizations l10n,
+  /// Generate a structured response from the active AI service
+  Future<Map<String, dynamic>?> generateStructuredResponse({
+    required String systemPrompt,
+    required String userPrompt,
+    required Map<String, dynamic> schema,
   }) async {
     final activeProvider = await getActiveProvider();
 
     // Try the active provider first
-    WordPairResult? result;
+    Map<String, dynamic>? result;
     if (activeProvider == AIProvider.openAI && _openAIService.isConfigured) {
       try {
-        result = await _openAIService.generateWordPair(
-          category: category,
-          similarity: similarity,
-          excludeWords: excludeWords,
-          l10n: l10n,
+        result = await _openAIService.generateStructuredResponse(
+          systemPrompt: systemPrompt,
+          userPrompt: userPrompt,
+          schema: schema,
         );
       } catch (e) {
-        print("Error generating word pair with OpenAI: $e");
+        print("Error generating response with OpenAI: $e");
       }
     }
 
     // If OpenAI failed or wasn't used, try Gemini
     if (result == null) {
       try {
-        result = await _geminiService.generateWordPair(
-          category: category,
-          similarity: similarity,
-          excludeWords: excludeWords,
-          l10n: l10n,
+        result = await _geminiService.generateStructuredResponse(
+          systemPrompt: systemPrompt,
+          userPrompt: userPrompt,
+          schema: schema,
         );
       } catch (e) {
-        print("Error generating word pair with Gemini: $e");
+        print("Error generating response with Gemini: $e");
       }
     }
 
