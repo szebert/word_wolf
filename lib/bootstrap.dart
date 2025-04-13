@@ -26,31 +26,36 @@ typedef AppBuilder = Future<Widget> Function(
 Future<void> bootstrap(final builder) async {
   await runZonedGuarded<Future<void>>(
     () async {
+      // Initialize Widgets
       WidgetsFlutterBinding.ensureInitialized();
 
-      // Set preferred orientations to portrait only (normal and upside down)
-      await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
-
+      // Initialize Firebase
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
+
+      // Initialize Firebase App Check
       await FirebaseAppCheck.instance.activate(
-        androidProvider: AndroidProvider.playIntegrity,
-        appleProvider: AppleProvider.appAttest,
+        androidProvider:
+            kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+        appleProvider:
+            kDebugMode ? AppleProvider.debug : AppleProvider.appAttest,
       );
+
+      // Initialize Firebase Analytics
       final analyticsRepository =
           AnalyticsRepository(FirebaseAnalytics.instance);
 
+      // Initialize Mobile Ads
       unawaited(MobileAds.instance.initialize());
 
+      // Initialize App Bloc Observer
       final blocObserver = AppBlocObserver(
         analyticsRepository: analyticsRepository,
       );
       Bloc.observer = blocObserver;
 
+      // Initialize Hydrated Storage
       HydratedBloc.storage = await HydratedStorage.build(
         storageDirectory: kIsWeb
             ? HydratedStorageDirectory.web
@@ -58,12 +63,11 @@ Future<void> bootstrap(final builder) async {
                 (await getApplicationSupportDirectory()).path,
               ),
       );
-
       if (kDebugMode) {
         await HydratedBloc.storage.clear();
       }
 
-      // Set up Firebase Crashlytics
+      // Initialize Firebase Crashlytics
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
       // Configure crash handling for Flutter errors
@@ -79,11 +83,19 @@ Future<void> bootstrap(final builder) async {
         );
       };
 
+      // Initialize Shared Preferences
       final sharedPreferences = await SharedPreferences.getInstance();
+
+      // Set preferred orientations to portrait only (normal and upside down)
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
 
       // Initialize ThemeModeBloc before running the app
       final themeModeBloc = ThemeModeBloc();
 
+      // Run the app
       runApp(
         MultiBlocProvider(
           providers: [
