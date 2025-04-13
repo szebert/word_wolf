@@ -1,6 +1,6 @@
 import "package:http/http.dart" as http;
 
-import "../../analytics/logging_service.dart";
+import "../../analytics/services/logging_service.dart";
 import "../models/ai_provider.dart";
 import "../repository/api_config_repository.dart";
 import "gemini_service.dart";

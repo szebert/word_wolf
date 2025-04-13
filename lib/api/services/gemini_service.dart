@@ -2,7 +2,7 @@ import "dart:convert";
 
 import "package:firebase_vertexai/firebase_vertexai.dart";
 
-import "../../analytics/logging_service.dart";
+import "../../analytics/analytics.dart";
 import "ai_service.dart";
 
 /// {@template gemini_service}

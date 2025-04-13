@@ -13,8 +13,7 @@ import "package:hydrated_bloc/hydrated_bloc.dart";
 import "package:path_provider/path_provider.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
-import "analytics/logging_service.dart";
-import "analytics_repository/analytics_repository.dart";
+import "analytics/analytics.dart";
 import "app/app_bloc_observer.dart";
 import "firebase_options.dart";
 import "theme/theme_mode_bloc.dart";

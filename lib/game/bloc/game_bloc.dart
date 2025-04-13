@@ -4,6 +4,7 @@ import "dart:math";
 import "package:bloc/bloc.dart";
 import "package:equatable/equatable.dart";
 
+import "../../analytics/analytics.dart";
 import "../../category/bloc/category_bloc.dart";
 import "../../l10n/l10n.dart";
 import "../models/game.dart";
@@ -22,10 +23,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     required GameRepository gameRepository,
     required WordPairService wordPairService,
     required CategoryBloc categoryBloc,
+    required AnalyticsBloc analyticsBloc,
   })  : _playerRepository = playerRepository,
         _gameRepository = gameRepository,
         _wordPairService = wordPairService,
         _categoryBloc = categoryBloc,
+        _analyticsBloc = analyticsBloc,
         super(const GameState()) {
     on<GameInitialized>(_onGameInitialized);
 
@@ -69,6 +72,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final GameRepository _gameRepository;
   final WordPairService _wordPairService;
   final CategoryBloc _categoryBloc;
+  final AnalyticsBloc _analyticsBloc;
   Timer? _timer;
 
   @override
@@ -451,6 +455,29 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         _categoryBloc.state.selectedCategory.isNotEmpty) {
       _categoryBloc.add(CategorySelected(categoryName: result.category));
     }
+
+    // Track game start analytics event
+    _analyticsBloc.add(
+      TrackAnalyticsEvent(
+        GameStartedEvent(
+          // word pair info
+          category: result.category,
+          citizenWord: result.words.firstWord,
+          wolfWord: result.words.secondWord,
+          icebreakerCount: result.icebreakers.length,
+          isOnline: isOnline,
+          // game settings
+          categorySelected: _categoryBloc.state.selectedCategory.isNotEmpty,
+          playerCount: playerCount,
+          wolfCount: wolfCount,
+          randomizeWolfCount: state.game.randomizeWolfCount,
+          autoAssignWolves: state.game.autoAssignWolves,
+          wordPairSimilarity: state.game.wordPairSimilarity,
+          wolfRevengeEnabled: state.game.wolfRevengeEnabled,
+          discussionTimeInSeconds: state.game.discussionTimeInSeconds,
+        ),
+      ),
+    );
 
     // Start the game with word assignment phase
     emit(

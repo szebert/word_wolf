@@ -5,9 +5,9 @@ import "package:equatable/equatable.dart";
 /// Consists of the unique event name and an optional
 /// map of properties.
 /// {@endtemplate}
-class AnalyticsEvent extends Equatable {
+class FirebaseAnalyticsEvent extends Equatable {
   /// {@macro analytics_event}
-  const AnalyticsEvent(this.name, {this.properties});
+  const FirebaseAnalyticsEvent(this.name, {this.properties});
 
   /// Unique event name.
   final String name;
@@ -22,7 +22,7 @@ class AnalyticsEvent extends Equatable {
 /// Mixin for tracking analytics events.
 mixin AnalyticsEventMixin on Equatable {
   /// Analytics event which will be tracked.
-  AnalyticsEvent get event;
+  FirebaseAnalyticsEvent get event;
 
   @override
   List<Object> get props => [event];

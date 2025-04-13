@@ -2,7 +2,7 @@ import "dart:convert";
 
 import "package:http/http.dart" as http;
 
-import "../../analytics/logging_service.dart";
+import "../../analytics/analytics.dart";
 import "../../l10n/l10n.dart";
 import "../models/ai_provider.dart";
 import "ai_service.dart";

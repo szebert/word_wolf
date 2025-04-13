@@ -1,7 +1,7 @@
 import "package:equatable/equatable.dart";
 import "package:firebase_analytics/firebase_analytics.dart";
 
-import "analytics_event.dart";
+import "../analytics.dart";
 
 /// {@template analytics_failure}
 /// A base failure for the analytics repository failures.
@@ -43,8 +43,8 @@ class AnalyticsRepository {
 
   final FirebaseAnalytics _analytics;
 
-  /// Tracks the provided [AnalyticsEvent].
-  Future<void> track(AnalyticsEvent event) async {
+  /// Tracks the provided [FirebaseAnalyticsEvent].
+  Future<void> track(FirebaseAnalyticsEvent event) async {
     try {
       await _analytics.logEvent(
         name: event.name,

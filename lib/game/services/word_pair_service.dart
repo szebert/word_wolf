@@ -4,7 +4,7 @@ import "dart:math";
 
 import "package:flutter/services.dart";
 
-import "../../analytics/logging_service.dart";
+import "../../analytics/analytics.dart";
 import "../../api/services/ai_service_manager.dart";
 import "../../l10n/l10n.dart";
 import "../models/game.dart";

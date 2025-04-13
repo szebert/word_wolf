@@ -7,7 +7,7 @@ abstract class AnalyticsEvent extends Equatable {
 class TrackAnalyticsEvent extends AnalyticsEvent {
   const TrackAnalyticsEvent(this.event);
 
-  final analytics.AnalyticsEvent event;
+  final FirebaseAnalyticsEvent event;
 
   @override
   List<Object> get props => <Object>[event];

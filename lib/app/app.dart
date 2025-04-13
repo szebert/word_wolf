@@ -1,9 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
-import "../analytics/analytics_bloc.dart";
-import "../analytics/logging_service.dart";
-import "../analytics_repository/analytics_repository.dart";
+import "../analytics/analytics.dart";
 import "../api/api_service_provider.dart";
 import "../api/bloc/api_config_bloc.dart";
 import "../api/repository/api_config_repository.dart";
@@ -131,6 +129,7 @@ class App extends StatelessWidget {
                 gameRepository: context.read<GameRepository>(),
                 wordPairService: context.read<WordPairService>(),
                 categoryBloc: context.read<CategoryBloc>(),
+                analyticsBloc: context.read<AnalyticsBloc>(),
               )..add(const GameInitialized()),
             ),
             BlocProvider<AppBloc>(

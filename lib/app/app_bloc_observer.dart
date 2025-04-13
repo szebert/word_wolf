@@ -3,7 +3,7 @@ import "dart:developer";
 
 import "package:bloc/bloc.dart";
 
-import "../analytics_repository/analytics_repository.dart";
+import "../analytics/analytics.dart";
 
 class AppBlocObserver extends BlocObserver {
   AppBlocObserver({
