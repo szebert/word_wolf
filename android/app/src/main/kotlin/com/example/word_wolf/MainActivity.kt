@@ -1,4 +1,4 @@
-package com.szebert.word_wolf
+package com.szebert.wordwolf
 
 import io.flutter.embedding.android.FlutterActivity
 

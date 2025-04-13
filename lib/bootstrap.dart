@@ -1,6 +1,7 @@
 import "dart:async";
 
 import "package:firebase_analytics/firebase_analytics.dart";
+import "package:firebase_app_check/firebase_app_check.dart";
 import "package:firebase_core/firebase_core.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/foundation.dart";
@@ -14,6 +15,7 @@ import "package:shared_preferences/shared_preferences.dart";
 
 import "analytics_repository/analytics_repository.dart";
 import "app/app_bloc_observer.dart";
+import "firebase_options.dart";
 import "theme/theme_mode_bloc.dart";
 
 typedef AppBuilder = Future<Widget> Function(
@@ -32,9 +34,17 @@ Future<void> bootstrap(final builder) async {
         DeviceOrientation.portraitDown,
       ]);
 
-      await Firebase.initializeApp();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      await FirebaseAppCheck.instance.activate(
+        androidProvider: AndroidProvider.playIntegrity,
+        appleProvider: AppleProvider.appAttest,
+      );
       final analyticsRepository =
           AnalyticsRepository(FirebaseAnalytics.instance);
+
+      unawaited(MobileAds.instance.initialize());
 
       final blocObserver = AppBlocObserver(
         analyticsRepository: analyticsRepository,
@@ -57,8 +67,6 @@ Future<void> bootstrap(final builder) async {
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
       final sharedPreferences = await SharedPreferences.getInstance();
-
-      unawaited(MobileAds.instance.initialize());
 
       // Initialize ThemeModeBloc before running the app
       final themeModeBloc = ThemeModeBloc();

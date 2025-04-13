@@ -33,8 +33,10 @@ dependencies:
   bloc: ^9.0.0
   equatable: ^2.0.7
   firebase_analytics: ^11.4.5
+  firebase_app_check: ^0.3.2+5
   firebase_core: ^3.13.0
   firebase_crashlytics: ^4.3.5
+  firebase_vertexai: ^1.5.0
   flex_seed_scheme: ^3.5.1
   flutter:
     sdk: flutter
