@@ -15,5 +15,4 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
-    <string name="admob_app_id">ca-app-pub-2689994831813332~3880835999</string>
 </resources>
