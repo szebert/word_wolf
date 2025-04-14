@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../ads/persistent_ad_layout.dart";
 import "../ai/ai.dart";
 import "../analytics/analytics.dart";
 import "../app_ui/app_config.dart";
@@ -182,8 +183,10 @@ class AppView extends StatelessWidget {
               darkTheme: AppTheme.darkTheme,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              home: const LocalizationInitializer(
-                child: HomePage(),
+              home: LocalizationInitializer(
+                child: PersistentAdLayout(
+                  child: const HomePage(),
+                ),
               ),
             );
           },
