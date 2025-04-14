@@ -336,19 +336,14 @@ class _DiscussionViewState extends State<DiscussionView>
               child: AppButton(
                 onPressed: _togglePause,
                 variant: AppButtonVariant.filled,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppText(
-                      _isPaused ? l10n.resume : l10n.pause,
-                      variant: AppTextVariant.labelLarge,
-                    ),
-                    const SizedBox(width: AppSpacing.sm),
-                    Icon(
-                      _isPaused ? Icons.play_arrow : Icons.pause_outlined,
-                      size: 20,
-                    ),
-                  ],
+                icon: Icon(
+                  _isPaused ? Icons.play_arrow : Icons.pause_outlined,
+                  size: 20,
+                ),
+                iconAlignment: IconAlignment.end,
+                child: AppText(
+                  _isPaused ? l10n.resume : l10n.pause,
+                  variant: AppTextVariant.labelLarge,
                 ),
               ),
             ),
@@ -358,16 +353,11 @@ class _DiscussionViewState extends State<DiscussionView>
               child: AppButton(
                 onPressed: _isPaused ? _endDiscussion : null,
                 variant: AppButtonVariant.outlined,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppText(
-                      l10n.endDiscussion,
-                      variant: AppTextVariant.labelLarge,
-                    ),
-                    const SizedBox(width: AppSpacing.sm),
-                    const Icon(Icons.stop, size: 20),
-                  ],
+                icon: const Icon(Icons.stop, size: 20),
+                iconAlignment: IconAlignment.end,
+                child: AppText(
+                  l10n.endDiscussion,
+                  variant: AppTextVariant.labelLarge,
                 ),
               ),
             ),

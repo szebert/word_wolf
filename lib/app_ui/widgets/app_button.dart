@@ -65,6 +65,8 @@ class AppButton extends StatefulWidget {
     this.pulse = false,
     this.minWidth,
     this.minHeight,
+    this.icon,
+    this.iconAlignment = IconAlignment.start,
     required this.child,
   });
 
@@ -109,6 +111,16 @@ class AppButton extends StatefulWidget {
   ///
   /// If provided, overrides the default minimum height for the selected size.
   final double? minHeight;
+
+  /// Optional icon to display with the button label.
+  ///
+  /// If provided, uses the .icon variant of the button.
+  final Widget? icon;
+
+  /// The alignment of the icon relative to the label.
+  ///
+  /// Defaults to [IconAlignment.start].
+  final IconAlignment iconAlignment;
 
   /// The button's label.
   final Widget child;
@@ -337,6 +349,61 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
   }
 
   Widget _buildButton(ButtonStyle effectiveStyle, ColorScheme colorScheme) {
+    // Get onPressed callback with appropriate feedback
+    final onPressed = _wrapOnPressed();
+
+    if (widget.icon != null) {
+      final effectiveIcon = widget.isLoading
+          ? CircularProgressIndicator(
+              strokeWidth: 2.5,
+              color: colorScheme.primary,
+            )
+          : widget.icon;
+
+      switch (widget.variant) {
+        case AppButtonVariant.elevated:
+          return ElevatedButton.icon(
+            onPressed: onPressed,
+            style: effectiveStyle,
+            icon: effectiveIcon,
+            label: widget.child,
+            iconAlignment: widget.iconAlignment,
+          );
+        case AppButtonVariant.filled:
+          return FilledButton.icon(
+            onPressed: onPressed,
+            style: effectiveStyle,
+            icon: effectiveIcon,
+            label: widget.child,
+            iconAlignment: widget.iconAlignment,
+          );
+        case AppButtonVariant.filledTonal:
+          return FilledButton.tonalIcon(
+            onPressed: onPressed,
+            style: effectiveStyle,
+            icon: effectiveIcon,
+            label: widget.child,
+            iconAlignment: widget.iconAlignment,
+          );
+        case AppButtonVariant.outlined:
+          return OutlinedButton.icon(
+            onPressed: onPressed,
+            style: effectiveStyle,
+            icon: effectiveIcon,
+            label: widget.child,
+            iconAlignment: widget.iconAlignment,
+          );
+        case AppButtonVariant.text:
+          return TextButton.icon(
+            onPressed: onPressed,
+            style: effectiveStyle,
+            icon: effectiveIcon,
+            label: widget.child,
+            iconAlignment: widget.iconAlignment,
+          );
+      }
+    }
+
     // If loading, replace child with a centered progress indicator that maintains button size
     final effectiveChild = Stack(
       alignment: Alignment.center,
@@ -359,9 +426,6 @@ class _AppButtonState extends State<AppButton> with TickerProviderStateMixin {
           ),
       ],
     );
-
-    // Get onPressed callback with appropriate feedback
-    final onPressed = _wrapOnPressed();
 
     switch (widget.variant) {
       case AppButtonVariant.elevated:
