@@ -16,9 +16,43 @@
   "@howToPlay": {
     "description": "The text of the how to play button"
   },
+  "removeAds": "Remove Ads",
+  "@removeAds": {
+    "description": "The text for the remove ads button"
+  },
+  "adFailedToLoadTitle": "Support Word Wolf",
+  "@adFailedToLoadTitle": {
+    "description": "The text of the ad failed to load title"
+  },
+  "adFailedToLoadSubtitle": "If you're enjoying the game, consider our ad-free version to support development and play uninterrupted!",
+  "@adFailedToLoadSubtitle": {
+    "description": "The text of the ad failed to load subtitle"
+  },
   "back": "Back",
   "@back": {
     "description": "The text of the back button"
+  },
+  "notFound": "Not Found",
+  "@notFound": {
+    "description": "The text of the not found page title"
+  },
+  "notFoundTitle": "Page Not Found",
+  "@notFoundTitle": {
+    "description": "The text of the not found title"
+  },
+  "notFoundRoute": "Route \"{routeName}\" does not exist",
+  "@notFoundRoute": {
+    "description": "The text of the not found route",
+    "placeholders": {
+      "routeName": {
+        "type": "String",
+        "example": "home"
+      }
+    }
+  },
+  "goBack": "Go Back",
+  "@goBack": {
+    "description": "The text of the go back button"
   },
   "on": "On",
   "@on": {
