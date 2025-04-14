@@ -1,18 +1,18 @@
-part of "api_config_bloc.dart";
+part of "ai_config_bloc.dart";
 
-abstract class APIConfigEvent extends Equatable {
-  const APIConfigEvent();
+abstract class AIConfigEvent extends Equatable {
+  const AIConfigEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class APIConfigInitialized extends APIConfigEvent {
-  const APIConfigInitialized();
+class AIConfigInitialized extends AIConfigEvent {
+  const AIConfigInitialized();
 }
 
 /// Event to update OpenAI configuration
-class OpenAIConfigUpdated extends APIConfigEvent {
+class OpenAIConfigUpdated extends AIConfigEvent {
   const OpenAIConfigUpdated({
     required this.config,
     required this.l10n,

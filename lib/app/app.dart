@@ -1,11 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../ai/ai.dart";
 import "../analytics/analytics.dart";
-import "../api/api_service_provider.dart";
-import "../api/bloc/api_config_bloc.dart";
-import "../api/repository/api_config_repository.dart";
-import "../api/services/ai_service_manager.dart";
 import "../app_ui/app_config.dart";
 import "../app_ui/app_theme.dart";
 import "../app_ui/widgets/app_logo.dart";
@@ -81,14 +78,14 @@ class App extends StatelessWidget {
             storage: _persistentStorage,
           ),
         ),
-        RepositoryProvider<APIConfigRepository>(
-          create: (context) => APIConfigRepository(
+        RepositoryProvider<AIConfigRepository>(
+          create: (context) => AIConfigRepository(
             persistentStorage: _persistentStorage,
           ),
         ),
         RepositoryProvider<AIServiceManager>(
           create: (context) => AIServiceManager(
-            apiConfigRepository: context.read<APIConfigRepository>(),
+            aiConfigRepository: context.read<AIConfigRepository>(),
           ),
           lazy: false,
         ),
@@ -138,14 +135,14 @@ class App extends StatelessWidget {
               ),
               lazy: false,
             ),
-            BlocProvider<APIConfigBloc>(
-              create: (context) => APIConfigBloc(
-                apiConfigRepository: context.read<APIConfigRepository>(),
-              )..add(const APIConfigInitialized()),
+            BlocProvider<AIConfigBloc>(
+              create: (context) => AIConfigBloc(
+                aiConfigRepository: context.read<AIConfigRepository>(),
+              )..add(const AIConfigInitialized()),
               lazy: false,
             ),
           ],
-          child: APIServiceProvider(
+          child: AIServiceProvider(
             child: const AppView(),
           ),
         );

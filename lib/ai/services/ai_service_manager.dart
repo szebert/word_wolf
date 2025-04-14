@@ -2,7 +2,7 @@ import "package:http/http.dart" as http;
 
 import "../../analytics/services/logging_service.dart";
 import "../models/ai_provider.dart";
-import "../repository/api_config_repository.dart";
+import "../repository/ai_config_repository.dart";
 import "gemini_service.dart";
 import "openai_service.dart";
 
@@ -14,16 +14,16 @@ import "openai_service.dart";
 class AIServiceManager {
   /// {@macro ai_service_manager}
   AIServiceManager({
-    required APIConfigRepository apiConfigRepository,
+    required AIConfigRepository aiConfigRepository,
     http.Client? httpClient,
     LoggingService? loggingService,
-  })  : _apiConfigRepository = apiConfigRepository,
+  })  : _apiConfigRepository = aiConfigRepository,
         _httpClient = httpClient ?? http.Client(),
         _loggingService = loggingService ?? LoggingService() {
     _initializeServices();
   }
 
-  final APIConfigRepository _apiConfigRepository;
+  final AIConfigRepository _apiConfigRepository;
   final http.Client _httpClient;
   final LoggingService _loggingService;
 

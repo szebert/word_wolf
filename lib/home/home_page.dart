@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
-import "../api/api_config_page.dart";
+import "../ai/ai.dart";
 import "../app/app_bloc.dart";
 import "../app_ui/app_spacing.dart";
 import "../app_ui/widgets/app_button.dart";
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
         actions: [
           AppIconButton(
             icon: const Icon(Icons.api),
-            onPressed: () => Navigator.of(context).push(APIConfigPage.route()),
+            onPressed: () => Navigator.of(context).push(AIConfigPage.route()),
             tooltip: l10n.aiCustomizationTitle,
           ),
           AppIconButton(

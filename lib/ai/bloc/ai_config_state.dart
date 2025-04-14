@@ -1,38 +1,38 @@
-part of "api_config_bloc.dart";
+part of "ai_config_bloc.dart";
 
-enum APIConfigStatus {
+enum AIConfigStatus {
   initial,
   loading,
   loaded,
   error,
 }
 
-class APIConfigState extends Equatable {
-  const APIConfigState({
-    this.status = APIConfigStatus.initial,
+class AIConfigState extends Equatable {
+  const AIConfigState({
+    this.status = AIConfigStatus.initial,
     this.activeProvider = AIProvider.gemini,
     this.openAIConfig = const OpenAIConfig(enabled: false),
     this.error,
   });
 
-  const APIConfigState.initial()
-      : status = APIConfigStatus.initial,
+  const AIConfigState.initial()
+      : status = AIConfigStatus.initial,
         activeProvider = AIProvider.gemini,
         openAIConfig = const OpenAIConfig(enabled: false),
         error = null;
 
-  final APIConfigStatus status;
+  final AIConfigStatus status;
   final AIProvider activeProvider;
   final OpenAIConfig openAIConfig;
   final String? error;
 
-  APIConfigState copyWith({
-    APIConfigStatus? status,
+  AIConfigState copyWith({
+    AIConfigStatus? status,
     AIProvider? activeProvider,
     OpenAIConfig? openAIConfig,
     String? error,
   }) {
-    return APIConfigState(
+    return AIConfigState(
       status: status ?? this.status,
       activeProvider: activeProvider ?? this.activeProvider,
       openAIConfig: openAIConfig ?? this.openAIConfig,

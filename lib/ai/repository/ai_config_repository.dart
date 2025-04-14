@@ -3,12 +3,12 @@ import "dart:convert";
 import "../../storage/persistent_storage.dart";
 import "../models/ai_provider.dart";
 
-/// {@template api_config_repository}
-/// Repository for managing API configurations with persistent storage.
+/// {@template ai_config_repository}
+/// Repository for managing AI configurations with persistent storage.
 /// {@endtemplate}
-class APIConfigRepository {
-  /// {@macro api_config_repository}
-  APIConfigRepository({
+class AIConfigRepository {
+  /// {@macro ai_config_repository}
+  AIConfigRepository({
     required PersistentStorage persistentStorage,
   }) : _persistentStorage = persistentStorage;
 

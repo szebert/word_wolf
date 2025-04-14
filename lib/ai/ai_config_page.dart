@@ -9,32 +9,32 @@ import "../app_ui/widgets/app_list_tile.dart";
 import "../app_ui/widgets/app_switch.dart";
 import "../app_ui/widgets/app_text.dart";
 import "../l10n/l10n.dart";
-import "bloc/api_config_bloc.dart";
+import "bloc/ai_config_bloc.dart";
 import "models/ai_provider.dart";
 
-class APIConfigPage extends StatelessWidget {
-  const APIConfigPage({super.key});
+class AIConfigPage extends StatelessWidget {
+  const AIConfigPage({super.key});
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const APIConfigPage(),
+      builder: (_) => const AIConfigPage(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return const APIConfigView();
+    return const AIConfigView();
   }
 }
 
-class APIConfigView extends StatefulWidget {
-  const APIConfigView({super.key});
+class AIConfigView extends StatefulWidget {
+  const AIConfigView({super.key});
 
   @override
-  State<APIConfigView> createState() => _APIConfigViewState();
+  State<AIConfigView> createState() => _AIConfigViewState();
 }
 
-class _APIConfigViewState extends State<APIConfigView> {
+class _AIConfigViewState extends State<AIConfigView> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _apiKeyController;
   late TextEditingController _apiUrlController;
@@ -67,7 +67,7 @@ class _APIConfigViewState extends State<APIConfigView> {
     _apiUrlController = TextEditingController();
 
     // Initialize values from bloc state
-    final state = context.read<APIConfigBloc>().state;
+    final state = context.read<AIConfigBloc>().state;
     _openAIConfig = state.openAIConfig;
 
     // Store original values to track modifications
@@ -158,7 +158,7 @@ class _APIConfigViewState extends State<APIConfigView> {
     );
 
     // Update configuration
-    context.read<APIConfigBloc>().add(
+    context.read<AIConfigBloc>().add(
           OpenAIConfigUpdated(
             config: updatedConfig,
             l10n: l10n,
@@ -233,10 +233,10 @@ class _APIConfigViewState extends State<APIConfigView> {
           tooltip: l10n.back,
         ),
       ),
-      body: BlocConsumer<APIConfigBloc, APIConfigState>(
+      body: BlocConsumer<AIConfigBloc, AIConfigState>(
         listener: (context, state) {
           switch (state.status) {
-            case APIConfigStatus.error:
+            case AIConfigStatus.error:
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: AppText(state.error ?? l10n.unknownError),
@@ -244,7 +244,7 @@ class _APIConfigViewState extends State<APIConfigView> {
                 ),
               );
               break;
-            case APIConfigStatus.loaded:
+            case AIConfigStatus.loaded:
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: AppText(l10n.saveSettingsSuccess),
@@ -276,7 +276,7 @@ class _APIConfigViewState extends State<APIConfigView> {
           }
         },
         builder: (context, state) {
-          final isLoading = state.status == APIConfigStatus.loading;
+          final isLoading = state.status == AIConfigStatus.loading;
 
           return Column(
             children: [

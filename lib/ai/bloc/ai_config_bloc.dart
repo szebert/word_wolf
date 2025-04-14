@@ -3,36 +3,36 @@ import "package:equatable/equatable.dart";
 
 import "../../l10n/l10n.dart";
 import "../models/ai_provider.dart";
-import "../repository/api_config_repository.dart";
+import "../repository/ai_config_repository.dart";
 import "../services/openai_service.dart";
 
-part "api_config_event.dart";
-part "api_config_state.dart";
+part "ai_config_event.dart";
+part "ai_config_state.dart";
 
-class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
-  APIConfigBloc({
-    required APIConfigRepository apiConfigRepository,
-  })  : _apiConfigRepository = apiConfigRepository,
+class AIConfigBloc extends Bloc<AIConfigEvent, AIConfigState> {
+  AIConfigBloc({
+    required AIConfigRepository aiConfigRepository,
+  })  : _aiConfigRepository = aiConfigRepository,
         _openAIService = OpenAIService(
           config: OpenAIConfig.defaultConfig,
         ),
-        super(const APIConfigState.initial()) {
-    on<APIConfigInitialized>(_onAPIConfigInitialized);
+        super(const AIConfigState.initial()) {
+    on<AIConfigInitialized>(_onAPIConfigInitialized);
     on<OpenAIConfigUpdated>(_onOpenAIConfigUpdated);
   }
 
-  final APIConfigRepository _apiConfigRepository;
+  final AIConfigRepository _aiConfigRepository;
   final OpenAIService _openAIService;
 
   Future<void> _onAPIConfigInitialized(
-    APIConfigInitialized event,
-    Emitter<APIConfigState> emit,
+    AIConfigInitialized event,
+    Emitter<AIConfigState> emit,
   ) async {
-    emit(state.copyWith(status: APIConfigStatus.loading));
+    emit(state.copyWith(status: AIConfigStatus.loading));
 
     try {
       // Get OpenAI configuration
-      final openAIConfig = await _apiConfigRepository.getOpenAIConfig();
+      final openAIConfig = await _aiConfigRepository.getOpenAIConfig();
       _openAIService.updateConfig(openAIConfig);
 
       // Determine active provider based on OpenAI config
@@ -41,7 +41,7 @@ class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
 
       emit(
         state.copyWith(
-          status: APIConfigStatus.loaded,
+          status: AIConfigStatus.loaded,
           activeProvider: activeProvider,
           openAIConfig: openAIConfig,
         ),
@@ -49,7 +49,7 @@ class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
     } catch (error) {
       emit(
         state.copyWith(
-          status: APIConfigStatus.error,
+          status: AIConfigStatus.error,
           error: "Failed to load API configuration: $error",
         ),
       );
@@ -58,9 +58,9 @@ class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
 
   Future<void> _onOpenAIConfigUpdated(
     OpenAIConfigUpdated event,
-    Emitter<APIConfigState> emit,
+    Emitter<AIConfigState> emit,
   ) async {
-    emit(state.copyWith(status: APIConfigStatus.loading));
+    emit(state.copyWith(status: AIConfigStatus.loading));
 
     try {
       // Only test if OpenAI is enabled
@@ -71,7 +71,7 @@ class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
         if (error != null) {
           emit(
             state.copyWith(
-              status: APIConfigStatus.error,
+              status: AIConfigStatus.error,
               error: OpenAIService.getErrorMessage(error, event.l10n),
             ),
           );
@@ -79,7 +79,7 @@ class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
         }
       }
 
-      await _apiConfigRepository.saveOpenAIConfig(event.config);
+      await _aiConfigRepository.saveOpenAIConfig(event.config);
 
       // Determine active provider based on new OpenAI config
       final activeProvider =
@@ -87,7 +87,7 @@ class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
 
       emit(
         state.copyWith(
-          status: APIConfigStatus.loaded,
+          status: AIConfigStatus.loaded,
           activeProvider: activeProvider,
           openAIConfig: event.config,
         ),
@@ -95,7 +95,7 @@ class APIConfigBloc extends Bloc<APIConfigEvent, APIConfigState> {
     } catch (error) {
       emit(
         state.copyWith(
-          status: APIConfigStatus.error,
+          status: AIConfigStatus.error,
           error: "Failed to update OpenAI configuration: $error",
         ),
       );
