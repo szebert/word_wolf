@@ -132,7 +132,7 @@ class App extends StatelessWidget {
             BlocProvider<AppBloc>(
               create: (final context) => AppBloc(
                 appRepository: context.read<AppRepository>(),
-              ),
+              )..add(const AppInitialized()),
               lazy: false,
             ),
             BlocProvider<AIConfigBloc>(

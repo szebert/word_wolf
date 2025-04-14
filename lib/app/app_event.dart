@@ -7,6 +7,18 @@ abstract class AppEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class AppInitialized extends AppEvent {
+  const AppInitialized();
+}
+
 class HowToPlayViewed extends AppEvent {
   const HowToPlayViewed();
+}
+
+class SetAdRemoval extends AppEvent {
+  const SetAdRemoval({
+    this.value,
+  });
+
+  final bool? value;
 }
