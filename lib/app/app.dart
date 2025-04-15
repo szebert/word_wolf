@@ -16,6 +16,7 @@ import "../game/repository/player_repository.dart";
 import "../game/services/used_words_storage.dart";
 import "../game/services/word_pair_service.dart";
 import "../home/home_page.dart";
+import "../in_app_review/in_app_review.dart";
 import "../l10n/l10n.dart";
 import "../settings/settings_bloc.dart";
 import "../storage/persistent_storage.dart";
@@ -96,6 +97,11 @@ class App extends StatelessWidget {
             aiServiceManager: context.read<AIServiceManager>(),
           ),
         ),
+        RepositoryProvider<InAppReviewRepository>(
+          create: (context) => InAppReviewRepository(
+            persistentStorage: _persistentStorage,
+          ),
+        ),
       ],
       child: Builder(builder: (context) {
         return MultiBlocProvider(
@@ -140,6 +146,12 @@ class App extends StatelessWidget {
               create: (context) => AIConfigBloc(
                 aiConfigRepository: context.read<AIConfigRepository>(),
               )..add(const AIConfigInitialized()),
+              lazy: false,
+            ),
+            BlocProvider<InAppReviewBloc>(
+              create: (context) => InAppReviewBloc(
+                repository: context.read<InAppReviewRepository>(),
+              ),
               lazy: false,
             ),
           ],
