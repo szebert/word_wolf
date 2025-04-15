@@ -6,19 +6,21 @@ import "firebase_analytics_event.dart";
 class GameStartedEvent extends FirebaseAnalyticsEvent {
   /// {@macro game_started_event}
   GameStartedEvent({
-    required int playerCount,
-    required int wolfCount,
-    required bool randomizeWolfCount,
+    // word pair info
     required String category,
-    required bool isOnline,
-    required double wordPairSimilarity,
-    required bool wolfRevengeEnabled,
-    required int discussionTimeInSeconds,
     required String citizenWord,
     required String wolfWord,
     required int icebreakerCount,
-    required bool categorySelected,
-    required bool autoAssignWolves,
+    required double wordPairSimilarity,
+    required String wordGeneration,
+    // game settings
+    required String categoryEnabled,
+    required int discussionTimeInSeconds,
+    required int playerCount,
+    required int wolfCount,
+    required String randomizeWolfCount,
+    required String autoAssignWolves,
+    required String wolfRevengeEnabled,
   }) : super(
           "game_started",
           properties: {
@@ -27,9 +29,9 @@ class GameStartedEvent extends FirebaseAnalyticsEvent {
             "citizen_word": citizenWord,
             "wolf_word": wolfWord,
             "icebreaker_count": icebreakerCount,
-            "is_online": isOnline,
+            "word_generation": wordGeneration,
             // game settings
-            "category_selected": categorySelected,
+            "category_enabled": categoryEnabled,
             "player_count": playerCount,
             "wolf_count": wolfCount,
             "randomize_wolf_count": randomizeWolfCount,
