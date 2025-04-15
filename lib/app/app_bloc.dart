@@ -14,40 +14,66 @@ class AppBloc extends HydratedBloc<AppEvent, AppState> {
     on<AppInitialized>(_onAppInitialized);
     on<HowToPlayViewed>(_onHowToPlayViewed);
     on<SetAdRemoval>(_onSetAdRemoval);
+    on<GameCompleted>(_onGameCompleted);
   }
 
   final AppRepository _appRepository;
+
+  /// Gets the number of completed games.
+  int get completedGamesCount => state.completedGamesCount;
+
+  /// Gets the date of the last completed game.
+  DateTime? get lastCompletedGame => state.lastCompletedGame;
 
   Future<void> _onAppInitialized(
     final AppInitialized event,
     final Emitter<AppState> emit,
   ) async {
-    final hasViewedHowToPlay = await _appRepository.fetchHasViewedHowToPlay();
-    final hasPaidForAdRemoval = await _appRepository.fetchHasPaidForAdRemoval();
+    final appDetails = await _appRepository.fetchAppDetails();
 
-    if (hasViewedHowToPlay) {
-      add(const HowToPlayViewed());
-    }
-
-    if (hasPaidForAdRemoval) {
-      emit(state.copyWith(hasPaidForAdRemoval: true));
-    }
+    emit(state.copyWith(
+      hasViewedHowToPlay: appDetails.hasViewedHowToPlay,
+      hasPaidForAdRemoval: appDetails.hasPaidForAdRemoval,
+      completedGamesCount: appDetails.completedGamesCount,
+      lastCompletedGame: appDetails.lastCompletedGame,
+    ));
   }
 
   @override
   AppState fromJson(Map<dynamic, dynamic> json) {
+    DateTime? lastCompletedGame;
+    if (json["last_completed_game"] != null) {
+      try {
+        lastCompletedGame = DateTime.fromMillisecondsSinceEpoch(
+          json["last_completed_game"] as int,
+        );
+      } catch (_) {
+        // Keep as null
+      }
+    }
+
     return AppState(
       hasViewedHowToPlay: json["has_viewed_how_to_play"] as bool? ?? false,
       hasPaidForAdRemoval: json["has_paid_for_ad_removal"] as bool? ?? false,
+      completedGamesCount: json["completed_games_count"] as int? ?? 0,
+      lastCompletedGame: lastCompletedGame,
     );
   }
 
   @override
   Map<String, dynamic> toJson(AppState state) {
-    return <String, dynamic>{
+    final json = <String, dynamic>{
       "has_viewed_how_to_play": state.hasViewedHowToPlay,
       "has_paid_for_ad_removal": state.hasPaidForAdRemoval,
+      "completed_games_count": state.completedGamesCount,
     };
+
+    if (state.lastCompletedGame != null) {
+      json["last_completed_game"] =
+          state.lastCompletedGame!.millisecondsSinceEpoch;
+    }
+
+    return json;
   }
 
   Future<void> _onHowToPlayViewed(
@@ -72,5 +98,24 @@ class AppBloc extends HydratedBloc<AppEvent, AppState> {
 
     // Update the state
     emit(state.copyWith(hasPaidForAdRemoval: newValue));
+  }
+
+  Future<void> _onGameCompleted(
+    GameCompleted event,
+    Emitter<AppState> emit,
+  ) async {
+    final now = DateTime.now();
+
+    // Update the repository with the new values
+    await _appRepository.setCompletedGamesCount(
+      completedGamesCount: state.completedGamesCount + 1,
+    );
+    await _appRepository.setLastCompletedGame(now);
+
+    // Update the state
+    emit(state.copyWith(
+      completedGamesCount: state.completedGamesCount + 1,
+      lastCompletedGame: now,
+    ));
   }
 }

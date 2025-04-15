@@ -4,7 +4,7 @@ abstract class AppEvent extends Equatable {
   const AppEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AppInitialized extends AppEvent {
@@ -21,4 +21,11 @@ class SetAdRemoval extends AppEvent {
   });
 
   final bool? value;
+
+  @override
+  List<Object?> get props => [value];
+}
+
+class GameCompleted extends AppEvent {
+  const GameCompleted();
 }
