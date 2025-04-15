@@ -64,22 +64,11 @@ class _DiscussionViewState extends State<DiscussionView>
       if (!mounted) return;
 
       final gameState = context.read<GameBloc>().state;
-      final categoryState = context.read<CategoryBloc>().state;
 
       // Initialize _revealedLabels from game state
       setState(() {
         _revealedLabels =
             Set<int>.from(gameState.game.revealedIcebreakerIndices);
-
-        // If category is not empty and no labels revealed yet, reveal all
-        if (categoryState.selectedCategory.isNotEmpty &&
-            _revealedLabels.isEmpty) {
-          for (var i = 0; i < gameState.game.icebreakers.length; i++) {
-            _revealedLabels.add(i);
-            // Add events to update the bloc state
-            context.read<GameBloc>().add(IcebreakerLabelRevealed(index: i));
-          }
-        }
       });
     });
 
