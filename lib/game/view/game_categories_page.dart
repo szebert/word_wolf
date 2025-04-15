@@ -80,14 +80,14 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
       // Toggle selection
       if (_selectedCategory == category) {
         _selectedCategory = "";
-        context
-            .read<CategoryBloc>()
-            .add(const CategorySelected(categoryName: ""));
+        context.read<CategoryBloc>().add(const CategorySelected(
+              categoryName: "",
+            ));
       } else {
         _selectedCategory = category;
-        context
-            .read<CategoryBloc>()
-            .add(CategorySelected(categoryName: category));
+        context.read<CategoryBloc>().add(CategorySelected(
+              categoryName: category,
+            ));
       }
     });
 
@@ -105,9 +105,9 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
     });
 
     // Send to bloc which will save it
-    context
-        .read<CategoryBloc>()
-        .add(CategorySelected(categoryName: categoryName));
+    context.read<CategoryBloc>().add(CategorySelected(
+          categoryName: categoryName,
+        ));
 
     // Clear the search field
     _searchController.clear();
@@ -157,6 +157,10 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
 
   void _continueToNextStep() {
     final l10n = context.l10n;
+
+    context.read<CategoryBloc>().add(CategorySelected(
+          categoryName: _selectedCategory,
+        ));
 
     context.read<GameBloc>().add(GameStarted(
           category: _selectedCategory,
@@ -401,7 +405,9 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
                       });
                       context
                           .read<CategoryBloc>()
-                          .add(const CategorySearchUpdated(searchText: ""));
+                          .add(const CategorySearchUpdated(
+                            searchText: "",
+                          ));
                     },
                   ),
                 if (_searchController.text.isNotEmpty)
@@ -428,9 +434,9 @@ class _GameCategoriesViewState extends State<GameCategoriesView> {
             setState(() {
               _updateDisplayedCategories(value, savedCategoryNames);
             });
-            context
-                .read<CategoryBloc>()
-                .add(CategorySearchUpdated(searchText: value));
+            context.read<CategoryBloc>().add(CategorySearchUpdated(
+                  searchText: value,
+                ));
           },
           onSubmitted: (value) {
             final trimmed = value.trim();
