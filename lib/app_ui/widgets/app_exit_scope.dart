@@ -68,7 +68,10 @@ class AppExitScope extends StatelessWidget {
   }
 
   /// Creates a back button that shows the exit confirmation dialog.
-  static Widget createBackIconButton(BuildContext context) {
+  static Widget createBackIconButton(
+    BuildContext context, {
+    VoidCallback? onExitConfirmed,
+  }) {
     final l10n = context.l10n;
 
     return AppIconButton(
@@ -81,6 +84,9 @@ class AppExitScope extends StatelessWidget {
               _buildExitConfirmationDialog(context),
         );
         if (shouldExit == true && context.mounted) {
+          if (onExitConfirmed != null) {
+            onExitConfirmed();
+          }
           _exitToMainMenu(context);
         }
       },
@@ -88,7 +94,10 @@ class AppExitScope extends StatelessWidget {
   }
 
   /// Creates an exit button that shows the exit confirmation dialog.
-  static Widget createExitButton(BuildContext context) {
+  static Widget createExitButton(
+    BuildContext context, {
+    VoidCallback? onExitConfirmed,
+  }) {
     final l10n = context.l10n;
 
     return AppButton(
@@ -100,6 +109,9 @@ class AppExitScope extends StatelessWidget {
               _buildExitConfirmationDialog(context),
         );
         if (shouldExit == true && context.mounted) {
+          if (onExitConfirmed != null) {
+            onExitConfirmed();
+          }
           _exitToMainMenu(context);
         }
       },

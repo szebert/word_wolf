@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../../app/app_bloc.dart";
 import "../../app_ui/app_spacing.dart";
 import "../../app_ui/widgets/app_exit_scope.dart";
 import "../../app_ui/widgets/app_text.dart";
@@ -32,6 +33,9 @@ class ResultsView extends StatelessWidget {
     final l10n = context.l10n;
 
     return AppExitScope(
+      onExit: () {
+        context.read<AppBloc>().add(const GameCompleted());
+      },
       child: BlocBuilder<GameBloc, GameState>(
         builder: (context, state) {
           final game = state.game;
@@ -74,7 +78,12 @@ class ResultsView extends StatelessWidget {
                 l10n.results,
                 variant: AppTextVariant.titleLarge,
               ),
-              leading: AppExitScope.createBackIconButton(context),
+              leading: AppExitScope.createBackIconButton(
+                context,
+                onExitConfirmed: () {
+                  context.read<AppBloc>().add(const GameCompleted());
+                },
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
@@ -264,7 +273,12 @@ class ResultsView extends StatelessWidget {
                   const SizedBox(height: AppSpacing.lg),
 
                   // Exit button
-                  AppExitScope.createExitButton(context),
+                  AppExitScope.createExitButton(
+                    context,
+                    onExitConfirmed: () {
+                      context.read<AppBloc>().add(const GameCompleted());
+                    },
+                  ),
                 ],
               ),
             ),

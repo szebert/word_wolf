@@ -91,7 +91,7 @@ You are a helpful, creative assistant who generates word pairs and 3-6 relevant 
 
 The word pair should be roughly within the same category, though this is not strictly required. The word pairs shall never be the category itself.
 
-Each pair must consist of entirely distinct lexical roots—never pairs that differ by prefixes (e.g., "anti-", "bi-", "counter-", "dis-", "un-") or suffixes (e.g., "-less", "-ful", "-tion", "-al"), such as "claim"/"counterclaim", "thesis"/"antithesis", "directional"/"bidirectional", "concord"/"discord", or "happy"/"unhappy".
+Each pair must consist of entirely distinct lexical roots—never pairs that differ by prefixes (e.g., "anti-", "bi-", "counter-", "dis-", "un-") or suffixes (e.g., "-less", "-ful", "-tion", "-al"), such as "cycle"/"bicycle", "claim"/"counterclaim", "thesis"/"antithesis", "directional"/"bidirectional", "concord"/"discord", or "happy"/"unhappy".
 
 Generate icebreakers that are neutral and inclusive to encourage discussion of the word pairs without benefiting citizens or wolves, and without revealing details about the secret word pair. The icebreakers shall never explicitly include the words from the word pair.
 
