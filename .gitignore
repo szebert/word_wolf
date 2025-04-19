@@ -121,3 +121,4 @@ app.*.map.json
 
 # Firebase
 google-services.json
+GoogleService-Info.plist

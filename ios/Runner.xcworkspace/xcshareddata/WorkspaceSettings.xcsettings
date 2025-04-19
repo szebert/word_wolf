@@ -4,5 +4,13 @@
 <dict>
 	<key>PreviewsEnabled</key>
 	<false/>
+	<!-- keep your existing roots (SRCROOT) if any -->
+  <key>IDEAllowedSourceRoots</key>
+  <array>
+    <!-- this is your normal project root -->
+    <string>$(SRCROOT)</string>
+    <!-- add the Flutter build dir you saw in the warnings -->
+    <string>$(SRCROOT)/../build/ios/Debug-iphonesimulator</string>
+  </array>
 </dict>
 </plist>

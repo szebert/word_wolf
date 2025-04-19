@@ -8,6 +8,14 @@
           "fileOutput": "android/app/google-services.json"
         }
       },
+      "ios": {
+        "default": {
+          "projectId": "word-wolf-4571f",
+          "appId": "1:583241816575:ios:b5a6ca06d5874bccdcafca",
+          "uploadDebugSymbols": true,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
       "dart": {
         "lib/firebase_options.dart": {
           "projectId": "word-wolf-4571f",
