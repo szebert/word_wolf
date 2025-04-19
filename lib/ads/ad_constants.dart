@@ -1,10 +1,10 @@
 /// AdMob constants used throughout the app
 class AdConstants {
   /// The ad unit ID for Android
-  static const String androidUnitId = "ca-app-pub-2689994831813332~3880835999";
+  static const String androidUnitId = "ca-app-pub-2689994831813332/9036183077";
 
   /// The ad unit ID for iOS
-  static const String iosUnitId = "ca-app-pub-2689994831813332~3312147321";
+  static const String iosUnitId = "ca-app-pub-2689994831813332/6410019737";
 
   /// Test ad unit ID for Android
   static const String androidTestUnitId =
