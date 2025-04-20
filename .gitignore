@@ -111,6 +111,7 @@ coverage/
 
 # Symbolication related
 app.*.symbols
+symbol-archives/
 
 # Obfuscation related
 app.*.map.json
